@@ -121,5 +121,3 @@ class PluginManager
         return File::json($path);
     }
 }
-    }
-}
