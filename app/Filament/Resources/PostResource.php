@@ -41,7 +41,11 @@ class PostResource extends Resource
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
-                    ->image(),
+                    ->image()
+                    ->disk('public')
+                    ->directory('posts')
+                    ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension())
+                    ->getUrlUsing(fn ($file) => $file ? \Storage::disk('public')->url($file) : null),
                 Forms\Components\TextInput::make('seo_title')
                     ->maxLength(191),
                 Forms\Components\Select::make('author_id')
