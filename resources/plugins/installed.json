@@ -1,11 +1,3 @@
 [
-    {
-    "id": "club-documents",
-    "name": "Club Documents",
-    "version": "1.0.0",
-    "description": "Plugin pentru documentele clubului",
-    "author": "Cristian Stef",
-    "autoload": "src/"
-    }
-
+   
 ]
