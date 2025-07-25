@@ -18,18 +18,18 @@
                 </p>
             </div>
 
-                <x-filament::button
-                    color="gray"
-                    icon="heroicon-m-arrow-top-right-on-square"
-                    icon-alias="panels::widgets.account.logout-button"
-                    labeled-from="sm"
-                    tag="a"
-                    type="submit"
-                    href="/"
-                    target="_blank"
-                >
-                    Vizitează site-ul
-                </x-filament::button>
+            <x-filament::button
+                color="gray"
+                icon="heroicon-m-arrow-top-right-on-square"
+                icon-alias="panels::widgets.account.logout-button"
+                labeled-from="sm"
+                tag="a"
+                type="submit"
+                href="/"
+                target="_blank"
+            >
+                Vizitează site-ul
+            </x-filament::button>
         </div>
     </x-filament::section>
 </x-filament-widgets::widget>
