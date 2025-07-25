@@ -44,8 +44,7 @@ class PostResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('posts')
-                    ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension())
-                    ->getUrlUsing(fn ($file) => $file ? \Storage::disk('public')->url($file) : null),
+                    ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension()),
                 Forms\Components\TextInput::make('seo_title')
                     ->maxLength(191),
                 Forms\Components\Select::make('author_id')
@@ -136,4 +135,5 @@ class PostResource extends Resource
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
+}
 }

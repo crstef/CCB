@@ -43,8 +43,7 @@ class PageResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('pages')
-                    ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension())
-                    ->getUrlUsing(fn ($file) => $file ? \Storage::disk('public')->url($file) : null),
+                    ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension()),
                 Forms\Components\Select::make('author_id')
                     ->label('Author')
                     ->options(
@@ -118,4 +117,5 @@ class PageResource extends Resource
             'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
     }
+}
 }
