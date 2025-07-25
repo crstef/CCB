@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 class PluginManager
 {
     protected $app;
-
     protected $plugins = [];
 
     public function __construct(Application $app)
@@ -24,12 +23,18 @@ class PluginManager
     {
         $installedPlugins = $this->getInstalledPlugins();
 
-        // Only log when there are actually plugins to load
         if (!empty($installedPlugins)) {
             Log::info('Loading plugins: '.json_encode($installedPlugins));
         }
 
-        foreach ($installedPlugins as $pluginName) {
+        foreach ($installedPlugins as $plugin) {
+            // Support both array and string plugin definitions
+            if (is_array($plugin) && isset($plugin['id'])) {
+                $pluginName = $plugin['id'];
+            } else {
+                $pluginName = $plugin;
+            }
+
             $studlyPluginName = Str::studly($pluginName);
             $pluginClass = "Wave\\Plugins\\{$studlyPluginName}\\{$studlyPluginName}Plugin";
 
@@ -38,9 +43,9 @@ class PluginManager
                 include_once $expectedPath;
 
                 if (class_exists($pluginClass)) {
-                    $plugin = new $pluginClass($this->app);
-                    $this->plugins[$pluginName] = $plugin;
-                    $this->app->register($plugin);
+                    $pluginInstance = new $pluginClass($this->app);
+                    $this->plugins[$pluginName] = $pluginInstance;
+                    $this->app->register($pluginInstance);
                     Log::info("Successfully loaded plugin: {$pluginClass}");
                 } else {
                     Log::warning("Plugin class not found after including file: {$pluginClass}");
@@ -114,5 +119,7 @@ class PluginManager
         }
 
         return File::json($path);
+    }
+}
     }
 }
