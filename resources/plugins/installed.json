@@ -4,6 +4,7 @@
         "name": "club-documents",
         "version": "1.0.0",
         "description": "Plugin pentru gestionarea documentelor clubului cu categorii și ședințe.",
-        "author": "Your Name"
+        "author": "Your Name",
+        "autoload": "src/"
     }
 ]
