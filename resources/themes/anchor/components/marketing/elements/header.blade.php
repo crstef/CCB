@@ -72,35 +72,33 @@
                                     </a>
                                 </li>
                                 <li class="w-full border-l border-gray-100 md:w-1/5">
-                                    <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
+                                    <a href="{{ route('page.show', 'echipa') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/team.png" class="w-12 h-auto" alt="feature 2 icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Echipa</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Membrii echipei</span>
                                     </a>
                                 </li>
                                 <li class="w-full border-l border-gray-100 md:w-1/5">
-                                    <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
+                                    <a href="{{ route('page.show', 'cum-sa-devii-membru') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/member-card.png" class="w-12 h-auto" alt="Membru icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Cum sa devii membru</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Descrierea modului de a deveni membru</span>
                                     </a>
                                 </li>
-                                
                                 <li class="w-full border-l border-gray-100 md:w-1/5">
-                                    <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
+                                    <a href="{{ route('page.show', 'servicii') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/Services.png" class="w-12 h-auto" alt="feature 4 icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Servicii</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Servicii si evenimente oferite de club</span>
                                     </a>
                                 </li>
                                 <li class="w-full border-l border-r border-gray-100 md:w-1/5">
-                                    <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
+                                    <a href="{{ route('page.show', 'contact') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/Contact.png" class="w-12 h-auto" alt="feature 5 icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Contact</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Trimite-ne un mesaj și te vom contacta în curând</span>
                                     </a>
                                 </li>
-                                
                             </ul>
                         </div>
                     </li>
@@ -115,31 +113,31 @@
                             <ul class="flex flex-col justify-between mx-auto max-w-7xl md:flex-row md:px-12">
                                 <div class="flex flex-col w-full border-l border-r divide-x md:flex-row divide-zinc-100 border-zinc-100">
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                        <a href="{{ route('page.show', 'istoria-ciobanescului-belgian') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
                                             <span class="block mb-1 font-medium text-black">Istoria Ciobanescului belgian</span>
                                             <span class="block font-light leading-5 opacity-50">Cateva detalii despre istoria ciobănescului belgian</span>
                                         </a>
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                        <a href="{{ route('page.show', 'confirmarea-rasei') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
                                             <span class="block mb-1 font-medium text-black">Confirmarea rasei</span>
                                             <span class="block leading-5 opacity-50">Cand si cum se face confirmarea rasei</span>
                                         </a>
                                     </div>
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.show', 'groenendael') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Groenendael</span>
                                             <span class="block font-light leading-5 opacity-50">Descriere generala a rasei Groenendael</span>
                                         </a>
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.show', 'laekenois') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Laekenois</span>
                                             <span class="block leading-5 opacity-50">Descriere generala a rasei Laekenois</span>
                                         </a>
                                     </div>
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.show', 'malinois') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Malinois</span>
                                             <span class="block leading-5 opacity-50">Descriere generala a rasei Malinois</span>
                                         </a>
-                                        <a href="#_" onclick="event.preventDefault(); new FilamentNotification().title('Modify this button in your theme folder').icon('heroicon-o-pencil-square').iconColor('info').send()" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.show', 'tervueren') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Tervueren</span>
                                             <span class="block leading-5 opacity-50">Descriere generala a rasei Tervueren</span>
                                         </a>

@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id": "plugin1",
+        "name": "ClubDocuments",
+        "version": "1.0.0"
+    }
+
+]
