@@ -11,4 +11,3 @@
         </div>
     </x-filament::section>
 </x-filament-widgets::widget>
-</x-filament-widgets::widget>
