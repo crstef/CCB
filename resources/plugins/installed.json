@@ -1,4 +1,10 @@
 [
-    "ClubDocuments",
-    "example-plugin-main"
+    {
+        "id": "club-documents",
+        "name": "Club Documents",
+        "version": "1.0.0",
+        "description": "Plugin pentru gestionarea documentelor clubului cu categorii și ședințe.",
+        "author": "Your Name",
+        "autoload": "src/"
+    }
 ]
