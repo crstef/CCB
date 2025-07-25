@@ -12,7 +12,7 @@
             </div>
             
         </div>
-        <div class="mt-2 text-xs font-medium text-gray-500 truncate">Active User Accounts</div>
+        <div class="mt-2 text-xs font-medium text-gray-500 truncate">Conturi de utilizatori active</div>
     </x-filament::section>
     <x-filament::section class="w-full">
         <div class="flex gap-x-5 items-center">
@@ -27,6 +27,6 @@
             </div>
             
         </div>
-        <div class="mt-2 text-xs font-medium text-gray-500 truncate">Total Subscribers</div>
+        <div class="mt-2 text-xs font-medium text-gray-500 truncate">Total abonați</div>
     </x-filament::section>
 </x-filament-widgets::widget>

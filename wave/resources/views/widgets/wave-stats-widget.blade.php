@@ -2,7 +2,7 @@
     <x-filament::section>
         <div class="flex gap-x-3 items-center">
             <div class="flex-1">
-                Subs
+                Abonați
             </div>
 
             <div class="flex flex-col gap-y-1 items-end">

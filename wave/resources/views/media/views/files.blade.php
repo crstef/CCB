@@ -1,4 +1,3 @@
-
 <div 
     x-data="{ 
         contextMenuOpen: false,
@@ -215,33 +214,33 @@
             <div x-show="!contextMenuFileClicked" class="relative w-full">
                 <div x-on:click="window.dispatchEvent(new CustomEvent('close-context-menu')); window.dispatchEvent(new CustomEvent('open-modal', { detail: { id: 'create-folder-modal' }}));" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg>
-                    <span>New Folder</span>
+                    <span>Folder nou</span>
                 </div>
                 <div x-show="fileOrFolderCopied" x-on:click="contextMenuOpen=false;  window.dispatchEvent(new CustomEvent('paste'))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
-                    <span>Paste Item</span>
+                    <span>Lipește elementul</span>
                 </div>
                 
                 <div class="-mx-1 my-1 h-px bg-neutral-200"></div>
                 <div x-on:click="window.dispatchEvent(new CustomEvent('close-context-menu')); document.getElementById('upload-button').click()" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M12.0005 11.7495L12.0005 20.2495M12.0005 11.7495L15.2505 15.2495M12.0005 11.7495L8.75049 15.2495" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4.25 15.25C2.96461 14.2882 2.75 13.1762 2.75 12C2.75 9.94957 4.20204 8.23828 6.13392 7.83831C7.01365 5.45184 9.30808 3.75 12 3.75C15.3711 3.75 18.1189 6.41898 18.2454 9.75913C19.9257 9.8846 21.25 11.2876 21.25 13C21.25 14.0407 20.5 15 19.75 15.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                    <span>Upload File</span>
+                    <span>Încarcă fișier</span>
                 </div>
                 <div class="relative group">
                     <div class="flex items-center px-2 py-1.5 pl-8 rounded cursor-default outline-none select-none hover:bg-blue-600 hover:text-white">
                         <svg class="absolute left-2 -mt-px w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M3.74902 15.3258C3.74902 14.4555 4.45451 13.75 5.32478 13.75H8.67387C9.54414 13.75 10.2496 14.4555 10.2496 15.3258V18.6742C10.2496 19.5445 9.54414 20.25 8.67387 20.25H5.32478C4.45451 20.25 3.74902 19.5445 3.74902 18.6742V15.3258Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.74902 5.32576C3.74902 4.45549 4.45451 3.75 5.32478 3.75H8.67387C9.54414 3.75 10.2496 4.45549 10.2496 5.32576V8.67424C10.2496 9.54451 9.54414 10.25 8.67387 10.25H5.32478C4.45451 10.25 3.74902 9.54451 3.74902 8.67424V5.32576Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.749 5.32576C13.749 4.45549 14.4545 3.75 15.3248 3.75H18.6739C19.5441 3.75 20.2496 4.45549 20.2496 5.32576V8.67424C20.2496 9.54451 19.5441 10.25 18.6739 10.25H15.3248C14.4545 10.25 13.749 9.54451 13.749 8.67424V5.32576Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.75 15L19.25 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.75 19L19.25 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                        <span>View</span>
+                        <span>Vizualizare</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-auto w-4 h-4"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                     <div data-submenu class="absolute top-0 right-0 invisible mr-1 opacity-0 duration-200 ease-out translate-x-full group-hover:mr-0 group-hover:visible group-hover:opacity-100">
                         <div class="min-w-[8rem] overflow-hidden rounded-md border bg-white p-1 shadow-md animate-in slide-in-from-left-1 w-48">
                             <div x-on:click="contextMenuOpen=false" class="relative pl-8 flex cursor-default select-none items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                 <svg class="absolute left-2 -mt-px w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M3.75 5h1.5m-1.5 7h1.5m-1.5 7h1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.75 5h11.5M8.75 19h11.5m-11.5-7h11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                                <span>as List</span>
+                                <span>Ca listă</span>
                             </div>
                             <div x-on:click="contextMenuOpen=false" class="relative pl-8 flex cursor-default select-none items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
                                 <svg class="absolute left-2 -mt-px w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M3.75 5.326c0-.87.705-1.576 1.575-1.576h3.349c.87 0 1.576.705 1.576 1.576v3.348c0 .87-.706 1.576-1.576 1.576h-3.35c-.87 0-1.575-.705-1.575-1.576V5.326z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.75 15.326c0-.87.705-1.576 1.575-1.576h3.349c.87 0 1.576.706 1.576 1.576v3.348c0 .87-.706 1.576-1.576 1.576h-3.35c-.87 0-1.575-.706-1.575-1.576v-3.348z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.75 5.326c0-.87.705-1.576 1.575-1.576h3.349c.87 0 1.576.705 1.576 1.576v3.348c0 .87-.706 1.576-1.576 1.576h-3.35c-.87 0-1.575-.705-1.575-1.576V5.326z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.75 15.326c0-.87.705-1.576 1.575-1.576h3.349c.87 0 1.576.706 1.576 1.576v3.348c0 .87-.706 1.576-1.576 1.576h-3.35c-.87 0-1.575-.706-1.575-1.576v-3.348z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                                <span>as Icons</span>
+                                <span>Ca pictograme</span>
                             </div>
                         </div>
                     </div>
@@ -251,43 +250,39 @@
             <div x-show="contextMenuFileClicked" class="relative w-full">
                 <div x-show="active != null && active.type == 'folder'" x-on:click="window.dispatchEvent(new CustomEvent('close-context-menu')); window.dispatchEvent(new CustomEvent('go-to-active-directory'));" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M16.89 20.25H5.75a3 3 0 0 1-3-3V6.75a3 3 0 0 1 3-3H7.9a3 3 0 0 1 1.573.445l1.804 1.11a3 3 0 0 0 1.572.445h2.402a3 3 0 0 1 3 3v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.89 20.25a3 3 0 0 0 2.916-2.294l1.39-5.735a2 2 0 0 0-1.944-2.471h-9.24a3 3 0 0 0-2.885 2.176l-2.343 8.166" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                    <span>Open</span>
+                    <span>Deschide</span>
                 </div>
                 <div x-show="active != null && active.type != 'folder'" x-on:click="window.dispatchEvent(new CustomEvent('close-context-menu')); window.dispatchEvent(new CustomEvent('open-file-modal-active-file'));" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="80" y1="112" x2="144" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="80" x2="112" y2="144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
-                    <span>View File</span>
+                    <span>Vezi fișierul</span>
                 </div>
                 <div x-show="fileOrFolderCopied" x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('paste'))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
-                    <span>Paste Item</span>
+                    <span>Lipește elementul</span>
                 </div>
                 <div class="-mx-1 my-1 h-px bg-neutral-200"></div>
                 <div x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('rename-active'))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M20.2507 8.25V5.75C20.2507 4.64543 19.3553 3.75 18.2507 3.75H5.74902C4.64445 3.75 3.74902 4.64543 3.74902 5.75V8.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 20.25L12 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.75 20.25L15.25 20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                    <span>Rename</span>
+                    <span>Redenumește</span>
                 </div>
                 <div x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('open-modal', { detail: { id: 'move-file-modal' }}))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M20.25 7h-9.875a6.625 6.625 0 1 0 0 13.25h5.875m4-13.25l-3.5 3.25M20.25 7l-3.5-3.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                    <span>Move</span>
+                    <span>Mută</span>
                 </div>
-                    
                 <div x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('duplicate'))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     <svg class="absolute left-2 -mt-px w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
-                    <span>Duplicate</span>
+                    <span>Duplică</span>
                 </div>
-
-            
                 <div class="-mx-1 my-1 h-px bg-neutral-200"></div>
                 <div x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('copy'))" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-blue-600 hover:text-white outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-                    <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M7.75 7.757V6.75a3 3 0 0 1 3-3h6.5a3 3 0 0 1 3 3v6.5a3 3 0 0 1-3 3h-.992" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.75 10.75a3 3 0 0 1 3-3h6.5a3 3 0 0 1 3 3v6.5a3 3 0 0 1-3 3h-6.5a3 3 0 0 1-3-3v-6.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
-                    <span>Copy</span>
+                    <svg class="absolute left-2 -mt-px w-4 h-4 stroke-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="none"><path d="M7.75 7.757V6.75a3 3 0 0 1 3-3h6.5a3 3 0 0 1 3 3v6.5a3 3 0 0 1-3 3h-6.5a3 3 0 0 1-3-3v-6.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.75 10.75a3 3 0 0 1 3-3h6.5a3 3 0 0 1 3 3v6.5a3 3 0 0 1-3 3h-6.5a3 3 0 0 1-3-3v-6.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                    <span>Copiază</span>
                 </div>
-
                 <div class="-mx-1 my-1 h-px bg-neutral-200"></div>
                 <div x-on:click="contextMenuOpen=false; window.dispatchEvent(new CustomEvent('trigger-delete-action'));" class="relative flex cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-red-600 hover:text-white text-red-600 outline-none pl-8  data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
                     
                     <svg class="absolute left-2 -mt-px w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
-                    <span>Delete</span>
+                    <span>Șterge</span>
                 </div>
             </div>
         </div>

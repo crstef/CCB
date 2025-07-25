@@ -1,4 +1,3 @@
-
 <div
     x-data="{
         show: false,
@@ -58,7 +57,7 @@
                     type="button"
                     class="p-1 text-gray-700 rounded-full bg-white/50 hover:text-gray-900 focus:outline-none"
                 >
-                    <span class="sr-only">Close</span>
+                    <span class="sr-only">Închide</span>
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -68,23 +67,22 @@
             <div class="flex flex-col h-full sm:items-start">
                 <div class="flex overflow-hidden relative justify-center items-center w-full h-full bg-zinc-200">
                     <template x-if="isImage">
-                        <img :src="file.url" alt="File preview" class="object-cover absolute w-auto max-w-full h-auto max-h-full">
+                        <img :src="file.url" alt="Previzualizare fișier" class="object-cover absolute w-auto max-w-full h-auto max-h-full">
                     </template>
                     <template x-if="!isImage">
                         <div class="p-4 bg-gray-100 rounded">
-                            <p class="text-gray-700">File preview not available</p>
+                            <p class="text-gray-700">Previzualizare indisponibilă pentru acest fișier</p>
                         </div>
                     </template>
                 </div>
                 <div class="flex-shrink-0 px-4 pb-4 mt-4 w-full h-auto text-sm">
                     <h3 class="mb-3 text-base font-bold leading-6 text-gray-900" id="modal-title" x-text="file ? file.name : ''"></h3>
                     
-                    <p><strong>Type:</strong> <span x-text="file ? file.type : ''"></span></p>
-                    <p x-show="file && file.type == 'folder'"><strong>File count:</strong> <span x-text="file ? file.items : ''"></span></p>
-                    <p x-show="file && file.type != 'folder'"><strong>Filesize:</strong> <span x-text="file ? file.size : ''"></span></p>
-                    <p x-show="file && file.type != 'folder'"><strong>Full URL:</strong> <a :href="file ? file.url : ''" target="_blank" class="text-blue-600 underline hover:text-blue-500">open in new tab</a></p>
-                    <p x-show="file && file.type != 'folder'"><strong>Last Modified:</strong> <span x-text="file ? file.last_modified : ''"></span></p>
-
+                    <p><strong>Tip:</strong> <span x-text="file ? file.type : ''"></span></p>
+                    <p x-show="file && file.type == 'folder'"><strong>Număr fișiere:</strong> <span x-text="file ? file.items : ''"></span></p>
+                    <p x-show="file && file.type != 'folder'"><strong>Dimensiune fișier:</strong> <span x-text="file ? file.size : ''"></span></p>
+                    <p x-show="file && file.type != 'folder'"><strong>URL complet:</strong> <a :href="file ? file.url : ''" target="_blank" class="text-blue-600 underline hover:text-blue-500">deschide în filă nouă</a></p>
+                    <p x-show="file && file.type != 'folder'"><strong>Ultima modificare:</strong> <span x-text="file ? file.last_modified : ''"></span></p>
                 </div>
             </div>
         </div>

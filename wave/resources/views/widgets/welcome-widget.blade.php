@@ -10,15 +10,13 @@
                 <h2
                     class="grid flex-1 text-base font-semibold leading-6 text-gray-950 dark:text-white"
                 >
-                    Welcome to the Wave Admin
+                    Bine ai venit în Wave Admin
                 </h2>
 
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                    You are currently using the Tallstack theme
+                    Folosești tema Tallstack
                 </p>
             </div>
-
-            
 
                 <x-filament::button
                     color="gray"
@@ -30,8 +28,10 @@
                     href="/"
                     target="_blank"
                 >
-                    Visit your Site
+                    Vizitează site-ul
                 </x-filament::button>
         </div>
+    </x-filament::section>
+</x-filament-widgets::widget>
     </x-filament::section>
 </x-filament-widgets::widget>
