@@ -24,7 +24,7 @@
 
         @if($page['image'])
             <div class="relative">
-                <img class="w-full h-auto rounded-lg" src="{{ url($page['image']) }}" alt="{{ url($page['image']) }}" srcset="{{ url($page['image']) }}">
+                <img src="{{ Storage::url($page['image']) }}" alt="Page Image" />
             </div>
         @endif
 
