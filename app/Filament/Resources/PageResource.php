@@ -118,4 +118,3 @@ class PageResource extends Resource
         ];
     }
 }
-}
