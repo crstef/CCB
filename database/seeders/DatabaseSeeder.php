@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         // Media seeder for gallery system
         $this->call(MediaSeeder::class);
         
+        // Documents seeder for document management system
+        $this->call(DocumentSeeder::class);
+        
         fixPostgresSequence();
     }
 }
