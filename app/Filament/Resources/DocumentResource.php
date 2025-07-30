@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Filament\Resources\DocumentResource\RelationManagers;
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\BadgeColumn;
@@ -58,11 +60,23 @@ class DocumentResource extends Resource
                             ->rows(3)
                             ->columnSpanFull(),
 
-                        Select::make('category')
+                        Select::make('document_category_id')
                             ->label('Categorie')
-                            ->options(Document::getCategories())
+                            ->relationship('category', 'name')
+                            ->options(DocumentCategory::getActiveOptions())
                             ->required()
-                            ->default('General'),
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->label('Nume Categorie')
+                                    ->required()
+                                    ->maxLength(255),
+                                Textarea::make('description')
+                                    ->label('Descriere'),
+                                ColorPicker::make('color')
+                                    ->label('Culoare')
+                                    ->default('#3B82F6'),
+                            ])
+                            ->helperText('Selectează o categorie existentă sau creează una nouă'),
 
                         TextInput::make('max_files')
                             ->label('Numărul maxim de fișiere')
@@ -115,10 +129,12 @@ class DocumentResource extends Resource
                     ->sortable()
                     ->weight('medium'),
 
-                BadgeColumn::make('category')
+                TextColumn::make('category.name')
                     ->label('Categorie')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color(fn ($record) => $record->category?->color ?? '#6B7280'),
 
                 TextColumn::make('max_files')
                     ->label('Max. Fișiere')
@@ -149,9 +165,10 @@ class DocumentResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('category')
+                SelectFilter::make('document_category_id')
                     ->label('Categorie')
-                    ->options(Document::getCategories()),
+                    ->relationship('category', 'name')
+                    ->preload(),
 
                 TernaryFilter::make('is_active')
                     ->label('Status')

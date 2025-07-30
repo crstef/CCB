@@ -37,9 +37,10 @@ class ViewDocument extends ViewRecord
                             ->label('Descriere')
                             ->columnSpanFull(),
 
-                        TextEntry::make('category')
+                        TextEntry::make('category.name')
                             ->label('Categorie')
-                            ->badge(),
+                            ->badge()
+                            ->color(fn ($record) => $record->category?->color ?? '#6B7280'),
 
                         TextEntry::make('max_files')
                             ->label('Numărul maxim de fișiere'),

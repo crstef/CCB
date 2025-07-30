@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         // Media seeder for gallery system
         $this->call(MediaSeeder::class);
         
+        // Document categories seeder (must run before documents)
+        $this->call(DocumentCategorySeeder::class);
+        
         // Documents seeder for document management system
         $this->call(DocumentSeeder::class);
         

@@ -13,7 +13,7 @@ class Document extends Model
     protected $fillable = [
         'title',
         'description',
-        'category',
+        'document_category_id',
         'max_files',
         'files',
         'is_active',
@@ -23,6 +23,14 @@ class Document extends Model
         'files' => 'array',
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Get the category that owns the document.
+     */
+    public function category()
+    {
+        return $this->belongsTo(DocumentCategory::class, 'document_category_id');
+    }
 
     /**
      * Get the URL for a specific file
@@ -73,21 +81,9 @@ class Document extends Model
     }
 
     /**
-     * Get available categories
+     * Get available categories - now removed since we use dynamic categories
      */
-    public static function getCategories()
-    {
-        return [
-            'General' => 'General',
-            'Contracte' => 'Contracte',
-            'Facturi' => 'Facturi',
-            'Rapoarte' => 'Rapoarte',
-            'Prezentări' => 'Prezentări',
-            'Regulamente' => 'Regulamente',
-            'Proceduri' => 'Proceduri',
-            'Alte Documente' => 'Alte Documente',
-        ];
-    }
+    // Removed getCategories() method - categories are now managed in DocumentCategory model
 
     /**
      * Scope for active documents
@@ -100,16 +96,16 @@ class Document extends Model
     /**
      * Scope by category
      */
-    public function scopeByCategory($query, $category)
+    public function scopeByCategory($query, $categoryId)
     {
-        return $query->where('category', $category);
+        return $query->where('document_category_id', $categoryId);
     }
 
     /**
      * Get documents by category
      */
-    public static function getByCategory($category)
+    public static function getByCategory($categoryId)
     {
-        return self::active()->byCategory($category)->orderBy('created_at', 'desc')->get();
+        return self::active()->byCategory($categoryId)->orderBy('created_at', 'desc')->get();
     }
 }

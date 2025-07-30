@@ -8,15 +8,14 @@ Sistemul de management al documentelor oferă o interfață administrativă comp
 
 ### 📄 Gestionarea Documentelor
 - **Titlu și Descriere**: Fiecare document are un titlu obligatoriu și o descriere opțională
-- **Categorii Predefinite**: 
-  - General
-  - Contracte
-  - Facturi
-  - Rapoarte
-  - Prezentări
-  - Regulamente
-  - Proceduri
-  - Alte Documente
+- **Categorii Dinamice**: 
+  - Categoriile sunt complet administrabile din interfața admin
+  - Poți crea, edita și șterge categorii
+  - Fiecare categorie are nume, descriere, culoare și ordine de sortare
+  - Doar categoriile active pot fi selectate la documente
+  - **Categorii predefinite incluse**:
+    - General, Contracte, Facturi, Rapoarte
+    - Prezentări, Regulamente, Proceduri, Alte Documente
 
 ### 📎 Gestionarea Fișierelor
 - **Număr controlat de fișiere**: Poți specifica numărul maxim de fișiere care pot fi atașate (1-10)
@@ -24,7 +23,14 @@ Sistemul de management al documentelor oferă o interfață administrativă comp
 - **Upload securizat**: Fișierele sunt stocate în directorul `storage/app/public/documents`
 - **Metadata completă**: Se stochează numele, dimensiunea, tipul și data încărcării pentru fiecare fișier
 
-### 🔍 Funcționalități de Administrare
+### � Gestionarea Categoriilor
+- **Administrare completă**: Creează, editează și șterge categorii din admin
+- **Culori personalizate**: Fiecare categorie poate avea o culoare specifică pentru badge-uri
+- **Sortare controlată**: Ordinea categoriilor în dropdown-uri
+- **Protecție la ștergere**: Nu poți șterge o categorie care are documente asociate
+- **Status activ/inactiv**: Doar categoriile active apar în selectori
+
+### �🔍 Funcționalități de Administrare
 - **Vizualizare completă**: Tabel cu toate documentele cu informații relevante
 - **Filtrare avansată**: După categorie și status (activ/inactiv)
 - **Căutare**: În titlul documentelor
@@ -43,45 +49,69 @@ Sistemul de management al documentelor oferă o interfață administrativă comp
 - id (primary key)
 - title (string, required)
 - description (text, nullable)
-- category (string, default: 'General')
+- document_category_id (foreign key to document_categories)
 - max_files (integer, default: 1, range: 1-10)
 - files (json, stores file metadata)
 - is_active (boolean, default: true)
 - timestamps
 ```
 
-### Resursa Filament (`App\Filament\Resources\DocumentResource`)
+### Model (`App\Models\DocumentCategory`)
+```php
+- id (primary key)
+- name (string, unique, required)
+- slug (string, unique, auto-generated)
+- description (text, nullable)
+- color (string, hex color for badges)
+- sort_order (integer, for ordering)
+- is_active (boolean, default: true)
+- timestamps
+```
+
+### Resursa Filament (`App\Filament\Resources\DocumentResource` & `DocumentCategoryResource`)
 - **Form complet** cu validare pentru toate câmpurile
 - **Tabel interactiv** cu filtrare și căutare
 - **Pagini dedicate** pentru Create, Edit, View, List
 - **Încărcare controlată de fișiere** cu respectarea limitelor stabilite
+- **Gestionare categorii** cu culori, sortare și protecție la ștergere
 
 ### Factory și Seeder
-- **DocumentFactory**: Generează documente de test cu date realistice
-- **DocumentSeeder**: Populează baza de date cu exemple pentru fiecare categorie
+- **DocumentFactory & DocumentCategoryFactory**: Generează date de test realiste
+- **DocumentSeeder & DocumentCategorySeeder**: Populează baza de date cu categorii și documente
 
 ## Cum să Folosești Sistemul
 
 ### 1. Accesarea Interfața Admin
 - Navighează la `/admin` 
-- Secțiunea "Management Conținut" → "Documente"
+- Secțiunea "Management Conținut" → "Categorii Documente" (pentru categorii)
+- Secțiunea "Management Conținut" → "Documente" (pentru documente)
 
-### 2. Crearea unui Document Nou
+### 2. Gestionarea Categoriilor
+1. Accesează "Categorii Documente"
+2. Click pe "Adaugă Categorie"
+3. Completează numele (obligatoriu)
+4. Adaugă o descriere (opțional)
+5. Alege o culoare pentru badge (hex color)
+6. Setează ordinea de sortare
+7. Marchează ca activ/inactiv
+8. Salvează categoria
+
+### 3. Crearea unui Document Nou
 1. Click pe "Adaugă Document"
 2. Completează titlul (obligatoriu)
 3. Adaugă o descriere (opțional)
-4. Selectează categoria
+4. Selectează categoria (din dropdown cu categoriile active) sau creează una nouă
 5. Specifică numărul maxim de fișiere (1-10)
 6. Marchează ca activ/inactiv
 7. Încarcă fișierele (PDF/Word doar)
 8. Salvează documentul
 
-### 3. Gestionarea Documentelor Existente
+### 4. Gestionarea Documentelor Existente
 - **Vizualizare**: Click pe iconița de ochi pentru detalii complete
 - **Editare**: Modifică informațiile și fișierele
 - **Ștergere**: Șterge documentele individuale sau în bulk
 
-### 4. Filtrarea și Căutarea
+### 5. Filtrarea și Căutarea
 - Folosește filtrele pentru categorie și status
 - Caută după titlu în bara de căutare
 - Sortează după coloanele disponibile

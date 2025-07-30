@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('document_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->foreignId('document_category_id')->constrained('document_categories')->onDelete('cascade');
-            $table->integer('max_files')->default(1);
-            $table->json('files')->nullable(); // Store file paths and metadata
+            $table->string('color', 7)->default('#3B82F6'); // Hex color for badge display
+            $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             
-            $table->index(['document_category_id', 'is_active']);
-            $table->index('created_at');
+            $table->index(['is_active', 'sort_order']);
+            $table->index('slug');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('document_categories');
     }
 };

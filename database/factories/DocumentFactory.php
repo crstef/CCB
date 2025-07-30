@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +20,10 @@ class DocumentFactory extends Factory
      */
     public function definition(): array
     {
-        $categories = array_keys(Document::getCategories());
-        
         return [
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
-            'category' => $this->faker->randomElement($categories),
+            'document_category_id' => DocumentCategory::factory(),
             'max_files' => $this->faker->numberBetween(1, 5),
             'files' => null, // Will be populated separately if needed
             'is_active' => $this->faker->boolean(85), // 85% chance of being active
@@ -56,13 +55,13 @@ class DocumentFactory extends Factory
     }
 
     /**
-     * Set a specific category.
+     * Set a specific category by ID.
      */
-    public function category(string $category): Factory
+    public function categoryId(int $categoryId): Factory
     {
-        return $this->state(function (array $attributes) use ($category) {
+        return $this->state(function (array $attributes) use ($categoryId) {
             return [
-                'category' => $category,
+                'document_category_id' => $categoryId,
             ];
         });
     }
