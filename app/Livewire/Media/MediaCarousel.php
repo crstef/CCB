@@ -5,17 +5,19 @@ namespace App\Livewire\Media;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\Media;
 
 /**
  * MediaCarousel Livewire Component
  * 
  * This component handles the backend logic for the media carousel display.
- * It scans storage directories for media files, processes them for display,
- * and provides fallback demo content when no media files are found.
+ * It uses the Media model to load managed media files and provides 
+ * fallback demo content when no media files are found.
  * 
  * Features:
+ * - Database-driven media management
  * - Automatic file type detection (images/videos)
- * - Storage directory scanning
+ * - Storage directory scanning (fallback)
  * - Demo content generation for development
  * - File metadata extraction
  * - URL generation for public access
@@ -72,10 +74,10 @@ class MediaCarousel extends Component
         'uploads/gallery'
     ];
 
-    /**
+        /**
      * Component initialization
      * Called when the component is first loaded
-     * Loads media items from storage or generates demo content
+     * Loads media items from database first, then storage as fallback
      * 
      * @return void
      */
@@ -85,26 +87,83 @@ class MediaCarousel extends Component
     }
 
     /**
-     * Load media items from storage directories
-     * Scans configured paths and processes found files
-     * Falls back to demo content if no files are found
+     * Main method to load media items for the carousel
+     * Priority: Database managed media -> Storage files -> Demo content
      * 
      * @return void
      */
-    public function loadMediaItems()
+    protected function loadMediaItems()
     {
-        $mediaFiles = $this->scanMediaDirectories();
+        // First, try to load from database (managed media)
+        $databaseMedia = $this->loadFromDatabase();
         
-        if (empty($mediaFiles)) {
-            // Generate demo content when no media files are found
-            $this->items = $this->generateDemoContent();
-        } else {
-            // Process real media files
-            $this->items = $this->processMediaFiles($mediaFiles);
+        if ($databaseMedia->isNotEmpty()) {
+            $this->items = $this->processDatabaseMedia($databaseMedia);
+            return;
+        }
+
+        // Fallback: Scan storage directories for files
+        $storageFiles = $this->scanStorageDirectories();
+        
+        if (!empty($storageFiles)) {
+            $this->items = $this->processMediaFiles($storageFiles);
+            return;
+        }
+
+        // Final fallback: Generate demo content for development
+        $this->items = $this->generateDemoContent();
+    }
+
+    /**
+     * Load media items from the database
+     * Gets carousel-appropriate media items
+     * 
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    protected function loadFromDatabase()
+    {
+        try {
+            // Get mix of images and videos for carousel
+            $images = Media::getCarouselImages($this->maxItems - 2);
+            $videos = Media::getCarouselVideos(2);
+            
+            return $images->merge($videos)->shuffle()->take($this->maxItems);
+        } catch (\Exception $e) {
+            // Log error and return empty collection to fall back to storage scan
+            \Log::warning('MediaCarousel: Database media loading failed', [
+                'error' => $e->getMessage()
+            ]);
+            
+            return collect();
+        }
+    }
+
+    /**
+     * Process database media into carousel format
+     * Converts Media models to carousel item arrays
+     * 
+     * @param \Illuminate\Database\Eloquent\Collection $mediaItems
+     * @return array
+     */
+    protected function processDatabaseMedia($mediaItems)
+    {
+        $items = [];
+        
+        foreach ($mediaItems as $media) {
+            $items[] = [
+                'url' => $media->url,
+                'name' => $media->file_name,
+                'title' => $media->title,
+                'description' => $media->description ?: $this->generateDescription($media->title),
+                'type' => $media->media_type,
+                'alt_text' => $media->alt_text ?: $media->title,
+                'is_featured' => $media->is_featured,
+                'category' => $media->category,
+                'tags' => $media->tags ?: [],
+            ];
         }
         
-        // Limit the number of items to prevent performance issues
-        $this->items = array_slice($this->items, 0, $this->maxItems);
+        return $items;
     }
 
     /**

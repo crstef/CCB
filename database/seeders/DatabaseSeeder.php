@@ -29,6 +29,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsTableSeeder::class);
         $this->call(ProfileKeyValuesTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
+        
+        // Media seeder for gallery system
+        $this->call(MediaSeeder::class);
+        
         fixPostgresSequence();
     }
 }

@@ -23,3 +23,11 @@ Wave::api();
 Route::middleware('auth:api')->group(function () {
     Route::get('/posts', [\App\Http\Controllers\Api\ApiController::class, 'posts']);
 });
+
+// Media API Routes - Public access for frontend display
+Route::prefix('media')->group(function () {
+    Route::get('/carousel', [\App\Http\Controllers\Api\MediaApiController::class, 'carousel']);
+    Route::get('/photos', [\App\Http\Controllers\Api\MediaApiController::class, 'photos']);
+    Route::get('/videos', [\App\Http\Controllers\Api\MediaApiController::class, 'videos']);
+    Route::get('/featured', [\App\Http\Controllers\Api\MediaApiController::class, 'featured']);
+});

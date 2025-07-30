@@ -1,0 +1,258 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+
+/**
+ * Media Model
+ * 
+ * Manages photos and videos in the media gallery system.
+ * Handles file metadata, categorization, and gallery organization.
+ * 
+ * @package App\Models
+ * @author Wave Framework
+ * @version 1.0.0
+ */
+class Media extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'file_name',
+        'file_path',
+        'file_size',
+        'mime_type',
+        'media_type',
+        'category',
+        'is_featured',
+        'is_visible',
+        'sort_order',
+        'alt_text',
+        'tags',
+        'metadata',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'is_visible' => 'boolean',
+        'file_size' => 'integer',
+        'sort_order' => 'integer',
+        'tags' => 'array',
+        'metadata' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    /**
+     * Available media types
+     */
+    const MEDIA_TYPES = [
+        'image' => 'Image',
+        'video' => 'Video',
+    ];
+
+    /**
+     * Available categories
+     */
+    const CATEGORIES = [
+        'gallery' => 'Gallery',
+        'carousel' => 'Carousel',
+        'hero' => 'Hero Section',
+        'events' => 'Events',
+        'members' => 'Members',
+        'training' => 'Training',
+        'competitions' => 'Competitions',
+        'other' => 'Other',
+    ];
+
+    /**
+     * Get the full URL for the media file
+     *
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->file_path);
+    }
+
+    /**
+     * Get the full file path from storage root
+     *
+     * @return string
+     */
+    public function getFullPathAttribute(): string
+    {
+        return Storage::disk('public')->path($this->file_path);
+    }
+
+    /**
+     * Check if the media is an image
+     *
+     * @return bool
+     */
+    public function isImage(): bool
+    {
+        return $this->media_type === 'image';
+    }
+
+    /**
+     * Check if the media is a video
+     *
+     * @return bool
+     */
+    public function isVideo(): bool
+    {
+        return $this->media_type === 'video';
+    }
+
+    /**
+     * Get formatted file size
+     *
+     * @return string
+     */
+    public function getFormattedSizeAttribute(): string
+    {
+        if (!$this->file_size) {
+            return 'Unknown';
+        }
+
+        $bytes = $this->file_size;
+        $units = ['B', 'KB', 'MB', 'GB'];
+        
+        for ($i = 0; $bytes >= 1024 && $i < count($units) - 1; $i++) {
+            $bytes /= 1024;
+        }
+        
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
+
+    /**
+     * Scope: Get only visible media
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('is_visible', true);
+    }
+
+    /**
+     * Scope: Get only featured media
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
+    }
+
+    /**
+     * Scope: Get media by type
+     */
+    public function scopeByType($query, string $type)
+    {
+        return $query->where('media_type', $type);
+    }
+
+    /**
+     * Scope: Get media by category
+     */
+    public function scopeByCategory($query, string $category)
+    {
+        return $query->where('category', $category);
+    }
+
+    /**
+     * Scope: Order by sort order, then by creation date
+     */
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order', 'asc')
+                    ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get images for carousel
+     */
+    public static function getCarouselImages($limit = 10)
+    {
+        return static::visible()
+            ->byType('image')
+            ->whereIn('category', ['carousel', 'gallery', 'hero'])
+            ->ordered()
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Get videos for carousel
+     */
+    public static function getCarouselVideos($limit = 5)
+    {
+        return static::visible()
+            ->byType('video')
+            ->whereIn('category', ['carousel', 'gallery', 'hero'])
+            ->ordered()
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Get gallery images
+     */
+    public static function getGalleryImages()
+    {
+        return static::visible()
+            ->byType('image')
+            ->byCategory('gallery')
+            ->ordered()
+            ->get();
+    }
+
+    /**
+     * Get gallery videos
+     */
+    public static function getGalleryVideos()
+    {
+        return static::visible()
+            ->byType('video')
+            ->byCategory('gallery')
+            ->ordered()
+            ->get();
+    }
+
+    /**
+     * Boot method to handle model events
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Auto-detect media type when creating
+        static::creating(function ($media) {
+            if (!$media->media_type && $media->mime_type) {
+                $media->media_type = str_starts_with($media->mime_type, 'image/') ? 'image' : 'video';
+            }
+        });
+
+        // Clean up file when deleting
+        static::deleting(function ($media) {
+            if ($media->file_path && Storage::disk('public')->exists($media->file_path)) {
+                Storage::disk('public')->delete($media->file_path);
+            }
+        });
+    }
+}
