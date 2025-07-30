@@ -37,14 +37,14 @@ class SimpleMediaCarousel extends Component
      * 
      * @var array
      */
-    protected $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+    protected $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'tiff'];
 
     /**
      * Supported video file extensions
      * 
      * @var array
      */
-    protected $videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'wmv'];
+    protected $videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'wmv', 'mkv'];
 
     /**
      * Storage directories to scan for media files
@@ -54,9 +54,8 @@ class SimpleMediaCarousel extends Component
     protected $mediaPaths = [
         'gallery/photos',
         'gallery/videos',
-        'media/images',
-        'media/videos',
-        'uploads/gallery'
+        'gallery',
+        'uploads'
     ];
 
     /**

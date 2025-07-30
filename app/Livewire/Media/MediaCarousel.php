@@ -69,9 +69,8 @@ class MediaCarousel extends Component
     protected $mediaPaths = [
         'gallery/photos',
         'gallery/videos',
-        'media/images',
-        'media/videos',
-        'uploads/gallery'
+        'gallery',
+        'uploads'
     ];
 
         /**
