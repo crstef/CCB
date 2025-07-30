@@ -108,4 +108,54 @@ class Document extends Model
     {
         return self::active()->byCategory($categoryId)->orderBy('created_at', 'desc')->get();
     }
+
+    /**
+     * Get the file path for the first file
+     */
+    public function getFilePathAttribute()
+    {
+        if (!$this->files || empty($this->files)) {
+            return null;
+        }
+
+        return $this->files[0]['path'] ?? null;
+    }
+
+    /**
+     * Get the file size in a human-readable format
+     */
+    public function getFileSizeFormatted()
+    {
+        if (!$this->files || empty($this->files)) {
+            return 'N/A';
+        }
+
+        $sizeInBytes = $this->files[0]['size'] ?? 0;
+        
+        if ($sizeInBytes == 0) {
+            return 'N/A';
+        }
+
+        $units = ['B', 'KB', 'MB', 'GB'];
+        $unitIndex = 0;
+        
+        while ($sizeInBytes >= 1024 && $unitIndex < count($units) - 1) {
+            $sizeInBytes /= 1024;
+            $unitIndex++;
+        }
+        
+        return round($sizeInBytes, 1) . ' ' . $units[$unitIndex];
+    }
+
+    /**
+     * Get file size property
+     */
+    public function getFileSizeAttribute()
+    {
+        if (!$this->files || empty($this->files)) {
+            return null;
+        }
+
+        return $this->files[0]['size'] ?? null;
+    }
 }
