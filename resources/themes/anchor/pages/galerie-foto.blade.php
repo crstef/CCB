@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.marketing>
 
     <x-slot name="title">Galerie Foto</x-slot>
 
@@ -45,4 +45,4 @@
         </div>
     @endif
 </div>
-</x-layouts.app>
+</x-layouts.marketing>

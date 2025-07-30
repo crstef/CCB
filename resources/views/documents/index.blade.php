@@ -23,8 +23,29 @@
     <x-container class="py-8">
         <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
             <h2 class="text-lg font-semibold text-gray-900">Categorii Documente</h2>
+        </div>
+        
+        <!-- Category Filters and View Toggle -->
+        <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 mt-4">
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('documents.index') }}" 
+                   class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ !$selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    Toate ({{ $categories->sum('documents_count') }})
+                </a>
+                @foreach($categories as $category)
+                    <a href="{{ route('documents.index', ['category' => $category->slug]) }}" 
+                       class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ $selectedCategory === $category->slug ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                       style="{{ $selectedCategory === $category->slug ? 'background-color: ' . $category->color : '' }}">
+                        <span class="w-2 h-2 rounded-full mr-2" style="background-color: {{ $category->color }}"></span>
+                        {{ $category->name }} ({{ $category->documents_count }})
+                    </a>
+                @endforeach
+            </div>
             
-            <!-- View Toggle - Moved here -->
+            <!-- View Toggle - Moved to the right -->
             @if($documents->count() > 0)
                 <div class="flex items-center bg-gray-100 rounded-lg p-1">
                     <button id="gridViewBtn" onclick="setViewMode('grid')" 
@@ -43,25 +64,6 @@
                     </button>
                 </div>
             @endif
-        </div>
-        
-        <!-- Category Filters -->
-        <div class="flex flex-wrap gap-2 mt-4">
-            <a href="{{ route('documents.index') }}" 
-               class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ !$selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                </svg>
-                Toate ({{ $categories->sum('documents_count') }})
-            </a>
-            @foreach($categories as $category)
-                <a href="{{ route('documents.index', ['category' => $category->slug]) }}" 
-                   class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ $selectedCategory === $category->slug ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                   style="{{ $selectedCategory === $category->slug ? 'background-color: ' . $category->color : '' }}">
-                    <span class="w-2 h-2 rounded-full mr-2" style="background-color: {{ $category->color }}"></span>
-                    {{ $category->name }} ({{ $category->documents_count }})
-                </a>
-            @endforeach
         </div>
     </x-container>
 </div>
@@ -317,7 +319,6 @@
                                                         {{ strtoupper($fileExtension) ?: 'DOC' }}
                                                     </span>
                                                     <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
-                                                    <small class="text-red-500 ml-2">({{ $filePath ?: 'no path' }})</small>
                                                 </div>
                                                 <div class="flex gap-2 ml-3">
                                                     <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
@@ -549,12 +550,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function viewDocument(url, title, extension) {
-    console.log('Opening document:', url, title, extension); // Debug log
+    console.log('Opening document:', { url, title, extension }); // Debug log
     
     // Check if URL is valid
-    if (!url || url.trim() === '') {
-        console.error('Invalid or empty URL provided');
-        alert('Fișierul nu poate fi accesat. URL invalid.');
+    if (!url || url.trim() === '' || url === '#') {
+        console.error('Invalid or empty URL provided:', url);
+        alert('Fișierul nu poate fi accesat. URL invalid sau lipsește.');
         return;
     }
     
@@ -565,6 +566,15 @@ function viewDocument(url, title, extension) {
     const modalTitle = document.getElementById('modal-title');
     const downloadFallback = document.getElementById('downloadFallback');
     
+    console.log('Modal elements:', {
+        modal: !!modal,
+        frame: !!frame,
+        loading: !!loading,
+        error: !!error,
+        modalTitle: !!modalTitle,
+        downloadFallback: !!downloadFallback
+    }); // Debug log
+    
     if (!modal || !frame) {
         console.error('Modal elements not found');
         alert('Eroare: Elementele modal nu au fost găsite.');
@@ -572,21 +582,25 @@ function viewDocument(url, title, extension) {
     }
     
     currentDocumentUrl = url;
-    modalTitle.textContent = title;
-    downloadFallback.href = url;
+    if (modalTitle) modalTitle.textContent = title;
+    if (downloadFallback) downloadFallback.href = url;
     
     // Show modal
     modal.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
     
+    console.log('Modal should be visible now'); // Debug log
+    
     // Reset states
-    frame.style.display = 'none';
-    loading.style.display = 'flex';
-    error.classList.add('hidden');
+    if (frame) frame.style.display = 'none';
+    if (loading) loading.style.display = 'flex';
+    if (error) error.classList.add('hidden');
     
     // Check if file type is viewable
-    const viewableExtensions = ['pdf', 'txt', 'html', 'jpg', 'jpeg', 'png', 'gif'];
+    const viewableExtensions = ['pdf', 'txt', 'html', 'jpg', 'jpeg', 'png', 'gif', 'doc', 'docx'];
     const isViewable = viewableExtensions.includes(extension.toLowerCase());
+    
+    console.log('File viewable:', isViewable, 'Extension:', extension); // Debug log
     
     if (isViewable) {
         // For PDFs and other viewable files
@@ -613,29 +627,29 @@ function viewDocument(url, title, extension) {
         
         frame.onload = function() {
             console.log('Frame loaded successfully'); // Debug log
-            loading.style.display = 'none';
-            frame.style.display = 'block';
+            if (loading) loading.style.display = 'none';
+            if (frame) frame.style.display = 'block';
         };
         
         frame.onerror = function() {
             console.log('Frame load error'); // Debug log
-            loading.style.display = 'none';
-            error.classList.remove('hidden');
+            if (loading) loading.style.display = 'none';
+            if (error) error.classList.remove('hidden');
         };
         
         // Fallback timeout
         setTimeout(() => {
-            if (loading.style.display !== 'none') {
+            if (loading && loading.style.display !== 'none') {
                 console.log('Loading timeout reached'); // Debug log
                 loading.style.display = 'none';
-                error.classList.remove('hidden');
+                if (error) error.classList.remove('hidden');
             }
         }, 8000);
     } else {
         // For non-viewable files, show error message immediately
         console.log('File type not viewable:', extension); // Debug log
-        loading.style.display = 'none';
-        error.classList.remove('hidden');
+        if (loading) loading.style.display = 'none';
+        if (error) error.classList.remove('hidden');
     }
 }
 
