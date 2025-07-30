@@ -12,6 +12,11 @@
 */
 
 use Wave\Facades\Wave;
+use App\Http\Controllers\GalleryController;
+
+// Gallery routes
+Route::get('/galerie-foto', [GalleryController::class, 'photoGallery'])->name('galerie-foto');
+Route::get('/galerie-video', [GalleryController::class, 'videoGallery'])->name('galerie-video');
 
 // Wave routes
 Wave::routes();
