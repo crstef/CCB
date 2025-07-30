@@ -21,25 +21,47 @@
 <!-- Category Filter Section -->
 <div class="bg-white border-b border-gray-200">
     <x-container class="py-8">
-        <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+        <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
             <h2 class="text-lg font-semibold text-gray-900">Categorii Documente</h2>
-            <div class="flex flex-wrap gap-2">
-                <a href="{{ route('documents.index') }}" 
-                   class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ !$selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                    </svg>
-                    Toate ({{ $categories->sum('documents_count') }})
-                </a>
-                @foreach($categories as $category)
-                    <a href="{{ route('documents.index', ['category' => $category->slug]) }}" 
-                       class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ $selectedCategory === $category->slug ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                       style="{{ $selectedCategory === $category->slug ? 'background-color: ' . $category->color : '' }}">
-                        <span class="w-2 h-2 rounded-full mr-2" style="background-color: {{ $category->color }}"></span>
-                        {{ $category->name }} ({{ $category->documents_count }})
-                    </a>
-                @endforeach
+            
+            <!-- View Toggle -->
+            <div class="flex items-center gap-4">
+                <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button id="gridViewBtn" onclick="setViewMode('grid')" 
+                            class="view-toggle-btn active flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                        Grid
+                    </button>
+                    <button id="listViewBtn" onclick="setViewMode('list')" 
+                            class="view-toggle-btn flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        Listă
+                    </button>
+                </div>
             </div>
+        </div>
+        
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2 mt-4">
+            <a href="{{ route('documents.index') }}" 
+               class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ !$selectedCategory ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                Toate ({{ $categories->sum('documents_count') }})
+            </a>
+            @foreach($categories as $category)
+                <a href="{{ route('documents.index', ['category' => $category->slug]) }}" 
+                   class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 {{ $selectedCategory === $category->slug ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                   style="{{ $selectedCategory === $category->slug ? 'background-color: ' . $category->color : '' }}">
+                    <span class="w-2 h-2 rounded-full mr-2" style="background-color: {{ $category->color }}"></span>
+                    {{ $category->name }} ({{ $category->documents_count }})
+                </a>
+            @endforeach
         </div>
     </x-container>
 </div>
@@ -47,8 +69,12 @@
 <!-- Documents Grid Section -->
 <div class="bg-gray-50 py-8">
     <x-container>
+<!-- Documents Grid Section -->
+<div class="bg-gray-50 py-8">
+    <x-container>
         @if($documents->count() > 0)
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <!-- Grid View -->
+            <div id="gridView" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 @foreach($documents as $document)
                     <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden border border-gray-100">
                         <!-- Document Icon Header -->
@@ -95,36 +121,164 @@
                                 </p>
                             @endif
 
-                            <!-- Document Metadata -->
+                            <!-- Files Count and Metadata -->
                             <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+                                <span class="flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    {{ count($document->files ?? []) }} fișier{{ count($document->files ?? []) > 1 ? 'e' : '' }}
+                                </span>
                                 @if($document->file_size)
                                     <span class="flex items-center">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                        </svg>
                                         {{ $document->getFileSizeFormatted() }}
                                     </span>
                                 @endif
                             </div>
 
-                            <!-- Action Buttons -->
-                            <div class="flex gap-2">
-                                <button onclick="viewDocument('{{ $document->getFileUrl() }}', '{{ $document->title }}', '{{ $extension }}')"
-                                        class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-md text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors duration-200">
-                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            <!-- Files List -->
+                            @if($document->files && count($document->files) > 0)
+                                <div class="space-y-2 mb-3">
+                                    @foreach($document->files as $index => $file)
+                                        @php
+                                            $fileUrl = Storage::url($file);
+                                            $fileName = basename($file);
+                                            $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                        @endphp
+                                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded border text-xs">
+                                            <div class="flex items-center flex-1 min-w-0">
+                                                <span class="inline-block w-8 h-5 text-center text-xs font-bold bg-gray-300 rounded mr-2 leading-5">
+                                                    {{ strtoupper($fileExtension) }}
+                                                </span>
+                                                <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
+                                            </div>
+                                            <div class="flex gap-1 ml-2">
+                                                <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                        title="Vezi fișierul">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                </button>
+                                                <a href="{{ $fileUrl }}" 
+                                                   target="_blank"
+                                                   class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                   title="Descarcă fișierul">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- List View -->
+            <div id="listView" class="hidden space-y-4">
+                @foreach($documents as $document)
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 p-6">
+                        <div class="flex items-start justify-between">
+                            <!-- Left side - Document info -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <!-- Document Icon -->
+                                    @php
+                                        $extension = strtolower(pathinfo($document->file_path, PATHINFO_EXTENSION));
+                                        $iconClass = match($extension) {
+                                            'pdf' => 'text-red-500',
+                                            'doc', 'docx' => 'text-blue-500',
+                                            'xls', 'xlsx' => 'text-green-500',
+                                            'ppt', 'pptx' => 'text-orange-500',
+                                            default => 'text-gray-500'
+                                        };
+                                    @endphp
+                                    <div class="relative flex-shrink-0">
+                                        <svg class="w-8 h-8 {{ $iconClass }}" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                        </svg>
+                                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-sm">
+                                            <span class="text-xs font-bold uppercase text-gray-600" style="font-size: 8px;">{{ $extension }}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Category and Date -->
+                                    <div class="flex items-center gap-3">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white" 
+                                              style="background-color: {{ $document->category->color }}">
+                                            {{ $document->category->name }}
+                                        </span>
+                                        <time class="text-sm text-gray-500" datetime="{{ $document->created_at->toISOString() }}">
+                                            {{ $document->created_at->format('d.m.Y') }}
+                                        </time>
+                                    </div>
+                                </div>
+
+                                <!-- Title and Description -->
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-200">
+                                    {{ $document->title }}
+                                </h3>
+
+                                @if($document->description)
+                                    <p class="text-gray-600 mb-4 line-clamp-3">
+                                        {{ $document->description }}
+                                    </p>
+                                @endif
+
+                                <!-- Files Info -->
+                                <div class="flex items-center text-sm text-gray-500 mb-4">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
-                                    Vezi
-                                </button>
-                                <a href="{{ $document->getFileUrl() }}" 
-                                   target="_blank"
-                                   class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Descarcă
-                                </a>
+                                    {{ count($document->files ?? []) }} fișier{{ count($document->files ?? []) > 1 ? 'e' : '' }}
+                                    @if($document->file_size)
+                                        • {{ $document->getFileSizeFormatted() }}
+                                    @endif
+                                </div>
+
+                                <!-- Files List in List View -->
+                                @if($document->files && count($document->files) > 0)
+                                    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                        @foreach($document->files as $index => $file)
+                                            @php
+                                                $fileUrl = Storage::url($file);
+                                                $fileName = basename($file);
+                                                $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                            @endphp
+                                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border text-sm">
+                                                <div class="flex items-center flex-1 min-w-0">
+                                                    <span class="inline-block w-10 h-6 text-center text-xs font-bold bg-gray-300 rounded mr-3 leading-6">
+                                                        {{ strtoupper($fileExtension) }}
+                                                    </span>
+                                                    <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
+                                                </div>
+                                                <div class="flex gap-2 ml-3">
+                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                            class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                                            title="Vezi fișierul">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <a href="{{ $fileUrl }}" 
+                                                       target="_blank"
+                                                       class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                       title="Descarcă fișierul">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -262,14 +416,69 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    
+    /* View Toggle Styles */
+    .view-toggle-btn {
+        color: #6b7280;
+        background-color: transparent;
+    }
+    
+    .view-toggle-btn.active {
+        color: #3b82f6;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+    
+    .view-toggle-btn:hover:not(.active) {
+        color: #374151;
+        background-color: #f9fafb;
+    }
 </style>
 @endpush
 
 @push('js')
 <script>
 let currentDocumentUrl = '';
+let currentViewMode = 'grid'; // Default view mode
+
+// View mode toggle functionality
+function setViewMode(mode) {
+    currentViewMode = mode;
+    localStorage.setItem('documentsViewMode', mode);
+    
+    const gridView = document.getElementById('gridView');
+    const listView = document.getElementById('listView');
+    const gridBtn = document.getElementById('gridViewBtn');
+    const listBtn = document.getElementById('listViewBtn');
+    
+    if (mode === 'grid') {
+        gridView.classList.remove('hidden');
+        listView.classList.add('hidden');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+    } else {
+        gridView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        listBtn.classList.add('active');
+        gridBtn.classList.remove('active');
+    }
+}
+
+// Initialize view mode on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Load saved view mode or default to grid
+    const savedViewMode = localStorage.getItem('documentsViewMode') || 'grid';
+    setViewMode(savedViewMode);
+    
+    const modal = document.getElementById('documentModal');
+    const frame = document.getElementById('documentFrame');
+    console.log('Modal exists:', !!modal);
+    console.log('Frame exists:', !!frame);
+});
 
 function viewDocument(url, title, extension) {
+    console.log('Opening document:', url, title, extension); // Debug log
+    
     const modal = document.getElementById('documentModal');
     const frame = document.getElementById('documentFrame');
     const loading = document.getElementById('documentLoading');
@@ -291,23 +500,40 @@ function viewDocument(url, title, extension) {
     error.classList.add('hidden');
     
     // Check if file type is viewable
-    const viewableExtensions = ['pdf', 'txt', 'html'];
+    const viewableExtensions = ['pdf', 'txt', 'html', 'jpg', 'jpeg', 'png', 'gif'];
     const isViewable = viewableExtensions.includes(extension.toLowerCase());
     
     if (isViewable) {
         // For PDFs and other viewable files
         if (extension.toLowerCase() === 'pdf') {
-            frame.src = url + '#view=FitH';
+            frame.src = url + '#view=FitH&toolbar=1';
+        } else if (['jpg', 'jpeg', 'png', 'gif'].includes(extension.toLowerCase())) {
+            // For images, show in iframe
+            frame.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(`
+                <html>
+                    <head>
+                        <style>
+                            body { margin: 0; padding: 20px; background: #f5f5f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                            img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${url}" alt="${title}" />
+                    </body>
+                </html>
+            `);
         } else {
             frame.src = url;
         }
         
         frame.onload = function() {
+            console.log('Frame loaded successfully'); // Debug log
             loading.style.display = 'none';
             frame.style.display = 'block';
         };
         
         frame.onerror = function() {
+            console.log('Frame load error'); // Debug log
             loading.style.display = 'none';
             error.classList.remove('hidden');
         };
@@ -315,12 +541,14 @@ function viewDocument(url, title, extension) {
         // Fallback timeout
         setTimeout(() => {
             if (loading.style.display !== 'none') {
+                console.log('Loading timeout reached'); // Debug log
                 loading.style.display = 'none';
                 error.classList.remove('hidden');
             }
-        }, 5000);
+        }, 8000);
     } else {
         // For non-viewable files, show error message immediately
+        console.log('File type not viewable:', extension); // Debug log
         loading.style.display = 'none';
         error.classList.remove('hidden');
     }

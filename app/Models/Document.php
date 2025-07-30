@@ -42,7 +42,7 @@ class Document extends Model
         }
 
         $file = $this->files[$index];
-        return Storage::url($file['path']);
+        return Storage::url($file);
     }
 
     /**
@@ -56,10 +56,10 @@ class Document extends Model
 
         return collect($this->files)->map(function ($file) {
             return [
-                'url' => Storage::url($file['path']),
-                'name' => $file['name'],
-                'size' => $file['size'] ?? null,
-                'type' => $file['type'] ?? null,
+                'url' => Storage::url($file),
+                'name' => basename($file),
+                'size' => null, // File size will need to be calculated if needed
+                'type' => pathinfo($file, PATHINFO_EXTENSION),
             ];
         })->toArray();
     }
@@ -118,7 +118,7 @@ class Document extends Model
             return null;
         }
 
-        return $this->files[0]['path'] ?? null;
+        return $this->files[0] ?? null;
     }
 
     /**
@@ -130,7 +130,13 @@ class Document extends Model
             return 'N/A';
         }
 
-        $sizeInBytes = $this->files[0]['size'] ?? 0;
+        // Try to get file size from storage
+        $filePath = $this->files[0];
+        if (Storage::exists($filePath)) {
+            $sizeInBytes = Storage::size($filePath);
+        } else {
+            return 'N/A';
+        }
         
         if ($sizeInBytes == 0) {
             return 'N/A';
@@ -156,6 +162,11 @@ class Document extends Model
             return null;
         }
 
-        return $this->files[0]['size'] ?? null;
+        $filePath = $this->files[0];
+        if (Storage::exists($filePath)) {
+            return Storage::size($filePath);
+        }
+
+        return null;
     }
 }
