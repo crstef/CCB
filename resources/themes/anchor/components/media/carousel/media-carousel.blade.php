@@ -8,26 +8,8 @@
     - Improved responsive design and accessibility
     - Premium glassmorphism effects and smooth animations
     
-    @param array $items - Array of media items to display
-    @param string $height - Tailwind CSS height classes (default: h-96)
-    @param bool $autoplay - Enable/disable auto-playing slideshow
-    @param int $autoplayDelay - Time in milliseconds between slides
-    @param bool $showDots - Show/hide dot navigation indicators
-    @param bool $showArrows - Show/hide arrow navigation buttons
-    @param string $photoGalleryRoute - URL route for photo gallery page
-    @param string $videoGalleryRoute - URL route for video gallery page
+    Livewire component template - NO @props directive needed
 --}}
-
-@props([
-    'items' => [],
-    'height' => 'h-96',
-    'autoplay' => true,
-    'autoplayDelay' => 5000,
-    'showDots' => true,
-    'showArrows' => true,
-    'photoGalleryRoute' => '/galerie-foto',
-    'videoGalleryRoute' => '/galerie-video'
-])
 
 <div 
     x-data="{
@@ -38,8 +20,8 @@
         items: {{ json_encode($items) }},
         
         // Autoplay configuration
-        autoplay: {{ $autoplay ? 'true' : 'false' }},
-        autoplayDelay: {{ $autoplayDelay }},
+        autoplay: true,
+        autoplayDelay: 5000,
         autoplayTimer: null,
         
         // Random transition effects for premium feel
@@ -300,42 +282,44 @@
     </div>
     
     {{-- Premium Navigation arrows with Wave theme styling --}}
-    @if($showArrows && count($items) > 1)
-    {{-- Previous slide button with enhanced styling --}}
-    <button 
-        @click="prevSlide(); restartAutoplay();"
-        class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
-    >
-        <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-        </svg>
-    </button>
-    
-    {{-- Next slide button with enhanced styling --}}
-    <button 
-        @click="nextSlide(); restartAutoplay();"
-        class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
-    >
-        <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-        </svg>
-    </button>
-    @endif
+    <template x-if="items.length > 1">
+        <div>
+            {{-- Previous slide button with enhanced styling --}}
+            <button 
+                @click="prevSlide(); restartAutoplay();"
+                class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
+            >
+                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            
+            {{-- Next slide button with enhanced styling --}}
+            <button 
+                @click="nextSlide(); restartAutoplay();"
+                class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
+            >
+                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </template>
     
     {{-- Premium Dot navigation indicators with enhanced styling --}}
-    @if($showDots && count($items) > 1)
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-30">
-        <div class="bg-black/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
-            <template x-for="(item, index) in items" :key="index">
-                <button
-                    @click="goToSlide(index)"
-                    :class="currentSlide === index ? 'bg-blue-500 scale-125 shadow-lg shadow-blue-500/50' : 'bg-white/60 hover:bg-white/80'"
-                    class="w-3 h-3 rounded-full transition-all duration-300 mx-1 hover:scale-110"
-                ></button>
-            </template>
+    <template x-if="items.length > 1">
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-30">
+            <div class="bg-black/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
+                <template x-for="(item, index) in items" :key="index">
+                    <button
+                        @click="goToSlide(index)"
+                        :class="currentSlide === index ? 'bg-blue-500 scale-125 shadow-lg shadow-blue-500/50' : 'bg-white/60 hover:bg-white/80'"
+                        class="w-3 h-3 rounded-full transition-all duration-300 mx-1 hover:scale-110"
+                    ></button>
+                </template>
+            </div>
         </div>
-    </div>
-    @endif
+    </template>
     
     {{-- Premium media type indicator badge --}}
     <div class="absolute top-6 right-6 z-30">
