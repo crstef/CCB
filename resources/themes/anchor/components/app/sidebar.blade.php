@@ -32,8 +32,8 @@
                 <div class="flex flex-col justify-start items-center px-4 space-y-1.5 w-full h-full text-slate-600 dark:text-zinc-400">
                     <x-app.sidebar-link href="/dashboard" icon="phosphor-house" :active="Request::is('dashboard')">Panou de control</x-app.sidebar-link>
                     <x-app.sidebar-dropdown text="Galerie" icon="phosphor-images" id="gallery_dropdown" :active="(Request::is('galerie-foto') || Request::is('galerie-video'))" :open="(Request::is('galerie-foto') || Request::is('galerie-video')) ? '1' : '0'">
-                        <x-app.sidebar-link href="{{ route('galerie.foto') }}" icon="phosphor-camera" :active="(Request::is('galerie-foto'))">Galerie Foto</x-app.sidebar-link>
-                        <x-app.sidebar-link href="{{ route('galerie.video') }}" icon="phosphor-video-camera" :active="(Request::is('galerie-video'))">Galerie Video</x-app.sidebar-link>
+                        <x-app.sidebar-link href="{{ route('galerie-foto') }}" icon="phosphor-camera" :active="(Request::is('galerie-foto'))">Galerie Foto</x-app.sidebar-link>
+                        <x-app.sidebar-link href="{{ route('galerie-video') }}" icon="phosphor-video-camera" :active="(Request::is('galerie-video'))">Galerie Video</x-app.sidebar-link>
                     </x-app.sidebar-dropdown>
                     <x-app.sidebar-dropdown text="Proiecte" icon="phosphor-stack" id="projects_dropdown" :active="(Request::is('projects'))" :open="(Request::is('project_a') || Request::is('project_b') || Request::is('project_c')) ? '1' : '0'">
                         <x-app.sidebar-link onclick="event.preventDefault(); new FilamentNotification().title('Modifică acest buton în sidebar.blade.php').send()" icon="phosphor-cube" :active="(Request::is('project_a'))">Proiect A</x-app.sidebar-link>

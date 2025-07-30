@@ -23,7 +23,7 @@ class GalleryController extends Controller
     {
         $photos = Media::getGalleryImages();
         
-        return view('theme::pages.galerie-foto', compact('photos'));
+        return view('galerie-foto', compact('photos'));
     }
 
     /**
@@ -35,6 +35,6 @@ class GalleryController extends Controller
     {
         $videos = Media::getGalleryVideos();
         
-        return view('theme::pages.galerie-video', compact('videos'));
+        return view('galerie-video', compact('videos'));
     }
 }
