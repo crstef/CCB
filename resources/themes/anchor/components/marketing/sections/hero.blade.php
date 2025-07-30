@@ -6,7 +6,7 @@
         <div class="w-full lg:w-1/2">
             <div class="w-full mb-2 lg:mb-0 max-w-2xl mx-auto lg:mx-0">
                 {{-- Premium Media Carousel with database-driven content from Gallery category --}}
-                @livewire('media.simple-media-carousel', ['height' => 'h-[400px] lg:h-[450px]'])
+                @livewire('media-carousel', ['height' => 'h-[400px] lg:h-[450px]'])
                 
                 {{-- Premium Gallery Navigation Buttons --}}
                 <div class="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
