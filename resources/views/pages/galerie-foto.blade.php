@@ -1,1 +1,49 @@
-@extends('theme::layouts.app')@section('title', 'Galerie Foto')@section('content')<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">    <div class="text-center mb-12">        <h1 class="text-4xl font-bold text-gray-900 mb-4">Galerie Foto</h1>        <p class="text-lg text-gray-600">Descoperă cele mai frumoase momente capturate în imagini</p>    </div>    @if($photos->count() > 0)        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">            @foreach($photos as $photo)                <div class="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">                    <div class="aspect-square overflow-hidden">                        <img                             src="{{ $photo->url }}"                             alt="{{ $photo->title ?? 'Fotografie' }}"                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"                            loading="lazy"                        />                    </div>                                        @if($photo->title || $photo->description)                        <div class="p-4">                            @if($photo->title)                                <h3 class="font-semibold text-gray-900 mb-2">{{ $photo->title }}</h3>                            @endif                                                        @if($photo->description)                                <p class="text-sm text-gray-600">{{ $photo->description }}</p>                            @endif                        </div>                    @endif                </div>            @endforeach        </div>    @else        <div class="text-center py-16">            <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>            </svg>            <h3 class="text-lg font-medium text-gray-900 mb-2">Nu sunt imagini disponibile</h3>            <p class="text-gray-600">Momentan nu există fotografii în galerie.</p>        </div>    @endif</div>@endsection
+@extends('theme::layouts.app')
+
+@section('title', 'Galerie Foto')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Galerie Foto</h1>
+        <p class="text-lg text-gray-600">Descoperă cele mai frumoase momente capturate în imagini</p>
+    </div>
+
+    @if($photos->count() > 0)
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @foreach($photos as $photo)
+                <div class="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="aspect-square overflow-hidden">
+                        <img 
+                            src="{{ $photo->url }}" 
+                            alt="{{ $photo->title ?? 'Fotografie' }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                        />
+                    </div>
+                    
+                    @if($photo->title || $photo->description)
+                        <div class="p-4">
+                            @if($photo->title)
+                                <h3 class="font-semibold text-gray-900 mb-2">{{ $photo->title }}</h3>
+                            @endif
+                            
+                            @if($photo->description)
+                                <p class="text-sm text-gray-600">{{ $photo->description }}</p>
+                            @endif
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    @else
+        <div class="text-center py-16">
+            <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Nu sunt imagini disponibile</h3>
+            <p class="text-gray-600">Momentan nu există fotografii în galerie.</p>
+        </div>
+    @endif
+</div>
+@endsection
