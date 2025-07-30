@@ -42,6 +42,11 @@ class Document extends Model
         }
 
         $file = $this->files[$index];
+        // Ensure $file is a string before using it
+        if (!is_string($file)) {
+            return null;
+        }
+        
         return Storage::url($file);
     }
 
@@ -55,13 +60,18 @@ class Document extends Model
         }
 
         return collect($this->files)->map(function ($file) {
+            // Ensure $file is a string before processing
+            if (!is_string($file)) {
+                return null;
+            }
+            
             return [
                 'url' => Storage::url($file),
                 'name' => basename($file),
                 'size' => null, // File size will need to be calculated if needed
                 'type' => pathinfo($file, PATHINFO_EXTENSION),
             ];
-        })->toArray();
+        })->filter()->toArray(); // Filter out null values
     }
 
     /**
@@ -118,7 +128,9 @@ class Document extends Model
             return null;
         }
 
-        return $this->files[0] ?? null;
+        $firstFile = $this->files[0] ?? null;
+        // Ensure the first file is a string before returning
+        return is_string($firstFile) ? $firstFile : null;
     }
 
     /**
@@ -132,6 +144,11 @@ class Document extends Model
 
         // Try to get file size from storage
         $filePath = $this->files[0];
+        // Ensure $filePath is a string before using Storage methods
+        if (!is_string($filePath)) {
+            return 'N/A';
+        }
+        
         if (Storage::exists($filePath)) {
             $sizeInBytes = Storage::size($filePath);
         } else {
@@ -163,6 +180,11 @@ class Document extends Model
         }
 
         $filePath = $this->files[0];
+        // Ensure $filePath is a string before using Storage methods
+        if (!is_string($filePath)) {
+            return null;
+        }
+        
         if (Storage::exists($filePath)) {
             return Storage::size($filePath);
         }
