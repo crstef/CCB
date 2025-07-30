@@ -78,7 +78,8 @@
                         <div class="relative h-20 bg-gradient-to-br from-{{ $document->category->color ?? 'blue' }}-50 to-{{ $document->category->color ?? 'blue' }}-100 flex items-center justify-center">
                             @php
                                 // Get extension from first file if files exist, otherwise use empty string
-                                $firstFile = isset($document->files[0]) ? $document->files[0] : '';
+                                $files = $document->files ?? [];
+                                $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
                                 $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                 $iconClass = match($extension) {
                                     'pdf' => 'text-red-500',
@@ -189,7 +190,8 @@
                                     <!-- Document Icon -->
                                     @php
                                         // Get extension from first file if files exist, otherwise use empty string
-                                        $firstFile = isset($document->files[0]) ? $document->files[0] : '';
+                                        $files = $document->files ?? [];
+                                        $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
                                         $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                         $iconClass = match($extension) {
                                             'pdf' => 'text-red-500',
