@@ -1,12 +1,10 @@
-<div>
-    <x-media-carousel 
-        :items="$mediaItems"
-        height="h-96 lg:h-[500px]"
-        :autoplay="true"
-        :autoplay-delay="5000"
-        :show-dots="true"
-        :show-arrows="true"
-        :photo-gallery-route="$photoGalleryRoute"
-        :video-gallery-route="$videoGalleryRoute"
-    />
-</div>
+{{--
+    MOVED: This view has been moved to organized folder structure
+    
+    New location: /resources/views/livewire/media/carousel/media-carousel.blade.php
+    
+    This file now redirects to the new organized structure for backward compatibility.
+    Please update your references to use the new location.
+--}}
+
+@include('livewire.media.carousel.media-carousel')
