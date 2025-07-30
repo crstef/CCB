@@ -152,10 +152,11 @@
                             style="min-height: 100%; min-width: 100%;"
                         />
                         
-                        {{-- Minimal content overlay - only at bottom corner --}}
-                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-show="item.title && item.title.trim() !== ''" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                            <div class="backdrop-blur-sm bg-black/40 rounded-lg px-3 py-2 border border-white/20 max-w-xs">
-                                <h3 x-text="item.title" class="text-sm font-semibold text-white drop-shadow-lg truncate"></h3>
+                        {{-- Enhanced content overlay with title and description --}}
+                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                            <div class="backdrop-blur-md bg-black/60 rounded-xl p-4 border border-white/20">
+                                <h3 x-text="item.title || 'Fotografie'" class="text-lg font-bold text-white drop-shadow-lg mb-1"></h3>
+                                <p x-text="item.description || 'Vedere din galeria foto'" class="text-sm text-white/90 drop-shadow-md"></p>
                             </div>
                         </div>
                     </div>
@@ -184,10 +185,11 @@
                             </div>
                         </div>
                         
-                        {{-- Minimal content overlay - only at bottom corner --}}
-                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-show="item.title && item.title.trim() !== ''" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-                            <div class="backdrop-blur-sm bg-black/40 rounded-lg px-3 py-2 border border-white/20 max-w-xs">
-                                <h3 x-text="item.title" class="text-sm font-semibold text-white drop-shadow-lg truncate"></h3>
+                        {{-- Enhanced content overlay with title and description --}}
+                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                            <div class="backdrop-blur-md bg-black/60 rounded-xl p-4 border border-white/20">
+                                <h3 x-text="item.title || 'Video'" class="text-lg font-bold text-white drop-shadow-lg mb-1"></h3>
+                                <p x-text="item.description || 'Vedere din galeria video'" class="text-sm text-white/90 drop-shadow-md"></p>
                             </div>
                         </div>
                     </div>
@@ -205,7 +207,7 @@
                 class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
             >
                 <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7 7-7"></path>
                 </svg>
             </button>
             
@@ -215,7 +217,7 @@
                 class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
             >
                 <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7-7 7"></path>
                 </svg>
             </button>
         </div>

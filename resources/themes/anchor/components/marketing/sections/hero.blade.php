@@ -11,30 +11,24 @@
                 {{-- Premium Gallery Navigation Buttons --}}
                 <div class="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
                     {{-- Photo Gallery Button --}}
-                    <a href="{{ route('galerie-foto') }}" class="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 flex items-center justify-center min-h-[60px]">
-                        {{-- Background Pattern --}}
-                        <div class="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        
+                    <a href="{{ route('galerie-foto') }}" class="group relative overflow-hidden bg-gray-500 hover:bg-black text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-gray-500/30 transition-all duration-300 hover:scale-105 flex items-center justify-center min-h-[60px]">
                         {{-- Content --}}
                         <div class="relative flex items-center z-10">
                             <svg class="w-6 h-6 mr-3 transition-transform group-hover:rotate-12 duration-300 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="font-bold text-lg text-white drop-shadow-lg">Galerie Foto</span>
+                            <span class="font-bold text-lg text-white">Galerie Foto</span>
                         </div>
                     </a>
                     
                     {{-- Video Gallery Button --}}
-                    <a href="{{ route('galerie-video') }}" class="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105 flex items-center justify-center min-h-[60px]">
-                        {{-- Background Pattern --}}
-                        <div class="absolute inset-0 bg-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        
+                    <a href="{{ route('galerie-video') }}" class="group relative overflow-hidden bg-gray-500 hover:bg-black text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-gray-500/30 transition-all duration-300 hover:scale-105 flex items-center justify-center min-h-[60px]">
                         {{-- Content --}}
                         <div class="relative flex items-center z-10">
                             <svg class="w-6 h-6 mr-3 transition-transform group-hover:scale-110 duration-300 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="font-bold text-lg text-white drop-shadow-lg">Galerie Video</span>
+                            <span class="font-bold text-lg text-white">Galerie Video</span>
                         </div>
                     </a>
                 </div>
