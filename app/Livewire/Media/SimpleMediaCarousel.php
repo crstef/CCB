@@ -132,15 +132,17 @@ class SimpleMediaCarousel extends Component
     }
 
     /**
-     * Process media files
+     * Process media files with random selection of 10 photos and 10 videos
      * 
      * @param array $files
      * @return array
      */
     protected function processMediaFiles($files)
     {
-        $items = [];
+        $images = [];
+        $videos = [];
         
+        // Separate images and videos
         foreach ($files as $file) {
             try {
                 $fileName = pathinfo($file, PATHINFO_FILENAME);
@@ -149,7 +151,7 @@ class SimpleMediaCarousel extends Component
                 $url = Storage::disk('public')->url($file);
                 $type = in_array($extension, $this->imageExtensions) ? 'image' : 'video';
                 
-                $items[] = [
+                $item = [
                     'url' => $url,
                     'name' => $fileName,
                     'title' => $this->generateTitle($fileName, $type),
@@ -157,12 +159,29 @@ class SimpleMediaCarousel extends Component
                     'type' => $type,
                 ];
                 
+                if ($type === 'image') {
+                    $images[] = $item;
+                } else {
+                    $videos[] = $item;
+                }
+                
             } catch (\Exception $e) {
                 // Skip problematic files
             }
         }
         
-        return array_slice($items, 0, $this->maxItems);
+        // Randomly select up to 10 images and 10 videos
+        shuffle($images);
+        shuffle($videos);
+        
+        $selectedImages = array_slice($images, 0, 10);
+        $selectedVideos = array_slice($videos, 0, 10);
+        
+        // Merge and shuffle for random display order
+        $items = array_merge($selectedImages, $selectedVideos);
+        shuffle($items);
+        
+        return $items;
     }
 
     /**

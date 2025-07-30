@@ -69,7 +69,7 @@ class Media extends Model
     ];
 
     /**
-     * Available categories
+     * Available categories - full options restored
      */
     const CATEGORIES = [
         'gallery' => 'Gallery',
@@ -185,33 +185,73 @@ class Media extends Model
     }
 
     /**
-     * Get images for carousel
+     * Get random images for carousel from Gallery category (with fallback)
+     *
+     * @param int $limit Number of images to retrieve
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getCarouselImages($limit = 10)
     {
-        return static::visible()
+        // First try Gallery category
+        $images = static::visible()
             ->byType('image')
-            ->whereIn('category', ['carousel', 'gallery', 'hero'])
-            ->ordered()
+            ->byCategory('gallery')
+            ->inRandomOrder()
             ->limit($limit)
             ->get();
+            
+        // If not enough from Gallery, supplement with other categories
+        if ($images->count() < $limit) {
+            $additional = static::visible()
+                ->byType('image')
+                ->whereNotIn('category', ['gallery'])
+                ->whereIn('category', ['carousel', 'hero', 'events'])
+                ->inRandomOrder()
+                ->limit($limit - $images->count())
+                ->get();
+                
+            $images = $images->merge($additional);
+        }
+        
+        return $images;
     }
 
     /**
-     * Get videos for carousel
+     * Get random videos for carousel from Gallery category (with fallback)
+     *
+     * @param int $limit Number of videos to retrieve
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function getCarouselVideos($limit = 5)
+    public static function getCarouselVideos($limit = 10)
     {
-        return static::visible()
+        // First try Gallery category
+        $videos = static::visible()
             ->byType('video')
-            ->whereIn('category', ['carousel', 'gallery', 'hero'])
-            ->ordered()
+            ->byCategory('gallery')
+            ->inRandomOrder()
             ->limit($limit)
             ->get();
+            
+        // If not enough from Gallery, supplement with other categories
+        if ($videos->count() < $limit) {
+            $additional = static::visible()
+                ->byType('video')
+                ->whereNotIn('category', ['gallery'])
+                ->whereIn('category', ['carousel', 'hero', 'events'])
+                ->inRandomOrder()
+                ->limit($limit - $videos->count())
+                ->get();
+                
+            $videos = $videos->merge($additional);
+        }
+        
+        return $videos;
     }
 
     /**
-     * Get gallery images
+     * Get all gallery images (for "Vezi galeria foto" page)
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getGalleryImages()
     {
@@ -223,7 +263,9 @@ class Media extends Model
     }
 
     /**
-     * Get gallery videos
+     * Get all gallery videos (for "Vezi galeria video" page)
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getGalleryVideos()
     {
@@ -232,6 +274,76 @@ class Media extends Model
             ->byCategory('gallery')
             ->ordered()
             ->get();
+    }
+
+    /**
+     * Import existing storage files into Gallery category
+     *
+     * @param string $directory Directory to scan (relative to storage/app/public)
+     * @return array Import results
+     */
+    public static function importFromStorage($directory = 'gallery')
+    {
+        $imported = 0;
+        $skipped = 0;
+        $errors = [];
+        
+        $fullPath = 'storage/app/public/' . $directory;
+        $storageFiles = [];
+        
+        // Scan directory recursively
+        if (Storage::disk('public')->exists($directory)) {
+            $storageFiles = Storage::disk('public')->allFiles($directory);
+        }
+        
+        foreach ($storageFiles as $filePath) {
+            try {
+                // Check if already imported
+                if (static::where('file_path', $filePath)->exists()) {
+                    $skipped++;
+                    continue;
+                }
+                
+                $fileName = basename($filePath);
+                $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                $mimeType = Storage::disk('public')->mimeType($filePath);
+                $fileSize = Storage::disk('public')->size($filePath);
+                
+                // Determine media type
+                $mediaType = str_starts_with($mimeType, 'image/') ? 'image' : 'video';
+                
+                // Skip non-media files
+                if (!in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'webm', 'ogg', 'mov'])) {
+                    continue;
+                }
+                
+                // Create media record
+                static::create([
+                    'title' => ucwords(str_replace(['_', '-'], ' ', pathinfo($fileName, PATHINFO_FILENAME))),
+                    'description' => 'Imported from storage',
+                    'file_name' => $fileName,
+                    'file_path' => $filePath,
+                    'file_size' => $fileSize,
+                    'mime_type' => $mimeType,
+                    'media_type' => $mediaType,
+                    'category' => 'gallery',
+                    'is_visible' => true,
+                    'is_featured' => false,
+                    'sort_order' => 0,
+                ]);
+                
+                $imported++;
+                
+            } catch (\Exception $e) {
+                $errors[] = "Error importing {$filePath}: " . $e->getMessage();
+            }
+        }
+        
+        return [
+            'imported' => $imported,
+            'skipped' => $skipped,
+            'errors' => $errors,
+        ];
     }
 
     /**

@@ -122,11 +122,12 @@ class MediaCarousel extends Component
     protected function loadFromDatabase()
     {
         try {
-            // Get mix of images and videos for carousel
-            $images = Media::getCarouselImages($this->maxItems - 2);
-            $videos = Media::getCarouselVideos(2);
+            // Get exactly 10 random photos and 10 random videos from Gallery
+            $images = Media::getCarouselImages(10);
+            $videos = Media::getCarouselVideos(10);
             
-            return $images->merge($videos)->shuffle()->take($this->maxItems);
+            // Merge and shuffle for random display order
+            return $images->merge($videos)->shuffle();
         } catch (\Exception $e) {
             // Log error and return empty collection to fall back to storage scan
             \Log::warning('MediaCarousel: Database media loading failed', [

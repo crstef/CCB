@@ -118,9 +118,10 @@ class MediaResource extends Resource
                         Forms\Components\Select::make('category')
                             ->label('Category')
                             ->options(Media::CATEGORIES)
+                            ->default('gallery')
                             ->required()
                             ->native(false)
-                            ->default('gallery'),
+                            ->helperText('Gallery category is used for main carousel and galleries'),
                     ])
                     ->columns(2),
 
