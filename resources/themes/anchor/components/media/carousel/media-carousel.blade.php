@@ -336,10 +336,6 @@
         </div>
     </div>
     @endif
-            ></button>
-        </template>
-    </div>
-    @endif
     
     {{-- Premium media type indicator badge --}}
     <div class="absolute top-6 right-6 z-30">
@@ -348,6 +344,30 @@
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-75"
                  x-transition:enter-end="opacity-100 scale-100"
+                 class="bg-black/30 backdrop-blur-md rounded-xl px-4 py-2 text-white text-sm flex items-center border border-white/20 shadow-lg">
+                {{-- Photo indicator with Wave theme colors --}}
+                <template x-if="isImage(item)">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="font-medium">Fotografie</span>
+                    </div>
+                </template>
+                {{-- Video indicator with animation --}}
+                <template x-if="isVideo(item)">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="font-medium">Video</span>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
                  class="bg-black/30 backdrop-blur-md rounded-xl px-4 py-2 text-white text-sm flex items-center border border-white/20 shadow-lg">
                 {{-- Photo indicator with Wave theme colors --}}
                 <template x-if="isImage(item)">
@@ -387,11 +407,6 @@
                 {{-- Loading text with premium typography --}}
                 <h3 class="text-xl font-bold text-zinc-800 mb-2">Se încarcă galeria media</h3>
                 <p class="text-zinc-600 max-w-sm mx-auto">Pregătim cele mai frumoase imagini și videouri pentru tine...</p>
-            </div>
-        </div>
-    </template>
-</div>
-                <p class="text-gray-500">Se încarcă media...</p>
             </div>
         </div>
     </template>
