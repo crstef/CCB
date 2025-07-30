@@ -142,21 +142,32 @@
                                 <div class="space-y-2 mb-3">
                                     @foreach($document->files as $index => $file)
                                         @php
-                                            // Ensure $file is a string before using pathinfo
-                                            $filePath = is_string($file) ? $file : '';
+                                            // Handle Filament file structure - files are stored as arrays
+                                            if (is_array($file)) {
+                                                // Filament stores files as arrays with metadata
+                                                $filePath = $file['path'] ?? $file['url'] ?? $file[0] ?? '';
+                                                if (!$filePath && isset($file['name'])) {
+                                                    // Sometimes the path might be in a different key
+                                                    $filePath = $file['name'];
+                                                }
+                                            } else {
+                                                // Fallback for string paths
+                                                $filePath = is_string($file) ? $file : '';
+                                            }
+                                            
                                             $fileUrl = $filePath ? Storage::url($filePath) : '';
                                             $fileName = $filePath ? basename($filePath) : 'Unknown';
                                             $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                             
-                                            // Debug info - să vedem ce primim exact
-                                            if($index === 0) { // doar pentru primul fișier să nu încarce pagina
+                                            // Debug info - să vedem structura completă
+                                            if($index === 0) { // doar pentru primul fișier
                                                 dd([
-                                                    'original_file' => $file, 
-                                                    'file_type' => gettype($file),
-                                                    'is_string' => is_string($file),
-                                                    'is_array' => is_array($file),
-                                                    'document_files' => $document->files,
-                                                    'all_files_count' => count($document->files ?? [])
+                                                    'original_file' => $file,
+                                                    'extracted_path' => $filePath,
+                                                    'file_url' => $fileUrl,
+                                                    'file_name' => $fileName,
+                                                    'file_keys' => is_array($file) ? array_keys($file) : 'not_array',
+                                                    'document_files' => $document->files
                                                 ]);
                                             }
                                         @endphp
