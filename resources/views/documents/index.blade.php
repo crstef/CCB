@@ -80,6 +80,7 @@
                                 // Get extension from first file if files exist, otherwise use empty string
                                 $files = $document->files ?? [];
                                 $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
+                                $firstFile = is_string($firstFile) ? $firstFile : '';
                                 $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                 $iconClass = match($extension) {
                                     'pdf' => 'text-red-500',
@@ -141,9 +142,11 @@
                                 <div class="space-y-2 mb-3">
                                     @foreach($document->files as $index => $file)
                                         @php
-                                            $fileUrl = Storage::url($file);
-                                            $fileName = basename($file);
-                                            $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                            // Ensure $file is a string before using pathinfo
+                                            $filePath = is_string($file) ? $file : '';
+                                            $fileUrl = Storage::url($filePath);
+                                            $fileName = $filePath ? basename($filePath) : 'Unknown';
+                                            $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                         @endphp
                                         <div class="flex items-center justify-between p-2 bg-gray-50 rounded border text-xs">
                                             <div class="flex items-center flex-1 min-w-0">
@@ -192,6 +195,7 @@
                                         // Get extension from first file if files exist, otherwise use empty string
                                         $files = $document->files ?? [];
                                         $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
+                                        $firstFile = is_string($firstFile) ? $firstFile : '';
                                         $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                         $iconClass = match($extension) {
                                             'pdf' => 'text-red-500',
@@ -249,9 +253,11 @@
                                     <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                                         @foreach($document->files as $index => $file)
                                             @php
-                                                $fileUrl = Storage::url($file);
-                                                $fileName = basename($file);
-                                                $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                                // Ensure $file is a string before using pathinfo
+                                                $filePath = is_string($file) ? $file : '';
+                                                $fileUrl = Storage::url($filePath);
+                                                $fileName = $filePath ? basename($filePath) : 'Unknown';
+                                                $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                             @endphp
                                             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border text-sm">
                                                 <div class="flex items-center flex-1 min-w-0">
