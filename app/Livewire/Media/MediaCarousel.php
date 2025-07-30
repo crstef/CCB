@@ -103,7 +103,7 @@ class MediaCarousel extends Component
         }
 
         // Fallback: Scan storage directories for files
-        $storageFiles = $this->scanStorageDirectories();
+        $storageFiles = $this->scanMediaDirectories();
         
         if (!empty($storageFiles)) {
             $this->items = $this->processMediaFiles($storageFiles);
@@ -154,7 +154,7 @@ class MediaCarousel extends Component
                 'url' => $media->url,
                 'name' => $media->file_name,
                 'title' => $media->title,
-                'description' => $media->description ?: $this->generateDescription($media->title),
+                'description' => $media->description ?: $this->generateDescription($media->media_type),
                 'type' => $media->media_type,
                 'alt_text' => $media->alt_text ?: $media->title,
                 'is_featured' => $media->is_featured,
