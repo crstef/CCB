@@ -152,10 +152,10 @@
                             style="min-height: 100%; min-width: 100%;"
                         />
                         
-                        {{-- Small title and description at bottom with transparent black background --}}
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm p-3 text-white z-20">
-                            <h4 x-text="item.title || 'Fotografie'" class="text-sm font-semibold drop-shadow-lg"></h4>
-                            <p x-text="item.description || 'Imagine din galeria foto'" class="text-xs opacity-90 mt-1 drop-shadow-md"></p>
+                        {{-- Small title and description at bottom with more transparent background --}}
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-sm p-3 text-white z-20">
+                            <h4 x-text="item.title || 'Fotografie'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
+                            <p x-text="item.description || 'Imagine din galeria foto'" class="text-xs text-white opacity-95 mt-1 drop-shadow-md"></p>
                         </div>
                     </div>
                 </template>
@@ -183,10 +183,10 @@
                             </div>
                         </div>
                         
-                        {{-- Small title and description at bottom with transparent black background --}}
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm p-3 text-white z-20">
-                            <h4 x-text="item.title || 'Video'" class="text-sm font-semibold drop-shadow-lg"></h4>
-                            <p x-text="item.description || 'Video din galeria multimedia'" class="text-xs opacity-90 mt-1 drop-shadow-md"></p>
+                        {{-- Small title and description at bottom with more transparent background --}}
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-sm p-3 text-white z-20">
+                            <h4 x-text="item.title || 'Video'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
+                            <p x-text="item.description || 'Video din galeria multimedia'" class="text-xs text-white opacity-95 mt-1 drop-shadow-md"></p>
                         </div>
                     </div>
                 </template>

@@ -1,5 +1,74 @@
 {{-- Include custom gallery button styles --}}
 <link rel="stylesheet" href="{{ asset('css/gallery-buttons.css') }}">
+<style>
+/* High Priority Gallery Button Overrides */
+a.gallery-button,
+a.gallery-button:link,
+a.gallery-button:visited {
+    background-color: #6b7280 !important;
+    background: #6b7280 !important;
+    border: 3px solid #6b7280 !important;
+    border-radius: 1rem !important;
+    padding: 1rem 2rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 60px !important;
+    color: #ffffff !important;
+}
+
+a.gallery-button:hover,
+a.gallery-button:focus,
+a.gallery-button:active {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    border-color: #000000 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+a.gallery-button .gallery-button-inner {
+    background-color: #6b7280 !important;
+    background: #6b7280 !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+a.gallery-button:hover .gallery-button-inner {
+    background-color: #000000 !important;
+    background: #000000 !important;
+}
+
+a.gallery-button .gallery-button-text {
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 1.125rem !important;
+    margin-left: 0.75rem !important;
+}
+
+a.gallery-button .gallery-button-icon {
+    color: #ffffff !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    transition: transform 0.3s ease !important;
+}
+
+a.gallery-button:hover .gallery-button-icon {
+    transform: rotate(12deg) scale(1.1) !important;
+    color: #ffffff !important;
+}
+</style>
 
 <section class="relative top-0 flex flex-col items-center justify-center w-full min-h-screen -mt-24 bg-white lg:min-h-screen">
     
