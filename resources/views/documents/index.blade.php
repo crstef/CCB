@@ -148,8 +148,17 @@
                                             $fileName = $filePath ? basename($filePath) : 'Unknown';
                                             $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                             
-                                            // Debug info
-                                            // dd(['file' => $file, 'filePath' => $filePath, 'fileUrl' => $fileUrl, 'fileName' => $fileName]);
+                                            // Debug info - să vedem ce primim exact
+                                            if($index === 0) { // doar pentru primul fișier să nu încarce pagina
+                                                dd([
+                                                    'original_file' => $file, 
+                                                    'file_type' => gettype($file),
+                                                    'is_string' => is_string($file),
+                                                    'is_array' => is_array($file),
+                                                    'document_files' => $document->files,
+                                                    'all_files_count' => count($document->files ?? [])
+                                                ]);
+                                            }
                                         @endphp
                                         <div class="flex items-center justify-between p-2 bg-gray-50 rounded border text-xs">
                                             <div class="flex items-center flex-1 min-w-0">
