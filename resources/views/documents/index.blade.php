@@ -147,33 +147,37 @@
                                             $fileUrl = $filePath ? Storage::url($filePath) : '';
                                             $fileName = $filePath ? basename($filePath) : 'Unknown';
                                             $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
+                                            
+                                            // Debug info
+                                            // dd(['file' => $file, 'filePath' => $filePath, 'fileUrl' => $fileUrl, 'fileName' => $fileName]);
                                         @endphp
                                         <div class="flex items-center justify-between p-2 bg-gray-50 rounded border text-xs">
                                             <div class="flex items-center flex-1 min-w-0">
                                                 <span class="inline-block w-8 h-5 text-center text-xs font-bold bg-gray-300 rounded mr-2 leading-5">
-                                                    {{ strtoupper($fileExtension) }}
+                                                    {{ strtoupper($fileExtension) ?: 'DOC' }}
                                                 </span>
                                                 <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
+                                                <!-- Debug info -->
+                                                <small class="text-red-500 ml-2">({{ $filePath ?: 'no path' }})</small>
                                             </div>
                                             <div class="flex gap-1 ml-2">
-                                                @if($fileUrl)
-                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
-                                                            class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                            title="Vezi fișierul">
-                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                        </svg>
-                                                    </button>
-                                                    <a href="{{ $fileUrl }}" 
-                                                       target="_blank"
-                                                       class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
-                                                       title="Descarcă fișierul">
-                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                        </svg>
-                                                    </a>
-                                                @endif
+                                                <!-- Always show buttons for debugging -->
+                                                <button onclick="viewDocument('{{ $fileUrl ?: '#' }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                        title="Vezi fișierul">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                </button>
+                                                <a href="{{ $fileUrl ?: '#' }}" 
+                                                   target="_blank"
+                                                   class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                   title="Descarcă fișierul">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                    </svg>
+                                                </a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -264,29 +268,28 @@
                                             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border text-sm">
                                                 <div class="flex items-center flex-1 min-w-0">
                                                     <span class="inline-block w-10 h-6 text-center text-xs font-bold bg-gray-300 rounded mr-3 leading-6">
-                                                        {{ strtoupper($fileExtension) }}
+                                                        {{ strtoupper($fileExtension) ?: 'DOC' }}
                                                     </span>
                                                     <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
+                                                    <small class="text-red-500 ml-2">({{ $filePath ?: 'no path' }})</small>
                                                 </div>
                                                 <div class="flex gap-2 ml-3">
-                                                    @if($fileUrl)
-                                                        <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
-                                                                class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
-                                                                title="Vezi fișierul">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                            </svg>
-                                                        </button>
-                                                        <a href="{{ $fileUrl }}" 
-                                                           target="_blank"
-                                                           class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
-                                                           title="Descarcă fișierul">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                            </svg>
-                                                        </a>
-                                                    @endif
+                                                    <button onclick="viewDocument('{{ $fileUrl ?: '#' }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                            class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                                            title="Vezi fișierul">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <a href="{{ $fileUrl ?: '#' }}" 
+                                                       target="_blank"
+                                                       class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                       title="Descarcă fișierul">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
                                                 </div>
                                             </div>
                                         @endforeach
