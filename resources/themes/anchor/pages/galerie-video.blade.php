@@ -1,8 +1,6 @@
-@layout('theme::layouts.app')
+<x-layouts.app>
+    <x-slot name="title">Galerie Video</x-slot>
 
-@section('title', 'Galerie Video')
-
-@section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-12">
         <h1 class="text-4xl font-bold text-gray-900 mb-4">Galerie Video</h1>
@@ -54,4 +52,4 @@
         </div>
     @endif
 </div>
-@endsection
+</x-layouts.app>
