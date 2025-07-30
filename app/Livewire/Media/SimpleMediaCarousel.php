@@ -271,11 +271,8 @@ class SimpleMediaCarousel extends Component
      */
     public function render()
     {
-        return view('livewire.media.carousel.media-carousel', [
+        return view('livewire.media.carousel.simple-media-carousel', [
             'items' => $this->items,
-            'imageCount' => $this->getItemCountByType('image'),
-            'videoCount' => $this->getItemCountByType('video'),
-            'totalCount' => count($this->items)
         ]);
     }
 }
