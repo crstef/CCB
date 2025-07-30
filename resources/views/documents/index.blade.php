@@ -69,9 +69,6 @@
 <!-- Documents Grid Section -->
 <div class="bg-gray-50 py-8">
     <x-container>
-<!-- Documents Grid Section -->
-<div class="bg-gray-50 py-8">
-    <x-container>
         @if($documents->count() > 0)
             <!-- Grid View -->
             <div id="gridView" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
