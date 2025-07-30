@@ -5,8 +5,8 @@
         {{-- Left Column: Media Carousel from organized media components --}}
         <div class="w-full lg:w-1/2">
             <div class="w-full mb-8 lg:mb-0 max-w-md mx-auto lg:mx-0">
-                {{-- Include the organized media carousel component --}}
-                @livewire('media.media-carousel')
+                {{-- Include the simplified media carousel component (temporary until backend is set up) --}}
+                @livewire('media.simple-media-carousel')
             </div>
         </div>
             <div class="flex items-center justify-center w-full mt-8 lg:mt-12">
