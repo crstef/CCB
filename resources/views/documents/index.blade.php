@@ -45,15 +45,14 @@
 </div>
 
 <!-- Documents Grid Section -->
-<div class="bg-gray-50 py-12">
+<div class="bg-gray-50 py-8">
     <x-container>
         @if($documents->count() > 0)
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 @foreach($documents as $document)
-                    <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden border border-gray-100">
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden border border-gray-100">
                         <!-- Document Icon Header -->
-                        <div class="relative h-32 bg-gradient-to-br from-{{ $document->category->color ?? 'blue' }}-50 to-{{ $document->category->color ?? 'blue' }}-100 flex items-center justify-center">
-                            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/5"></div>
+                        <div class="relative h-20 bg-gradient-to-br from-{{ $document->category->color ?? 'blue' }}-50 to-{{ $document->category->color ?? 'blue' }}-100 flex items-center justify-center">
                             @php
                                 $extension = strtolower(pathinfo($document->file_path, PATHINFO_EXTENSION));
                                 $iconClass = match($extension) {
@@ -63,26 +62,21 @@
                                     'ppt', 'pptx' => 'text-orange-500',
                                     default => 'text-gray-500'
                                 };
-                                $iconPath = match($extension) {
-                                    'pdf' => 'M7 18A1.5 1.5 0 0 0 8.5 19.5h7A1.5 1.5 0 0 0 17 18V7.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 12.172 3H8.5A1.5 1.5 0 0 0 7 4.5V18z',
-                                    'doc', 'docx' => 'M9 2a1 1 0 000 2h6a1 1 0 100-2H9z M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6h-1a1 1 0 00-1 1v4H6v-4a1 1 0 00-1-1H4V5z',
-                                    default => 'M9 2a1 1 0 000 2h6a1 1 0 100-2H9z M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6h-1a1 1 0 00-1 1v4H6v-4a1 1 0 00-1-1H4V5z'
-                                };
                             @endphp
                             <div class="relative">
-                                <svg class="w-16 h-16 {{ $iconClass }} group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="{{ $iconPath }}"/>
+                                <svg class="w-10 h-10 {{ $iconClass }} group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                                 </svg>
-                                <div class="absolute -top-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-sm">
+                                <div class="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm">
                                     <span class="text-xs font-bold uppercase text-gray-600">{{ $extension }}</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Document Content -->
-                        <div class="p-6">
-                            <div class="flex items-start justify-between mb-3">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" 
+                        <div class="p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white" 
                                       style="background-color: {{ $document->category->color }}">
                                     {{ $document->category->name }}
                                 </span>
@@ -91,43 +85,47 @@
                                 </time>
                             </div>
 
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                            <h3 class="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
                                 {{ $document->title }}
                             </h3>
 
                             @if($document->description)
-                                <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                                <p class="text-xs text-gray-600 mb-3 line-clamp-2">
                                     {{ $document->description }}
                                 </p>
                             @endif
 
                             <!-- Document Metadata -->
-                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
                                 @if($document->file_size)
                                     <span class="flex items-center">
                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2M7 4h10M7 4l-2 14h14l-2-14"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                         </svg>
                                         {{ $document->getFileSizeFormatted() }}
                                     </span>
                                 @endif
-                                <span class="flex items-center">
-                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                    Securizat
-                                </span>
                             </div>
 
-                            <!-- Download Button -->
-                            <a href="{{ $document->getFileUrl() }}" 
-                               target="_blank"
-                               class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 group-hover:shadow-md">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                                Descarcă Document
-                            </a>
+                            <!-- Action Buttons -->
+                            <div class="flex gap-2">
+                                <button onclick="viewDocument('{{ $document->getFileUrl() }}', '{{ $document->title }}', '{{ $extension }}')"
+                                        class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-md text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors duration-200">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    Vezi
+                                </button>
+                                <a href="{{ $document->getFileUrl() }}" 
+                                   target="_blank"
+                                   class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Descarcă
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -135,7 +133,7 @@
 
             <!-- Pagination -->
             @if($documents->hasPages())
-                <div class="mt-12">
+                <div class="mt-8">
                     {{ $documents->appends(request()->query())->links() }}
                 </div>
             @endif
@@ -166,6 +164,67 @@
             </div>
         @endif
     </x-container>
+</div>
+
+<!-- Document Viewer Modal -->
+<div id="documentModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeDocumentModal()"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                        Document Viewer
+                    </h3>
+                    <button type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="closeDocumentModal()">
+                        <span class="sr-only">Închide</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="w-full h-96 sm:h-[500px] lg:h-[600px] bg-gray-100 rounded-lg overflow-hidden">
+                    <iframe id="documentFrame" 
+                            class="w-full h-full border-0" 
+                            src=""
+                            title="Document Viewer">
+                    </iframe>
+                    
+                    <!-- Loading spinner -->
+                    <div id="documentLoading" class="flex items-center justify-center h-full">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                    </div>
+                    
+                    <!-- Error message for unsupported files -->
+                    <div id="documentError" class="hidden flex flex-col items-center justify-center h-full text-center p-8">
+                        <svg class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Preview indisponibil</h3>
+                        <p class="text-gray-500 mb-4">Acest tip de fișier nu poate fi vizualizat în browser.</p>
+                        <a id="downloadFallback" href="#" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Descarcă Fișierul
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm" onclick="openInNewTab()">
+                    Deschide în tab nou
+                </button>
+                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeDocumentModal()">
+                    Închide
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- CTA Section -->
@@ -204,6 +263,92 @@
         overflow: hidden;
     }
 </style>
+@endpush
+
+@push('js')
+<script>
+let currentDocumentUrl = '';
+
+function viewDocument(url, title, extension) {
+    const modal = document.getElementById('documentModal');
+    const frame = document.getElementById('documentFrame');
+    const loading = document.getElementById('documentLoading');
+    const error = document.getElementById('documentError');
+    const modalTitle = document.getElementById('modal-title');
+    const downloadFallback = document.getElementById('downloadFallback');
+    
+    currentDocumentUrl = url;
+    modalTitle.textContent = title;
+    downloadFallback.href = url;
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    
+    // Reset states
+    frame.style.display = 'none';
+    loading.style.display = 'flex';
+    error.classList.add('hidden');
+    
+    // Check if file type is viewable
+    const viewableExtensions = ['pdf', 'txt', 'html'];
+    const isViewable = viewableExtensions.includes(extension.toLowerCase());
+    
+    if (isViewable) {
+        // For PDFs and other viewable files
+        if (extension.toLowerCase() === 'pdf') {
+            frame.src = url + '#view=FitH';
+        } else {
+            frame.src = url;
+        }
+        
+        frame.onload = function() {
+            loading.style.display = 'none';
+            frame.style.display = 'block';
+        };
+        
+        frame.onerror = function() {
+            loading.style.display = 'none';
+            error.classList.remove('hidden');
+        };
+        
+        // Fallback timeout
+        setTimeout(() => {
+            if (loading.style.display !== 'none') {
+                loading.style.display = 'none';
+                error.classList.remove('hidden');
+            }
+        }, 5000);
+    } else {
+        // For non-viewable files, show error message immediately
+        loading.style.display = 'none';
+        error.classList.remove('hidden');
+    }
+}
+
+function closeDocumentModal() {
+    const modal = document.getElementById('documentModal');
+    const frame = document.getElementById('documentFrame');
+    
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    frame.src = '';
+    currentDocumentUrl = '';
+}
+
+function openInNewTab() {
+    if (currentDocumentUrl) {
+        window.open(currentDocumentUrl, '_blank');
+    }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeDocumentModal();
+    }
+});
+</script>
 @endpush
 
 </x-layouts.app>
