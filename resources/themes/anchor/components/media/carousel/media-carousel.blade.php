@@ -151,6 +151,14 @@
                             class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             style="min-height: 100%; min-width: 100%;"
                         />
+                        
+                        {{-- Small title overlay with very transparent background --}}
+                        <div class="absolute bottom-3 left-3 right-3 text-white z-20" x-show="item.title || item.description">
+                            <div class="bg-black/20 backdrop-blur-sm rounded-lg px-3 py-2 max-w-xs">
+                                <h4 x-text="item.title || 'Fotografie'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
+                                <p x-text="item.description || ''" x-show="item.description" class="text-xs text-white/90 drop-shadow-md mt-1"></p>
+                            </div>
+                        </div>
                     </div>
                 </template>
                 
@@ -176,6 +184,14 @@
                                 </svg>
                             </div>
                         </div>
+                        
+                        {{-- Small title overlay with very transparent background --}}
+                        <div class="absolute bottom-3 left-3 right-3 text-white z-20" x-show="item.title || item.description">
+                            <div class="bg-black/20 backdrop-blur-sm rounded-lg px-3 py-2 max-w-xs">
+                                <h4 x-text="item.title || 'Video'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
+                                <p x-text="item.description || ''" x-show="item.description" class="text-xs text-white/90 drop-shadow-md mt-1"></p>
+                            </div>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -185,23 +201,23 @@
     {{-- Navigation arrows --}}
     <template x-if="items.length > 1">
         <div>
-            {{-- Previous button - Left arrow --}}
+            {{-- Previous button - Simple Left Arrow --}}
             <button 
                 @click="prevSlide(); restartAutoplay();"
-                class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
+                class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white rounded-full p-3 transition-all duration-300 hover:scale-110 z-30 shadow-lg"
             >
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 18l-6-6 6-6"></path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
                 </svg>
             </button>
             
-            {{-- Next button - Right arrow --}}
+            {{-- Next button - Simple Right Arrow --}}
             <button 
                 @click="nextSlide(); restartAutoplay();"
-                class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-blue-600/80 text-white rounded-xl p-4 transition-all duration-300 group border border-white/20 hover:border-blue-400/50 shadow-lg hover:shadow-blue-500/25 hover:scale-110 z-30"
+                class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white rounded-full p-3 transition-all duration-300 hover:scale-110 z-30 shadow-lg"
             >
-                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 18l6-6-6-6"></path>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
                 </svg>
             </button>
         </div>
