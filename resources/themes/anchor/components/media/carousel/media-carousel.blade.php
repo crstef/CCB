@@ -152,12 +152,10 @@
                             style="min-height: 100%; min-width: 100%;"
                         />
                         
-                        {{-- Small title overlay with very transparent background --}}
-                        <div class="absolute bottom-3 left-3 right-3 text-white z-20" x-show="item.title || item.description">
-                            <div class="bg-black/20 backdrop-blur-sm rounded-lg px-3 py-2 max-w-xs">
-                                <h4 x-text="item.title || 'Fotografie'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
-                                <p x-text="item.description || ''" x-show="item.description" class="text-xs text-white/90 drop-shadow-md mt-1"></p>
-                            </div>
+                        {{-- Small title and description at bottom with transparent black background --}}
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm p-3 text-white z-20">
+                            <h4 x-text="item.title || 'Fotografie'" class="text-sm font-semibold drop-shadow-lg"></h4>
+                            <p x-text="item.description || 'Imagine din galeria foto'" class="text-xs opacity-90 mt-1 drop-shadow-md"></p>
                         </div>
                     </div>
                 </template>
@@ -185,12 +183,10 @@
                             </div>
                         </div>
                         
-                        {{-- Small title overlay with very transparent background --}}
-                        <div class="absolute bottom-3 left-3 right-3 text-white z-20" x-show="item.title || item.description">
-                            <div class="bg-black/20 backdrop-blur-sm rounded-lg px-3 py-2 max-w-xs">
-                                <h4 x-text="item.title || 'Video'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
-                                <p x-text="item.description || ''" x-show="item.description" class="text-xs text-white/90 drop-shadow-md mt-1"></p>
-                            </div>
+                        {{-- Small title and description at bottom with transparent black background --}}
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm p-3 text-white z-20">
+                            <h4 x-text="item.title || 'Video'" class="text-sm font-semibold drop-shadow-lg"></h4>
+                            <p x-text="item.description || 'Video din galeria multimedia'" class="text-xs opacity-90 mt-1 drop-shadow-md"></p>
                         </div>
                     </div>
                 </template>
@@ -201,23 +197,23 @@
     {{-- Navigation arrows --}}
     <template x-if="items.length > 1">
         <div>
-            {{-- Previous button - Simple Left Arrow --}}
+            {{-- Previous button - Left Arrow < --}}
             <button 
                 @click="prevSlide(); restartAutoplay();"
                 class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white rounded-full p-3 transition-all duration-300 hover:scale-110 z-30 shadow-lg"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 18l-6-6 6-6"></path>
                 </svg>
             </button>
             
-            {{-- Next button - Simple Right Arrow --}}
+            {{-- Next button - Right Arrow > --}}
             <button 
                 @click="nextSlide(); restartAutoplay();"
                 class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white rounded-full p-3 transition-all duration-300 hover:scale-110 z-30 shadow-lg"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 18l6-6-6-6"></path>
                 </svg>
             </button>
         </div>

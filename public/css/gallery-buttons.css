@@ -1,7 +1,7 @@
 /* Custom Gallery Button Styles */
 .gallery-button {
-    background-color: #000000 !important; /* Black rounded outer */
-    border: 3px solid #000000 !important;
+    background-color: #6b7280 !important; /* Gray-500 rounded outer */
+    border: 3px solid #6b7280 !important;
     border-radius: 1rem !important;
     padding: 1rem 2rem !important;
     position: relative !important;
@@ -15,29 +15,36 @@
 }
 
 .gallery-button:hover {
+    background-color: #000000 !important; /* Black on hover */
+    border-color: #000000 !important;
     transform: scale(1.05) !important;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
 .gallery-button-inner {
-    background-color: #ffffff !important; /* White background inside */
+    background-color: #6b7280 !important; /* Gray background inside */
     border-radius: 0.75rem !important;
     padding: 0.75rem 1.5rem !important;
     display: flex !important;
     align-items: center !important;
     width: 100% !important;
     justify-content: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.gallery-button:hover .gallery-button-inner {
+    background-color: #000000 !important; /* Black background on hover */
 }
 
 .gallery-button-text {
-    color: #000000 !important; /* Black text */
+    color: #ffffff !important; /* White text */
     font-weight: bold !important;
     font-size: 1.125rem !important; /* text-lg */
     margin-left: 0.75rem !important;
 }
 
 .gallery-button-icon {
-    color: #000000 !important; /* Black icon */
+    color: #ffffff !important; /* White icon */
     width: 1.5rem !important;
     height: 1.5rem !important;
     transition: transform 0.3s ease !important;
@@ -45,8 +52,5 @@
 
 .gallery-button:hover .gallery-button-icon {
     transform: rotate(12deg) scale(1.1) !important;
-}
-
-.gallery-button:hover .gallery-button-inner {
-    background-color: #f8f9fa !important; /* Slightly off-white on hover */
+    color: #ffffff !important; /* Keep white on hover */
 }
