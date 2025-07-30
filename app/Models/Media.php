@@ -41,6 +41,7 @@ class Media extends Model
         'alt_text',
         'tags',
         'metadata',
+        'youtube_url', // Added support for YouTube URLs
     ];
 
     /**
@@ -120,6 +121,71 @@ class Media extends Model
     public function isVideo(): bool
     {
         return $this->media_type === 'video';
+    }
+
+    /**
+     * Check if this is a YouTube video
+     *
+     * @return bool
+     */
+    public function isYouTube(): bool
+    {
+        if (!$this->isVideo()) {
+            return false;
+        }
+        
+        return !empty($this->youtube_url) || (isset($this->metadata['youtube_url']) && !empty($this->metadata['youtube_url']));
+    }
+
+    /**
+     * Get YouTube video ID from URL
+     *
+     * @return string|null
+     */
+    public function getYouTubeId(): ?string
+    {
+        if (!$this->isYouTube()) {
+            return null;
+        }
+        
+        $url = $this->youtube_url ?? $this->metadata['youtube_url'] ?? '';
+        
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/', $url, $matches)) {
+            return $matches[1];
+        }
+        
+        return null;
+    }
+
+    /**
+     * Get YouTube thumbnail URL
+     *
+     * @param string $quality maxresdefault, hqdefault, mqdefault, sddefault, default
+     * @return string|null
+     */
+    public function getYouTubeThumbnail(string $quality = 'maxresdefault'): ?string
+    {
+        $youtubeId = $this->getYouTubeId();
+        
+        if (!$youtubeId) {
+            return null;
+        }
+        
+        return "https://img.youtube.com/vi/{$youtubeId}/{$quality}.jpg";
+    }
+
+    /**
+     * Get the video URL (YouTube embed or file URL)
+     *
+     * @return string
+     */
+    public function getVideoUrl(): string
+    {
+        if ($this->isYouTube()) {
+            return $this->youtube_url ?? $this->metadata['youtube_url'] ?? '';
+        }
+        
+        return $this->url;
     }
 
     /**
