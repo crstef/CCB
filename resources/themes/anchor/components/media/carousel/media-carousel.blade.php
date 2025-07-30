@@ -124,12 +124,9 @@
     }"
     @mouseenter="stopAutoplay()"
     @mouseleave="restartAutoplay()"
-    class="relative w-full h-[400px] lg:h-[450px] overflow-hidden rounded-2xl bg-gradient-to-br from-white to-zinc-50 shadow-2xl border border-zinc-200/60 backdrop-blur-sm"
+    class="relative w-full h-[400px] lg:h-[450px] overflow-hidden rounded-2xl bg-gradient-to-br from-white to-zinc-50 shadow-2xl border border-zinc-200/60"
     style="aspect-ratio: 16/9; min-height: 250px;"
 >
-    {{-- Premium glassmorphism overlay --}}
-    <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 pointer-events-none z-10"></div>
-    
     {{-- Main carousel container --}}
     <div class="relative w-full h-full min-h-full bg-gradient-to-br from-zinc-50 to-white">
         {{-- Loop through all media items --}}
@@ -154,13 +151,11 @@
                             class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                             style="min-height: 100%; min-width: 100%;"
                         />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         
-                        {{-- Content overlay --}}
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
-                            <div class="backdrop-blur-sm bg-black/20 rounded-xl p-4 border border-white/10">
-                                <h3 x-text="item.title || 'Fotografie'" class="text-xl font-bold mb-2 text-white drop-shadow-lg"></h3>
-                                <p x-text="item.description || 'Vedere din galeria foto'" class="text-sm opacity-90 text-zinc-100"></p>
+                        {{-- Minimal content overlay - only at bottom corner --}}
+                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-show="item.title && item.title.trim() !== ''" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                            <div class="backdrop-blur-sm bg-black/40 rounded-lg px-3 py-2 border border-white/20 max-w-xs">
+                                <h3 x-text="item.title" class="text-sm font-semibold text-white drop-shadow-lg truncate"></h3>
                             </div>
                         </div>
                     </div>
@@ -180,22 +175,19 @@
                             preload="metadata"
                         ></video>
                         
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                        
-                        {{-- Video play indicator --}}
+                        {{-- Video play indicator - smaller and more subtle --}}
                         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="bg-blue-600/20 backdrop-blur-sm rounded-full p-6 group-hover:scale-110 transition-all duration-300 border border-blue-400/30">
-                                <svg class="w-12 h-12 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-black/30 backdrop-blur-sm rounded-full p-4 group-hover:scale-110 transition-all duration-300 border border-white/30">
+                                <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
                             </div>
                         </div>
                         
-                        {{-- Content overlay --}}
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white z-20">
-                            <div class="backdrop-blur-sm bg-black/20 rounded-xl p-4 border border-white/10">
-                                <h3 x-text="item.title || 'Video'" class="text-xl font-bold mb-2 text-white drop-shadow-lg"></h3>
-                                <p x-text="item.description || 'Vedere din galeria video'" class="text-sm opacity-90 text-zinc-100"></p>
+                        {{-- Minimal content overlay - only at bottom corner --}}
+                        <div class="absolute bottom-4 left-4 right-4 text-white z-20" x-show="item.title && item.title.trim() !== ''" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
+                            <div class="backdrop-blur-sm bg-black/40 rounded-lg px-3 py-2 border border-white/20 max-w-xs">
+                                <h3 x-text="item.title" class="text-sm font-semibold text-white drop-shadow-lg truncate"></h3>
                             </div>
                         </div>
                     </div>
@@ -241,40 +233,6 @@
                     ></button>
                 </template>
             </div>
-        </div>
-    </template>
-    
-    {{-- Media type indicator --}}
-    <template x-if="items.length > 0">
-        <div class="absolute top-6 right-6 z-30">
-            <template x-for="(item, index) in items" :key="index">
-                <div x-show="currentSlide === index" 
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0 scale-75"
-                     x-transition:enter-end="opacity-100 scale-100"
-                     class="bg-black/30 backdrop-blur-md rounded-xl px-4 py-2 text-white text-sm flex items-center border border-white/20 shadow-lg">
-                    {{-- Photo indicator --}}
-                    <template x-if="isImage(item)">
-                        <div class="flex items-center">
-                            <div class="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <span class="font-medium">Fotografie</span>
-                        </div>
-                    </template>
-                    {{-- Video indicator --}}
-                    <template x-if="isVideo(item)">
-                        <div class="flex items-center">
-                            <div class="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                            <span class="font-medium">Video</span>
-                        </div>
-                    </template>
-                </div>
-            </template>
         </div>
     </template>
     
