@@ -77,7 +77,9 @@
                         <!-- Document Icon Header -->
                         <div class="relative h-20 bg-gradient-to-br from-{{ $document->category->color ?? 'blue' }}-50 to-{{ $document->category->color ?? 'blue' }}-100 flex items-center justify-center">
                             @php
-                                $extension = strtolower(pathinfo($document->file_path, PATHINFO_EXTENSION));
+                                // Get extension from first file if files exist, otherwise use empty string
+                                $firstFile = isset($document->files[0]) ? $document->files[0] : '';
+                                $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                 $iconClass = match($extension) {
                                     'pdf' => 'text-red-500',
                                     'doc', 'docx' => 'text-blue-500',
@@ -91,7 +93,7 @@
                                     <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                                 </svg>
                                 <div class="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm">
-                                    <span class="text-xs font-bold uppercase text-gray-600">{{ $extension }}</span>
+                                    <span class="text-xs font-bold uppercase text-gray-600">{{ $extension ?: 'DOC' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +188,9 @@
                                 <div class="flex items-center gap-3 mb-3">
                                     <!-- Document Icon -->
                                     @php
-                                        $extension = strtolower(pathinfo($document->file_path, PATHINFO_EXTENSION));
+                                        // Get extension from first file if files exist, otherwise use empty string
+                                        $firstFile = isset($document->files[0]) ? $document->files[0] : '';
+                                        $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
                                         $iconClass = match($extension) {
                                             'pdf' => 'text-red-500',
                                             'doc', 'docx' => 'text-blue-500',
@@ -200,7 +204,7 @@
                                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                                         </svg>
                                         <div class="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-sm">
-                                            <span class="text-xs font-bold uppercase text-gray-600" style="font-size: 8px;">{{ $extension }}</span>
+                                            <span class="text-xs font-bold uppercase text-gray-600" style="font-size: 8px;">{{ $extension ?: 'DOC' }}</span>
                                         </div>
                                     </div>
 
