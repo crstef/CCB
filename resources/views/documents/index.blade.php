@@ -1,6 +1,4 @@
-@extends('theme::layouts.app')
-
-@section('content')
+<x-layouts.app>
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
@@ -191,8 +189,6 @@
     </x-container>
 </div>
 
-@endsection
-
 @push('css')
 <style>
     .line-clamp-2 {
@@ -209,3 +205,5 @@
     }
 </style>
 @endpush
+
+</x-layouts.app>
