@@ -5,11 +5,11 @@
 a.gallery-button,
 a.gallery-button:link,
 a.gallery-button:visited {
-    background-color: #6b7280 !important;
-    background: #6b7280 !important;
-    border: 3px solid #6b7280 !important;
-    border-radius: 1rem !important;
-    padding: 1rem 2rem !important;
+    background-color: rgba(107, 114, 128, 0.85) !important;
+    background: rgba(107, 114, 128, 0.85) !important;
+    border: 2px solid rgba(107, 114, 128, 0.85) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.5rem !important;
     position: relative !important;
     overflow: hidden !important;
     transition: all 0.3s ease !important;
@@ -17,27 +17,44 @@ a.gallery-button:visited {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    min-height: 60px !important;
+    min-height: 50px !important;
     color: #ffffff !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+a.gallery-button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+a.gallery-button:hover::before {
+    left: 100% !important;
 }
 
 a.gallery-button:hover,
 a.gallery-button:focus,
 a.gallery-button:active {
-    background-color: #000000 !important;
-    background: #000000 !important;
-    border-color: #000000 !important;
-    transform: scale(1.05) !important;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    border-color: rgba(0, 0, 0, 0.9) !important;
+    transform: scale(1.02) translateY(-1px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
     text-decoration: none !important;
 }
 
 a.gallery-button .gallery-button-inner {
-    background-color: #6b7280 !important;
-    background: #6b7280 !important;
-    border-radius: 0.75rem !important;
-    padding: 0.75rem 1.5rem !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
     display: flex !important;
     align-items: center !important;
     width: 100% !important;
@@ -46,26 +63,28 @@ a.gallery-button .gallery-button-inner {
 }
 
 a.gallery-button:hover .gallery-button-inner {
-    background-color: #000000 !important;
-    background: #000000 !important;
+    background-color: transparent !important;
+    background: transparent !important;
 }
 
 a.gallery-button .gallery-button-text {
     color: #ffffff !important;
-    font-weight: bold !important;
-    font-size: 1.125rem !important;
-    margin-left: 0.75rem !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    margin-left: 0.5rem !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 a.gallery-button .gallery-button-icon {
     color: #ffffff !important;
-    width: 1.5rem !important;
-    height: 1.5rem !important;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
     transition: transform 0.3s ease !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
 }
 
 a.gallery-button:hover .gallery-button-icon {
-    transform: rotate(12deg) scale(1.1) !important;
+    transform: rotate(8deg) scale(1.05) !important;
     color: #ffffff !important;
 }
 </style>
