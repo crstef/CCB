@@ -79,9 +79,22 @@
                             @php
                                 // Get extension from first file if files exist, otherwise use empty string
                                 $files = $document->files ?? [];
-                                $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
-                                $firstFile = is_string($firstFile) ? $firstFile : '';
-                                $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
+                                if (is_array($files) && count($files) > 0) {
+                                    $firstFile = $files[0];
+                                    // Handle Filament file structure
+                                    if (is_array($firstFile)) {
+                                        $firstFilePath = $firstFile['path'] ?? $firstFile['url'] ?? $firstFile[0] ?? '';
+                                        if (!$firstFilePath && isset($firstFile['name'])) {
+                                            $firstFilePath = $firstFile['name'];
+                                        }
+                                    } else {
+                                        $firstFilePath = is_string($firstFile) ? $firstFile : '';
+                                    }
+                                } else {
+                                    $firstFilePath = '';
+                                }
+                                
+                                $extension = $firstFilePath ? strtolower(pathinfo($firstFilePath, PATHINFO_EXTENSION)) : '';
                                 $iconClass = match($extension) {
                                     'pdf' => 'text-red-500',
                                     'doc', 'docx' => 'text-blue-500',
@@ -158,18 +171,6 @@
                                             $fileUrl = $filePath ? Storage::url($filePath) : '';
                                             $fileName = $filePath ? basename($filePath) : 'Unknown';
                                             $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
-                                            
-                                            // Debug info - să vedem structura completă
-                                            if($index === 0) { // doar pentru primul fișier
-                                                dd([
-                                                    'original_file' => $file,
-                                                    'extracted_path' => $filePath,
-                                                    'file_url' => $fileUrl,
-                                                    'file_name' => $fileName,
-                                                    'file_keys' => is_array($file) ? array_keys($file) : 'not_array',
-                                                    'document_files' => $document->files
-                                                ]);
-                                            }
                                         @endphp
                                         <div class="flex items-center justify-between p-2 bg-gray-50 rounded border text-xs">
                                             <div class="flex items-center flex-1 min-w-0">
@@ -177,27 +178,26 @@
                                                     {{ strtoupper($fileExtension) ?: 'DOC' }}
                                                 </span>
                                                 <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
-                                                <!-- Debug info -->
-                                                <small class="text-red-500 ml-2">({{ $filePath ?: 'no path' }})</small>
                                             </div>
                                             <div class="flex gap-1 ml-2">
-                                                <!-- Always show buttons for debugging -->
-                                                <button onclick="viewDocument('{{ $fileUrl ?: '#' }}', '{{ $fileName }}', '{{ $fileExtension }}')"
-                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                        title="Vezi fișierul">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                    </svg>
-                                                </button>
-                                                <a href="{{ $fileUrl ?: '#' }}" 
-                                                   target="_blank"
-                                                   class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
-                                                   title="Descarcă fișierul">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                    </svg>
-                                                </a>
+                                                @if($fileUrl)
+                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                            class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                            title="Vezi fișierul">
+                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <a href="{{ $fileUrl }}" 
+                                                       target="_blank"
+                                                       class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                       title="Descarcă fișierul">
+                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
@@ -220,9 +220,22 @@
                                     @php
                                         // Get extension from first file if files exist, otherwise use empty string
                                         $files = $document->files ?? [];
-                                        $firstFile = is_array($files) && count($files) > 0 ? $files[0] : '';
-                                        $firstFile = is_string($firstFile) ? $firstFile : '';
-                                        $extension = $firstFile ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION)) : '';
+                                        if (is_array($files) && count($files) > 0) {
+                                            $firstFile = $files[0];
+                                            // Handle Filament file structure
+                                            if (is_array($firstFile)) {
+                                                $firstFilePath = $firstFile['path'] ?? $firstFile['url'] ?? $firstFile[0] ?? '';
+                                                if (!$firstFilePath && isset($firstFile['name'])) {
+                                                    $firstFilePath = $firstFile['name'];
+                                                }
+                                            } else {
+                                                $firstFilePath = is_string($firstFile) ? $firstFile : '';
+                                            }
+                                        } else {
+                                            $firstFilePath = '';
+                                        }
+                                        
+                                        $extension = $firstFilePath ? strtolower(pathinfo($firstFilePath, PATHINFO_EXTENSION)) : '';
                                         $iconClass = match($extension) {
                                             'pdf' => 'text-red-500',
                                             'doc', 'docx' => 'text-blue-500',
@@ -279,8 +292,19 @@
                                     <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                                         @foreach($document->files as $index => $file)
                                             @php
-                                                // Ensure $file is a string before using pathinfo
-                                                $filePath = is_string($file) ? $file : '';
+                                                // Handle Filament file structure - files are stored as arrays
+                                                if (is_array($file)) {
+                                                    // Filament stores files as arrays with metadata
+                                                    $filePath = $file['path'] ?? $file['url'] ?? $file[0] ?? '';
+                                                    if (!$filePath && isset($file['name'])) {
+                                                        // Sometimes the path might be in a different key
+                                                        $filePath = $file['name'];
+                                                    }
+                                                } else {
+                                                    // Fallback for string paths
+                                                    $filePath = is_string($file) ? $file : '';
+                                                }
+                                                
                                                 $fileUrl = $filePath ? Storage::url($filePath) : '';
                                                 $fileName = $filePath ? basename($filePath) : 'Unknown';
                                                 $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
