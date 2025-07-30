@@ -15,7 +15,7 @@
     in an organized gallery format with modern video player functionality.
 --}}
 
-@extends('theme::layouts.app')
+@extends('theme::layouts.marketing')
 
 @section('title', 'Galerie Video')
 

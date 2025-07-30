@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.marketing>
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
@@ -23,6 +23,26 @@
     <x-container class="py-8">
         <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
             <h2 class="text-lg font-semibold text-gray-900">Categorii Documente</h2>
+            
+            <!-- View Toggle - Moved here -->
+            @if($documents->count() > 0)
+                <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button id="gridViewBtn" onclick="setViewMode('grid')" 
+                            class="view-toggle-btn active flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                        Grid
+                    </button>
+                    <button id="listViewBtn" onclick="setViewMode('list')" 
+                            class="view-toggle-btn flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        Listă
+                    </button>
+                </div>
+            @endif
         </div>
         
         <!-- Category Filters -->
@@ -50,26 +70,6 @@
 <div class="bg-gray-50 py-8">
     <x-container>
         @if($documents->count() > 0)
-            <!-- View Toggle -->
-            <div class="flex justify-end mb-6">
-                <div class="flex items-center bg-gray-100 rounded-lg p-1">
-                    <button id="gridViewBtn" onclick="setViewMode('grid')" 
-                            class="view-toggle-btn active flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                        </svg>
-                        Grid
-                    </button>
-                    <button id="listViewBtn" onclick="setViewMode('list')" 
-                            class="view-toggle-btn flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                        </svg>
-                        Listă
-                    </button>
-                </div>
-            </div>
-            
             <!-- Grid View -->
             <div id="gridView" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 @foreach($documents as $document)
@@ -180,7 +180,7 @@
                                                 <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
                                             </div>
                                             <div class="flex gap-1 ml-2">
-                                                @if($fileUrl)
+                                                @if($fileUrl && $fileUrl !== '#')
                                                     <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
                                                             class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
                                                             title="Vezi fișierul">
@@ -197,6 +197,8 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                                         </svg>
                                                     </a>
+                                                @else
+                                                    <span class="text-xs text-gray-400">Fișier indisponibil</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -318,7 +320,7 @@
                                                     <small class="text-red-500 ml-2">({{ $filePath ?: 'no path' }})</small>
                                                 </div>
                                                 <div class="flex gap-2 ml-3">
-                                                    <button onclick="viewDocument('{{ $fileUrl ?: '#' }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
                                                             class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
                                                             title="Vezi fișierul">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -326,7 +328,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                                         </svg>
                                                     </button>
-                                                    <a href="{{ $fileUrl ?: '#' }}" 
+                                                    <a href="{{ $fileUrl }}" 
                                                        target="_blank"
                                                        class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
                                                        title="Descarcă fișierul">
@@ -668,4 +670,4 @@ window.openInNewTab = openInNewTab;
 </script>
 @endpush
 
-</x-layouts.app>
+</x-layouts.marketing>

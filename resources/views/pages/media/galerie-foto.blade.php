@@ -14,7 +14,7 @@
     in an organized gallery format with modern UI interactions.
 --}}
 
-@extends('theme::layouts.app')
+@extends('theme::layouts.marketing')
 
 @section('title', 'Galerie Foto')
 
