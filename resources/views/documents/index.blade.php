@@ -23,26 +23,6 @@
     <x-container class="py-8">
         <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
             <h2 class="text-lg font-semibold text-gray-900">Categorii Documente</h2>
-            
-            <!-- View Toggle -->
-            <div class="flex items-center gap-4">
-                <div class="flex items-center bg-gray-100 rounded-lg p-1">
-                    <button id="gridViewBtn" onclick="setViewMode('grid')" 
-                            class="view-toggle-btn active flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                        </svg>
-                        Grid
-                    </button>
-                    <button id="listViewBtn" onclick="setViewMode('list')" 
-                            class="view-toggle-btn flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                        </svg>
-                        Listă
-                    </button>
-                </div>
-            </div>
         </div>
         
         <!-- Category Filters -->
@@ -70,6 +50,26 @@
 <div class="bg-gray-50 py-8">
     <x-container>
         @if($documents->count() > 0)
+            <!-- View Toggle -->
+            <div class="flex justify-end mb-6">
+                <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button id="gridViewBtn" onclick="setViewMode('grid')" 
+                            class="view-toggle-btn active flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                        </svg>
+                        Grid
+                    </button>
+                    <button id="listViewBtn" onclick="setViewMode('list')" 
+                            class="view-toggle-btn flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        Listă
+                    </button>
+                </div>
+            </div>
+            
             <!-- Grid View -->
             <div id="gridView" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 @foreach($documents as $document)
@@ -144,7 +144,7 @@
                                         @php
                                             // Ensure $file is a string before using pathinfo
                                             $filePath = is_string($file) ? $file : '';
-                                            $fileUrl = Storage::url($filePath);
+                                            $fileUrl = $filePath ? Storage::url($filePath) : '';
                                             $fileName = $filePath ? basename($filePath) : 'Unknown';
                                             $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                         @endphp
@@ -156,22 +156,24 @@
                                                 <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
                                             </div>
                                             <div class="flex gap-1 ml-2">
-                                                <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
-                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                        title="Vezi fișierul">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                    </svg>
-                                                </button>
-                                                <a href="{{ $fileUrl }}" 
-                                                   target="_blank"
-                                                   class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
-                                                   title="Descarcă fișierul">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                    </svg>
-                                                </a>
+                                                @if($fileUrl)
+                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                            class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                            title="Vezi fișierul">
+                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                        </svg>
+                                                    </button>
+                                                    <a href="{{ $fileUrl }}" 
+                                                       target="_blank"
+                                                       class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                       title="Descarcă fișierul">
+                                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
@@ -255,7 +257,7 @@
                                             @php
                                                 // Ensure $file is a string before using pathinfo
                                                 $filePath = is_string($file) ? $file : '';
-                                                $fileUrl = Storage::url($filePath);
+                                                $fileUrl = $filePath ? Storage::url($filePath) : '';
                                                 $fileName = $filePath ? basename($filePath) : 'Unknown';
                                                 $fileExtension = $filePath ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                                             @endphp
@@ -267,22 +269,24 @@
                                                     <span class="truncate" title="{{ $fileName }}">{{ $fileName }}</span>
                                                 </div>
                                                 <div class="flex gap-2 ml-3">
-                                                    <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
-                                                            class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
-                                                            title="Vezi fișierul">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                                        </svg>
-                                                    </button>
-                                                    <a href="{{ $fileUrl }}" 
-                                                       target="_blank"
-                                                       class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
-                                                       title="Descarcă fișierul">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                        </svg>
-                                                    </a>
+                                                    @if($fileUrl)
+                                                        <button onclick="viewDocument('{{ $fileUrl }}', '{{ $fileName }}', '{{ $fileExtension }}')"
+                                                                class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                                                title="Vezi fișierul">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                            </svg>
+                                                        </button>
+                                                        <a href="{{ $fileUrl }}" 
+                                                           target="_blank"
+                                                           class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                           title="Descarcă fișierul">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                            </svg>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endforeach
@@ -452,6 +456,7 @@ let currentViewMode = 'grid'; // Default view mode
 
 // View mode toggle functionality
 function setViewMode(mode) {
+    console.log('Setting view mode to:', mode); // Debug log
     currentViewMode = mode;
     localStorage.setItem('documentsViewMode', mode);
     
@@ -460,23 +465,32 @@ function setViewMode(mode) {
     const gridBtn = document.getElementById('gridViewBtn');
     const listBtn = document.getElementById('listViewBtn');
     
+    console.log('Elements found:', {
+        gridView: !!gridView,
+        listView: !!listView,
+        gridBtn: !!gridBtn,
+        listBtn: !!listBtn
+    }); // Debug log
+    
     if (mode === 'grid') {
-        gridView.classList.remove('hidden');
-        listView.classList.add('hidden');
-        gridBtn.classList.add('active');
-        listBtn.classList.remove('active');
+        if (gridView) gridView.classList.remove('hidden');
+        if (listView) listView.classList.add('hidden');
+        if (gridBtn) gridBtn.classList.add('active');
+        if (listBtn) listBtn.classList.remove('active');
     } else {
-        gridView.classList.add('hidden');
-        listView.classList.remove('hidden');
-        listBtn.classList.add('active');
-        gridBtn.classList.remove('active');
+        if (gridView) gridView.classList.add('hidden');
+        if (listView) listView.classList.remove('hidden');
+        if (listBtn) listBtn.classList.add('active');
+        if (gridBtn) gridBtn.classList.remove('active');
     }
 }
 
 // Initialize view mode on page load
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded'); // Debug log
     // Load saved view mode or default to grid
     const savedViewMode = localStorage.getItem('documentsViewMode') || 'grid';
+    console.log('Saved view mode:', savedViewMode); // Debug log
     setViewMode(savedViewMode);
     
     const modal = document.getElementById('documentModal');
@@ -488,12 +502,25 @@ document.addEventListener('DOMContentLoaded', function() {
 function viewDocument(url, title, extension) {
     console.log('Opening document:', url, title, extension); // Debug log
     
+    // Check if URL is valid
+    if (!url || url.trim() === '') {
+        console.error('Invalid or empty URL provided');
+        alert('Fișierul nu poate fi accesat. URL invalid.');
+        return;
+    }
+    
     const modal = document.getElementById('documentModal');
     const frame = document.getElementById('documentFrame');
     const loading = document.getElementById('documentLoading');
     const error = document.getElementById('documentError');
     const modalTitle = document.getElementById('modal-title');
     const downloadFallback = document.getElementById('downloadFallback');
+    
+    if (!modal || !frame) {
+        console.error('Modal elements not found');
+        alert('Eroare: Elementele modal nu au fost găsite.');
+        return;
+    }
     
     currentDocumentUrl = url;
     modalTitle.textContent = title;
@@ -567,9 +594,9 @@ function closeDocumentModal() {
     const modal = document.getElementById('documentModal');
     const frame = document.getElementById('documentFrame');
     
-    modal.classList.add('hidden');
+    if (modal) modal.classList.add('hidden');
+    if (frame) frame.src = '';
     document.body.classList.remove('overflow-hidden');
-    frame.src = '';
     currentDocumentUrl = '';
 }
 
@@ -585,6 +612,12 @@ document.addEventListener('keydown', function(e) {
         closeDocumentModal();
     }
 });
+
+// Make functions global for debugging
+window.setViewMode = setViewMode;
+window.viewDocument = viewDocument;
+window.closeDocumentModal = closeDocumentModal;
+window.openInNewTab = openInNewTab;
 </script>
 @endpush
 
