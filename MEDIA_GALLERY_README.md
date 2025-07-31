@@ -1,7 +1,7 @@
 # Media Carousel and Gallery System
 
 ## Overview
-This system provides a comprehensive media carousel and gallery functionality for the CCB (Clubul Copiilor Botoșani) website, built with Wave 3.0 styling and Alpine.js/Livewire components.
+This system provides a comprehensive media carousel and gallery functionality for the CCB (Clubul Copiilor Botoșani) website, built with CCB 3.0 styling and Alpine.js/Livewire components.
 
 ## Components
 

@@ -59,7 +59,7 @@ class PostsTableSeeder extends Seeder
                 'seo_title' => 'Achieving your Dreams',
                 'excerpt' => null,
                 'body' => '<p>What can be said about achieving your dreams? <br>Well... It\'s a good thing, and it\'s probably something you\'re dreaming of. Oh yeah, when you create an app and a product that you enjoy working on... You\'ll be pretty happy and your dreams will probably come true. Cool, right?</p>
-<p>I hope that you are ready for some cool stuff because there is some cool stuff right around the corner. By the time you\'ve reached the sky, you\'ll realize your true limits. That last sentence there... That was a little bit of jibberish, but I\'m trying to write about something cool. Bottom line is that Wave is going to help save you so much time.</p>
+<p>I hope that you are ready for some cool stuff because there is some cool stuff right around the corner. By the time you've reached the sky, you'll realize your true limits. That last sentence there... That was a little bit of jibberish, but I'm trying to write about something cool. Bottom line is that CCB is going to help save you so much time.</p>
 <blockquote>
 <p>You may have a need to only want to make money from your application, but if your application can help others achieve a goal and you can make money from it too, you have a gold-mine.</p>
 </blockquote>
@@ -199,7 +199,7 @@ class PostsTableSeeder extends Seeder
                 'seo_title' => 'Never Stop Creating',
                 'excerpt' => null,
                 'body' => '<p>The reason why we are the way we are is... Because we are designed for a purpose. Some people are created to help or service, and others are created to... Well... Create. Are you a creator.</p>
-<p>If you have a passion for creating new things and bringing ideas to life. You\'ll want to save yourself some time by using Wave to build the foundation. Wave has so many built-in features including Billing, User Profiles, User Settings, an API, and so much more.</p>
+<p>If you have a passion for creating new things and bringing ideas to life. You'll want to save yourself some time by using CCB to build the foundation. CCB has so many built-in features including Billing, User Profiles, User Settings, an API, and so much more.</p>
 <blockquote>
 <p>You may have a need to only want to make money from your application, but if your application can help others achieve a goal and you can make money from it too, you have a gold-mine.</p>
 </blockquote>
