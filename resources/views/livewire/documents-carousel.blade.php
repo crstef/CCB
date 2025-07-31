@@ -153,7 +153,7 @@
         @if($documents->count() > 2)
             <button 
                 @click="previousCards()"
-                class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
+                class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
             >
                 <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -162,7 +162,7 @@
 
             <button 
                 @click="nextCards()"
-                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
             >
                 <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -186,7 +186,7 @@
         {{-- AutoPlay Toggle --}}
         <button 
             @click="$wire.toggleAutoPlay()"
-            class="absolute top-3 right-3 bg-white bg-opacity-70 hover:bg-opacity-90 rounded-full p-2 shadow-lg transition-all duration-200 z-10 backdrop-blur-sm"
+            class="absolute top-3 right-3 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 shadow-lg transition-all duration-200 z-10 backdrop-blur-sm"
             :class="autoPlay ? 'text-green-600' : 'text-gray-400'"
         >
             <svg x-show="autoPlay" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,7 +199,7 @@
         </button>
 
         {{-- Documents Counter --}}
-        <div class="absolute top-3 left-3 bg-white bg-opacity-70 rounded-full px-3 py-1 text-xs font-medium text-gray-700 backdrop-blur-sm">
+        <div class="absolute top-3 left-3 bg-white bg-opacity-50 rounded-full px-3 py-1 text-xs font-medium text-gray-700 backdrop-blur-sm">
             {{ $documents->count() }} documente
         </div>
 
