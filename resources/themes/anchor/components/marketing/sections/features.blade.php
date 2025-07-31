@@ -1,8 +1,8 @@
 <section>
     <x-marketing.elements.heading
         level="h2"
-        title="Funcționalități"
-        description="Valorifică puterea funcționalităților extinse CCB." 
+        title="Servicii CCB"
+        description="Servicii oferite de CCB." 
     />
     <div class="text-center">
         <div class="grid grid-cols-2 gap-x-6 gap-y-12 mt-12 text-center lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
