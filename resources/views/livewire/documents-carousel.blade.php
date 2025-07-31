@@ -153,7 +153,8 @@
         @if($documents->count() > 2)
             <button 
                 @click="previousCards()"
-                class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 z-20 backdrop-blur-sm"
+                style="margin-top: -20px;"
             >
                 <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -162,7 +163,8 @@
 
             <button 
                 @click="nextCards()"
-                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 z-10 backdrop-blur-sm"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-70 rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 z-20 backdrop-blur-sm"
+                style="margin-top: -20px;"
             >
                 <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
