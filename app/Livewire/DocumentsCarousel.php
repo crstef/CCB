@@ -47,9 +47,3 @@ class DocumentsCarousel extends Component
         return view('livewire.documents-carousel');
     }
 }
-
-    public function render()
-    {
-        return view('livewire.documents-carousel');
-    }
-}
