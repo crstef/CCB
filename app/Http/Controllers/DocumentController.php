@@ -30,4 +30,14 @@ class DocumentController extends Controller
 
         return view('documents.index', compact('documents', 'categories', 'selectedCategory'));
     }
+
+    public function show(Document $document)
+    {
+        // Check if document is active
+        if (!$document->is_active) {
+            abort(404);
+        }
+
+        return view('documents.show', compact('document'));
+    }
 }
