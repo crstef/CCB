@@ -1,6 +1,5 @@
-@extends('theme::layouts.app')
+<x-layouts.marketing>
 
-@section('content')
 <div class="py-16 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Back Button --}}
@@ -184,4 +183,5 @@
         @endif
     </div>
 </div>
-@endsection
+
+</x-layouts.marketing>
