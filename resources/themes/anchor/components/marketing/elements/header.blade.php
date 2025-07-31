@@ -3,7 +3,6 @@
         mobileMenuOpen: false, 
         scrolled: false, 
         showOverlay: false,
-        contactModalOpen: false,
         topOffset: '5',
         evaluateScrollPosition(){
             if(window.pageYOffset > this.topOffset){
@@ -20,9 +19,6 @@
             }
         });
         $watch('mobileMenuOpen', function(value){
-            if(value){ document.body.classList.add('overflow-hidden'); } else { document.body.classList.remove('overflow-hidden'); }
-        });
-        $watch('contactModalOpen', function(value){
             if(value){ document.body.classList.add('overflow-hidden'); } else { document.body.classList.remove('overflow-hidden'); }
         });
         evaluateScrollPosition();
@@ -97,11 +93,11 @@
                                     </a>
                                 </li>
                                 <li class="w-full border-l border-r border-gray-100 md:w-1/5">
-                                    <button @click="contactModalOpen = true" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10 w-full text-left">
+                                    <a href="#contact" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/Contact.png" class="w-12 h-auto" alt="contact icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Contact</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Trimite-ne un mesaj și te vom contacta în curând</span>
-                                    </button>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -188,6 +184,121 @@
                     <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
                         <a href="{{ route('blog') }}" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">Evenimente</a>
                     </li>
+                    <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
+                        <a href="#_" x-on:click="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
+                            <span class="">Contact</span>
+                            <svg :class="{ 'group-hover:-rotate-180' : !mobileMenuOpen, '-rotate-180' : mobileMenuOpen && open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
+                        </a>
+                        <div 
+                            :class="{ 'hidden md:block opacity-0 invisible md:absolute' : !open, 'md:invisible md:opacity-0 md:hidden md:absolute' : open }"
+                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0" x-cloak>
+                            <div class="mx-auto max-w-4xl p-6">
+                                <div class="bg-white rounded-lg">
+                                    <div class="border-b border-gray-200 pb-4 mb-6">
+                                        <h2 class="text-2xl font-bold text-gray-900">Trimite-ne un mesaj</h2>
+                                        <p class="text-gray-600 mt-2">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
+                                    </div>
+                                    
+                                    <form id="contactForm" @submit.prevent="submitContactForm">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <!-- Prenume -->
+                                            <div>
+                                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    Prenume <span class="text-red-500">*</span>
+                                                </label>
+                                                <input type="text" 
+                                                       id="first_name" 
+                                                       name="first_name" 
+                                                       required
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                       placeholder="Introduceți prenumele">
+                                            </div>
+
+                                            <!-- Nume -->
+                                            <div>
+                                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    Nume <span class="text-red-500">*</span>
+                                                </label>
+                                                <input type="text" 
+                                                       id="last_name" 
+                                                       name="last_name" 
+                                                       required
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                       placeholder="Introduceți numele">
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="mb-4">
+                                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                                Adresa de email <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="email" 
+                                                   id="email" 
+                                                   name="email" 
+                                                   required
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                   placeholder="your@email.com">
+                                        </div>
+
+                                        <!-- Telefon -->
+                                        <div class="mb-4">
+                                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                                                Numărul de telefon <span class="text-gray-400">(opțional)</span>
+                                            </label>
+                                            <input type="tel" 
+                                                   id="phone" 
+                                                   name="phone"
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                   placeholder="+40 123 456 789">
+                                        </div>
+
+                                        <!-- Subiect -->
+                                        <div class="mb-4">
+                                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                                                Subiect <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="text" 
+                                                   id="subject" 
+                                                   name="subject" 
+                                                   required
+                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                   placeholder="Despre ce este mesajul?">
+                                        </div>
+
+                                        <!-- Mesaj -->
+                                        <div class="mb-6">
+                                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                                                Mesaj <span class="text-red-500">*</span>
+                                            </label>
+                                            <textarea id="message" 
+                                                      name="message" 
+                                                      rows="4" 
+                                                      required
+                                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                                      placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="flex justify-end">
+                                            <button type="submit" 
+                                                    id="submitBtn"
+                                                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                                <span id="submitText">Trimite mesajul</span>
+                                                <span id="submitLoading" class="hidden">
+                                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg>
+                                                    Se trimite...
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
 
                     @guest
                         <li class="relative z-30 flex flex-col items-center justify-center flex-shrink-0 w-full h-auto pt-3 space-y-3 text-sm md:hidden px-7">
@@ -214,152 +325,6 @@
 
         </div>
     </x-container>
-
-    <!-- Contact Modal -->
-    <div x-show="contactModalOpen" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-50 overflow-y-auto" 
-         x-cloak>
-        
-        <!-- Backdrop -->
-        <div class="fixed inset-0 bg-black bg-opacity-50" @click="contactModalOpen = false"></div>
-        
-        <!-- Modal Content -->
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div x-show="contactModalOpen"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 scale-95"
-                 x-transition:enter-end="opacity-100 scale-100"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100 scale-100"
-                 x-transition:leave-end="opacity-0 scale-95"
-                 class="relative w-full max-w-2xl bg-white rounded-lg shadow-xl">
-                
-                <!-- Modal Header -->
-                <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                    <h2 class="text-2xl font-bold text-gray-900">Trimite-ne un mesaj</h2>
-                    <button @click="contactModalOpen = false" 
-                            class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="p-6">
-                    <p class="text-gray-600 mb-6">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
-                    
-                    <form id="contactForm" @submit.prevent="submitContactForm">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <!-- Prenume -->
-                            <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Prenume <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" 
-                                       id="first_name" 
-                                       name="first_name" 
-                                       required
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                       placeholder="Introduceți prenumele">
-                            </div>
-
-                            <!-- Nume -->
-                            <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                    Nume <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" 
-                                       id="last_name" 
-                                       name="last_name" 
-                                       required
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                       placeholder="Introduceți numele">
-                            </div>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                Adresa de email <span class="text-red-500">*</span>
-                            </label>
-                            <input type="email" 
-                                   id="email" 
-                                   name="email" 
-                                   required
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                   placeholder="your@email.com">
-                        </div>
-
-                        <!-- Telefon -->
-                        <div class="mb-4">
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                                Numărul de telefon <span class="text-gray-400">(opțional)</span>
-                            </label>
-                            <input type="tel" 
-                                   id="phone" 
-                                   name="phone"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                   placeholder="+40 123 456 789">
-                        </div>
-
-                        <!-- Subiect -->
-                        <div class="mb-4">
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
-                                Subiect <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="subject" 
-                                   name="subject" 
-                                   required
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                   placeholder="Despre ce este mesajul?">
-                        </div>
-
-                        <!-- Mesaj -->
-                        <div class="mb-6">
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                                Mesaj <span class="text-red-500">*</span>
-                            </label>
-                            <textarea id="message" 
-                                      name="message" 
-                                      rows="5" 
-                                      required
-                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                                      placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="flex justify-end space-x-3">
-                            <button type="button" 
-                                    @click="contactModalOpen = false"
-                                    class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-                                Anulează
-                            </button>
-                            <button type="submit" 
-                                    id="submitBtn"
-                                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                                <span id="submitText">Trimite mesajul</span>
-                                <span id="submitLoading" class="hidden">
-                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    Se trimite...
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Success/Error Toast Notifications -->
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
@@ -398,11 +363,6 @@
                 if (data.success) {
                     showToast('Mesajul a fost trimis cu succes! Vă vom contacta în curând.', 'success');
                     form.reset();
-                    // Close modal after success
-                    setTimeout(() => {
-                        Alpine.store('header')?.contactModalOpen = false;
-                        document.querySelector('[x-data]').__x.$data.contactModalOpen = false;
-                    }, 1500);
                 } else {
                     showToast(data.message || 'A apărut o eroare. Vă rugăm să încercați din nou.', 'error');
                 }
@@ -465,10 +425,13 @@
         // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                const headerData = document.querySelector('[x-data]').__x.$data;
-                if (headerData.contactModalOpen) {
-                    headerData.contactModalOpen = false;
-                }
+                // Close any open dropdowns
+                const dropdowns = document.querySelectorAll('[x-data]');
+                dropdowns.forEach(dropdown => {
+                    if (dropdown.__x && dropdown.__x.$data.open) {
+                        dropdown.__x.$data.open = false;
+                    }
+                });
             }
         });
     </script>
