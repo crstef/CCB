@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Mail\ContactMessage;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -52,15 +53,29 @@ class ContactController extends Controller
             // Incrementează rate limiter
             RateLimiter::hit($key, 3600); // 1 oră
 
+            // Salvează în baza de date
+            $contact = Contact::create([
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'subject' => $validated['subject'],
+                'message' => $validated['message'],
+                'status' => Contact::STATUS_NEW,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+
             // Trimite email-ul
             Mail::to(config('mail.contact.to', config('mail.from.address')))
                 ->send(new ContactMessage($validated));
 
             // Log pentru debugging
             Log::info('Contact form submitted', [
-                'name' => $validated['first_name'] . ' ' . $validated['last_name'],
-                'email' => $validated['email'],
-                'subject' => $validated['subject'],
+                'contact_id' => $contact->id,
+                'name' => $contact->full_name,
+                'email' => $contact->email,
+                'subject' => $contact->subject,
                 'ip' => $request->ip()
             ]);
 
@@ -73,7 +88,8 @@ class ContactController extends Controller
             // Log eroarea
             Log::error('Contact form error', [
                 'error' => $e->getMessage(),
-                'email' => $validated['email'] ?? 'unknown'
+                'email' => $validated['email'] ?? 'unknown',
+                'trace' => $e->getTraceAsString()
             ]);
 
             return response()->json([
