@@ -124,10 +124,23 @@ a.gallery-button:hover .gallery-button-icon {
             </div>
         </div>
 
-        {{-- Right Column: Logo --}}
+        {{-- Right Column: Documents Carousel --}}
         <div class="w-full lg:w-1/2">
-            <div class="flex items-center justify-center w-full mt-4 lg:mt-0">
-                <img alt="CCB Character" class="relative w-full lg:scale-110 xl:translate-x-6" src="/wave/img/Logo_black.png" style="max-width:400px;">
+            <div class="w-full mt-4 lg:mt-0 max-w-2xl mx-auto lg:mx-0">
+                {{-- Premium Documents Carousel with latest documents --}}
+                @livewire('documents-carousel', ['height' => 'h-[400px] lg:h-[450px]'])
+                
+                {{-- Premium Documents Navigation Button --}}
+                <div class="flex justify-center mt-6">
+                    <a href="{{ route('documents.index') }}" class="gallery-button">
+                        <div class="gallery-button-inner">
+                            <svg class="gallery-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <span class="gallery-button-text">Toate Documentele</span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
