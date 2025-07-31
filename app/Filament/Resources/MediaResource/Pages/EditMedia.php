@@ -58,7 +58,7 @@ class EditMedia extends EditRecord
      */
     public function getSubheading(): ?string
     {
-        return 'Update media information, categorization, and display settings.';
+        return 'Update media information, upload new files, or change YouTube URLs for videos.';
     }
 
     /**
@@ -66,8 +66,30 @@ class EditMedia extends EditRecord
      */
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        // Validate that either file_path or youtube_url is provided
+        if (empty($data['file_path']) && empty($data['youtube_url'])) {
+            Notification::make()
+                ->title('Validation Error')
+                ->body('You must either upload a file or provide a YouTube URL.')
+                ->danger()
+                ->send();
+            
+            $this->halt();
+        }
+        
+        // If YouTube URL is provided, set appropriate metadata
+        if (!empty($data['youtube_url'])) {
+            $data['mime_type'] = 'video/youtube';
+            $data['media_type'] = 'video';
+            
+            // Extract filename from YouTube URL for reference
+            if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $data['youtube_url'], $matches)) {
+                $data['file_name'] = 'youtube_' . $matches[1] . '.mp4';
+            }
+        }
+        
         // Auto-detect media type if mime_type changed
-        if (isset($data['mime_type']) && $data['mime_type'] !== $this->record->mime_type) {
+        if (isset($data['mime_type']) && $data['mime_type'] !== $this->record->mime_type && $data['mime_type'] !== 'video/youtube') {
             $data['media_type'] = str_starts_with($data['mime_type'], 'image/') ? 'image' : 'video';
         }
 

@@ -14,6 +14,7 @@
 use Wave\Facades\Wave;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ContactController;
 
 // Gallery routes
 Route::get('/galerie-foto', [GalleryController::class, 'photoGallery'])->name('galerie-foto');
@@ -21,6 +22,9 @@ Route::get('/galerie-video', [GalleryController::class, 'videoGallery'])->name('
 
 // Documents route
 Route::get('/documente', [DocumentController::class, 'index'])->name('documents.index');
+
+// Contact route
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Wave routes
 Wave::routes();

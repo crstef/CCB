@@ -2,7 +2,8 @@
     x-data="{ 
         mobileMenuOpen: false, 
         scrolled: false, 
-        showOverlay: false, 
+        showOverlay: false,
+        contactModalOpen: false,
         topOffset: '5',
         evaluateScrollPosition(){
             if(window.pageYOffset > this.topOffset){
@@ -19,6 +20,9 @@
             }
         });
         $watch('mobileMenuOpen', function(value){
+            if(value){ document.body.classList.add('overflow-hidden'); } else { document.body.classList.remove('overflow-hidden'); }
+        });
+        $watch('contactModalOpen', function(value){
             if(value){ document.body.classList.add('overflow-hidden'); } else { document.body.classList.remove('overflow-hidden'); }
         });
         evaluateScrollPosition();
@@ -93,11 +97,11 @@
                                     </a>
                                 </li>
                                 <li class="w-full border-l border-r border-gray-100 md:w-1/5">
-                                    <a href="{{ route('page.show', 'contact') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
-                                        <img src="/wave/img/icons/Contact.png" class="w-12 h-auto" alt="feature 5 icon" />
+                                    <button @click="contactModalOpen = true" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10 w-full text-left">
+                                        <img src="/wave/img/icons/Contact.png" class="w-12 h-auto" alt="contact icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Contact</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Trimite-ne un mesaj și te vom contacta în curând</span>
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -210,5 +214,263 @@
 
         </div>
     </x-container>
+
+    <!-- Contact Modal -->
+    <div x-show="contactModalOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto" 
+         x-cloak>
+        
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-black bg-opacity-50" @click="contactModalOpen = false"></div>
+        
+        <!-- Modal Content -->
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div x-show="contactModalOpen"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="relative w-full max-w-2xl bg-white rounded-lg shadow-xl">
+                
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <h2 class="text-2xl font-bold text-gray-900">Trimite-ne un mesaj</h2>
+                    <button @click="contactModalOpen = false" 
+                            class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
+                    
+                    <form id="contactForm" @submit.prevent="submitContactForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <!-- Prenume -->
+                            <div>
+                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Prenume <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="first_name" 
+                                       name="first_name" 
+                                       required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                       placeholder="Introduceți prenumele">
+                            </div>
+
+                            <!-- Nume -->
+                            <div>
+                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Nume <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="last_name" 
+                                       name="last_name" 
+                                       required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                       placeholder="Introduceți numele">
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                Adresa de email <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                   placeholder="your@email.com">
+                        </div>
+
+                        <!-- Telefon -->
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                                Numărul de telefon <span class="text-gray-400">(opțional)</span>
+                            </label>
+                            <input type="tel" 
+                                   id="phone" 
+                                   name="phone"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                   placeholder="+40 123 456 789">
+                        </div>
+
+                        <!-- Subiect -->
+                        <div class="mb-4">
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                                Subiect <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" 
+                                   id="subject" 
+                                   name="subject" 
+                                   required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                   placeholder="Despre ce este mesajul?">
+                        </div>
+
+                        <!-- Mesaj -->
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                                Mesaj <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="message" 
+                                      name="message" 
+                                      rows="5" 
+                                      required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                      placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" 
+                                    @click="contactModalOpen = false"
+                                    class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                                Anulează
+                            </button>
+                            <button type="submit" 
+                                    id="submitBtn"
+                                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <span id="submitText">Trimite mesajul</span>
+                                <span id="submitLoading" class="hidden">
+                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Se trimite...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Toast Notifications -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <script>
+        // Contact form submission
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitLoading = document.getElementById('submitLoading');
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            submitLoading.classList.remove('hidden');
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Add CSRF token
+            formData.append('_token', '{{ csrf_token() }}');
+            
+            // Submit form
+            fetch('{{ route("contact.store") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('Mesajul a fost trimis cu succes! Vă vom contacta în curând.', 'success');
+                    form.reset();
+                    // Close modal after success
+                    setTimeout(() => {
+                        Alpine.store('header')?.contactModalOpen = false;
+                        document.querySelector('[x-data]').__x.$data.contactModalOpen = false;
+                    }, 1500);
+                } else {
+                    showToast(data.message || 'A apărut o eroare. Vă rugăm să încercați din nou.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.', 'error');
+            })
+            .finally(() => {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitLoading.classList.add('hidden');
+            });
+        }
+        
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            const icon = type === 'success' ? 
+                '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>' :
+                '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            
+            toast.className = `${bgColor} text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 transform transition-all duration-300 translate-x-full opacity-0`;
+            toast.innerHTML = `
+                ${icon}
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        
+        // Attach form submission handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.addEventListener('submit', submitContactForm);
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const headerData = document.querySelector('[x-data]').__x.$data;
+                if (headerData.contactModalOpen) {
+                    headerData.contactModalOpen = false;
+                }
+            }
+        });
+    </script>
 
 </header>

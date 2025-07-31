@@ -41,7 +41,7 @@ class CreateMedia extends CreateRecord
      */
     public function getSubheading(): ?string
     {
-        return 'Add photos or videos to your media gallery. Supported formats: JPG, PNG, GIF, WebP, MP4, WebM, MOV.';
+        return 'Add photos or videos to your media gallery. Upload files or provide YouTube URLs for videos. Supported formats: JPG, PNG, GIF, WebP, MP4, WebM, MOV.';
     }
 
     /**
@@ -49,13 +49,35 @@ class CreateMedia extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        // Validate that either file_path or youtube_url is provided
+        if (empty($data['file_path']) && empty($data['youtube_url'])) {
+            Notification::make()
+                ->title('Validation Error')
+                ->body('You must either upload a file or provide a YouTube URL.')
+                ->danger()
+                ->send();
+            
+            $this->halt();
+        }
+        
+        // If YouTube URL is provided, set appropriate metadata
+        if (!empty($data['youtube_url'])) {
+            $data['mime_type'] = 'video/youtube';
+            $data['media_type'] = 'video';
+            
+            // Extract filename from YouTube URL for reference
+            if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $data['youtube_url'], $matches)) {
+                $data['file_name'] = 'youtube_' . $matches[1] . '.mp4';
+            }
+        }
+        
         // Ensure sort_order is set
         if (!isset($data['sort_order']) || $data['sort_order'] === null) {
             $data['sort_order'] = 0;
         }
 
         // Auto-detect media type if not set
-        if (!isset($data['media_type']) && isset($data['mime_type'])) {
+        if (!isset($data['media_type']) && isset($data['mime_type']) && $data['mime_type'] !== 'video/youtube') {
             $data['media_type'] = str_starts_with($data['mime_type'], 'image/') ? 'image' : 'video';
         }
 

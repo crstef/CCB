@@ -50,7 +50,7 @@ class MediaResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Media Upload')
-                    ->description('Upload your photo or video file')
+                    ->description('Upload your photo or video file, or provide a YouTube URL for videos')
                     ->schema([
                         Forms\Components\FileUpload::make('file_path')
                             ->label('Media File')
@@ -70,7 +70,6 @@ class MediaResource extends Resource
                             ->imageCropAspectRatio(null)
                             ->imageResizeTargetWidth('1920')
                             ->imageResizeTargetHeight('1080')
-                            ->required()
                             ->live()
                             ->afterStateUpdated(function (callable $set, $state) {
                                 if ($state instanceof TemporaryUploadedFile) {
@@ -87,6 +86,30 @@ class MediaResource extends Resource
                                     if (!$set) {
                                         $fileName = pathinfo($state->getClientOriginalName(), PATHINFO_FILENAME);
                                         $set('title', ucwords(str_replace(['_', '-'], ' ', $fileName)));
+                                    }
+                                    
+                                    // Clear YouTube URL when file is uploaded
+                                    $set('youtube_url', null);
+                                }
+                            })
+                            ->columnSpanFull(),
+                            
+                        Forms\Components\TextInput::make('youtube_url')
+                            ->label('YouTube URL (for videos only)')
+                            ->url()
+                            ->placeholder('https://www.youtube.com/watch?v=...')
+                            ->helperText('Alternative to file upload: provide a YouTube video URL. This will be used instead of uploaded file for videos.')
+                            ->live()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                if ($state) {
+                                    // Auto-set media type to video when YouTube URL is provided
+                                    $set('media_type', 'video');
+                                    
+                                    // Extract video title from YouTube if possible (basic implementation)
+                                    if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $state, $matches)) {
+                                        // Set some basic metadata
+                                        $set('mime_type', 'video/youtube');
+                                        $set('file_size', null);
                                     }
                                 }
                             })
@@ -167,7 +190,9 @@ class MediaResource extends Resource
                 Forms\Components\Hidden::make('file_name'),
                 Forms\Components\Hidden::make('file_size'),
                 Forms\Components\Hidden::make('mime_type'),
-            ]);
+            ])
+            ->model(Media::class)
+            ->statePath('data');
     }
 
     /**
@@ -182,7 +207,14 @@ class MediaResource extends Resource
                     ->disk('public')
                     ->height(60)
                     ->width(80)
-                    ->extraAttributes(['class' => 'rounded-lg']),
+                    ->extraAttributes(['class' => 'rounded-lg'])
+                    ->getStateUsing(function (Media $record) {
+                        // Show YouTube thumbnail for YouTube videos
+                        if ($record->isYouTube()) {
+                            return $record->getYouTubeThumbnail('hqdefault');
+                        }
+                        return $record->file_path;
+                    }),
 
                 Tables\Columns\TextColumn::make('title')
                     ->label('Title')
@@ -201,6 +233,24 @@ class MediaResource extends Resource
                         'heroicon-o-photo' => 'image',
                         'heroicon-o-film' => 'video',
                     ]),
+                    
+                Tables\Columns\BadgeColumn::make('video_source')
+                    ->label('Source')
+                    ->getStateUsing(function (Media $record) {
+                        if ($record->media_type !== 'video') {
+                            return null;
+                        }
+                        return $record->isYouTube() ? 'YouTube' : 'File';
+                    })
+                    ->colors([
+                        'danger' => 'YouTube',
+                        'success' => 'File',
+                    ])
+                    ->icons([
+                        'heroicon-o-globe-alt' => 'YouTube',
+                        'heroicon-o-document' => 'File',
+                    ])
+                    ->visible(fn ($record) => $record && $record->media_type === 'video'),
 
                 Tables\Columns\BadgeColumn::make('category')
                     ->label('Category')
