@@ -77,8 +77,12 @@
                                             {{-- Category Badge --}}
                                             @if($document->category)
                                                 <span class="inline-block px-2 py-1 text-xs font-medium text-white rounded-full ml-2"
-                                                      style="background-color: {{ $document->category->color ?? '#3B82F6' }}">
+                                                      style="background-color: {{ $document->category->color ?? '#6366F1' }};">
                                                     {{ $document->category->name }}
+                                                </span>
+                                            @else
+                                                <span class="inline-block px-2 py-1 text-xs font-medium text-white bg-gray-500 rounded-full ml-2">
+                                                    General
                                                 </span>
                                             @endif
                                         </div>
