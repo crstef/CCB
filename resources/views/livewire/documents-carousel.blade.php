@@ -58,7 +58,7 @@
                     </div>
 
                     {{-- Document Title --}}
-                    <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                         {{ $document->title }}
                     </h3>
 
@@ -72,7 +72,7 @@
 
                     {{-- Document Description --}}
                     @if($document->description)
-                        <p class="text-gray-600 mb-4 line-clamp-3 max-w-md">
+                        <p class="text-gray-600 mb-4 max-w-md" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                             {{ $document->description }}
                         </p>
                     @endif
@@ -185,19 +185,3 @@
         </div>
     @endif
 </div>
-
-<style>
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-</style>
