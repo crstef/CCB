@@ -51,7 +51,7 @@ name('galerie-foto');
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             display: flex;
@@ -87,6 +87,7 @@ name('galerie-foto');
             position: relative;
             max-width: 95vw;
             max-height: 95vh;
+            background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -103,9 +104,14 @@ name('galerie-foto');
         .lightbox-image {
             width: 100%;
             height: auto;
-            max-height: 95vh;
+            max-height: 70vh;
             object-fit: contain;
             display: block;
+        }
+        
+        .lightbox-info {
+            padding: 2rem;
+            background: white;
         }
         
         .lightbox-info {
@@ -256,9 +262,73 @@ name('galerie-foto');
                 transform: translateY(0);
             }
         }
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
     </style>
 
 <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Discrete Header -->
+    <div class="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="{{ route('home') }}" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        <span class="text-sm font-medium">Înapoi la pagina principală</span>
+                    </a>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900">Galerie Foto</h1>
+                <div class="text-sm text-gray-500">
+                    {{ $photos->count() }} fotografii
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         @if($photos->count() > 0)
             <div class="gallery-grid" id="galleryGrid">
@@ -282,13 +352,13 @@ name('galerie-foto');
                         <div class="gallery-overlay">
                             @if($photo->title || $photo->description)
                                 @if($photo->title)
-                                    <h3 class="text-white font-bold text-sm mb-1 drop-shadow-lg">
+                                    <h3 class="text-white font-bold text-sm mb-1 drop-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
                                         {{ $photo->title }}
                                     </h3>
                                 @endif
                                 
                                 @if($photo->description)
-                                    <p class="text-white/90 text-xs leading-relaxed drop-shadow-lg">
+                                    <p class="text-white text-xs leading-relaxed drop-shadow-lg" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
                                         {{ Str::limit($photo->description, 80) }}
                                     </p>
                                 @endif
@@ -317,6 +387,13 @@ name('galerie-foto');
     </div>
 </div>
 
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
 <!-- Lightbox Modal -->
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightbox()">
@@ -339,6 +416,16 @@ name('galerie-foto');
     
     <div class="lightbox-content">
         <img class="lightbox-image" id="lightboxImage" src="" alt="" />
+        <div class="lightbox-info">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3" id="lightboxTitle"></h3>
+            <p class="text-gray-600 mb-4 leading-relaxed" id="lightboxDescription"></p>
+            <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-200">
+                <span id="lightboxDate"></span>
+                <div class="flex items-center space-x-4">
+                    <span class="text-blue-600 font-medium">📸 Galerie CCB România</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -388,12 +475,23 @@ function nextImage() {
 function updateLightboxContent() {
     const photo = allPhotos[currentImageIndex];
     const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDescription = document.getElementById('lightboxDescription');
+    const lightboxDate = document.getElementById('lightboxDate');
     
     // Add loading state
     lightboxImage.style.opacity = '0.5';
     
     lightboxImage.src = photo.url;
     lightboxImage.alt = photo.title || 'Fotografie competiție canină';
+    lightboxTitle.textContent = photo.title || 'Competiție Canină';
+    lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine organizate de Clubul Ciobanescului Belgian România.';
+    lightboxDate.textContent = photo.created_at ? 
+        new Date(photo.created_at).toLocaleDateString('ro-RO', { 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric' 
+        }) : 'Recent';
     
     // Remove loading state when image loads
     lightboxImage.onload = function() {
@@ -474,6 +572,24 @@ updateLightboxContent = function() {
     originalUpdateLightboxContent();
     preloadAdjacentImages();
 };
+
+// Scroll to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+    const scrollButton = document.getElementById('scrollToTop');
+    if (window.pageYOffset > 300) {
+        scrollButton.classList.add('visible');
+    } else {
+        scrollButton.classList.remove('visible');
+    }
+});
 </script>
 
 </x-layouts.marketing>
