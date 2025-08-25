@@ -1,5 +1,5 @@
 <section class="w-full py-12 bg-gray-50">
-    <x-container class="max-w-7xl">
+    <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {{-- Left Side - Contact Information --}}
             <div class="space-y-8">
@@ -143,7 +143,7 @@
                 </div>
             </div>
         </div>
-    </x-container>
+    </div>
 </section>
 
 <script>
@@ -165,6 +165,47 @@ document.addEventListener('DOMContentLoaded', function() {
         formMessages.classList.add('hidden');
         successMessage.classList.add('hidden');
         errorMessage.classList.add('hidden');
+
+        // Collect form data
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch('{{ route("contact.store") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Show success message
+                successMessage.classList.remove('hidden');
+                formMessages.classList.remove('hidden');
+                
+                // Reset form
+                form.reset();
+            } else {
+                // Show error message
+                errorMessage.textContent = data.message || 'A apărut o eroare la trimiterea mesajului.';
+                errorMessage.classList.remove('hidden');
+                formMessages.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            errorMessage.textContent = 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.';
+            errorMessage.classList.remove('hidden');
+            formMessages.classList.remove('hidden');
+        } finally {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Trimite Mesajul';
+        }
+    });
+});
+</script>
 
         // Collect form data
         const formData = new FormData(form);
