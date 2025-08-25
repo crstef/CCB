@@ -87,9 +87,8 @@ name('galerie-foto');
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: transparent;
             z-index: 9999;
-            backdrop-filter: blur(8px);
         }
         
         .lightbox.active {
@@ -339,13 +338,21 @@ name('galerie-foto');
 let currentImageIndex = 0;
 let allPhotos = @json($photos->values()->all());
 
+console.log('🚀 Gallery initialized');
+console.log('Total photos loaded:', allPhotos.length);
+console.log('First photo:', allPhotos[0]);
+console.log('Photo URLs:', allPhotos.map(p => p.url));
+
 function openLightbox(index) {
+    console.log('🔍 Opening lightbox for index:', index);
     currentImageIndex = index;
     updateLightboxContent();
     
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    console.log('Lightbox opened, classes:', lightbox.className);
 }
 
 function closeLightbox() {
@@ -367,14 +374,30 @@ function nextImage() {
 function updateLightboxContent() {
     const photo = allPhotos[currentImageIndex];
     
-    if (!photo) return;
+    console.log('=== LIGHTBOX DEBUG ===');
+    console.log('Current index:', currentImageIndex);
+    console.log('Photo object:', photo);
+    console.log('Photo URL:', photo ? photo.url : 'NO URL');
+    console.log('All photos:', allPhotos);
+    
+    if (!photo) {
+        console.error('No photo found at index:', currentImageIndex);
+        return;
+    }
     
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxTitle = document.getElementById('lightboxTitle');
     const lightboxDescription = document.getElementById('lightboxDescription');
     const lightboxDate = document.getElementById('lightboxDate');
     
-    lightboxImage.src = photo.url;
+    console.log('Setting image src to:', photo.url);
+    
+    // Clear previous src and set new one
+    lightboxImage.src = '';
+    setTimeout(() => {
+        lightboxImage.src = photo.url || '';
+    }, 10);
+    
     lightboxImage.alt = photo.title || 'Fotografie competiție canină';
     lightboxTitle.textContent = photo.title || 'Competiție Canină';
     lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine organizate de Clubul Ciobanescului Belgian România.';
@@ -384,6 +407,15 @@ function updateLightboxContent() {
             month: 'long', 
             year: 'numeric' 
         }) : 'Recent';
+    
+    // Add load event listeners
+    lightboxImage.onload = function() {
+        console.log('✅ Image loaded successfully!');
+    };
+    
+    lightboxImage.onerror = function() {
+        console.error('❌ Failed to load image:', photo.url);
+    };
 }
 
 // Keyboard navigation
