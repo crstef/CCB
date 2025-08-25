@@ -48,17 +48,17 @@ name('galerie-foto');
         
         .gallery-overlay {
             position: absolute;
-            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 70%);
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 2rem;
+            padding: 1.5rem;
+            min-height: 80px;
         }
         
         .gallery-item:hover .gallery-overlay {
@@ -85,10 +85,9 @@ name('galerie-foto');
         
         .lightbox-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            background: white;
-            border-radius: 16px;
+            max-width: 95vw;
+            max-height: 95vh;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transform: scale(0.9);
@@ -104,8 +103,9 @@ name('galerie-foto');
         .lightbox-image {
             width: 100%;
             height: auto;
-            max-height: 75vh;
+            max-height: 95vh;
             object-fit: contain;
+            display: block;
         }
         
         .lightbox-info {
@@ -214,7 +214,7 @@ name('galerie-foto');
             }
             
             .gallery-overlay {
-                padding: 1.5rem;
+                padding: 1rem;
             }
         }
         
@@ -259,49 +259,6 @@ name('galerie-foto');
     </style>
 
 <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-    <!-- Hero Section -->
-    <div class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 text-white overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/80 to-purple-800/80"></div>
-        
-        <!-- Decorative elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
-            <div class="absolute -top-4 -left-4 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="absolute top-1/4 right-0 w-96 h-96 bg-purple-300/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-blue-300/10 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                Galerie Foto
-            </h1>
-            <p class="text-xl opacity-90 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Descoperă cele mai spectaculoase momente din competițiile canine și evenimentele clubului nostru
-            </p>
-            
-            <div class="flex flex-wrap items-center justify-center gap-8 text-sm">
-                <div class="flex items-center space-x-3 bg-white/10 rounded-full px-6 py-3 backdrop-blur-sm">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>{{ $photos->count() }} fotografii</span>
-                </div>
-                <div class="flex items-center space-x-3 bg-white/10 rounded-full px-6 py-3 backdrop-blur-sm">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <span>Înaltă rezoluție</span>
-                </div>
-                <div class="flex items-center space-x-3 bg-white/10 rounded-full px-6 py-3 backdrop-blur-sm">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>Actualizat zilnic</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         @if($photos->count() > 0)
             <div class="gallery-grid" id="galleryGrid">
@@ -323,30 +280,19 @@ name('galerie-foto');
                         </div>
                         
                         <div class="gallery-overlay">
-                            @if($photo->title)
-                                <h3 class="text-white font-bold text-lg mb-2">
-                                    {{ $photo->title }}
-                                </h3>
+                            @if($photo->title || $photo->description)
+                                @if($photo->title)
+                                    <h3 class="text-white font-bold text-sm mb-1 drop-shadow-lg">
+                                        {{ $photo->title }}
+                                    </h3>
+                                @endif
+                                
+                                @if($photo->description)
+                                    <p class="text-white/90 text-xs leading-relaxed drop-shadow-lg">
+                                        {{ Str::limit($photo->description, 80) }}
+                                    </p>
+                                @endif
                             @endif
-                            
-                            @if($photo->description)
-                                <p class="text-white/90 text-sm leading-relaxed">
-                                    {{ Str::limit($photo->description, 120) }}
-                                </p>
-                            @endif
-                            
-                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/20">
-                                <span class="text-white/80 text-xs">
-                                    {{ $photo->created_at?->format('d.m.Y') ?? 'Recent' }}
-                                </span>
-                                <div class="flex items-center space-x-2 text-white/80">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                    <span class="text-xs font-medium">Click pentru a vedea</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -393,16 +339,6 @@ name('galerie-foto');
     
     <div class="lightbox-content">
         <img class="lightbox-image" id="lightboxImage" src="" alt="" />
-        <div class="lightbox-info">
-            <h3 class="text-2xl font-bold text-gray-900 mb-3" id="lightboxTitle"></h3>
-            <p class="text-gray-600 mb-4 leading-relaxed" id="lightboxDescription"></p>
-            <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-200">
-                <span id="lightboxDate"></span>
-                <div class="flex items-center space-x-4">
-                    <span class="text-blue-600 font-medium">📸 Galerie CCB România</span>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -452,22 +388,12 @@ function nextImage() {
 function updateLightboxContent() {
     const photo = allPhotos[currentImageIndex];
     const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxTitle = document.getElementById('lightboxTitle');
-    const lightboxDescription = document.getElementById('lightboxDescription');
-    const lightboxDate = document.getElementById('lightboxDate');
     
     // Add loading state
     lightboxImage.style.opacity = '0.5';
     
     lightboxImage.src = photo.url;
-    lightboxTitle.textContent = photo.title || 'Competiție Canină';
-    lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine organizate de Clubul Ciobanescului Belgian România.';
-    lightboxDate.textContent = photo.created_at ? 
-        new Date(photo.created_at).toLocaleDateString('ro-RO', { 
-            day: 'numeric', 
-            month: 'long', 
-            year: 'numeric' 
-        }) : 'Recent';
+    lightboxImage.alt = photo.title || 'Fotografie competiție canină';
     
     // Remove loading state when image loads
     lightboxImage.onload = function() {
