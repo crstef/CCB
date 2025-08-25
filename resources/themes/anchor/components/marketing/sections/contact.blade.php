@@ -1,60 +1,60 @@
-<section class="w-full py-16 bg-gray-50">
+<section class="w-full py-12 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4">
-        <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+        <div class="flex flex-col lg:flex-row gap-6 items-stretch">
             {{-- Left Side - Contact Information --}}
-            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-10">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold text-blue-700 mb-4">Intră în legătură cu noi</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">
+            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-blue-700 mb-3">Intră în legătură cu noi</h2>
+                    <p class="text-gray-600 leading-relaxed">
                         Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm! 
                         Contactează-ne prin oricare dintre canalele de mai jos.
                     </p>
                 </div>
 
-                <div class="space-y-8">
+                <div class="space-y-6">
                     {{-- Phone Contact --}}
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
-                                <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                 </svg>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold text-gray-900 mb-3">Sună-ne</h3>
-                            <p class="text-gray-600 text-lg">
-                                Sună-ne la <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800 text-xl">0723 644 822</a>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Sună-ne</h3>
+                            <p class="text-gray-600">
+                                Sună-ne la <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800">0723 644 822</a>
                             </p>
-                            <p class="text-gray-500 mt-1">Luni - Vineri: 9:00 - 17:00</p>
+                            <p class="text-gray-500 text-sm mt-1">Luni - Vineri: 9:00 - 17:00</p>
                         </div>
                     </div>
 
                     {{-- Email Contact --}}
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
-                                <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold text-gray-900 mb-3">Trimite-ne un email</h3>
-                            <p class="text-gray-600 text-lg">
-                                <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800 text-xl">office@ccbor.ro</a>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Trimite-ne un email</h3>
+                            <p class="text-gray-600">
+                                <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800">office@ccbor.ro</a>
                             </p>
-                            <p class="text-gray-500 mt-1">Răspuns în maxim 24 de ore</p>
+                            <p class="text-gray-500 text-sm mt-1">Răspuns în maxim 24 de ore</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {{-- Right Side - Contact Form --}}
-            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-10">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl font-bold text-blue-700 mb-4">Trimite-ne un mesaj</h3>
-                    <p class="text-gray-600 text-lg">
+            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">Trimite-ne un mesaj</h3>
+                    <p class="text-gray-600">
                         Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.
                     </p>
                 </div>

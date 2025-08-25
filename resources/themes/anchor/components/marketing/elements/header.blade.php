@@ -185,8 +185,8 @@
                     <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
                         <a href="{{ route('blog') }}" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">Evenimente</a>
                     </li>
-                    <li x-data="{ open: false }" @click.away="open = false" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
-                        <a href="#" x-on:click.prevent="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
+                    <li x-data="{ open: false }" @mouseenter="showOverlay=true; open=true" @mouseleave="showOverlay=false; open=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
+                        <a href="#" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
                             <span class="">Contact</span>
                             <svg :class="{ 'rotate-180' : open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
                         </a>
@@ -201,97 +201,148 @@
                             x-transition:leave-start="opacity-100 transform translate-y-0"
                             x-transition:leave-end="opacity-0 transform -translate-y-2"
                             x-cloak>
-                            <div class="mx-auto max-w-4xl p-6">
-                                <div class="bg-white rounded-lg shadow-lg">
-                                    <div class="border-b border-gray-200 pb-4 mb-6 p-6">
-                                        <h2 class="text-2xl font-bold text-blue-700 mb-2">Formular Contact - {{ now()->format('H:i:s') }}</h2>
-                                        <p class="text-gray-600">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
+                            <div class="mx-auto max-w-6xl p-6">
+                                <div class="flex flex-col lg:flex-row gap-6 items-stretch">
+                                    {{-- Left Side - Contact Information --}}
+                                    <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-6">
+                                        <div class="text-center mb-4">
+                                            <h2 class="text-xl font-bold text-blue-700 mb-2">Intră în legătură cu noi</h2>
+                                            <p class="text-gray-600 text-sm leading-relaxed">
+                                                Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm!
+                                            </p>
+                                        </div>
+
+                                        <div class="space-y-4">
+                                            {{-- Phone Contact --}}
+                                            <div class="flex items-start space-x-3">
+                                                <div class="flex-shrink-0">
+                                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3 class="text-sm font-semibold text-gray-900 mb-1">Sună-ne</h3>
+                                                    <p class="text-gray-600 text-sm">
+                                                        <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800">0723 644 822</a>
+                                                    </p>
+                                                    <p class="text-gray-500 text-xs mt-1">Luni - Vineri: 9:00 - 17:00</p>
+                                                </div>
+                                            </div>
+
+                                            {{-- Email Contact --}}
+                                            <div class="flex items-start space-x-3">
+                                                <div class="flex-shrink-0">
+                                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3 class="text-sm font-semibold text-gray-900 mb-1">Trimite-ne un email</h3>
+                                                    <p class="text-gray-600 text-sm">
+                                                        <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800">office@ccbor.ro</a>
+                                                    </p>
+                                                    <p class="text-gray-500 text-xs mt-1">Răspuns în maxim 24 de ore</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
-                                    <div class="px-6 pb-6">
-                                        <form id="headerContactForm" @submit.prevent="submitContactForm" class="space-y-4">
+
+                                    {{-- Right Side - Contact Form --}}
+                                    <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-6">
+                                        <div class="text-center mb-4">
+                                            <h3 class="text-xl font-bold text-blue-700 mb-2">Trimite-ne un mesaj</h3>
+                                            <p class="text-gray-600 text-sm">
+                                                Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.
+                                            </p>
+                                        </div>
+                                        
+                                        <form id="headerContactForm" @submit.prevent="submitContactForm" class="space-y-3">
                                             @csrf
                                             {{-- First and Last Name --}}
-                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                                 <div>
-                                                    <label for="header_first_name" class="block text-sm font-medium text-gray-700 mb-2">Prenume <span class="text-red-500">*</span></label>
+                                                    <label for="header_first_name" class="block text-xs font-medium text-gray-700 mb-1">Prenume <span class="text-red-500">*</span></label>
                                                     <input type="text" 
                                                            id="header_first_name" 
                                                            name="first_name" 
                                                            required
-                                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                           placeholder="Introduceți prenumele">
+                                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                           placeholder="Prenumele">
                                                 </div>
                                                 <div>
-                                                    <label for="header_last_name" class="block text-sm font-medium text-gray-700 mb-2">Nume <span class="text-red-500">*</span></label>
+                                                    <label for="header_last_name" class="block text-xs font-medium text-gray-700 mb-1">Nume <span class="text-red-500">*</span></label>
                                                     <input type="text" 
                                                            id="header_last_name" 
                                                            name="last_name" 
                                                            required
-                                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                           placeholder="Introduceți numele">
+                                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                           placeholder="Numele">
                                                 </div>
                                             </div>
 
                                             {{-- Email --}}
                                             <div>
-                                                <label for="header_email" class="block text-sm font-medium text-gray-700 mb-2">Adresa de email <span class="text-red-500">*</span></label>
+                                                <label for="header_email" class="block text-xs font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
                                                 <input type="email" 
                                                        id="header_email" 
                                                        name="email" 
                                                        required
-                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                        placeholder="your@email.com">
                                             </div>
 
                                             {{-- Phone (optional) --}}
                                             <div>
-                                                <label for="header_phone" class="block text-sm font-medium text-gray-700 mb-2">Numărul de telefon <span class="text-gray-400">(opțional)</span></label>
+                                                <label for="header_phone" class="block text-xs font-medium text-gray-700 mb-1">Telefon <span class="text-gray-400">(opțional)</span></label>
                                                 <input type="tel" 
                                                        id="header_phone" 
                                                        name="phone"
-                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                        placeholder="+40 123 456 789">
                                             </div>
 
                                             {{-- Subject --}}
                                             <div>
-                                                <label for="header_subject" class="block text-sm font-medium text-gray-700 mb-2">Subiect <span class="text-red-500">*</span></label>
+                                                <label for="header_subject" class="block text-xs font-medium text-gray-700 mb-1">Subiect <span class="text-red-500">*</span></label>
                                                 <input type="text" 
                                                        id="header_subject" 
                                                        name="subject" 
                                                        required
-                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                       placeholder="Despre ce este mesajul?">
+                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       placeholder="Subiectul mesajului">
                                             </div>
 
                                             {{-- Message --}}
                                             <div>
-                                                <label for="header_message" class="block text-sm font-medium text-gray-700 mb-2">Mesaj <span class="text-red-500">*</span></label>
+                                                <label for="header_message" class="block text-xs font-medium text-gray-700 mb-1">Mesaj <span class="text-red-500">*</span></label>
                                                 <textarea id="header_message" 
                                                           name="message" 
-                                                          rows="4" 
+                                                          rows="3" 
                                                           required
-                                                          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                          placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
+                                                          class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                          placeholder="Mesajul dumneavoastră..."></textarea>
                                             </div>
 
                                             {{-- Submit Button --}}
                                             <div>
                                                 <button type="submit" 
                                                         id="headerSubmitBtn"
-                                                        class="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
+                                                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
                                                     Trimite mesajul
                                                 </button>
                                             </div>
                                         </form>
 
                                         {{-- Success/Error Messages --}}
-                                        <div id="headerFormMessages" class="mt-4 hidden">
-                                            <div id="headerSuccessMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                                        <div id="headerFormMessages" class="mt-3 hidden">
+                                            <div id="headerSuccessMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-3 py-2 rounded text-sm">
                                                 Mesajul a fost trimis cu succes! Vă vom contacta în curând.
                                             </div>
-                                            <div id="headerErrorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                            <div id="headerErrorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-sm">
                                                 A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.
                                             </div>
                                         </div>
