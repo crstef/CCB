@@ -87,7 +87,7 @@ name('galerie-foto');
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.8);
             z-index: 9999;
         }
         
@@ -107,10 +107,14 @@ name('galerie-foto');
         }
         
         .lightbox-image {
-            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-width: 95vw;
             max-height: 95vh;
             object-fit: contain;
             display: block;
+            background: none;
+            border: none;
         }
         
         .lightbox-overlay {
@@ -346,13 +350,19 @@ console.log('Photo URLs:', allPhotos.map(p => p.url));
 function openLightbox(index) {
     console.log('🔍 Opening lightbox for index:', index);
     currentImageIndex = index;
-    updateLightboxContent();
     
     const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    
+    console.log('Lightbox element:', !!lightbox);
+    console.log('Image element:', !!lightboxImage);
+    
+    updateLightboxContent();
+    
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    console.log('Lightbox opened, classes:', lightbox.className);
+    console.log('Lightbox opened, display:', window.getComputedStyle(lightbox).display);
 }
 
 function closeLightbox() {
@@ -375,42 +385,41 @@ function updateLightboxContent() {
     const photo = allPhotos[currentImageIndex];
     
     console.log('=== LIGHTBOX DEBUG ===');
-    console.log('Current index:', currentImageIndex);
-    console.log('Photo object:', photo);
-    console.log('Photo URL:', photo ? photo.url : 'NO URL');
-    console.log('All photos:', allPhotos);
+    console.log('Photo URL:', photo ? photo.url : 'NO PHOTO');
     
-    if (!photo) {
-        console.error('No photo found at index:', currentImageIndex);
+    if (!photo || !photo.url) {
+        console.error('❌ No photo or URL found');
         return;
     }
     
     const lightboxImage = document.getElementById('lightboxImage');
+    
+    if (!lightboxImage) {
+        console.error('❌ Lightbox image element not found');
+        return;
+    }
+    
+    console.log('📸 Setting image src:', photo.url);
+    console.log('🖼️ Image element:', lightboxImage);
+    
+    // Set image source directly
+    lightboxImage.src = photo.url;
+    lightboxImage.style.display = 'block';
+    lightboxImage.style.visibility = 'visible';
+    
+    // Update text content
     const lightboxTitle = document.getElementById('lightboxTitle');
     const lightboxDescription = document.getElementById('lightboxDescription');
     const lightboxDate = document.getElementById('lightboxDate');
     
-    console.log('Setting image src to:', photo.url);
+    if (lightboxTitle) lightboxTitle.textContent = photo.title || 'Competiție Canină';
+    if (lightboxDescription) lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine.';
+    if (lightboxDate) lightboxDate.textContent = photo.created_at ? 
+        new Date(photo.created_at).toLocaleDateString('ro-RO') : 'Recent';
     
-    // Clear previous src and set new one
-    lightboxImage.src = '';
-    setTimeout(() => {
-        lightboxImage.src = photo.url || '';
-    }, 10);
-    
-    lightboxImage.alt = photo.title || 'Fotografie competiție canină';
-    lightboxTitle.textContent = photo.title || 'Competiție Canină';
-    lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine organizate de Clubul Ciobanescului Belgian România.';
-    lightboxDate.textContent = photo.created_at ? 
-        new Date(photo.created_at).toLocaleDateString('ro-RO', { 
-            day: 'numeric', 
-            month: 'long', 
-            year: 'numeric' 
-        }) : 'Recent';
-    
-    // Add load event listeners
+    // Check if image loads
     lightboxImage.onload = function() {
-        console.log('✅ Image loaded successfully!');
+        console.log('✅ Image loaded successfully! Dimensions:', this.naturalWidth, 'x', this.naturalHeight);
     };
     
     lightboxImage.onerror = function() {
