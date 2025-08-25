@@ -87,9 +87,9 @@ name('galerie-foto');
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
         }
         
         .lightbox.active {
@@ -100,25 +100,53 @@ name('galerie-foto');
         
         .lightbox-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 95vw;
+            max-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .lightbox-image {
-            width: 100%;
-            height: auto;
-            max-height: 70vh;
+            max-width: 100%;
+            max-height: 95vh;
             object-fit: contain;
             display: block;
         }
         
-        .lightbox-info {
-            padding: 1.5rem;
-            background: white;
+        .lightbox-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            padding: 2rem;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .lightbox-overlay h3 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .lightbox-overlay p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            margin-bottom: 0.5rem;
+        }
+        
+        .lightbox-overlay .photo-date {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
         .lightbox-nav {
@@ -180,16 +208,24 @@ name('galerie-foto');
             }
             
             .lightbox-content {
-                max-width: 95vw;
-                max-height: 95vh;
+                max-width: 98vw;
+                max-height: 98vh;
             }
             
             .lightbox-image {
-                max-height: 60vh;
+                max-height: 90vh;
             }
             
-            .lightbox-info {
-                padding: 1rem;
+            .lightbox-overlay {
+                padding: 1.5rem;
+            }
+            
+            .lightbox-overlay h3 {
+                font-size: 1.125rem;
+            }
+            
+            .lightbox-overlay p {
+                font-size: 0.875rem;
             }
             
             .lightbox-nav {
@@ -291,13 +327,10 @@ name('galerie-foto');
     
     <div class="lightbox-content">
         <img class="lightbox-image" id="lightboxImage" src="" alt="" />
-        <div class="lightbox-info">
-            <h3 class="text-xl font-bold text-gray-900 mb-2" id="lightboxTitle"></h3>
-            <p class="text-gray-600 mb-4 leading-relaxed" id="lightboxDescription"></p>
-            <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-200">
-                <span id="lightboxDate"></span>
-                <span class="text-blue-600 font-medium">📸 Galerie CCB România</span>
-            </div>
+        <div class="lightbox-overlay">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDescription"></p>
+            <span class="photo-date" id="lightboxDate"></span>
         </div>
     </div>
 </div>
