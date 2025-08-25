@@ -239,24 +239,6 @@ class MediaResource extends Resource
                 Forms\Components\Hidden::make('file_size'),
                 Forms\Components\Hidden::make('mime_type'),
                 Forms\Components\Hidden::make('youtube_id'),
-            ])
-            ->model(Media::class)
-            ->statePath('data')
-            ->rules([
-                'file_path' => function (Forms\Get $get) {
-                    // File path is required unless we have a YouTube URL
-                    if (!$get('youtube_url') && !$get('file_path')) {
-                        return 'required';
-                    }
-                    return 'nullable';
-                },
-                'youtube_url' => function (Forms\Get $get) {
-                    // YouTube URL is required unless we have a file path
-                    if (!$get('file_path') && !$get('youtube_url')) {
-                        return 'required';
-                    }
-                    return 'nullable|url';
-                },
             ]);
     }
 
