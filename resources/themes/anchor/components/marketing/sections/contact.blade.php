@@ -1,8 +1,8 @@
 <section class="w-full py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
             {{-- Left Side - Contact Information --}}
-            <div class="space-y-8">
+            <div class="w-full lg:w-1/2 space-y-8">
                 <div>
                     <h2 class="text-3xl font-bold text-blue-700 mb-4">Intră în legătură cu noi</h2>
                     <p class="text-gray-600 text-lg leading-relaxed">
@@ -49,7 +49,7 @@
             </div>
 
             {{-- Right Side - Contact Form --}}
-            <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8">
                 <h3 class="text-2xl font-bold text-blue-700 mb-6">Trimite-ne un mesaj</h3>
                 <p class="text-gray-600 mb-6">
                     Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.

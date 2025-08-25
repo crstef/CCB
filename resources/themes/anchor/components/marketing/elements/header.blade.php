@@ -192,11 +192,11 @@
                         </a>
                         <div 
                             :class="{ 'hidden md:block opacity-0 invisible md:absolute' : !open, 'md:invisible md:opacity-0 md:hidden md:absolute' : open }"
-                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0" x-cloak>
+                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0 z-50" x-cloak>
                             <div class="mx-auto max-w-4xl p-6">
-                                <div class="bg-white rounded-lg">
-                                    <div class="border-b border-gray-200 pb-4 mb-6">
-                                        <h2 class="text-2xl font-bold text-gray-900">Trimite-ne un mesaj</h2>
+                                <div class="bg-white rounded-lg border-2 border-blue-200">
+                                    <div class="border-b border-gray-200 pb-4 mb-6 bg-blue-50 p-4 rounded-t-lg">
+                                        <h2 class="text-2xl font-bold text-blue-700">Trimite-ne un mesaj</h2>
                                         <p class="text-gray-600 mt-2">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
                                     </div>
                                     
