@@ -24,7 +24,7 @@ Route::get('/galerie-video', [GalleryController::class, 'videoGallery'])->name('
 Route::get('/documente', [DocumentController::class, 'index'])->name('documents.index');
 Route::get('/documente/{document}', [DocumentController::class, 'show'])->name('documents.show');
 
-// Contact route
+// Contact route (handled by Folio)
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Wave routes
