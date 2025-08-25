@@ -92,12 +92,13 @@
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Servicii si evenimente oferite de club</span>
                                     </a>
                                 </li>
-                                <li class="w-full border-l border-r border-gray-100 md:w-1/5">
-                                    <a href="#contact" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
+                                {{-- <li class="w-full border-l border-r border-gray-100 md:w-1/5">
+                                    <a href="{{ route('contact') }}" class="block h-full p-6 text-lg font-semibold hover:bg-gray-50 lg:p-7 lg:py-10">
                                         <img src="/wave/img/icons/Contact.png" class="w-12 h-auto" alt="contact icon" />
                                         <span class="block my-2 text-xs font-bold uppercase text-slate-800">Contact</span>
                                         <span class="block text-xs font-medium leading-5 text-slate-500">Trimite-ne un mesaj și te vom contacta în curând</span>
                                     </a>
+                                </li> --}}
                                 </li>
                             </ul>
                         </div>
