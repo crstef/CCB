@@ -1,14 +1,10 @@
-<section class="w-full py-12 bg-red-500">
+<section class="w-full py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-8">
-            <h1 class="text-6xl font-bold text-white animate-pulse">🔴 TESTARE CONTACT - TEMA ANCHOR 🔴</h1>
-            <p class="text-white text-2xl mt-4">Dacă vezi acest text, tema anchor funcționează!</p>
-        </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {{-- Left Side - Contact Information --}}
             <div class="space-y-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-white mb-4">Intră în legătură cu noi</h2>
+                    <h2 class="text-3xl font-bold text-blue-700 mb-4">Intră în legătură cu noi</h2>
                     <p class="text-gray-600 text-lg leading-relaxed">
                         Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm! 
                         Contactează-ne prin oricare dintre canalele de mai jos.
