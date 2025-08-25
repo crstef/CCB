@@ -185,117 +185,117 @@
                     <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
                         <a href="{{ route('blog') }}" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">Evenimente</a>
                     </li>
-                    <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
-                        <a href="#_" x-on:click="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
+                    <li x-data="{ open: false }" @click.away="open = false" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
+                        <a href="#" x-on:click.prevent="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
                             <span class="">Contact</span>
-                            <svg :class="{ 'group-hover:-rotate-180' : !mobileMenuOpen, '-rotate-180' : mobileMenuOpen && open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
+                            <svg :class="{ 'rotate-180' : open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
                         </a>
                         <div 
-                            :class="{ 'hidden md:block opacity-0 invisible md:absolute' : !open, 'md:invisible md:opacity-0 md:hidden md:absolute' : open }"
-                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0 z-50" x-cloak>
+                            :class="{ 'hidden opacity-0 invisible' : !open, 'block opacity-100 visible' : open }"
+                            class="absolute top-0 left-0 w-screen space-y-3 transition-all duration-300 ease-out bg-white border-t border-b border-gray-100 shadow-lg mt-24 z-50" 
+                            x-show="open"
+                            x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 transform -translate-y-2"
+                            x-transition:enter-end="opacity-100 transform translate-y-0"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 transform translate-y-0"
+                            x-transition:leave-end="opacity-0 transform -translate-y-2"
+                            x-cloak>
                             <div class="mx-auto max-w-4xl p-6">
-                                <div class="bg-white rounded-lg border-2 border-blue-200">
-                                    <div class="border-b border-gray-200 pb-4 mb-6 bg-blue-50 p-4 rounded-t-lg">
-                                        <h2 class="text-2xl font-bold text-blue-700">Trimite-ne un mesaj</h2>
-                                        <p class="text-gray-600 mt-2">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
+                                <div class="bg-white rounded-lg shadow-lg">
+                                    <div class="border-b border-gray-200 pb-4 mb-6 p-6">
+                                        <h2 class="text-2xl font-bold text-blue-700 mb-2">Trimite-ne un mesaj</h2>
+                                        <p class="text-gray-600">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
                                     </div>
                                     
-                                    <form id="contactForm" @submit.prevent="submitContactForm">
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                            <!-- Prenume -->
-                                            <div>
-                                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                                    Prenume <span class="text-red-500">*</span>
-                                                </label>
-                                                <input type="text" 
-                                                       id="first_name" 
-                                                       name="first_name" 
-                                                       required
-                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                       placeholder="Introduceți prenumele">
+                                    <div class="px-6 pb-6">
+                                        <form id="headerContactForm" @submit.prevent="submitContactForm" class="space-y-4">
+                                            @csrf
+                                            {{-- First and Last Name --}}
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label for="header_first_name" class="block text-sm font-medium text-gray-700 mb-2">Prenume <span class="text-red-500">*</span></label>
+                                                    <input type="text" 
+                                                           id="header_first_name" 
+                                                           name="first_name" 
+                                                           required
+                                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                           placeholder="Introduceți prenumele">
+                                                </div>
+                                                <div>
+                                                    <label for="header_last_name" class="block text-sm font-medium text-gray-700 mb-2">Nume <span class="text-red-500">*</span></label>
+                                                    <input type="text" 
+                                                           id="header_last_name" 
+                                                           name="last_name" 
+                                                           required
+                                                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                           placeholder="Introduceți numele">
+                                                </div>
                                             </div>
 
-                                            <!-- Nume -->
+                                            {{-- Email --}}
                                             <div>
-                                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                                    Nume <span class="text-red-500">*</span>
-                                                </label>
-                                                <input type="text" 
-                                                       id="last_name" 
-                                                       name="last_name" 
+                                                <label for="header_email" class="block text-sm font-medium text-gray-700 mb-2">Adresa de email <span class="text-red-500">*</span></label>
+                                                <input type="email" 
+                                                       id="header_email" 
+                                                       name="email" 
                                                        required
-                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                       placeholder="Introduceți numele">
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       placeholder="your@email.com">
+                                            </div>
+
+                                            {{-- Phone (optional) --}}
+                                            <div>
+                                                <label for="header_phone" class="block text-sm font-medium text-gray-700 mb-2">Numărul de telefon <span class="text-gray-400">(opțional)</span></label>
+                                                <input type="tel" 
+                                                       id="header_phone" 
+                                                       name="phone"
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       placeholder="+40 123 456 789">
+                                            </div>
+
+                                            {{-- Subject --}}
+                                            <div>
+                                                <label for="header_subject" class="block text-sm font-medium text-gray-700 mb-2">Subiect <span class="text-red-500">*</span></label>
+                                                <input type="text" 
+                                                       id="header_subject" 
+                                                       name="subject" 
+                                                       required
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                       placeholder="Despre ce este mesajul?">
+                                            </div>
+
+                                            {{-- Message --}}
+                                            <div>
+                                                <label for="header_message" class="block text-sm font-medium text-gray-700 mb-2">Mesaj <span class="text-red-500">*</span></label>
+                                                <textarea id="header_message" 
+                                                          name="message" 
+                                                          rows="4" 
+                                                          required
+                                                          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                          placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
+                                            </div>
+
+                                            {{-- Submit Button --}}
+                                            <div>
+                                                <button type="submit" 
+                                                        id="headerSubmitBtn"
+                                                        class="w-full bg-blue-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
+                                                    Trimite mesajul
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                        {{-- Success/Error Messages --}}
+                                        <div id="headerFormMessages" class="mt-4 hidden">
+                                            <div id="headerSuccessMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                                                Mesajul a fost trimis cu succes! Vă vom contacta în curând.
+                                            </div>
+                                            <div id="headerErrorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                                A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.
                                             </div>
                                         </div>
-
-                                        <!-- Email -->
-                                        <div class="mb-4">
-                                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                                Adresa de email <span class="text-red-500">*</span>
-                                            </label>
-                                            <input type="email" 
-                                                   id="email" 
-                                                   name="email" 
-                                                   required
-                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                   placeholder="your@email.com">
-                                        </div>
-
-                                        <!-- Telefon -->
-                                        <div class="mb-4">
-                                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                                                Numărul de telefon <span class="text-gray-400">(opțional)</span>
-                                            </label>
-                                            <input type="tel" 
-                                                   id="phone" 
-                                                   name="phone"
-                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                   placeholder="+40 123 456 789">
-                                        </div>
-
-                                        <!-- Subiect -->
-                                        <div class="mb-4">
-                                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
-                                                Subiect <span class="text-red-500">*</span>
-                                            </label>
-                                            <input type="text" 
-                                                   id="subject" 
-                                                   name="subject" 
-                                                   required
-                                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                   placeholder="Despre ce este mesajul?">
-                                        </div>
-
-                                        <!-- Mesaj -->
-                                        <div class="mb-6">
-                                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                                                Mesaj <span class="text-red-500">*</span>
-                                            </label>
-                                            <textarea id="message" 
-                                                      name="message" 
-                                                      rows="4" 
-                                                      required
-                                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                                                      placeholder="Scrieți mesajul dumneavoastră aici..."></textarea>
-                                        </div>
-
-                                        <!-- Submit Button -->
-                                        <div class="flex justify-end">
-                                            <button type="submit" 
-                                                    id="submitBtn"
-                                                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                                                <span id="submitText">Trimite mesajul</span>
-                                                <span id="submitLoading" class="hidden">
-                                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
-                                                    Se trimite...
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -331,52 +331,71 @@
     <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
 
     <script>
-        // Contact form submission
+                // Contact form submission
         function submitContactForm(event) {
             event.preventDefault();
             
-            const form = document.getElementById('contactForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitLoading = document.getElementById('submitLoading');
-            
-            // Disable button and show loading
+            const form = document.getElementById('headerContactForm');
+            const submitBtn = document.getElementById('headerSubmitBtn');
+            const formMessages = document.getElementById('headerFormMessages');
+            const successMessage = document.getElementById('headerSuccessMessage');
+            const errorMessage = document.getElementById('headerErrorMessage');
+
+            // Disable submit button and show loading state
             submitBtn.disabled = true;
-            submitText.classList.add('hidden');
-            submitLoading.classList.remove('hidden');
-            
-            // Get form data
+            submitBtn.textContent = 'Se trimite...';
+
+            // Hide previous messages
+            formMessages.classList.add('hidden');
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
             const formData = new FormData(form);
             
-            // Add CSRF token
-            formData.append('_token', '{{ csrf_token() }}');
-            
-            // Submit form
             fetch('{{ route("contact.store") }}', {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
                 }
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    // Show success message
+                    successMessage.classList.remove('hidden');
+                    formMessages.classList.remove('hidden');
                     showToast('Mesajul a fost trimis cu succes! Vă vom contacta în curând.', 'success');
+                    
+                    // Reset form
                     form.reset();
+                    
+                    // Close dropdown after a delay
+                    setTimeout(() => {
+                        const dropdown = form.closest('[x-data]');
+                        if (dropdown && dropdown.__x) {
+                            dropdown.__x.$data.open = false;
+                        }
+                    }, 2000);
                 } else {
-                    showToast(data.message || 'A apărut o eroare. Vă rugăm să încercați din nou.', 'error');
+                    // Show error message
+                    errorMessage.textContent = data.message || 'A apărut o eroare la trimiterea mesajului.';
+                    errorMessage.classList.remove('hidden');
+                    formMessages.classList.remove('hidden');
+                    showToast('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showToast('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.', 'error');
+                errorMessage.textContent = 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.';
+                errorMessage.classList.remove('hidden');
+                formMessages.classList.remove('hidden');
+                showToast('A apărut o eroare de conexiune. Vă rugăm să încercați din nou.', 'error');
             })
             .finally(() => {
-                // Re-enable button
+                // Re-enable submit button
                 submitBtn.disabled = false;
-                submitText.classList.remove('hidden');
-                submitLoading.classList.add('hidden');
+                submitBtn.textContent = 'Trimite mesajul';
             });
         }
         
@@ -417,7 +436,7 @@
         
         // Attach form submission handler
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('contactForm');
+            const form = document.getElementById('headerContactForm');
             if (form) {
                 form.addEventListener('submit', submitContactForm);
             }

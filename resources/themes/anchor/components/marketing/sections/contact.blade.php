@@ -2,17 +2,17 @@
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-12 items-start">
             {{-- Left Side - Contact Information --}}
-            <div class="w-full lg:w-1/2 space-y-8">
+            <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-8">
                 <div>
                     <h2 class="text-3xl font-bold text-blue-700 mb-4">Intră în legătură cu noi</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
                         Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm! 
                         Contactează-ne prin oricare dintre canalele de mai jos.
                     </p>
                 </div>
 
                 {{-- Phone Contact --}}
-                <div class="flex items-start space-x-4">
+                <div class="flex items-start space-x-4 mb-6">
                     <div class="flex-shrink-0">
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,7 +22,7 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Sună-ne</h3>
-                        <p class="text-gray-600 mb-2">
+                        <p class="text-gray-600">
                             Sună-ne la <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800">0723 644 822</a>. 
                             Toate zilele de luni până vineri de la 9:00 la 17:00.
                         </p>
@@ -40,7 +40,7 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Trimite-ne un email</h3>
-                        <p class="text-gray-600 mb-2">
+                        <p class="text-gray-600">
                             Trimite-ne un email la <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800">office@ccbor.ro</a> 
                             și vei primi un răspuns în maxim 24 de ore.
                         </p>
@@ -201,48 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             // Re-enable submit button
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Trimite Mesajul';
-        }
-    });
-});
-</script>
-
-        // Collect form data
-        const formData = new FormData(form);
-        
-        try {
-            const response = await fetch('{{ route("contact.store") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                }
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                // Show success message
-                successMessage.classList.remove('hidden');
-                formMessages.classList.remove('hidden');
-                
-                // Reset form
-                form.reset();
-            } else {
-                // Show error message
-                errorMessage.textContent = data.message || 'A apărut o eroare la trimiterea mesajului.';
-                errorMessage.classList.remove('hidden');
-                formMessages.classList.remove('hidden');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            errorMessage.textContent = 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.';
-            errorMessage.classList.remove('hidden');
-            formMessages.classList.remove('hidden');
-        } finally {
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Trimite Mesajul';
+            submitBtn.textContent = 'Trimite mesajul';
         }
     });
 });
