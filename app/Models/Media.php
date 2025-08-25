@@ -62,6 +62,13 @@ class Media extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['url'];
+
+    /**
      * Available media types
      */
     const MEDIA_TYPES = [

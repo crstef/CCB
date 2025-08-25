@@ -344,8 +344,25 @@ let allPhotos = @json($photos->values()->all());
 
 console.log('🚀 Gallery initialized');
 console.log('Total photos loaded:', allPhotos.length);
-console.log('First photo:', allPhotos[0]);
-console.log('Photo URLs:', allPhotos.map(p => p.url));
+console.log('First photo raw:', allPhotos[0]);
+console.log('Sample photo structure:', {
+    id: allPhotos[0]?.id,
+    title: allPhotos[0]?.title,
+    file_path: allPhotos[0]?.file_path,
+    url: allPhotos[0]?.url,
+    all_keys: allPhotos[0] ? Object.keys(allPhotos[0]) : []
+});
+
+// If URL is missing, try to construct it
+if (allPhotos.length > 0 && !allPhotos[0].url) {
+    console.log('⚠️ URL missing, trying to construct from file_path');
+    allPhotos.forEach(photo => {
+        if (photo.file_path && !photo.url) {
+            photo.url = '/storage/' + photo.file_path;
+            console.log('Constructed URL for', photo.title, ':', photo.url);
+        }
+    });
+}
 
 function openLightbox(index) {
     console.log('🔍 Opening lightbox for index:', index);
