@@ -21,7 +21,11 @@ class GalleryController extends Controller
      */
     public function photoGallery()
     {
-        $photos = Media::getGalleryImages();
+        // Preia toate fotografiile vizibile din baza de date
+        $photos = Media::where('media_type', 'image')
+                      ->where('is_visible', true)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
         
         return view('theme::pages.galerie-foto', compact('photos'));
     }
