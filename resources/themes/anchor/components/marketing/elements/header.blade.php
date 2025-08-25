@@ -204,7 +204,7 @@
                             <div class="mx-auto max-w-4xl p-6">
                                 <div class="bg-white rounded-lg shadow-lg">
                                     <div class="border-b border-gray-200 pb-4 mb-6 p-6">
-                                        <h2 class="text-2xl font-bold text-blue-700 mb-2">Trimite-ne un mesaj</h2>
+                                        <h2 class="text-2xl font-bold text-blue-700 mb-2">Formular Contact - {{ now()->format('H:i:s') }}</h2>
                                         <p class="text-gray-600">Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.</p>
                                     </div>
                                     
