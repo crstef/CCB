@@ -28,7 +28,7 @@ class ListMedia extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label('Upload Media')
+                ->label('Încărcare Media')
                 ->icon('heroicon-o-cloud-arrow-up'),
         ];
     }
@@ -46,7 +46,7 @@ class ListMedia extends ListRecords
      */
     public function getTitle(): string
     {
-        return 'Media Gallery';
+        return 'Galeria Media';
     }
 
     /**
@@ -54,7 +54,7 @@ class ListMedia extends ListRecords
      */
     public function getHeading(): string
     {
-        return 'Media Gallery Management';
+        return 'Administrare Galerie Media';
     }
 
     /**
@@ -62,6 +62,6 @@ class ListMedia extends ListRecords
      */
     public function getSubheading(): ?string
     {
-        return 'Manage photos and videos for your galleries and carousel displays.';
+        return 'Administrați pozele și video-urile pentru galeriile și afișajele carusel.';
     }
 }

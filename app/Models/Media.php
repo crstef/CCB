@@ -83,7 +83,7 @@ class Media extends Model
      * Available media types
      */
     const MEDIA_TYPES = [
-        'image' => 'Image',
+        'image' => 'Imagine',
         'video' => 'Video',
     ];
 
@@ -110,16 +110,11 @@ class Media extends Model
     ];
 
     /**
-     * Available categories - full options restored
+     * Available categories - simplified (kept for backwards compatibility)
+     * Now mainly used for legacy data, new uploads don't require category selection
      */
     const CATEGORIES = [
-        'gallery' => 'Gallery',
-        'carousel' => 'Carousel',
-        'hero' => 'Hero Section',
-        'events' => 'Events',
-        'members' => 'Members',
-        'training' => 'Training',
-        'competitions' => 'Competitions',
+        'gallery' => 'Gallery (Legacy)',
         'other' => 'Other',
     ];
 
@@ -290,72 +285,44 @@ class Media extends Model
                     ->orderBy('created_at', 'desc');
     }
 
-    /**
-     * Get random images for carousel from Gallery category (with fallback)
+        /**
+     * Get random images for carousel - latest uploaded, random order
      *
      * @param int $limit Number of images to retrieve
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getCarouselImages($limit = 10)
     {
-        // First try Gallery category
-        $images = static::visible()
+        // Get latest uploaded images in random order
+        return static::visible()
             ->byType('image')
-            ->byCategory('gallery')
-            ->inRandomOrder()
-            ->limit($limit)
-            ->get();
-            
-        // If not enough from Gallery, supplement with other categories
-        if ($images->count() < $limit) {
-            $additional = static::visible()
-                ->byType('image')
-                ->whereNotIn('category', ['gallery'])
-                ->whereIn('category', ['carousel', 'hero', 'events'])
-                ->inRandomOrder()
-                ->limit($limit - $images->count())
-                ->get();
-                
-            $images = $images->merge($additional);
-        }
-        
-        return $images;
+            ->orderBy('created_at', 'desc')
+            ->limit($limit * 2) // Get more to randomize from
+            ->get()
+            ->shuffle()
+            ->take($limit);
     }
 
     /**
-     * Get random videos for carousel from Gallery category (with fallback)
+     * Get random videos for carousel - latest uploaded, random order
      *
      * @param int $limit Number of videos to retrieve
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function getCarouselVideos($limit = 10)
     {
-        // First try Gallery category
-        $videos = static::visible()
+        // Get latest uploaded videos in random order
+        return static::visible()
             ->byType('video')
-            ->byCategory('gallery')
-            ->inRandomOrder()
-            ->limit($limit)
-            ->get();
-            
-        // If not enough from Gallery, supplement with other categories
-        if ($videos->count() < $limit) {
-            $additional = static::visible()
-                ->byType('video')
-                ->whereNotIn('category', ['gallery'])
-                ->whereIn('category', ['carousel', 'hero', 'events'])
-                ->inRandomOrder()
-                ->limit($limit - $videos->count())
-                ->get();
-                
-            $videos = $videos->merge($additional);
-        }
-        
-        return $videos;
+            ->orderBy('created_at', 'desc')
+            ->limit($limit * 2) // Get more to randomize from
+            ->get()
+            ->shuffle()
+            ->take($limit);
     }
 
     /**
-     * Get all gallery images (for "Vezi galeria foto" page)
+     * Get all gallery images (for "Vezi galeria foto" page) - all visible images
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -363,13 +330,12 @@ class Media extends Model
     {
         return static::visible()
             ->byType('image')
-            ->byCategory('gallery')
             ->ordered()
             ->get();
     }
 
     /**
-     * Get all gallery videos (for "Vezi galeria video" page)
+     * Get all gallery videos (for "Vezi galeria video" page) - all visible videos
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -377,7 +343,6 @@ class Media extends Model
     {
         return static::visible()
             ->byType('video')
-            ->byCategory('gallery')
             ->ordered()
             ->get();
     }
@@ -588,10 +553,29 @@ class Media extends Model
                 $media->media_type = str_starts_with($media->mime_type, 'image/') ? 'image' : 'video';
             }
             
+            // Set default category for backwards compatibility
+            if (!$media->category) {
+                $media->category = 'gallery';
+            }
+            
             // Auto-extract YouTube ID when YouTube URL is provided
             if ($media->youtube_url && !$media->youtube_id) {
                 $media->youtube_id = static::extractYouTubeId($media->youtube_url);
                 $media->video_source = 'youtube';
+                $media->media_type = 'video';
+                
+                // For YouTube videos, set default values for required fields
+                if (!$media->file_name) {
+                    $media->file_name = 'youtube_' . $media->youtube_id;
+                }
+                if (!$media->mime_type) {
+                    $media->mime_type = 'video/youtube';
+                }
+            }
+            
+            // Set video_source default for local videos
+            if ($media->media_type === 'video' && !$media->video_source) {
+                $media->video_source = $media->youtube_url ? 'youtube' : 'local';
             }
         });
 
@@ -600,6 +584,26 @@ class Media extends Model
             if ($media->isDirty('youtube_url') && $media->youtube_url) {
                 $media->youtube_id = static::extractYouTubeId($media->youtube_url);
                 $media->video_source = 'youtube';
+                $media->media_type = 'video';
+                
+                // Update other fields for YouTube videos
+                if (!$media->file_name) {
+                    $media->file_name = 'youtube_' . $media->youtube_id;
+                }
+                if (!$media->mime_type) {
+                    $media->mime_type = 'video/youtube';
+                }
+            } elseif ($media->isDirty('youtube_url') && !$media->youtube_url) {
+                // Clear YouTube data when URL is removed
+                $media->youtube_id = null;
+                $media->video_source = 'local';
+            }
+        });
+
+        // Validate that we have either file_path or youtube_url
+        static::saving(function ($media) {
+            if (!$media->file_path && !$media->youtube_url) {
+                throw new \InvalidArgumentException('Either file_path or youtube_url must be provided');
             }
         });
 

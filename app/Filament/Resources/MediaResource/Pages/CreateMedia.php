@@ -25,7 +25,7 @@ class CreateMedia extends CreateRecord
      */
     public function getTitle(): string
     {
-        return 'Upload New Media';
+        return 'Încărcare Media Nouă';
     }
 
     /**
@@ -33,7 +33,7 @@ class CreateMedia extends CreateRecord
      */
     public function getHeading(): string
     {
-        return 'Upload New Media';
+        return 'Încărcare Media Nouă';
     }
 
     /**
@@ -41,7 +41,7 @@ class CreateMedia extends CreateRecord
      */
     public function getSubheading(): ?string
     {
-        return 'Add photos or videos to your media gallery. Upload files or provide YouTube URLs for videos. Supported formats: JPG, PNG, GIF, WebP, MP4, WebM, MOV.';
+        return 'Adăugați poze sau video-uri în galeria media. Încărcați fișiere sau furnizați URL-uri YouTube pentru video-uri. Formate suportate: JPG, PNG, GIF, WebP, MP4, WebM, MOV.';
     }
 
     /**
@@ -52,8 +52,8 @@ class CreateMedia extends CreateRecord
         // Validate that either file_path or youtube_url is provided
         if (empty($data['file_path']) && empty($data['youtube_url'])) {
             Notification::make()
-                ->title('Validation Error')
-                ->body('You must either upload a file or provide a YouTube URL.')
+                ->title('Eroare de Validare')
+                ->body('Trebuie să încărcați un fișier sau să furnizați un URL YouTube.')
                 ->danger()
                 ->send();
             
@@ -91,8 +91,8 @@ class CreateMedia extends CreateRecord
     {
         // Send success notification
         Notification::make()
-            ->title('Media uploaded successfully!')
-            ->body('Your media file has been uploaded and is now available in the gallery.')
+            ->title('Media încărcată cu succes!')
+            ->body('Fișierul media a fost încărcat și este acum disponibil în galerie.')
             ->success()
             ->send();
     }

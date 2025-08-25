@@ -10,12 +10,13 @@ use App\Models\Media;
  * Gallery Controller
  * 
  * Handles photo and video gallery pages.
- * All media is managed under the single "Gallery" category.
+ * All visible media items are shown, organized by type and video_category.
+ * Carousel shows latest uploads in random order.
  */
 class GalleryController extends Controller
 {
     /**
-     * Show all photos from Gallery category
+     * Show all visible photos
      *
      * @return \Illuminate\View\View
      */
@@ -43,7 +44,7 @@ class GalleryController extends Controller
     }
 
     /**
-     * Show all videos from Gallery category with category filtering
+     * Show all visible videos with category filtering by video_category
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
@@ -61,6 +62,9 @@ class GalleryController extends Controller
         // Get videos grouped by category for organized display
         $videosByCategory = Media::getVideosGroupedByCategory();
         
-        return view('theme::pages.galerie-video', compact('videos', 'categories', 'videosByCategory', 'selectedCategory'));
+        // Ensure we have the variables the view expects
+        $data = compact('videos', 'categories', 'videosByCategory', 'selectedCategory');
+        
+        return view('theme::pages.galerie-video', $data);
     }
 }

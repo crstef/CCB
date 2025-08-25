@@ -17,6 +17,12 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'phosphor-users-duotone';
 
+    protected static ?string $navigationLabel = 'Utilizatori';
+
+    protected static ?string $modelLabel = 'Utilizator';
+
+    protected static ?string $pluralModelLabel = 'Utilizatori';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -24,34 +30,44 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nume')
                     ->required()
                     ->maxLength(191),
                 Forms\Components\TextInput::make('username')
+                    ->label('Nume Utilizator')
                     ->required()
                     ->maxLength(191),
                 Forms\Components\TextInput::make('email')
+                    ->label('Email')
                     ->email()
                     ->required()
                     ->maxLength(191),
                 Forms\Components\FileUpload::make('avatar')
+                    ->label('Avatar')
                     ->required()
                     ->image(),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->label('Email Verificat La'),
                 Forms\Components\TextInput::make('password')
+                    ->label('Parolă')
                     ->password()
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
                 Forms\Components\Select::make('roles')
+                    ->label('Roluri')
                     ->multiple()
                     ->relationship('roles', 'name')
                     ->preload()
                     ->searchable()
                     ->required(),
-                Forms\Components\DateTimePicker::make('trial_ends_at'),
+                Forms\Components\DateTimePicker::make('trial_ends_at')
+                    ->label('Perioada de Probă se Termină La'),
                 Forms\Components\TextInput::make('verification_code')
+                    ->label('Cod de Verificare')
                     ->maxLength(191),
-                Forms\Components\Toggle::make('verified'),
+                Forms\Components\Toggle::make('verified')
+                    ->label('Verificat'),
             ]);
     }
 
@@ -60,13 +76,17 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nume')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('avatar')
+                    ->label('Avatar')
                     ->circular()
                     ->defaultImageUrl(url('storage/demo/default.png')),
                 Tables\Columns\TextColumn::make('username')
+                    ->label('Nume Utilizator')
                     ->searchable(),
             ])
             ->filters([
@@ -76,6 +96,7 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('Impersonate')
+                    ->label('Impersonare')
                     ->url(fn ($record) => route('impersonate', $record))
                     ->visible(fn ($record) => auth()->user()->id !== $record->id),
             ])

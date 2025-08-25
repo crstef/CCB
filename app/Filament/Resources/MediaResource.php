@@ -32,15 +32,15 @@ class MediaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationLabel = 'Media Gallery';
+    protected static ?string $navigationLabel = 'Galerie Media';
 
-    protected static ?string $modelLabel = 'Media Item';
+    protected static ?string $modelLabel = 'Element Media';
 
-    protected static ?string $pluralModelLabel = 'Media Items';
+    protected static ?string $pluralModelLabel = 'Elemente Media';
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Conținut';
 
     /**
      * Define the form schema for creating/editing media items
@@ -49,11 +49,11 @@ class MediaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Media Upload')
-                    ->description('Upload your photo or video file, or provide a YouTube URL for videos')
+                Forms\Components\Section::make('Încărcare Media')
+                    ->description('Încărcați fișierul foto sau video, sau furnizați un URL YouTube pentru video-uri')
                     ->schema([
                         Forms\Components\FileUpload::make('file_path')
-                            ->label('Media File')
+                            ->label('Fișier Media')
                             ->disk('public')
                             ->directory('gallery')
                             ->preserveFilenames()
@@ -81,80 +81,81 @@ class MediaResource extends Resource
                                     // Auto-detect media type
                                     $mediaType = str_starts_with($state->getMimeType(), 'image/') ? 'image' : 'video';
                                     $set('media_type', $mediaType);
+                                    $set('video_source', 'local');
                                     
-                                    // Set default title from filename
-                                    if (!$set) {
-                                        $fileName = pathinfo($state->getClientOriginalName(), PATHINFO_FILENAME);
-                                        $set('title', ucwords(str_replace(['_', '-'], ' ', $fileName)));
-                                    }
+                                    // Set default title from filename if empty
+                                    $fileName = pathinfo($state->getClientOriginalName(), PATHINFO_FILENAME);
+                                    $set('title', ucwords(str_replace(['_', '-'], ' ', $fileName)));
                                     
                                     // Clear YouTube URL when file is uploaded
                                     $set('youtube_url', null);
+                                    $set('youtube_id', null);
                                 }
                             })
+                            ->visible(fn (Forms\Get $get) => $get('video_source') !== 'youtube')
                             ->columnSpanFull(),
                             
                         Forms\Components\TextInput::make('youtube_url')
-                            ->label('YouTube URL (for videos only)')
+                            ->label('URL YouTube (alternativă la încărcarea fișierului)')
                             ->url()
                             ->placeholder('https://www.youtube.com/watch?v=...')
-                            ->helperText('Alternative to file upload: provide a YouTube video URL. This will be used instead of uploaded file for videos.')
+                            ->helperText('Pentru video-uri YouTube, folosește acest câmp în loc de upload. Se va seta automat tipul media pe video.')
                             ->live()
                             ->afterStateUpdated(function (callable $set, $state) {
                                 if ($state) {
                                     // Auto-set media type to video when YouTube URL is provided
                                     $set('media_type', 'video');
+                                    $set('video_source', 'youtube');
                                     
-                                    // Extract video title from YouTube if possible (basic implementation)
-                                    if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $state, $matches)) {
-                                        // Set some basic metadata
-                                        $set('mime_type', 'video/youtube');
-                                        $set('file_size', null);
-                                    }
+                                    // Extract YouTube ID
+                                    $youtubeId = Media::extractYouTubeId($state);
+                                    $set('youtube_id', $youtubeId);
+                                    $set('mime_type', 'video/youtube');
+                                    
+                                    // Clear file fields for YouTube videos
+                                    $set('file_path', null);
+                                    $set('file_name', null);
+                                    $set('file_size', null);
+                                } else {
+                                    // Reset when YouTube URL is cleared
+                                    $set('youtube_id', null);
+                                    $set('video_source', 'local');
                                 }
                             })
                             ->columnSpanFull(),
                     ]),
 
-                Forms\Components\Section::make('Media Information')
-                    ->description('Add title, description and categorization')
+                Forms\Components\Section::make('Informații Media')
+                    ->description('Adăugați titlu, descriere și categorizare')
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Title')
+                            ->label('Titlu')
                             ->required()
                             ->maxLength(255)
-                            ->placeholder('Enter a descriptive title')
+                            ->placeholder('Introduceți un titlu descriptiv')
                             ->columnSpan(2),
 
                         Forms\Components\Textarea::make('description')
-                            ->label('Description')
-                            ->placeholder('Describe what this media shows...')
+                            ->label('Descriere')
+                            ->placeholder('Descrieți ce arată acest media...')
                             ->rows(3)
                             ->columnSpanFull(),
 
                         Forms\Components\Select::make('media_type')
-                            ->label('Media Type')
+                            ->label('Tip Media')
                             ->options(Media::MEDIA_TYPES)
                             ->required()
                             ->native(false),
 
-                        Forms\Components\Select::make('category')
-                            ->label('Category')
-                            ->options(Media::CATEGORIES)
-                            ->default('gallery')
-                            ->required()
-                            ->native(false)
-                            ->helperText('Gallery category is used for main carousel and galleries'),
-
                         Forms\Components\Select::make('video_category')
-                            ->label('Video Category')
+                            ->label('Categorie Video')
                             ->options(Media::VIDEO_CATEGORIES)
                             ->native(false)
                             ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
-                            ->helperText('Specific category for video content'),
+                            ->helperText('Categorie specifică pentru conținutul video'),
 
                         Forms\Components\Select::make('video_source')
-                            ->label('Video Source')
+                            ->label('Sursă Video')
                             ->options(Media::VIDEO_SOURCES)
                             ->default('local')
                             ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
@@ -172,7 +173,7 @@ class MediaResource extends Resource
                             }),
 
                         Forms\Components\TextInput::make('youtube_url')
-                            ->label('YouTube URL')
+                            ->label('URL YouTube')
                             ->url()
                             ->placeholder('https://www.youtube.com/watch?v=...')
                             ->visible(fn (Forms\Get $get) => $get('video_source') === 'youtube')
@@ -188,46 +189,46 @@ class MediaResource extends Resource
                             }),
 
                         Forms\Components\TextInput::make('duration')
-                            ->label('Duration (seconds)')
+                            ->label('Durata (secunde)')
                             ->numeric()
                             ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
-                            ->helperText('Video duration in seconds (optional)'),
+                            ->helperText('Durata video-ului în secunde (opțional)'),
                     ])
                     ->columns(2),
 
-                Forms\Components\Section::make('Display Settings')
-                    ->description('Control how and where this media appears')
+                Forms\Components\Section::make('Setări Afișare')
+                    ->description('Controlați cum și unde apare acest media')
                     ->schema([
                         Forms\Components\Toggle::make('is_visible')
-                            ->label('Visible')
-                            ->helperText('Show this media in galleries and carousel')
+                            ->label('Vizibil')
+                            ->helperText('Afișează acest media în galerii și carusel')
                             ->default(true),
 
                         Forms\Components\Toggle::make('is_featured')
-                            ->label('Featured')
-                            ->helperText('Highlight this media (appears first in listings)'),
+                            ->label('Evidențiat')
+                            ->helperText('Evidențiază acest media (apare primul în listări)'),
 
                         Forms\Components\TextInput::make('sort_order')
-                            ->label('Sort Order')
+                            ->label('Ordine Sortare')
                             ->numeric()
                             ->default(0)
-                            ->helperText('Lower numbers appear first'),
+                            ->helperText('Numerele mai mici apar primele'),
 
                         Forms\Components\TextInput::make('alt_text')
-                            ->label('Alt Text')
-                            ->placeholder('Describe the image for accessibility')
-                            ->helperText('Important for SEO and screen readers')
+                            ->label('Text Alternativ')
+                            ->placeholder('Descrieți imaginea pentru accesibilitate')
+                            ->helperText('Important pentru SEO și cititorii de ecran')
                             ->columnSpanFull(),
                     ])
                     ->columns(3),
 
-                Forms\Components\Section::make('Tags & Metadata')
-                    ->description('Additional information and categorization')
+                Forms\Components\Section::make('Etichete & Metadate')
+                    ->description('Informații suplimentare și categorizare')
                     ->schema([
                         Forms\Components\TagsInput::make('tags')
-                            ->label('Tags')
-                            ->placeholder('Add tags to help organize media')
-                            ->helperText('Press Enter to add each tag')
+                            ->label('Etichete')
+                            ->placeholder('Adăugați etichete pentru a organiza media')
+                            ->helperText('Apăsați Enter pentru a adăuga fiecare etichetă')
                             ->columnSpanFull(),
                     ])
                     ->collapsible()
@@ -237,9 +238,26 @@ class MediaResource extends Resource
                 Forms\Components\Hidden::make('file_name'),
                 Forms\Components\Hidden::make('file_size'),
                 Forms\Components\Hidden::make('mime_type'),
+                Forms\Components\Hidden::make('youtube_id'),
             ])
             ->model(Media::class)
-            ->statePath('data');
+            ->statePath('data')
+            ->rules([
+                'file_path' => function (Forms\Get $get) {
+                    // File path is required unless we have a YouTube URL
+                    if (!$get('youtube_url') && !$get('file_path')) {
+                        return 'required';
+                    }
+                    return 'nullable';
+                },
+                'youtube_url' => function (Forms\Get $get) {
+                    // YouTube URL is required unless we have a file path
+                    if (!$get('file_path') && !$get('youtube_url')) {
+                        return 'required';
+                    }
+                    return 'nullable|url';
+                },
+            ]);
     }
 
     /**
@@ -250,7 +268,7 @@ class MediaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('file_path')
-                    ->label('Preview')
+                    ->label('Previzualizare')
                     ->disk('public')
                     ->height(60)
                     ->width(80)
@@ -264,14 +282,14 @@ class MediaResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Title')
+                    ->label('Titlu')
                     ->searchable()
                     ->sortable()
                     ->weight('medium')
                     ->limit(30),
 
                 Tables\Columns\BadgeColumn::make('media_type')
-                    ->label('Type')
+                    ->label('Tip')
                     ->colors([
                         'success' => 'image',
                         'warning' => 'video',
@@ -282,7 +300,7 @@ class MediaResource extends Resource
                     ]),
 
                 Tables\Columns\TextColumn::make('video_category')
-                    ->label('Video Category')
+                    ->label('Categorie Video')
                     ->badge()
                     ->color('info')
                     ->visible(fn ($record) => $record && $record->media_type === 'video')
@@ -291,7 +309,7 @@ class MediaResource extends Resource
                     }),
                     
                 Tables\Columns\BadgeColumn::make('video_source')
-                    ->label('Source')
+                    ->label('Sursă')
                     ->getStateUsing(function (Media $record) {
                         if ($record->media_type !== 'video') {
                             return null;
@@ -309,14 +327,14 @@ class MediaResource extends Resource
                     ->visible(fn ($record) => $record && $record->media_type === 'video'),
 
                 Tables\Columns\TextColumn::make('duration')
-                    ->label('Duration')
+                    ->label('Durata')
                     ->getStateUsing(function (Media $record) {
                         return $record->getFormattedDuration();
                     })
                     ->visible(fn ($record) => $record && $record->media_type === 'video'),
 
                 Tables\Columns\BadgeColumn::make('category')
-                    ->label('Category')
+                    ->label('Categorie')
                     ->colors([
                         'primary' => 'carousel',
                         'success' => 'gallery',
@@ -326,40 +344,40 @@ class MediaResource extends Resource
                     ]),
 
                 Tables\Columns\IconColumn::make('is_featured')
-                    ->label('Featured')
+                    ->label('Evidențiat')
                     ->boolean()
                     ->sortable(),
 
                 Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visible')
+                    ->label('Vizibil')
                     ->boolean()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('file_size')
-                    ->label('Size')
-                    ->formatStateUsing(fn ($state) => $state ? self::formatBytes($state) : 'Unknown')
+                    ->label('Mărime')
+                    ->formatStateUsing(fn ($state) => $state ? self::formatBytes($state) : 'Necunoscut')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Added')
+                    ->label('Adăugat')
                     ->dateTime('M j, Y')
                     ->sortable()
                     ->since(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('media_type')
-                    ->label('Media Type')
+                    ->label('Tip Media')
                     ->options(Media::MEDIA_TYPES),
 
                 Tables\Filters\SelectFilter::make('category')
-                    ->label('Category')
+                    ->label('Categorie')
                     ->options(Media::CATEGORIES),
 
                 Tables\Filters\TernaryFilter::make('is_featured')
-                    ->label('Featured Items'),
+                    ->label('Elemente Evidențiate'),
 
                 Tables\Filters\TernaryFilter::make('is_visible')
-                    ->label('Visible Items'),
+                    ->label('Elemente Vizibile'),
 
                 Tables\Filters\TrashedFilter::make(),
             ])
@@ -368,7 +386,7 @@ class MediaResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\Action::make('view_file')
-                        ->label('View File')
+                        ->label('Vezi Fișier')
                         ->icon('heroicon-o-eye')
                         ->url(fn (Media $record): string => Storage::disk('public')->url($record->file_path))
                         ->openUrlInNewTab(),
@@ -384,7 +402,7 @@ class MediaResource extends Resource
 
                     // Custom bulk actions
                     Tables\Actions\BulkAction::make('mark_featured')
-                        ->label('Mark as Featured')
+                        ->label('Marchează ca Evidențiat')
                         ->icon('heroicon-o-star')
                         ->action(function ($records) {
                             $records->each->update(['is_featured' => true]);
@@ -393,14 +411,14 @@ class MediaResource extends Resource
                         ->color('warning'),
 
                     Tables\Actions\BulkAction::make('mark_visible')
-                        ->label('Mark as Visible')
+                        ->label('Marchează ca Vizibil')
                         ->icon('heroicon-o-eye')
                         ->action(function ($records) {
                             $records->each->update(['is_visible' => true]);
                         }),
 
                     Tables\Actions\BulkAction::make('mark_hidden')
-                        ->label('Mark as Hidden')
+                        ->label('Marchează ca Ascuns')
                         ->icon('heroicon-o-eye-slash')
                         ->action(function ($records) {
                             $records->each->update(['is_visible' => false]);

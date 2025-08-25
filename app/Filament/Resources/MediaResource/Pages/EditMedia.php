@@ -29,9 +29,9 @@ class EditMedia extends EditRecord
         return [
             Actions\DeleteAction::make()
                 ->requiresConfirmation()
-                ->modalHeading('Delete Media Item')
-                ->modalDescription('Are you sure you want to delete this media item? This action cannot be undone and will remove the file from storage.')
-                ->modalSubmitActionLabel('Yes, delete it'),
+                ->modalHeading('Șterge Element Media')
+                ->modalDescription('Sunteți sigur că doriți să ștergeți acest element media? Această acțiune nu poate fi anulată și va elimina fișierul din stocare.')
+                ->modalSubmitActionLabel('Da, șterge-l'),
                 
             Actions\RestoreAction::make(),
         ];
@@ -42,7 +42,7 @@ class EditMedia extends EditRecord
      */
     public function getTitle(): string
     {
-        return 'Edit: ' . $this->record->title;
+        return 'Editează: ' . $this->record->title;
     }
 
     /**
@@ -50,7 +50,7 @@ class EditMedia extends EditRecord
      */
     public function getHeading(): string
     {
-        return 'Edit Media';
+        return 'Editează Media';
     }
 
     /**
@@ -58,7 +58,7 @@ class EditMedia extends EditRecord
      */
     public function getSubheading(): ?string
     {
-        return 'Update media information, upload new files, or change YouTube URLs for videos.';
+        return 'Actualizați informațiile media, încărcați fișiere noi sau schimbați URL-urile YouTube pentru video-uri.';
     }
 
     /**
@@ -69,8 +69,8 @@ class EditMedia extends EditRecord
         // Validate that either file_path or youtube_url is provided
         if (empty($data['file_path']) && empty($data['youtube_url'])) {
             Notification::make()
-                ->title('Validation Error')
-                ->body('You must either upload a file or provide a YouTube URL.')
+                ->title('Eroare de Validare')
+                ->body('Trebuie să încărcați un fișier sau să furnizați un URL YouTube.')
                 ->danger()
                 ->send();
             
@@ -103,8 +103,8 @@ class EditMedia extends EditRecord
     {
         // Send success notification
         Notification::make()
-            ->title('Media updated successfully!')
-            ->body('The media item has been updated with your changes.')
+            ->title('Media actualizată cu succes!')
+            ->body('Elementul media a fost actualizat cu modificările dumneavoastră.')
             ->success()
             ->send();
     }

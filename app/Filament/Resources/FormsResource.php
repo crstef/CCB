@@ -23,6 +23,12 @@ class FormsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Formulare';
+
+    protected static ?string $modelLabel = 'Formular';
+
+    protected static ?string $pluralModelLabel = 'Formulare';
+
     protected static bool $shouldRegisterNavigation = false;
 
     protected static ?int $navigationSort = 12;
@@ -32,7 +38,7 @@ class FormsResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Name')
+                    ->label('Nume')
                     ->required()
                     ->live(debounce: 500)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
@@ -45,12 +51,17 @@ class FormsResource extends Resource
                     ->maxLength(191),
 
                 Repeater::make('fields')
+                    ->label('Câmpuri')
                     ->schema([
-                        TextInput::make('label')->required(),
+                        TextInput::make('label')
+                            ->label('Etichetă')
+                            ->required(),
                         Select::make('type')
+                            ->label('Tip')
                             ->options(config('forms.types'))
                             ->required(),
-                        TextInput::make('rules'),
+                        TextInput::make('rules')
+                            ->label('Reguli'),
                         // Repeater::make('options')
                         //         ->schema([
                         //             TextInput::make('option')->required(),
@@ -60,7 +71,7 @@ class FormsResource extends Resource
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')
-                    ->label('Is Active')
+                    ->label('Activ')
                     ->inline(false),
             ]);
     }
@@ -69,9 +80,12 @@ class FormsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('slug'),
-                ToggleColumn::make('is_active'),
+                TextColumn::make('name')
+                    ->label('Nume'),
+                TextColumn::make('slug')
+                    ->label('Slug'),
+                ToggleColumn::make('is_active')
+                    ->label('Activ'),
             ])
             ->filters([
                 //
