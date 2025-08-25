@@ -83,9 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageScrollButton = document.getElementById('scrollToTop');
     const globalScrollButton = document.getElementById('globalScrollToTop');
     
+    // Only hide global button if page has its own
     if (pageScrollButton && globalScrollButton) {
         globalScrollButton.style.display = 'none';
     }
+    
+    // Debug
+    console.log('Global scroll button initialized:', !!globalScrollButton);
+    console.log('Page scroll button found:', !!pageScrollButton);
 });
 </script>
 
