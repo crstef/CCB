@@ -14,7 +14,10 @@ name('galerie-foto');
         /* Custom lightbox and gallery styles */
         .gallery-grid {
             display: grid;
-             // Remove loading state when image loads
+             // Remove }
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {n image loads
     lightboxImage.onload = function() {
         console.log('Image loaded successfully');
         this.style.opacity = '1';
@@ -98,8 +101,8 @@ name('galerie-foto');
         
         .lightbox-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 95vw;
+            max-height: 95vh;
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -107,8 +110,6 @@ name('galerie-foto');
             transform: scale(0.9);
             opacity: 0;
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
         
         .lightbox.active .lightbox-content {
@@ -119,16 +120,14 @@ name('galerie-foto');
         .lightbox-image {
             width: 100%;
             height: auto;
-            max-height: 60vh;
+            max-height: 75vh;
             object-fit: contain;
             display: block;
-            flex-shrink: 0;
         }
         
         .lightbox-info {
             padding: 1.5rem;
             background: white;
-            flex-grow: 1;
         }
         
         .lightbox-nav {
@@ -219,7 +218,7 @@ name('galerie-foto');
             }
             
             .lightbox-image {
-                max-height: 50vh;
+                max-height: 65vh;
             }
             
             .lightbox-info {
@@ -498,29 +497,34 @@ function nextImage() {
 
 function updateLightboxContent() {
     const photo = allPhotos[currentImageIndex];
-    console.log('Updating lightbox content with photo:', photo);
+    console.log('Updating lightbox with photo:', photo);
     
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxTitle = document.getElementById('lightboxTitle');
     const lightboxDescription = document.getElementById('lightboxDescription');
     const lightboxDate = document.getElementById('lightboxDate');
     
-    if (!photo || !photo.url) {
-        console.error('Invalid photo data:', photo);
+    if (!photo) {
+        console.error('No photo data found');
         return;
     }
     
-    // Add loading state
-    lightboxImage.style.opacity = '0.3';
-    lightboxImage.style.filter = 'blur(2px)';
-    
-    // Clear previous src to force reload
-    lightboxImage.src = '';
-    
-    // Set new image source
-    console.log('Setting image src to:', photo.url);
-    lightboxImage.src = photo.url;
+    // Set image source
+    lightboxImage.src = photo.url || '';
     lightboxImage.alt = photo.title || 'Fotografie competiție canină';
+    
+    // Update text content
+    lightboxTitle.textContent = photo.title || 'Competiție Canină';
+    lightboxDescription.textContent = photo.description || 'Fotografie din competițiile canine organizate de Clubul Ciobanescului Belgian România.';
+    lightboxDate.textContent = photo.created_at ? 
+        new Date(photo.created_at).toLocaleDateString('ro-RO', { 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric' 
+        }) : 'Recent';
+    
+    console.log('Image src set to:', photo.url);
+}
     
     // Update text content
     lightboxTitle.textContent = photo.title || 'Competiție Canină';
