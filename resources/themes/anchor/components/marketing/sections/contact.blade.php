@@ -4,7 +4,7 @@
             {{-- Left Side - Contact Information --}}
             <div class="space-y-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-blue-700 mb-4">Contactează-ne</h2>
+                    <h2 class="text-3xl font-bold text-blue-700 mb-4">Intră în legătură cu noi</h2>
                     <p class="text-gray-600 text-lg leading-relaxed">
                         Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm! 
                         Contactează-ne prin oricare dintre canalele de mai jos.
@@ -24,7 +24,7 @@
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Sună-ne</h3>
                         <p class="text-gray-600 mb-2">
                             Sună-ne la <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800">0723 644 822</a>. 
-                            Program de lucru: Luni-Vineri de la 9:00 la 17:00.
+                            Toate zilele de luni până vineri de la 9:00 la 17:00.
                         </p>
                     </div>
                 </div>
