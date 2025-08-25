@@ -30,4 +30,13 @@ Route::prefix('media')->group(function () {
     Route::get('/photos', [\App\Http\Controllers\Api\MediaApiController::class, 'photos']);
     Route::get('/videos', [\App\Http\Controllers\Api\MediaApiController::class, 'videos']);
     Route::get('/featured', [\App\Http\Controllers\Api\MediaApiController::class, 'featured']);
+    
+    // Single media item
+    Route::get('/{id}', [\App\Http\Controllers\Api\VideoApiController::class, 'getMedia']);
+});
+
+// Video API Routes - Enhanced video functionality
+Route::prefix('videos')->group(function () {
+    Route::get('/category', [\App\Http\Controllers\Api\VideoApiController::class, 'getVideosByCategory']);
+    Route::get('/grouped', [\App\Http\Controllers\Api\VideoApiController::class, 'getVideosGrouped']);
 });

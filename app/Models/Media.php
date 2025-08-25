@@ -35,13 +35,21 @@ class Media extends Model
         'mime_type',
         'media_type',
         'category',
+        'video_category',
+        'video_source',
+        'youtube_url',
+        'youtube_id',
+        'duration',
+        'resolution',
+        'thumbnail_url',
+        'embed_params',
         'is_featured',
+        'is_featured_video',
         'is_visible',
         'sort_order',
         'alt_text',
         'tags',
         'metadata',
-        'youtube_url', // Added support for YouTube URLs
     ];
 
     /**
@@ -51,11 +59,14 @@ class Media extends Model
      */
     protected $casts = [
         'is_featured' => 'boolean',
+        'is_featured_video' => 'boolean',
         'is_visible' => 'boolean',
         'file_size' => 'integer',
         'sort_order' => 'integer',
+        'duration' => 'integer',
         'tags' => 'array',
         'metadata' => 'array',
+        'embed_params' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -74,6 +85,28 @@ class Media extends Model
     const MEDIA_TYPES = [
         'image' => 'Image',
         'video' => 'Video',
+    ];
+
+    /**
+     * Available video categories
+     */
+    const VIDEO_CATEGORIES = [
+        'competitii' => 'Competiții',
+        'antrenamente' => 'Antrenamente',
+        'demonstratii' => 'Demonstrații',
+        'evenimente' => 'Evenimente Speciale',
+        'educativ' => 'Educational',
+        'prezentari' => 'Prezentări Rasa',
+        'interviuri' => 'Interviuri',
+        'diverse' => 'Diverse',
+    ];
+
+    /**
+     * Available video sources
+     */
+    const VIDEO_SOURCES = [
+        'local' => 'Fișier Local',
+        'youtube' => 'YouTube',
     ];
 
     /**
@@ -420,6 +453,129 @@ class Media extends Model
     }
 
     /**
+     * Get videos by category
+     *
+     * @param string|null $category
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getVideosByCategory(?string $category = null)
+    {
+        $query = static::visible()
+            ->byType('video')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc');
+
+        if ($category) {
+            $query->where('video_category', $category);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Get videos grouped by category
+     *
+     * @return array
+     */
+    public static function getVideosGroupedByCategory(): array
+    {
+        $videos = static::visible()
+            ->byType('video')
+            ->orderBy('video_category')
+            ->orderBy('sort_order')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $videos->groupBy('video_category')->toArray();
+    }
+
+    /**
+     * Get video duration in human readable format
+     *
+     * @return string|null
+     */
+    public function getFormattedDuration(): ?string
+    {
+        if (!$this->duration) {
+            return null;
+        }
+
+        $minutes = floor($this->duration / 60);
+        $seconds = $this->duration % 60;
+
+        return sprintf('%d:%02d', $minutes, $seconds);
+    }
+
+    /**
+     * Check if video is from YouTube
+     *
+     * @return bool
+     */
+    public function isYouTubeVideo(): bool
+    {
+        return $this->isVideo() && $this->video_source === 'youtube';
+    }
+
+    /**
+     * Check if video is local file
+     *
+     * @return bool
+     */
+    public function isLocalVideo(): bool
+    {
+        return $this->isVideo() && $this->video_source === 'local';
+    }
+
+    /**
+     * Get video embed URL (for YouTube or local)
+     *
+     * @return string|null
+     */
+    public function getVideoEmbedUrl(): ?string
+    {
+        if ($this->isYouTubeVideo() && $this->youtube_id) {
+            return "https://www.youtube.com/embed/{$this->youtube_id}";
+        }
+
+        if ($this->isLocalVideo() && $this->file_path) {
+            return Storage::url($this->file_path);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get video thumbnail URL
+     *
+     * @return string|null
+     */
+    public function getVideoThumbnail(): ?string
+    {
+        if ($this->isYouTubeVideo() && $this->youtube_id) {
+            return "https://img.youtube.com/vi/{$this->youtube_id}/maxresdefault.jpg";
+        }
+
+        // For local videos, you might want to generate thumbnails
+        // For now, return a default video thumbnail
+        return '/wave/img/video-placeholder.svg';
+    }
+
+    /**
+     * Auto-extract YouTube ID from URL
+     *
+     * @param string $url
+     * @return string|null
+     */
+    public static function extractYouTubeId(string $url): ?string
+    {
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/', $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+
+    /**
      * Boot method to handle model events
      */
     protected static function boot()
@@ -430,6 +586,20 @@ class Media extends Model
         static::creating(function ($media) {
             if (!$media->media_type && $media->mime_type) {
                 $media->media_type = str_starts_with($media->mime_type, 'image/') ? 'image' : 'video';
+            }
+            
+            // Auto-extract YouTube ID when YouTube URL is provided
+            if ($media->youtube_url && !$media->youtube_id) {
+                $media->youtube_id = static::extractYouTubeId($media->youtube_url);
+                $media->video_source = 'youtube';
+            }
+        });
+
+        // Auto-update YouTube ID when updating
+        static::updating(function ($media) {
+            if ($media->isDirty('youtube_url') && $media->youtube_url) {
+                $media->youtube_id = static::extractYouTubeId($media->youtube_url);
+                $media->video_source = 'youtube';
             }
         });
 

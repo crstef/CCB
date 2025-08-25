@@ -145,6 +145,53 @@ class MediaResource extends Resource
                             ->required()
                             ->native(false)
                             ->helperText('Gallery category is used for main carousel and galleries'),
+
+                        Forms\Components\Select::make('video_category')
+                            ->label('Video Category')
+                            ->options(Media::VIDEO_CATEGORIES)
+                            ->native(false)
+                            ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
+                            ->helperText('Specific category for video content'),
+
+                        Forms\Components\Select::make('video_source')
+                            ->label('Video Source')
+                            ->options(Media::VIDEO_SOURCES)
+                            ->default('local')
+                            ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
+                            ->native(false)
+                            ->live()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                if ($state === 'youtube') {
+                                    // Clear file path when switching to YouTube
+                                    $set('file_path', null);
+                                } else {
+                                    // Clear YouTube URL when switching to local
+                                    $set('youtube_url', null);
+                                    $set('youtube_id', null);
+                                }
+                            }),
+
+                        Forms\Components\TextInput::make('youtube_url')
+                            ->label('YouTube URL')
+                            ->url()
+                            ->placeholder('https://www.youtube.com/watch?v=...')
+                            ->visible(fn (Forms\Get $get) => $get('video_source') === 'youtube')
+                            ->live()
+                            ->afterStateUpdated(function (callable $set, $state) {
+                                if ($state) {
+                                    // Extract YouTube ID
+                                    $youtubeId = Media::extractYouTubeId($state);
+                                    $set('youtube_id', $youtubeId);
+                                    $set('media_type', 'video');
+                                    $set('mime_type', 'video/youtube');
+                                }
+                            }),
+
+                        Forms\Components\TextInput::make('duration')
+                            ->label('Duration (seconds)')
+                            ->numeric()
+                            ->visible(fn (Forms\Get $get) => $get('media_type') === 'video')
+                            ->helperText('Video duration in seconds (optional)'),
                     ])
                     ->columns(2),
 
@@ -233,6 +280,15 @@ class MediaResource extends Resource
                         'heroicon-o-photo' => 'image',
                         'heroicon-o-film' => 'video',
                     ]),
+
+                Tables\Columns\TextColumn::make('video_category')
+                    ->label('Video Category')
+                    ->badge()
+                    ->color('info')
+                    ->visible(fn ($record) => $record && $record->media_type === 'video')
+                    ->getStateUsing(function (Media $record) {
+                        return $record->video_category ? Media::VIDEO_CATEGORIES[$record->video_category] ?? $record->video_category : null;
+                    }),
                     
                 Tables\Columns\BadgeColumn::make('video_source')
                     ->label('Source')
@@ -240,16 +296,23 @@ class MediaResource extends Resource
                         if ($record->media_type !== 'video') {
                             return null;
                         }
-                        return $record->isYouTube() ? 'YouTube' : 'File';
+                        return $record->video_source === 'youtube' ? 'YouTube' : 'Local';
                     })
                     ->colors([
                         'danger' => 'YouTube',
-                        'success' => 'File',
+                        'success' => 'Local',
                     ])
                     ->icons([
                         'heroicon-o-globe-alt' => 'YouTube',
-                        'heroicon-o-document' => 'File',
+                        'heroicon-o-document-film' => 'Local',
                     ])
+                    ->visible(fn ($record) => $record && $record->media_type === 'video'),
+
+                Tables\Columns\TextColumn::make('duration')
+                    ->label('Duration')
+                    ->getStateUsing(function (Media $record) {
+                        return $record->getFormattedDuration();
+                    })
                     ->visible(fn ($record) => $record && $record->media_type === 'video'),
 
                 Tables\Columns\BadgeColumn::make('category')

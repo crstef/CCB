@@ -18,8 +18,11 @@ return new class extends Migration
             // Add video source type (local, youtube, vimeo, etc.)
             $table->enum('video_source', ['local', 'youtube', 'vimeo', 'other'])->default('local')->after('video_category');
             
+            // Add YouTube video ID for easier access
+            $table->string('youtube_id')->nullable()->after('video_source');
+            
             // Add video duration in seconds
-            $table->integer('duration')->nullable()->after('video_source');
+            $table->integer('duration')->nullable()->after('youtube_id');
             
             // Add video quality/resolution
             $table->string('resolution')->nullable()->after('duration');
@@ -44,6 +47,7 @@ return new class extends Migration
             $table->dropColumn([
                 'video_category',
                 'video_source',
+                'youtube_id',
                 'duration',
                 'resolution',
                 'thumbnail_url',

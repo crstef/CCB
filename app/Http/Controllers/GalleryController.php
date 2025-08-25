@@ -43,14 +43,24 @@ class GalleryController extends Controller
     }
 
     /**
-     * Show all videos from Gallery category
+     * Show all videos from Gallery category with category filtering
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
-    public function videoGallery()
+    public function videoGallery(Request $request)
     {
-        $videos = Media::getGalleryVideos();
+        $selectedCategory = $request->query('category');
         
-        return view('theme::pages.galerie-video', compact('videos'));
+        // Get videos by category or all if no category selected
+        $videos = Media::getVideosByCategory($selectedCategory)->get();
+        
+        // Get all available video categories for filter
+        $categories = Media::VIDEO_CATEGORIES;
+        
+        // Get videos grouped by category for organized display
+        $videosByCategory = Media::getVideosGroupedByCategory();
+        
+        return view('theme::pages.galerie-video', compact('videos', 'categories', 'videosByCategory', 'selectedCategory'));
     }
 }
