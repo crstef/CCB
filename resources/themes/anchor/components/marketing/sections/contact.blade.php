@@ -1,3 +1,4 @@
+{{-- COMPONENTA MODIFICATA PE DATA DE {{ date('Y-m-d H:i:s') }} --}}
 <section class="w-full py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
