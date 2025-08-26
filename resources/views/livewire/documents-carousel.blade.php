@@ -1,53 +1,55 @@
-<div 
-    x-data="{ 
-        currentIndex: 0,
-        autoPlay: @entangle('autoPlay'),
-        autoPlayInterval: null,
-        documentsCount: {{ $documents->count() }},
-        cardsPerView: 2,
-        init() {
-            this.updateCardsPerView();
-            this.startAutoPlay();
-            window.addEventListener('resize', () => this.updateCardsPerView());
-        },
-        updateCardsPerView() {
-            if (window.innerWidth >= 1024) {
-                this.cardsPerView = 2;
-            } else {
-                this.cardsPerView = 1;
+<div>
+    <!-- Main Carousel Container -->
+    <div 
+        x-data="{ 
+            currentIndex: 0,
+            autoPlay: @entangle('autoPlay'),
+            autoPlayInterval: null,
+            documentsCount: {{ $documents->count() }},
+            cardsPerView: 2,
+            init() {
+                this.updateCardsPerView();
+                this.startAutoPlay();
+                window.addEventListener('resize', () => this.updateCardsPerView());
+            },
+            updateCardsPerView() {
+                if (window.innerWidth >= 1024) {
+                    this.cardsPerView = 2;
+                } else {
+                    this.cardsPerView = 1;
+                }
+            },
+            startAutoPlay() {
+                if (this.autoPlay && this.documentsCount > this.cardsPerView) {
+                    this.autoPlayInterval = setInterval(() => {
+                        this.nextCards();
+                    }, 4000);
+                }
+            },
+            stopAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            },
+            nextCards() {
+                const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
+                this.currentIndex = this.currentIndex >= maxIndex ? 0 : this.currentIndex + 1;
+            },
+            previousCards() {
+                const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
+                this.currentIndex = this.currentIndex <= 0 ? maxIndex : this.currentIndex - 1;
+            },
+            goToIndex(index) {
+                this.currentIndex = index;
+                this.stopAutoPlay();
+                this.startAutoPlay();
             }
-        },
-        startAutoPlay() {
-            if (this.autoPlay && this.documentsCount > this.cardsPerView) {
-                this.autoPlayInterval = setInterval(() => {
-                    this.nextCards();
-                }, 4000);
-            }
-        },
-        stopAutoPlay() {
-            if (this.autoPlayInterval) {
-                clearInterval(this.autoPlayInterval);
-                this.autoPlayInterval = null;
-            }
-        },
-        nextCards() {
-            const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
-            this.currentIndex = this.currentIndex >= maxIndex ? 0 : this.currentIndex + 1;
-        },
-        previousCards() {
-            const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
-            this.currentIndex = this.currentIndex <= 0 ? maxIndex : this.currentIndex - 1;
-        },
-        goToIndex(index) {
-            this.currentIndex = index;
-            this.stopAutoPlay();
-            this.startAutoPlay();
-        }
-    }"
-    @mouseenter="stopAutoPlay()"
-    @mouseleave="startAutoPlay()"
-    class="relative {{ $height }} w-full bg-gradient-to-br from-blue-50 to-gray-100 rounded-2xl shadow-lg overflow-hidden"
->
+        }"
+        @mouseenter="stopAutoPlay()"
+        @mouseleave="startAutoPlay()"
+        class="relative {{ $height }} w-full bg-gradient-to-br from-blue-50 to-gray-100 rounded-2xl shadow-lg overflow-hidden"
+    >
     @if($documents->count() > 0)
         {{-- Documents Cards Container --}}
         <div class="relative h-full p-4">
@@ -234,15 +236,15 @@
             <p class="text-sm">Documentele vor apărea aici când vor fi adăugate.</p>
         </div>
     @endif
-</div>
+    </div>
 
-<!-- PDF Viewer Modal -->
-<div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Document</h3>
+    <!-- PDF Viewer Modal -->
+    <div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Document</h3>
                 <button onclick="closeDocumentModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -325,5 +327,6 @@ document.getElementById('documentModal').addEventListener('click', function(e) {
     if (e.target === this) {
         closeDocumentModal();
     }
-});
-</script>
+    });
+    </script>
+</div>
