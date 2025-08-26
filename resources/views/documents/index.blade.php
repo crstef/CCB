@@ -303,7 +303,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex gap-1 ml-2">
-                                                        @if(strtolower($file['type']) === 'pdf')
+                                                        @if($document->canViewInline($loop->index))
                                                             <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                     class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
                                                                     title="Vezi {{ $file['original_name'] }}">
@@ -419,13 +419,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Document viewer
 function viewDocument(url, name, type) {
+    console.log('viewDocument called with:', {url, name, type}); // Debug
+    
     const modal = document.getElementById('documentModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalContent = document.getElementById('modalContent');
     
+    if (!modal || !modalTitle || !modalContent) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
+    // Show modal first
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
     modalTitle.textContent = name;
     
+    // Show loading state
+    modalContent.innerHTML = `
+        <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-600">Se încarcă documentul...</p>
+            </div>
+        </div>
+    `;
+    
     const extension = type.toLowerCase();
+    
+    // Small delay to ensure modal is visible
+    setTimeout(() => {
     
     if (extension === 'pdf') {
         // PDF documents - direct iframe
@@ -496,10 +520,8 @@ function viewDocument(url, name, type) {
                 </div>
             </div>
         `;
-    }
-    
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+        }
+    }, 100);
 }
 
 function closeDocumentModal() {

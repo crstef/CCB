@@ -271,13 +271,37 @@
 <script>
 // Document viewer function
 function viewDocument(url, name, type) {
+    console.log('viewDocument called with:', {url, name, type}); // Debug
+    
     const modal = document.getElementById('documentModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalContent = document.getElementById('modalContent');
     
+    if (!modal || !modalTitle || !modalContent) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
+    // Show modal first
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
     modalTitle.textContent = name;
     
+    // Show loading state
+    modalContent.innerHTML = `
+        <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-600">Se încarcă documentul...</p>
+            </div>
+        </div>
+    `;
+    
     const extension = type.toLowerCase();
+    
+    // Small delay to ensure modal is visible
+    setTimeout(() => {
     
     if (extension === 'pdf') {
         // PDF documents - direct iframe
@@ -348,10 +372,8 @@ function viewDocument(url, name, type) {
                 </div>
             </div>
         `;
-    }
-    
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+        }
+    }, 100);
 }
 
 function closeDocumentModal() {

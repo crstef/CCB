@@ -133,29 +133,47 @@
                                 
                                 {{-- File Actions --}}
                                 <div class="space-y-2">
-                                    @if(strtolower($file['type']) === 'pdf')
+                                    {{-- View Button for all supported file types --}}
+                                    @if($document->canViewInline($index))
                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                 class="w-full bg-blue-600 text-white py-3 px-4 rounded-xl hover:bg-blue-700 transition-colors duration-200 font-medium flex items-center justify-center group">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
-                                            Vizualizează PDF
+                                            @if(strtolower($file['type']) === 'pdf')
+                                                Vizualizează PDF
+                                            @elseif(in_array(strtolower($file['type']), ['doc', 'docx']))
+                                                Vizualizează Word
+                                            @elseif(in_array(strtolower($file['type']), ['xls', 'xlsx']))
+                                                Vizualizează Excel
+                                            @elseif(in_array(strtolower($file['type']), ['ppt', 'pptx']))
+                                                Vizualizează PowerPoint
+                                            @elseif(in_array(strtolower($file['type']), ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']))
+                                                Vizualizează Imagine
+                                            @elseif(strtolower($file['type']) === 'txt')
+                                                Vizualizează Text
+                                            @else
+                                                Vizualizează Document
+                                            @endif
                                         </button>
                                     @endif
                                     
+                                    {{-- Download and Open buttons --}}
                                     <div class="flex gap-2">
-                                        <a href="{{ $file['url'] }}" 
-                                           target="_blank"
-                                           class="flex-1 bg-gray-600 text-white text-center py-3 px-4 rounded-xl hover:bg-gray-700 transition-colors duration-200 font-medium flex items-center justify-center">
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                            </svg>
-                                            Deschide
-                                        </a>
+                                        @if(!$document->canViewInline($index))
+                                            <a href="{{ $file['url'] }}" 
+                                               target="_blank"
+                                               class="flex-1 bg-gray-600 text-white text-center py-3 px-4 rounded-xl hover:bg-gray-700 transition-colors duration-200 font-medium flex items-center justify-center">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                                </svg>
+                                                Deschide
+                                            </a>
+                                        @endif
                                         <a href="{{ $file['url'] }}" 
                                            download="{{ $file['original_name'] }}"
-                                           class="flex-1 bg-green-600 text-white text-center py-3 px-4 rounded-xl hover:bg-green-700 transition-colors duration-200 font-medium flex items-center justify-center">
+                                           class="@if($document->canViewInline($index)) w-full @else flex-1 @endif bg-green-600 text-white text-center py-3 px-4 rounded-xl hover:bg-green-700 transition-colors duration-200 font-medium flex items-center justify-center">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
@@ -268,87 +286,119 @@
 <script>
 // Document viewer
 function viewDocument(url, name, type) {
+    console.log('viewDocument called with:', {url, name, type}); // Debug
+    
     const modal = document.getElementById('documentModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalContent = document.getElementById('modalContent');
     
+    if (!modal || !modalTitle || !modalContent) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
+    // Show modal first
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
     modalTitle.textContent = name;
+    
+    // Show loading state
+    modalContent.innerHTML = `
+        <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-600">Se încarcă documentul...</p>
+            </div>
+        </div>
+    `;
     
     const extension = type.toLowerCase();
     
-    if (extension === 'pdf') {
-        // PDF documents - direct iframe
-        modalContent.innerHTML = `
-            <iframe src="${url}" 
-                    class="w-full h-full border-0" 
-                    title="${name}">
-                <p>Browser-ul dumneavoastră nu suportă vizualizarea PDF-urilor. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
-            </iframe>
-        `;
-    } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
-        // Microsoft Office documents - using Office Online viewer
-        const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + url)}`;
-        modalContent.innerHTML = `
-            <iframe src="${officeViewerUrl}" 
-                    class="w-full h-full border-0" 
-                    title="${name}">
-                <p>Nu se poate încărca previzualizarea. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
-            </iframe>
-        `;
-    } else if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
-        // Images - direct display
-        modalContent.innerHTML = `
-            <div class="flex items-center justify-center h-full p-4">
-                <img src="${url}" alt="${name}" class="max-w-full max-h-full object-contain">
-            </div>
-        `;
-    } else if (extension === 'txt') {
-        // Text files - fetch and display content
-        fetch(url)
-            .then(response => response.text())
-            .then(text => {
-                modalContent.innerHTML = `
-                    <div class="p-6 h-full overflow-auto">
-                        <pre class="whitespace-pre-wrap text-sm font-mono">${text}</pre>
-                    </div>
-                `;
-            })
-            .catch(() => {
-                modalContent.innerHTML = `
-                    <div class="flex items-center justify-center h-full">
-                        <div class="text-center">
-                            <p class="text-lg font-medium text-gray-900 mb-2">Nu se poate încărca fișierul</p>
-                            <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                                Deschide în tab nou
-                            </a>
-                        </div>
-                    </div>
-                `;
-            });
-        return; // Exit early since we're using fetch
-    } else {
-        // Other file types - fallback message
-        modalContent.innerHTML = `
-            <div class="flex items-center justify-center h-full">
-                <div class="text-center">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <p class="text-lg font-medium text-gray-900 mb-2">Previzualizare indisponibilă</p>
-                    <p class="text-gray-600 mb-4">Acest tip de fișier nu poate fi previzualizat în browser.</p>
-                    <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
-                        Deschide în tab nou
-                    </a>
+    // Small delay to ensure modal is visible
+    setTimeout(() => {
+        if (extension === 'pdf') {
+            // PDF documents - direct iframe
+            modalContent.innerHTML = `
+                <iframe src="${url}" 
+                        class="w-full h-full border-0" 
+                        title="${name}"
+                        onload="console.log('PDF loaded successfully')"
+                        onerror="console.error('PDF failed to load')">
+                    <p>Browser-ul dumneavoastră nu suportă vizualizarea PDF-urilor. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
+                </iframe>
+            `;
+        } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
+            // Microsoft Office documents - using Office Online viewer
+            const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + url)}`;
+            modalContent.innerHTML = `
+                <iframe src="${officeViewerUrl}" 
+                        class="w-full h-full border-0" 
+                        title="${name}"
+                        onload="console.log('Office document loaded successfully')"
+                        onerror="console.error('Office document failed to load')">
+                    <p>Nu se poate încărca previzualizarea. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
+                </iframe>
+            `;
+        } else if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
+            // Images - direct display
+            modalContent.innerHTML = `
+                <div class="flex items-center justify-center h-full p-4">
+                    <img src="${url}" alt="${name}" class="max-w-full max-h-full object-contain"
+                         onload="console.log('Image loaded successfully')"
+                         onerror="console.error('Image failed to load')">
                 </div>
-            </div>
-        `;
-    }
-    
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+            `;
+        } else if (extension === 'txt') {
+            // Text files - fetch and display content
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                })
+                .then(text => {
+                    modalContent.innerHTML = `
+                        <div class="p-6 h-full overflow-auto">
+                            <pre class="whitespace-pre-wrap text-sm font-mono">${text}</pre>
+                        </div>
+                    `;
+                    console.log('Text file loaded successfully');
+                })
+                .catch(error => {
+                    console.error('Text file failed to load:', error);
+                    modalContent.innerHTML = `
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <p class="text-lg font-medium text-gray-900 mb-2">Nu se poate încărca fișierul</p>
+                                <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                    Deschide în tab nou
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+            return; // Exit early since we're using fetch
+        } else {
+            // Other file types - fallback message
+            modalContent.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p class="text-lg font-medium text-gray-900 mb-2">Previzualizare indisponibilă</p>
+                        <p class="text-gray-600 mb-4">Acest tip de fișier nu poate fi previzualizat în browser.</p>
+                        <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            Deschide în tab nou
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    }, 100);
 }
 
 function closeDocumentModal() {
