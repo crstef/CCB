@@ -22,7 +22,7 @@
     </div>
 
     <!-- Main Card Container -->
-    <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-lg h-[400px] lg:h-[450px] overflow-hidden">
         <!-- Carousel -->
         <div 
             x-data="{ 
