@@ -68,13 +68,11 @@
         }"
         @mouseenter="stopAutoPlay()"
         @mouseleave="startAutoPlay()"
-        class="{{ $height }} bg-white rounded-2xl shadow-lg overflow-hidden p-6"
+        class="{{ $height }} bg-white rounded-2xl shadow-lg overflow-hidden relative"
     >
-        <div class="overflow-hidden h-full">
+        <div class="overflow-hidden h-full px-6 pt-16 pb-4">
             <div class="flex transition-transform duration-500 ease-in-out h-full"
-                 :style="`transform: translateX(-${currentIndex * (100 / cardsPerView)}%)`">
-                
-                @foreach($documents as $document)
+                 :style="`transform: translateX(-${currentIndex * (100 / cardsPerView)}%)`">                @foreach($documents as $document)
                     <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
                         <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3 h-full flex flex-col group cursor-pointer border border-gray-100 hover:border-blue-200"
                              onclick="window.location='{{ route('documents.show', $document->id) }}'">
@@ -124,9 +122,7 @@
                     </div>
                 @endforeach
             </div>
-        </div>
-
-        @if($documents->count() > 2)
+        </div>        @if($documents->count() > 2)
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                 @for($i = 0; $i < max(1, $documents->count() - 1); $i++)
                     <button @click="goToIndex({{ $i }})" 
