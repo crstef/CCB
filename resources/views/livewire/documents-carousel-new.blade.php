@@ -95,7 +95,6 @@
                         <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
                             <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3 h-full flex flex-col group cursor-pointer border border-gray-100 hover:border-blue-200"
                                  onclick="console.log('Click pe document {{ $document->id }}')">
-                                {{-- onclick="window.location='{{ route('documents.show', $document->id) }}'"> --}}
                                 
                                 {{-- Document Header --}}
                                 <div class="flex items-start justify-between mb-2">
