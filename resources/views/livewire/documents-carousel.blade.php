@@ -257,18 +257,17 @@
             </div>
         </div>
     </div>
-</div>
 
-<style>
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-</style>
+    <style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    </style>
 
-<script>
+    <script>
 // Document viewer function
 function viewDocument(url, name, type) {
     console.log('viewDocument called with:', {url, name, type}); // Debug
