@@ -121,7 +121,7 @@ class Document extends Model
     }
 
         /**
-     * Check if file can be viewed inline (currently only PDFs)
+     * Check if file can be viewed inline (now supports all document types)
      */
     public function canViewInline($fileIndex = 0)
     {
@@ -144,7 +144,17 @@ class Document extends Model
         }
         
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-        return in_array($extension, ['pdf']);
+        
+        // Support inline viewing for most document types
+        return in_array($extension, [
+            'pdf',           // PDF documents
+            'doc', 'docx',   // Microsoft Word
+            'xls', 'xlsx',   // Microsoft Excel
+            'ppt', 'pptx',   // Microsoft PowerPoint
+            'txt',           // Text files
+            'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', // Images
+            'html', 'htm',   // HTML files
+        ]);
     }
 
     /**

@@ -274,7 +274,10 @@ function viewDocument(url, name, type) {
     
     modalTitle.textContent = name;
     
-    if (type.toLowerCase() === 'pdf') {
+    const extension = type.toLowerCase();
+    
+    if (extension === 'pdf') {
+        // PDF documents - direct iframe
         modalContent.innerHTML = `
             <iframe src="${url}" 
                     class="w-full h-full border-0" 
@@ -282,7 +285,49 @@ function viewDocument(url, name, type) {
                 <p>Browser-ul dumneavoastră nu suportă vizualizarea PDF-urilor. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
             </iframe>
         `;
+    } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
+        // Microsoft Office documents - using Office Online viewer
+        const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + url)}`;
+        modalContent.innerHTML = `
+            <iframe src="${officeViewerUrl}" 
+                    class="w-full h-full border-0" 
+                    title="${name}">
+                <p>Nu se poate încărca previzualizarea. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
+            </iframe>
+        `;
+    } else if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
+        // Images - direct display
+        modalContent.innerHTML = `
+            <div class="flex items-center justify-center h-full p-4">
+                <img src="${url}" alt="${name}" class="max-w-full max-h-full object-contain">
+            </div>
+        `;
+    } else if (extension === 'txt') {
+        // Text files - fetch and display content
+        fetch(url)
+            .then(response => response.text())
+            .then(text => {
+                modalContent.innerHTML = `
+                    <div class="p-6 h-full overflow-auto">
+                        <pre class="whitespace-pre-wrap text-sm font-mono">${text}</pre>
+                    </div>
+                `;
+            })
+            .catch(() => {
+                modalContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center">
+                            <p class="text-lg font-medium text-gray-900 mb-2">Nu se poate încărca fișierul</p>
+                            <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                Deschide în tab nou
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+        return; // Exit early since we're using fetch
     } else {
+        // Other file types - fallback message
         modalContent.innerHTML = `
             <div class="flex items-center justify-center h-full">
                 <div class="text-center">
