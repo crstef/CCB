@@ -77,7 +77,7 @@
         @mouseenter="stopAutoPlay()"
         @mouseleave="startAutoPlay()"
         class="bg-white rounded-2xl shadow-lg overflow-hidden relative"
-        style="height: 280px;"
+        style="height: 260px;"
     >
         <div class="overflow-hidden h-full px-6 pt-6 pb-4">
             <div class="flex transition-transform duration-500 ease-in-out h-full" 
