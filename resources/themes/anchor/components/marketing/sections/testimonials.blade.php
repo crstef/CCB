@@ -24,7 +24,11 @@
         <li>
             <figure class="flex flex-col justify-between h-full">
                 <figcaption class="flex flex-col justify-between mt-6">
-                    <img src="/images/mondioring-dog.svg" alt="Mondioring Dog" class="w-10 h-10" />
+                    <svg class="w-10 h-10 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        <circle cx="12" cy="12" r="2" fill="white"/>
+                        <path d="M8 16h8v2H8z" fill="white"/>
+                    </svg>
                     <div class="mt-4">
                         <div class="font-medium text-zinc-900">Cosmin Pop Moldovan</div>
                         <div class="mt-1 text-sm text-zinc-500">
@@ -37,7 +41,11 @@
         <li>
             <figure class="flex flex-col justify-between h-full">
                 <figcaption class="flex flex-col justify-between mt-6">
-                    <img src="/images/igp-training.svg" alt="IGP Training" class="w-10 h-10" />
+                    <svg class="w-10 h-10 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        <circle cx="12" cy="8" r="1.5"/>
+                        <path d="M16 12l-3 3-3-3h6z"/>
+                    </svg>
                     <div class="mt-4">
                         <div class="font-medium text-zinc-900">Attila Toth</div>
                         <div class="mt-1 text-sm text-zinc-500">
@@ -50,7 +58,11 @@
         <li>
             <figure class="flex flex-col justify-between h-full">
                 <figcaption class="flex flex-col justify-between mt-6">
-                    <img src="/images/agility-jump.svg" alt="Agility Jump" class="w-10 h-10" />
+                    <svg class="w-10 h-10 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        <circle cx="8" cy="18" r="1"/>
+                        <circle cx="16" cy="6" r="1"/>
+                    </svg>
                     <div class="mt-4">
                         <div class="font-medium text-zinc-900">Dan Zloteanu</div>
                         <div class="mt-1 text-sm text-zinc-500">
