@@ -51,7 +51,7 @@ class Document extends Model
     }
 
     /**
-     * Get all file URLs
+     * Get all file URLs with original names
      */
     public function getFileUrls()
     {
@@ -65,13 +65,84 @@ class Document extends Model
                 return null;
             }
             
+            $fileName = basename($file);
+            
             return [
                 'url' => Storage::url($file),
-                'name' => basename($file),
-                'size' => null, // File size will need to be calculated if needed
+                'path' => $file,
+                'name' => $fileName,
+                'original_name' => $fileName, // With preserveFilenames, this is the original name
+                'size' => Storage::exists($file) ? Storage::size($file) : null,
+                'size_formatted' => Storage::exists($file) ? $this->formatFileSize(Storage::size($file)) : 'N/A',
                 'type' => pathinfo($file, PATHINFO_EXTENSION),
+                'mime_type' => Storage::exists($file) ? Storage::mimeType($file) : null,
             ];
         })->filter()->toArray(); // Filter out null values
+    }
+
+    /**
+     * Format file size to human readable format
+     */
+    private function formatFileSize($bytes)
+    {
+        if ($bytes == 0) {
+            return '0 B';
+        }
+
+        $units = ['B', 'KB', 'MB', 'GB'];
+        $unitIndex = 0;
+        
+        while ($bytes >= 1024 && $unitIndex < count($units) - 1) {
+            $bytes /= 1024;
+            $unitIndex++;
+        }
+        
+        return round($bytes, 1) . ' ' . $units[$unitIndex];
+    }
+
+    /**
+     * Check if file can be viewed inline (PDF)
+     */
+    public function canViewInline($fileIndex = 0)
+    {
+        if (!$this->files || !isset($this->files[$fileIndex])) {
+            return false;
+        }
+
+        $file = $this->files[$fileIndex];
+        if (!is_string($file)) {
+            return false;
+        }
+        
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        return in_array($extension, ['pdf']);
+    }
+
+    /**
+     * Get file icon class based on extension
+     */
+    public function getFileIconClass($fileIndex = 0)
+    {
+        if (!$this->files || !isset($this->files[$fileIndex])) {
+            return 'text-gray-500';
+        }
+
+        $file = $this->files[$fileIndex];
+        if (!is_string($file)) {
+            return 'text-gray-500';
+        }
+        
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        
+        return match($extension) {
+            'pdf' => 'text-red-500',
+            'doc', 'docx' => 'text-blue-500',
+            'xls', 'xlsx' => 'text-green-500',
+            'ppt', 'pptx' => 'text-orange-500',
+            'txt' => 'text-gray-600',
+            'jpg', 'jpeg', 'png' => 'text-purple-500',
+            default => 'text-gray-500'
+        };
     }
 
     /**

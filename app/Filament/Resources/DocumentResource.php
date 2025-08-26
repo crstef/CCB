@@ -99,13 +99,26 @@ class DocumentResource extends Resource
                         FileUpload::make('files')
                             ->label('Fișiere')
                             ->multiple()
-                            ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                            ->acceptedFileTypes([
+                                'application/pdf', 
+                                'application/msword', 
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                'application/vnd.ms-excel',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.ms-powerpoint',
+                                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                                'text/plain',
+                                'image/jpeg',
+                                'image/png'
+                            ])
                             ->maxFiles(fn ($get) => $get('max_files') ?: 1)
                             ->directory('documents')
                             ->visibility('public')
-                            ->previewable(false)
+                            ->preserveFilenames() // Păstrează numele original
+                            ->previewable(true) // Permite previzualizare
                             ->downloadable()
-                            ->helperText('Acceptă doar fișiere PDF și Word (.doc, .docx)')
+                            ->openable() // Permite deschiderea în tab nou
+                            ->helperText('Acceptă fișiere PDF, Word, Excel, PowerPoint, text și imagini')
                             ->reactive()
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
                                 if ($state && count($state) > ($get('max_files') ?: 1)) {
