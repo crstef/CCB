@@ -97,9 +97,6 @@
                                     </div>
                                 @endif
                             </div>
-                                    </a>
-                                @endif
-                            </div>
                         </div>
 
                         <!-- Document Content -->
