@@ -21,33 +21,46 @@
         <!-- Documents Container -->
         <div class="pt-20 pb-4 px-4 h-full">
             <div class="overflow-hidden h-full">
-                <div class="flex h-full">
-                    @foreach($documents as $document)
-                        @php
-                            $fileUrls = $document->getFileUrls();
-                            $firstFile = $fileUrls[0] ?? null;
-                            $extension = $firstFile ? $firstFile['type'] : null;
-                            $iconClass = $document->getFileIconClass(0);
-                        @endphp
-                        
-                        <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
-                            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 h-full flex flex-col">
-                                <!-- Document Title -->
-                                <h3 class="font-semibold text-gray-900 mb-2">{{ $document->title }}</h3>
-                                
-                                <!-- Primary File Info -->
-                                @if($firstFile)
-                                    <div class="flex items-center p-2 bg-gray-50 rounded text-xs">
-                                        <span class="inline-block w-6 h-4 text-center text-xs font-bold bg-white rounded mr-2 leading-4 {{ $iconClass }}">
-                                            {{ strtoupper($extension) ?: 'DOC' }}
-                                        </span>
-                                        <span class="truncate font-medium">{{ $firstFile['original_name'] }}</span>
+                @if($documents->count() > 0)
+                    <div class="flex h-full">
+                        @foreach($documents as $document)
+                            @php
+                                $fileUrls = $document->getFileUrls();
+                                $firstFile = $fileUrls[0] ?? null;
+                                $extension = $firstFile ? $firstFile['type'] : null;
+                                $iconClass = $document->getFileIconClass(0);
+                            @endphp
+                            
+                            <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
+                                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-4 h-full flex flex-col">
+                                    <!-- Document Title -->
+                                    <h3 class="font-semibold text-gray-900 mb-2">{{ $document->title }}</h3>
+                                    
+                                    <!-- Debug info -->
+                                    <div class="text-xs text-red-600 mb-2">
+                                        ID: {{ $document->id }} | Files: {{ count($fileUrls) }}
                                     </div>
-                                @endif
+                                    
+                                    <!-- Primary File Info -->
+                                    @if($firstFile)
+                                        <div class="flex items-center p-2 bg-gray-50 rounded text-xs">
+                                            <span class="inline-block w-6 h-4 text-center text-xs font-bold bg-white rounded mr-2 leading-4 {{ $iconClass }}">
+                                                {{ strtoupper($extension) ?: 'DOC' }}
+                                            </span>
+                                            <span class="truncate font-medium">{{ $firstFile['original_name'] }}</span>
+                                        </div>
+                                    @else
+                                        <div class="text-xs text-gray-500">No files found</div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="flex items-center justify-center h-full">
+                        <p class="text-gray-500">Nu există documente disponibile</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
