@@ -104,7 +104,16 @@
                                             {{ $document->created_at->format('d.m.Y') }}
                                         </span>
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                            {{ pathinfo($document->preserveFilenames(), PATHINFO_EXTENSION) }}
+                                            @if($document->files && count($document->files) > 0)
+                                                @php
+                                                    $firstFile = $document->files[0];
+                                                    $filePath = is_array($firstFile) ? $firstFile['path'] : $firstFile;
+                                                    $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                                @endphp
+                                                {{ strtoupper($extension) }}
+                                            @else
+                                                DOC
+                                            @endif
                                         </span>
                                     </div>
                                 </div>
