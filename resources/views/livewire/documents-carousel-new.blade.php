@@ -84,83 +84,19 @@
                 <div class="flex transition-transform duration-500 ease-in-out h-full"
                      :style="`transform: translateX(-${currentIndex * (100 / cardsPerView)}%)`">
                     
-                    @foreach($documents as $document)
-                        @php
-                            $fileUrls = $document->getFileUrls();
-                            $firstFile = $fileUrls[0] ?? null;
-                            $extension = $firstFile ? $firstFile['type'] : null;
-                            $iconClass = $document->getFileIconClass(0);
-                        @endphp
-                        
+                    @if($documents->count() > 0)
+                        @php $firstDocument = $documents->first(); @endphp
                         <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
-                            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3 h-full flex flex-col group cursor-pointer border border-gray-100 hover:border-blue-200"
-                                 onclick="console.log('Click pe document {{ $document->id }}')">
-                                
-                                {{-- Document Header --}}
-                                <div class="flex items-start justify-between mb-2">
-                                    <div class="flex items-center gap-2">
-                                        @if($document->category)
-                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white"
-                                                  style="background-color: {{ $document->category->color }}">
-                                                {{ $document->category->name }}
-                                            </span>
-                                        @endif
-                                        <time class="text-xs text-gray-500">{{ $document->created_at->format('d.m.Y') }}</time>
-                                    </div>
-                                    
-                                    @if(count($fileUrls) > 1)
-                                        <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            {{ count($fileUrls) }} fișiere
-                                        </span>
-                                    @endif
-                                </div>
-
-                                {{-- Document Title --}}
-                                <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200 text-sm">
-                                    {{ $document->title }}
-                                </h3>
-
-                                {{-- Document Description --}}
-                                @if($document->description)
-                                    <p class="text-xs text-gray-600 mb-2 line-clamp-2 flex-grow">
-                                        {{ $document->description }}
-                                    </p>
-                                @endif
-
-                                {{-- Primary File Info --}}
-                                @if($firstFile)
-                                    <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-xs group/file hover:bg-gray-100 transition-colors duration-200 mt-auto">
-                                        <div class="flex items-center flex-1 min-w-0">
-                                            <span class="inline-block w-5 h-4 text-center text-xs font-bold bg-white rounded mr-2 leading-4 {{ $iconClass }}">
-                                                {{ strtoupper($extension) ?: 'DOC' }}
-                                            </span>
-                                            <span class="truncate font-medium" title="{{ $firstFile['original_name'] }}">{{ $firstFile['original_name'] }}</span>
-                                        </div>
-                                        <div class="flex gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            @if($document->canViewInline(0))
-                                                <button onclick="event.stopPropagation(); viewDocument('{{ $firstFile['url'] }}', '{{ $firstFile['original_name'] }}', '{{ $extension }}')"
-                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                        title="Vezi {{ $firstFile['original_name'] }}">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                    </svg>
-                                                </button>
-                                            @endif
-                                            <a href="{{ $firstFile['url'] }}" 
-                                               onclick="event.stopPropagation()"
-                                               download="{{ $firstFile['original_name'] }}"
-                                               class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
-                                               title="Descarcă {{ $firstFile['original_name'] }}">
-                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endif
+                            <div class="bg-white rounded-xl shadow-sm p-3 h-full">
+                                <h3>{{ $firstDocument->title }}</h3>
+                                <p>Test cu primul document doar</p>
                             </div>
                         </div>
-                    @endforeach
+                    @else
+                        <div class="w-full flex items-center justify-center">
+                            <p>Nu există documente</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
