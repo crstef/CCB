@@ -42,12 +42,15 @@ class Document extends Model
         }
 
         $file = $this->files[$index];
-        // Ensure $file is a string before using it
-        if (!is_string($file)) {
-            return null;
+        
+        // Handle both old format (string) and new format (array)
+        if (is_string($file)) {
+            return Storage::url($file);
+        } elseif (is_array($file) && isset($file['path'])) {
+            return Storage::url($file['path']);
         }
         
-        return Storage::url($file);
+        return null;
     }
 
     /**
@@ -60,23 +63,40 @@ class Document extends Model
         }
 
         return collect($this->files)->map(function ($file) {
-            // Ensure $file is a string before processing
-            if (!is_string($file)) {
-                return null;
+            // Handle both old format (string) and new format (array)
+            if (is_string($file)) {
+                // Old format - just a file path
+                $fileName = basename($file);
+                
+                return [
+                    'url' => Storage::url($file),
+                    'path' => $file,
+                    'name' => $fileName,
+                    'original_name' => $fileName,
+                    'size' => Storage::exists($file) ? Storage::size($file) : null,
+                    'size_formatted' => Storage::exists($file) ? $this->formatFileSize(Storage::size($file)) : 'N/A',
+                    'type' => pathinfo($file, PATHINFO_EXTENSION),
+                    'mime_type' => Storage::exists($file) ? Storage::mimeType($file) : null,
+                ];
+            } elseif (is_array($file) && isset($file['path'])) {
+                // New format - array with metadata
+                $filePath = $file['path'];
+                $fileName = $file['name'] ?? basename($filePath);
+                
+                return [
+                    'url' => Storage::url($filePath),
+                    'path' => $filePath,
+                    'name' => $fileName,
+                    'original_name' => $fileName,
+                    'size' => $file['size'] ?? (Storage::exists($filePath) ? Storage::size($filePath) : null),
+                    'size_formatted' => isset($file['size']) ? $this->formatFileSize($file['size']) : (Storage::exists($filePath) ? $this->formatFileSize(Storage::size($filePath)) : 'N/A'),
+                    'type' => pathinfo($filePath, PATHINFO_EXTENSION),
+                    'mime_type' => Storage::exists($filePath) ? Storage::mimeType($filePath) : null,
+                    'uploaded_at' => $file['uploaded_at'] ?? null,
+                ];
             }
             
-            $fileName = basename($file);
-            
-            return [
-                'url' => Storage::url($file),
-                'path' => $file,
-                'name' => $fileName,
-                'original_name' => $fileName, // With preserveFilenames, this is the original name
-                'size' => Storage::exists($file) ? Storage::size($file) : null,
-                'size_formatted' => Storage::exists($file) ? $this->formatFileSize(Storage::size($file)) : 'N/A',
-                'type' => pathinfo($file, PATHINFO_EXTENSION),
-                'mime_type' => Storage::exists($file) ? Storage::mimeType($file) : null,
-            ];
+            return null;
         })->filter()->toArray(); // Filter out null values
     }
 
@@ -100,8 +120,8 @@ class Document extends Model
         return round($bytes, 1) . ' ' . $units[$unitIndex];
     }
 
-    /**
-     * Check if file can be viewed inline (PDF)
+        /**
+     * Check if file can be viewed inline (currently only PDFs)
      */
     public function canViewInline($fileIndex = 0)
     {
@@ -110,11 +130,20 @@ class Document extends Model
         }
 
         $file = $this->files[$fileIndex];
-        if (!is_string($file)) {
+        
+        // Handle both old format (string) and new format (array)
+        $filePath = null;
+        if (is_string($file)) {
+            $filePath = $file;
+        } elseif (is_array($file) && isset($file['path'])) {
+            $filePath = $file['path'];
+        }
+        
+        if (!$filePath) {
             return false;
         }
         
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
         return in_array($extension, ['pdf']);
     }
 
@@ -128,20 +157,29 @@ class Document extends Model
         }
 
         $file = $this->files[$fileIndex];
-        if (!is_string($file)) {
+        
+        // Handle both old format (string) and new format (array)
+        $filePath = null;
+        if (is_string($file)) {
+            $filePath = $file;
+        } elseif (is_array($file) && isset($file['path'])) {
+            $filePath = $file['path'];
+        }
+        
+        if (!$filePath) {
             return 'text-gray-500';
         }
         
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
         
         return match($extension) {
             'pdf' => 'text-red-500',
             'doc', 'docx' => 'text-blue-500',
             'xls', 'xlsx' => 'text-green-500',
             'ppt', 'pptx' => 'text-orange-500',
+            'jpg', 'jpeg', 'png', 'gif' => 'text-purple-500',
             'txt' => 'text-gray-600',
-            'jpg', 'jpeg', 'png' => 'text-purple-500',
-            default => 'text-gray-500'
+            default => 'text-gray-500',
         };
     }
 
