@@ -70,7 +70,7 @@
         }"
         @mouseenter="stopAutoPlay()"
         @mouseleave="startAutoPlay()"
-        class="relative px-6 pb-4 h-full"
+        class="relative {{ $height }} px-6 pb-4 h-full"
     >
         <div class="overflow-hidden h-full">
             <div class="flex transition-transform duration-500 ease-in-out h-full"
