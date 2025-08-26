@@ -54,11 +54,19 @@
             },
             nextCards() {
                 const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
-                this.currentIndex = this.currentIndex >= maxIndex ? 0 : this.currentIndex + 1;
+                if (this.currentIndex >= maxIndex) {
+                    this.currentIndex = 0;
+                } else {
+                    this.currentIndex++;
+                }
             },
             previousCards() {
                 const maxIndex = Math.max(0, this.documentsCount - this.cardsPerView);
-                this.currentIndex = this.currentIndex <= 0 ? maxIndex : this.currentIndex - 1;
+                if (this.currentIndex <= 0) {
+                    this.currentIndex = maxIndex;
+                } else {
+                    this.currentIndex--;
+                }
             },
             goToIndex(index) {
                 this.currentIndex = index;
@@ -69,7 +77,7 @@
         @mouseenter="stopAutoPlay()"
         @mouseleave="startAutoPlay()"
         class="bg-white rounded-2xl shadow-lg overflow-hidden relative"
-        style="height: 350px;"
+        style="height: 280px;"
     >
         <div class="overflow-hidden h-full px-6 pt-6 pb-4">
             <div class="flex transition-transform duration-500 ease-in-out h-full" 
@@ -116,9 +124,12 @@
             </div>
         </div>
         
-        @if($documents->count() > 2 && floor($documents->count() / 2) > 0)
+        @if($documents->count() > 2)
             <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                @for($i = 0; $i <= floor($documents->count() / 2); $i++)
+                @php
+                    $totalPages = max(1, ceil($documents->count() / 2));
+                @endphp
+                @for($i = 0; $i < $totalPages; $i++)
                     <button @click="goToIndex({{ $i }})" 
                             :class="currentIndex === {{ $i }} ? 'bg-blue-600' : 'bg-gray-300'"
                             class="w-2 h-2 rounded-full transition-colors duration-200">
