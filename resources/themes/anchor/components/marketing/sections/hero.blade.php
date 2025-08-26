@@ -128,7 +128,7 @@ a.gallery-button:hover .gallery-button-icon {
         <div class="w-full lg:w-1/2">
             <div class="w-full mt-4 lg:mt-0 max-w-2xl mx-auto lg:mx-0">
                 {{-- Premium Documents Carousel with latest documents --}}
-                @livewire('documents-carousel-new', ['height' => 'h-[400px] lg:h-[450px]'])
+                @livewire('documents-carousel-fresh', ['height' => 'h-[400px] lg:h-[450px]'])
                 
                 {{-- Premium Documents Navigation Button --}}
                 <div class="flex justify-center mt-6">
