@@ -1,28 +1,6 @@
 <div>
-    <!-- Header -->
-    <div class="flex items-center justify-between p-6 pb-4">
-        <h2 class="text-2xl font-bold text-gray-800">Documente recente</h2>
-        
-        @if($documents->count() > 2)
-            <div class="flex gap-2">
-                <button @click="previousCards()" 
-                        class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-gray-600 hover:text-gray-900">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                <button @click="nextCards()" 
-                        class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-gray-600 hover:text-gray-900">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
-            </div>
-        @endif
-    </div>
-
     <!-- Main Card Container -->
-    <div class="bg-white rounded-2xl shadow-lg h-[400px] lg:h-[450px] overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden">
         <!-- Carousel -->
         <div 
             x-data="{ 
@@ -72,8 +50,36 @@
             }"
             @mouseenter="stopAutoPlay()"
             @mouseleave="startAutoPlay()"
-            class="relative p-6 h-full"
+            class="relative h-full"
         >
+            <!-- Header -->
+            <div class="absolute top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 p-4 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900">Documente Recente</h2>
+                        <p class="text-sm text-gray-600">{{ $documents->count() }} documente disponibile</p>
+                    </div>
+                    
+                    @if($documents->count() > 2)
+                        <div class="flex gap-2">
+                            <button @click="previousCards()" 
+                                    class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-gray-600 hover:text-gray-900">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <button @click="nextCards()" 
+                                    class="p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-gray-600 hover:text-gray-900">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="pt-20 pb-4 px-6 h-full">
         <div class="overflow-hidden h-full">
             <div class="flex transition-transform duration-500 ease-in-out h-full"
                  :style="`transform: translateX(-${currentIndex * (100 / cardsPerView)}%)`">
