@@ -13,7 +13,19 @@ class EditFeature extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->label('Șterge serviciul'),
         ];
+    }
+    
+    protected function getTitle(): string
+    {
+        return 'Editează serviciul';
+    }
+    
+    protected function getSaveFormAction(): \Filament\Actions\Action
+    {
+        return parent::getSaveFormAction()
+            ->label('Salvează modificările');
     }
 }

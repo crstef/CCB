@@ -13,7 +13,13 @@ class ListFeatures extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Adaugă serviciu nou'),
         ];
+    }
+    
+    protected function getTitle(): string
+    {
+        return 'Servicii CCB';
     }
 }
