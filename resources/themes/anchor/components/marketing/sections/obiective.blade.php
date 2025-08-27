@@ -14,11 +14,11 @@
             <div class="flex flex-col items-center">
                 <!-- Imagine sau iconiță -->
                 @if($featureGoal->image)
-                    <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-lg overflow-hidden size-32 mb-6">
+                    <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-lg overflow-hidden size-28 mb-6">
                         <img src="{{ $featureGoal->image_url }}" alt="{{ $featureGoal->title }}" class="w-full h-full object-cover">
                     </div>
                 @else
-                    <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-16 mb-6">
+                    <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-14 mb-6">
                         <x-dynamic-component :component="'phosphor-' . $featureGoal->icon" class="w-8 h-8" />
                     </div>
                 @endif
