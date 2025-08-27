@@ -12,9 +12,9 @@
             
             @foreach($features as $feature)
             <div>
-                <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-14">
+                <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-16">
                     @if($feature->image)
-                        <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}" class="w-10 h-10 rounded-full object-cover">
+                        <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}" class="w-11 h-11 rounded-full object-cover">
                     @else
                         <x-dynamic-component :component="'phosphor-' . $feature->icon" class="w-8 h-8" />
                     @endif
