@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Competitii;
 
-use App\Filament\Resources\PostResource\Pages;
+use App\Filament\Resources\Competitii\CompetitiiResource\Pages;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,24 +11,23 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Wave\Category;
-use Wave\Post;
+use Wave\Page;
 
-class PostResource extends Resource
+class CompetitiiResource extends Resource
 {
-    protected static ?string $model = Post::class;
+    protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'phosphor-pencil-line-duotone';
+    protected static ?string $navigationIcon = 'phosphor-trophy-duotone';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationGroup = 'Management Conținut';
 
-    protected static ?string $navigationLabel = 'Articole';
+    protected static ?string $navigationLabel = 'Competiții';
 
-    protected static ?string $modelLabel = 'Articol';
+    protected static ?string $modelLabel = 'Competiție';
 
-    protected static ?string $pluralModelLabel = 'Articole';
+    protected static ?string $pluralModelLabel = 'Competiții';
 
     public static function form(Form $form): Form
     {
@@ -51,10 +50,8 @@ class PostResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->disk('public')
-                    ->directory('posts')
+                    ->directory('pages')
                     ->getUploadedFileNameForStorageUsing(fn ($file) => (string) str()->uuid() . '.' . $file->getClientOriginalExtension()),
-                Forms\Components\TextInput::make('seo_title')
-                    ->maxLength(191),
                 Forms\Components\Select::make('author_id')
                     ->label('Author')
                     ->options(
@@ -68,11 +65,6 @@ class PostResource extends Resource
                     )
                     ->searchable()
                     ->required(),
-                Forms\Components\Select::make('category_id')
-                    ->label('Category')
-                    ->options(Category::all()->pluck('name', 'id'))
-                    ->searchable()
-                    ->required(),
                 Forms\Components\Textarea::make('meta_description')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('meta_keywords')
@@ -80,12 +72,9 @@ class PostResource extends Resource
                 Forms\Components\Select::make('status')
                     ->required()
                     ->options([
-                        'DRAFT' => 'Draft',
-                        'PUBLISHED' => 'Published',
-                        'ARCHIVED' => 'Archived',
+                        'ACTIVE' => 'Active',
+                        'INACTIVE' => 'Inactive',
                     ]),
-                Forms\Components\Toggle::make('featured')
-                    ->required(),
             ]);
     }
 
@@ -93,18 +82,11 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->searchable()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\IconColumn::make('featured')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -138,9 +120,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => Pages\ListPages::route('/'),
+            'create' => Pages\CreatePage::route('/create'),
+            'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
     }
 }

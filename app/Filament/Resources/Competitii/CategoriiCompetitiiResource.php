@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\Competitii;
 
-use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\Competitii\CategoriiCompetitiiResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Spatie\Permission\Models\Role;
+use Wave\Category;
 
-class RoleResource extends Resource
+class CategoriiCompetitiiResource extends Resource
 {
-    protected static ?string $model = Role::class;
+    protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'phosphor-address-book-duotone';
+    protected static ?string $navigationIcon = 'phosphor-folder-open-duotone';
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationGroup = 'Administrare';
+    protected static ?string $navigationGroup = 'Management Conținut';
 
-    protected static ?string $navigationLabel = 'Roluri';
+    protected static ?string $navigationLabel = 'Categorii Competiții';
 
-    protected static ?string $modelLabel = 'Rol';
+    protected static ?string $modelLabel = 'Categorie Competiție';
 
-    protected static ?string $pluralModelLabel = 'Roluri';
+    protected static ?string $pluralModelLabel = 'Categorii Competiții';
 
     public static function form(Form $form): Form
     {
@@ -33,13 +33,18 @@ class RoleResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(191),
-                Forms\Components\TextInput::make('guard_name')
+                Forms\Components\TextInput::make('slug')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(191),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Select::make('parent_id')
+                    ->label('Parent Category')
+                    ->options(Category::all()->pluck('name', 'id'))
+                    ->searchable(),
+                Forms\Components\TextInput::make('order')
                     ->required()
-                    ->maxLength(191)
-                    ->columnSpanFull(),
+                    ->numeric()
+                    ->default(1),
             ]);
     }
 
@@ -49,7 +54,7 @@ class RoleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('guard_name')
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -84,9 +89,9 @@ class RoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRoles::route('/'),
-            'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }
