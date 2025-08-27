@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\BooleanEntry;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\ColorEntry;
 use Filament\Infolists\Components\Section;
 
@@ -47,8 +47,13 @@ class ViewDocumentCategory extends ViewRecord
                         TextEntry::make('sort_order')
                             ->label('Ordine Sortare'),
 
-                        BooleanEntry::make('is_active')
-                            ->label('Activ'),
+                        IconEntry::make('is_active')
+                            ->label('Activ')
+                            ->boolean()
+                            ->trueIcon('heroicon-o-check-circle')
+                            ->falseIcon('heroicon-o-x-circle')
+                            ->trueColor('success')
+                            ->falseColor('danger'),
 
                         TextEntry::make('documents_count')
                             ->label('Număr Documente')

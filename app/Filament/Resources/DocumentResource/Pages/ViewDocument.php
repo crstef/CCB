@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\BooleanEntry;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\RepeatableEntry;
 
@@ -45,8 +45,13 @@ class ViewDocument extends ViewRecord
                         TextEntry::make('max_files')
                             ->label('Numărul maxim de fișiere'),
 
-                        BooleanEntry::make('is_active')
-                            ->label('Activ'),
+                        IconEntry::make('is_active')
+                            ->label('Activ')
+                            ->boolean()
+                            ->trueIcon('heroicon-o-check-circle')
+                            ->falseIcon('heroicon-o-x-circle')
+                            ->trueColor('success')
+                            ->falseColor('danger'),
                     ])
                     ->columns(2),
 
