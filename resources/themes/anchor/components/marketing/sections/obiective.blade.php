@@ -1,7 +1,7 @@
 <section>
     <x-marketing.elements.heading
         level="h2"
-        title="Obiective & Informații CCB"
+        title="Obiective viitor"
         description="Obiectivele noastre de viitor și informații importante despre activitatea CCB." 
     />
     <div class="text-center">

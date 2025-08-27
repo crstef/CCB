@@ -57,8 +57,8 @@
             </div>
             <div class="px-8 py-6 space-y-6">
                 <div class="grid grid-cols-2 px-1 pb-4 row-gap-4 col-gap-8">
-                    <a href="/#pricing" class="text-base font-medium leading-6 transition duration-150 ease-in-out text-zinc-900 hover:text-zinc-700">
-                        Prețuri
+                    <a href="/#obiective" class="text-base font-medium leading-6 transition duration-150 ease-in-out text-zinc-900 hover:text-zinc-700">
+                        Obiective
                     </a>
                     <a href="#" class="text-base font-medium leading-6 transition duration-150 ease-in-out text-zinc-900 hover:text-zinc-700">
                         Documentație

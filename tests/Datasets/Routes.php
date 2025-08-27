@@ -6,7 +6,7 @@ dataset('routes', function () {
         '/blog',
         '/blog/marketing',
         '/blog/marketing/best-ways-to-market-your-application',
-        '/pricing',
+        '/obiective',
         '/changelog',
         '/changelog/3',
         '/auth/login',

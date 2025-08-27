@@ -16,7 +16,7 @@ class FeatureResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static ?string $navigationGroup = 'Managementul Conținutului';
+    protected static ?string $navigationGroup = 'Management Conținut';
 
     protected static ?string $navigationLabel = 'Servicii';
 

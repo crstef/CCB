@@ -23,7 +23,7 @@
         </x-container>
         
         <x-container class="py-12 border-t sm:py-24 border-zinc-200">
-            <x-marketing.sections.pricing />
+            <x-marketing.sections.obiective />
         </x-container>
 
 </x-layouts.marketing>

@@ -16,7 +16,7 @@ class FeatureGoalResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
-    protected static ?string $navigationGroup = 'Managementul Conținutului';
+    protected static ?string $navigationGroup = 'Management Conținut';
 
     protected static ?string $navigationLabel = 'Obiective & Info';
 
