@@ -1,28 +1,12 @@
 <?php
 
-name    protected $fillable = [
-        'title',
-        'description',
-        'icon',
-        'image',
-        'sort_order',
-        'is_active'
-    ];
-
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
-    // Accessor pentru URL-ul imaginii
-    public function getImageUrlAttribute()
-    {
-        return $this->image ? asset('storage/' . $this->image) : null;
-    }odels;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
-class Feature extends Model
+class FeatureGoal extends Model
 {
     use HasFactory;
 
@@ -30,6 +14,7 @@ class Feature extends Model
         'title',
         'description',
         'icon',
+        'image',
         'sort_order',
         'is_active',
     ];
@@ -39,7 +24,7 @@ class Feature extends Model
     ];
 
     /**
-     * Scope pentru features active
+     * Scope pentru feature goals active
      */
     public function scopeActive($query)
     {
@@ -52,5 +37,13 @@ class Feature extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order');
+    }
+
+    /**
+     * Accessor pentru URL-ul imaginii
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? Storage::url($this->image) : null;
     }
 }

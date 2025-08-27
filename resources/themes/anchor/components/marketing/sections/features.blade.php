@@ -13,7 +13,11 @@
             @foreach($features as $feature)
             <div>
                 <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-12">
-                    <x-dynamic-component :component="'phosphor-' . $feature->icon" class="w-6 h-6" />
+                    @if($feature->image)
+                        <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}" class="w-10 h-10 rounded-full object-cover">
+                    @else
+                        <x-dynamic-component :component="'phosphor-' . $feature->icon" class="w-6 h-6" />
+                    @endif
                 </div>
                 <div class="mt-6">
                     <h3 class="font-medium text-zinc-900">{{ $feature->title }}</h3>

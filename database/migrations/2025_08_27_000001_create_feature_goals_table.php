@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('feature_goals', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('icon'); // Pentru numele iconitei (ex: 'users-three', 'shield-check')
+            $table->string('icon'); // Pentru numele iconitei
             $table->string('image')->nullable(); // Pentru imaginea atașată
-            $table->integer('sort_order')->default(0); // Pentru sortare
-            $table->boolean('is_active')->default(true); // Pentru a activa/dezactiva
+            $table->integer('sort_order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('feature_goals');
     }
 };

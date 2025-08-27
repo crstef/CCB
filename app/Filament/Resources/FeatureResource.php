@@ -28,130 +28,57 @@ class FeatureResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label('Titlu')
-                    ->required()
-                    ->maxLength(255)
-                    ->placeholder('Introdu titlul serviciului...')
-                    ->helperText('Numele serviciului care va apărea pe site.'),
-                
-                Forms\Components\Textarea::make('description')
-                    ->label('Descriere')
-                    ->required()
-                    ->rows(3)
-                    ->placeholder('Introdu descrierea serviciului...')
-                    ->helperText('Descrie pe scurt beneficiile și funcționalitatea acestui serviciu.'),
-                
-                Forms\Components\Select::make('icon')
-                    ->label('Iconita')
-                    ->required()
-                    ->options([
-                        // Management și administrare
-                        'users-three' => 'Users Three (Management utilizatori)',
-                        'user-group' => 'User Group (Echipe)',
-                        'identification' => 'Identification (Identificare)',
-                        'key' => 'Key (Acces/Permisiuni)',
-                        'shield-check' => 'Shield Check (Securitate)',
-                        'lock-closed' => 'Lock Closed (Protecție)',
-                        'finger-print' => 'Finger Print (Biometrie)',
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255)
+                            ->label('Titlu'),
                         
-                        // Funcționalități și instrumente
-                        'puzzle-piece' => 'Puzzle Piece (Integrări)',
-                        'cog-6-tooth' => 'Cog (Configurări)',
-                        'gear-fine' => 'Gear Fine (Setări avansate)',
-                        'wrench-screwdriver' => 'Wrench Screwdriver (Instrumente)',
-                        'command-line' => 'Command Line (Terminal)',
-                        'cpu-chip' => 'CPU Chip (Procesare)',
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->label('Descriere')
+                            ->rows(3),
                         
-                        // Analitice și rapoarte
-                        'chart-bar' => 'Chart Bar (Statistici coloane)',
-                        'chart-pie' => 'Chart Pie (Statistici circ)',
-                        'presentation-chart-line' => 'Presentation Chart Line (Prezentare grafice)',
-                        'calculator' => 'Calculator (Calcule)',
-                        'document-chart-bar' => 'Document Chart Bar (Rapoarte)',
-                        'table-cells' => 'Table Cells (Tabele)',
+                        Forms\Components\Select::make('icon')
+                            ->options(self::getIconOptions())
+                            ->required()
+                            ->label('Iconiță')
+                            ->searchable()
+                            ->getSearchResultsUsing(function (string $search) {
+                                $icons = self::getIconOptions();
+                                return array_filter($icons, function($label, $value) use ($search) {
+                                    return str_contains(strtolower($label), strtolower($search)) ||
+                                           str_contains(strtolower($value), strtolower($search));
+                                }, ARRAY_FILTER_USE_BOTH);
+                            }),
                         
-                        // Design și interfață
-                        'paint-bucket' => 'Paint Bucket (Teme/Culori)',
-                        'swatch' => 'Swatch (Paletă culori)',
-                        'photo' => 'Photo (Imagini)',
-                        'camera' => 'Camera (Fotografie)',
-                        'film' => 'Film (Video)',
-                        'musical-note' => 'Musical Note (Audio)',
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Imagine')
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '1:1',
+                                '16:9', 
+                                '4:3',
+                            ])
+                            ->disk('public')
+                            ->directory('features')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->helperText('Opțional: imaginea va fi folosită în loc de iconiță dacă este încărcată')
+                            ->columnSpanFull(),
                         
-                        // Fișiere și stocare
-                        'images-square' => 'Images Square (Galerie imagini)',
-                        'folder' => 'Folder (Directoare)',
-                        'document' => 'Document (Documente)',
-                        'archive-box' => 'Archive Box (Arhivă)',
-                        'cloud-arrow-up' => 'Cloud Arrow Up (Upload cloud)',
-                        'server' => 'Server (Server/Stocare)',
+                        Forms\Components\TextInput::make('sort_order')
+                            ->numeric()
+                            ->default(0)
+                            ->label('Ordinea'),
                         
-                        // Comunicare și suport
-                        'lifebuoy' => 'Lifebuoy (Ajutor/Suport)',
-                        'chat-bubble-left-right' => 'Chat (Conversații)',
-                        'phone' => 'Phone (Telefon)',
-                        'envelope' => 'Envelope (Email)',
-                        'megaphone' => 'Megaphone (Anunțuri)',
-                        'bell' => 'Bell (Notificări)',
-                        
-                        // Business și e-commerce
-                        'banknotes' => 'Banknotes (Plăți)',
-                        'credit-card' => 'Credit Card (Card)',
-                        'shopping-cart' => 'Shopping Cart (Coș cumpărături)',
-                        'building-storefront' => 'Building Storefront (Magazin)',
-                        'currency-dollar' => 'Currency Dollar (Valută)',
-                        
-                        // Timp și planificare
-                        'calendar' => 'Calendar (Calendar)',
-                        'clock' => 'Clock (Ceas)',
-                        'calendar-days' => 'Calendar Days (Zile)',
-                        
-                        // Acțiuni și stări
-                        'star' => 'Star (Favorite/Premium)',
-                        'heart' => 'Heart (Apreciere)',
-                        'lightning-bolt' => 'Lightning Bolt (Viteză)',
-                        'rocket-launch' => 'Rocket Launch (Lansare)',
-                        'fire' => 'Fire (Popular/Trending)',
-                        'sparkles' => 'Sparkles (Nou/Special)',
-                        
-                        // Educație și învățare
-                        'academic-cap' => 'Academic Cap (Educație)',
-                        'book-open' => 'Book Open (Lecturi)',
-                        'light-bulb' => 'Light Bulb (Idei)',
-                        'beaker' => 'Beaker (Cercetare)',
-                        
-                        // Navigare și căutare
-                        'magnifying-glass' => 'Magnifying Glass (Căutare)',
-                        'map' => 'Map (Hartă)',
-                        'globe-alt' => 'Globe Alt (Glob/Internațional)',
-                        'compass' => 'Compass (Busola)',
-                        
-                        // Sănătate și fitness
-                        'heart-pulse' => 'Heart Pulse (Sănătate)',
-                        'shield-plus' => 'Shield Plus (Protecție medicală)',
-                        
-                        // Social și comunitate
-                        'hand-raised' => 'Hand Raised (Voluntariat)',
-                        'users' => 'Users (Comunitate)',
-                        'trophy' => 'Trophy (Premii)',
-                        'gift' => 'Gift (Cadouri)',
+                        Forms\Components\Toggle::make('is_active')
+                            ->default(true)
+                            ->label('Activ'),
                     ])
-                    ->searchable()
-                    ->placeholder('Selectează o iconiță...')
-                    ->helperText('Iconițele folosesc biblioteca Phosphor. Poți căuta după nume sau funcționalitate.'),
-                
-                Forms\Components\TextInput::make('sort_order')
-                    ->label('Ordinea de afișare')
-                    ->numeric()
-                    ->default(0)
-                    ->required()
-                    ->helperText('Numărul ordinii de afișare (1, 2, 3...). Serviciile cu numere mai mici apar primele.'),
-                
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Activ')
-                    ->default(true)
-                    ->helperText('Bifează pentru a afișa serviciul pe site. Debifează pentru a-l ascunde temporar.'),
             ]);
     }
 
@@ -170,6 +97,13 @@ class FeatureResource extends Resource
                     ->limit(60)
                     ->searchable()
                     ->wrap(),
+                
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Imagine')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(40)
+                    ->circular(),
                 
                 Tables\Columns\TextColumn::make('icon')
                     ->label('Iconița')
