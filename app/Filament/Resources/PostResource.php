@@ -24,11 +24,11 @@ class PostResource extends Resource
 
     protected static ?string $navigationGroup = 'Management Conținut';
 
-    protected static ?string $navigationLabel = 'Articole';
+    protected static ?string $navigationLabel = 'Competiții';
 
-    protected static ?string $modelLabel = 'Articol';
+    protected static ?string $modelLabel = 'Competiție';
 
-    protected static ?string $pluralModelLabel = 'Articole';
+    protected static ?string $pluralModelLabel = 'Competiții';
 
     public static function form(Form $form): Form
     {

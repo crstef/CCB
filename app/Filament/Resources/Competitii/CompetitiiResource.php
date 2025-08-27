@@ -23,11 +23,11 @@ class CompetitiiResource extends Resource
 
     protected static ?string $navigationGroup = 'Management Conținut';
 
-    protected static ?string $navigationLabel = 'Competiții';
+    protected static ?string $navigationLabel = 'Pagini';
 
-    protected static ?string $modelLabel = 'Competiție';
+    protected static ?string $modelLabel = 'Pagină';
 
-    protected static ?string $pluralModelLabel = 'Competiții';
+    protected static ?string $pluralModelLabel = 'Pagini';
 
     public static function form(Form $form): Form
     {
