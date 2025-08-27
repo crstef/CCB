@@ -20,6 +20,14 @@ class PlanResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $navigationGroup = 'Configurare';
+
+    protected static ?string $navigationLabel = 'Planuri Abonament';
+
+    protected static ?string $modelLabel = 'Plan';
+
+    protected static ?string $pluralModelLabel = 'Planuri';
+
     public static function form(Form $form): Form
     {
         return $form

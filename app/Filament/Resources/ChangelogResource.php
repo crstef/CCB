@@ -16,7 +16,15 @@ class ChangelogResource extends Resource
 
     protected static ?string $navigationIcon = 'phosphor-book-open-text-duotone';
 
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 8;
+
+    protected static ?string $navigationGroup = 'Management Conținut';
+
+    protected static ?string $navigationLabel = 'Jurnal Modificări';
+
+    protected static ?string $modelLabel = 'Modificare';
+
+    protected static ?string $pluralModelLabel = 'Modificări';
 
     public static function form(Form $form): Form
     {

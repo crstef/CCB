@@ -18,6 +18,14 @@ class PermissionResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $navigationGroup = 'Administrare';
+
+    protected static ?string $navigationLabel = 'Permisiuni';
+
+    protected static ?string $modelLabel = 'Permisiune';
+
+    protected static ?string $pluralModelLabel = 'Permisiuni';
+
     public static function form(Form $form): Form
     {
         return $form

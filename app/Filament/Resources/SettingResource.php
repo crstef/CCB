@@ -18,6 +18,14 @@ class SettingResource extends Resource
 
     protected static ?int $navigationSort = 9;
 
+    protected static ?string $navigationGroup = 'Configurare';
+
+    protected static ?string $navigationLabel = 'Setări';
+
+    protected static ?string $modelLabel = 'Setare';
+
+    protected static ?string $pluralModelLabel = 'Setări';
+
     public static function form(Form $form): Form
     {
         return $form
