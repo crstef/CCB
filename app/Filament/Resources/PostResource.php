@@ -30,12 +30,6 @@ class PostResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Articole';
 
-    protected static ?string $navigationLabel = 'Articole';
-
-    protected static ?string $modelLabel = 'Articol';
-
-    protected static ?string $pluralModelLabel = 'Articole';
-
     public static function form(Form $form): Form
     {
         return $form
