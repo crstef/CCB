@@ -18,7 +18,7 @@ class ListFeatures extends ListRecords
         ];
     }
     
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return 'Servicii CCB';
     }

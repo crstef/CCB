@@ -18,14 +18,8 @@ class EditFeature extends EditRecord
         ];
     }
     
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return 'Editează serviciul';
-    }
-    
-    protected function getSaveFormAction(): \Filament\Actions\Action
-    {
-        return parent::getSaveFormAction()
-            ->label('Salvează modificările');
     }
 }
