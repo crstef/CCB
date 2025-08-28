@@ -1,4 +1,39 @@
 <div>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .document-preview-iframe {
+            pointer-events: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Scroll styling for file list */
+        .document-files-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 transparent;
+        }
+        
+        .document-files-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .document-files-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .document-files-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e0;
+            border-radius: 2px;
+        }
+    </style>
+
     <!-- Main Carousel Container -->
     <div 
         x-data="{ 
@@ -93,72 +128,119 @@
                         @endphp
                         
                         <div class="w-full lg:w-1/2 flex-shrink-0 px-2 h-full">
-                            <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3 h-full flex flex-col group cursor-pointer border border-gray-100 hover:border-blue-200"
-                                 onclick="console.log('Click pe document {{ $document->id }}')">
-                                {{-- onclick="window.location='{{ route('documents.show', $document->id) }}'"> --}}
-                                
-                                {{-- Document Header --}}
-                                <div class="flex items-start justify-between mb-2">
-                                    <div class="flex items-center gap-2">
-                                        @if($document->category)
-                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white"
+                            {{-- Enhanced Compact Document Card --}}
+                            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group h-80">
+                                {{-- Document Preview Area --}}
+                                <div class="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                                    @if($firstFile && $extension === 'pdf')
+                                        {{-- PDF Preview --}}
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <iframe src="{{ $firstFile['url'] }}#toolbar=0&navpanes=0&scrollbar=0&page=1" 
+                                                    class="w-full h-full border-0 pointer-events-none scale-110 origin-center"
+                                                    style="transform: scale(1.1);">
+                                            </iframe>
+                                            <div class="absolute inset-0 bg-white bg-opacity-20"></div>
+                                        </div>
+                                    @elseif($firstFile)
+                                        {{-- Document Icon for non-PDF files --}}
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <div class="w-16 h-20 {{ $iconClass }} rounded-lg flex items-center justify-center shadow-lg">
+                                                <span class="text-2xl font-bold">{{ strtoupper($extension) ?: 'DOC' }}</span>
+                                            </div>
+                                        </div>
+                                    @else
+                                        {{-- No file fallback --}}
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <div class="w-16 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                                                <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    
+                                    {{-- Category Badge --}}
+                                    @if($document->category)
+                                        <div class="absolute top-3 left-3">
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white shadow-lg"
                                                   style="background-color: {{ $document->category->color }}">
                                                 {{ $document->category->name }}
                                             </span>
-                                        @endif
-                                        <time class="text-xs text-gray-500">{{ $document->created_at->format('d.m.Y') }}</time>
-                                    </div>
+                                        </div>
+                                    @endif
                                     
+                                    {{-- Multiple Files Badge --}}
                                     @if(count($fileUrls) > 1)
-                                        <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            {{ count($fileUrls) }} fișiere
-                                        </span>
+                                        <div class="absolute top-3 right-3">
+                                            <span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full shadow-lg">
+                                                {{ count($fileUrls) }} fișiere
+                                            </span>
+                                        </div>
                                     @endif
                                 </div>
-
-                                {{-- Document Title --}}
-                                <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200 text-sm">
-                                    {{ $document->title }}
-                                </h3>
-
-                                {{-- Document Description --}}
-                                @if($document->description)
-                                    <p class="text-xs text-gray-600 mb-2 line-clamp-2 flex-grow">
-                                        {{ $document->description }}
-                                    </p>
-                                @endif
-
-                                {{-- Primary File Info --}}
-                                @if($firstFile)
-                                    <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-xs group/file hover:bg-gray-100 transition-colors duration-200 mt-auto">
-                                        <div class="flex items-center flex-1 min-w-0">
-                                            <span class="inline-block w-5 h-4 text-center text-xs font-bold bg-white rounded mr-2 leading-4 {{ $iconClass }}">
-                                                {{ strtoupper($extension) ?: 'DOC' }}
-                                            </span>
-                                            <span class="truncate font-medium" title="{{ $firstFile['original_name'] }}">{{ $firstFile['original_name'] }}</span>
-                                        </div>
-                                        <div class="flex gap-1 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            @if($document->canViewInline(0))
-                                                <button onclick="event.stopPropagation(); viewDocument('{{ $firstFile['url'] }}', '{{ $firstFile['original_name'] }}', '{{ $extension }}')"
-                                                        class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                        title="Vezi {{ $firstFile['original_name'] }}">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                    </svg>
-                                                </button>
-                                            @endif
-                                            <a href="{{ $firstFile['url'] }}" 
-                                               onclick="event.stopPropagation()"
-                                               download="{{ $firstFile['original_name'] }}"
-                                               class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
-                                               title="Descarcă {{ $firstFile['original_name'] }}">
-                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
-                                                </svg>
-                                            </a>
-                                        </div>
+                                
+                                {{-- Document Content --}}
+                                <div class="p-4 flex flex-col h-40">
+                                    {{-- Title & Date --}}
+                                    <div class="flex-shrink-0 mb-2">
+                                        <h3 class="font-semibold text-gray-900 line-clamp-2 text-sm group-hover:text-blue-600 transition-colors duration-200">
+                                            {{ $document->title }}
+                                        </h3>
+                                        <time class="text-xs text-gray-500 mt-1">{{ $document->created_at->format('d.m.Y') }}</time>
                                     </div>
-                                @endif
+
+                                    {{-- Description --}}
+                                    @if($document->description)
+                                        <p class="text-xs text-gray-600 line-clamp-2 flex-grow mb-3">
+                                            {{ $document->description }}
+                                        </p>
+                                    @endif
+
+                                    {{-- File Actions - All Attachments --}}
+                                    <div class="mt-auto space-y-1 max-h-20 overflow-y-auto document-files-scroll">
+                                        @foreach($fileUrls as $fileIndex => $file)
+                                            <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                                <div class="flex items-center flex-1 min-w-0">
+                                                    <span class="inline-block w-8 h-5 text-center text-xs font-bold text-white rounded mr-2 leading-5 {{ match($file['type']) {
+                                                        'pdf' => 'bg-red-500',
+                                                        'doc', 'docx' => 'bg-blue-500',
+                                                        'xls', 'xlsx' => 'bg-green-500',
+                                                        'ppt', 'pptx' => 'bg-orange-500',
+                                                        default => 'bg-gray-500'
+                                                    } }}">
+                                                        {{ strtoupper($file['type']) ?: 'DOC' }}
+                                                    </span>
+                                                    <span class="truncate text-xs font-medium" title="{{ $file['original_name'] }}">
+                                                        {{ Str::limit($file['original_name'], 25) }}
+                                                    </span>
+                                                </div>
+                                                <div class="flex gap-1 ml-2">
+                                                    {{-- View Button --}}
+                                                    @if($document->canViewInline($fileIndex))
+                                                        <button onclick="event.stopPropagation(); viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
+                                                                class="p-1.5 text-blue-600 hover:bg-blue-100 rounded-md transition-colors duration-200"
+                                                                title="Vezi {{ $file['original_name'] }}">
+                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                            </svg>
+                                                        </button>
+                                                    @endif
+                                                    {{-- Download Button --}}
+                                                    <a href="{{ $file['url'] }}" 
+                                                       onclick="event.stopPropagation()"
+                                                       download="{{ $file['original_name'] }}"
+                                                       class="p-1.5 text-green-600 hover:bg-green-100 rounded-md transition-colors duration-200"
+                                                       title="Descarcă {{ $file['original_name'] }}">
+                                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 4H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
