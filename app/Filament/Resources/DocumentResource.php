@@ -112,19 +112,21 @@ class DocumentResource extends Resource
                                 'image/jpeg',
                                 'image/png'
                             ])
-                            ->maxFiles(fn ($get) => $get('max_files') ?: 1)
+                            ->maxFiles(fn (callable $get): int => (int) $get('max_files') ?: 1)
                             ->directory('documents')
                             ->visibility('public')
-                            ->preserveFilenames() // Păstrează numele original
-                            ->previewable(true) // Permite previzualizare
+                            ->preserveFilenames()
+                            ->previewable(true)
                             ->downloadable()
-                            ->openable() // Permite deschiderea în tab nou
-                            ->helperText('Acceptă fișiere PDF, Word, Excel, PowerPoint, text și imagini')
-                            ->reactive()
+                            ->openable()
+                            ->helperText(fn (callable $get): string => 
+                                'Poți atașa până la ' . ($get('max_files') ?: 1) . ' fișiere. Acceptă PDF, Word, Excel, PowerPoint, text și imagini.'
+                            )
+                            ->live() // În loc de reactive() pentru Filament v3
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                                if ($state && count($state) > ($get('max_files') ?: 1)) {
-                                    // Remove excess files
-                                    $maxFiles = $get('max_files') ?: 1;
+                                $maxFiles = (int) $get('max_files') ?: 1;
+                                if ($state && is_array($state) && count($state) > $maxFiles) {
+                                    // Păstrează doar primele X fișiere conform limitei
                                     $set('files', array_slice($state, 0, $maxFiles));
                                 }
                             }),
