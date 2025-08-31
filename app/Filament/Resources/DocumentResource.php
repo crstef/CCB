@@ -99,6 +99,7 @@ class DocumentResource extends Resource
                         FileUpload::make('files')
                             ->label('Fișiere')
                             ->multiple()
+                            ->reorderable()
                             ->acceptedFileTypes([
                                 'application/pdf', 
                                 'application/msword', 
