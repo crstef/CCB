@@ -1,4 +1,3 @@
-<?php
 <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden">
     @if($documents && $documents->count() > 0)
         <!-- Header -->
