@@ -35,8 +35,10 @@ foreach ($lines as $lineNum => $line) {
     if (preg_match('/\(\'(INSERT INTO `[^`]+` VALUES \([^)]+\))[^\']*\'\s*,\s*\d+\)/', $line, $matches)) {
         $insertStatement = $matches[1];
         
-        // Fix double quotes in the extracted statement - more comprehensive
-        $insertStatement = str_replace('\'\'', "'", $insertStatement);
+        // Fix ALL escaping issues comprehensively
+        $insertStatement = str_replace('\\\'', "'", $insertStatement); // Fix escaped quotes
+        $insertStatement = str_replace('\'\'', "'", $insertStatement);   // Fix double quotes
+        $insertStatement = preg_replace('/,\'\'([0-9\-: ]+)/', ',\'$1', $insertStatement); // Fix \'\'date to \'date
         $insertStatement .= ';'; // Add semicolon
         
         // Categorize the statements
@@ -59,7 +61,7 @@ foreach ($lines as $lineNum => $line) {
         
         // Debug first few matches
         if (count($roles) + count($users) + count($userRoles) <= 5) {
-            echo "Extracted: " . substr($insertStatement, 0, 60) . "...\n";
+            echo "Cleaned: " . substr($insertStatement, 0, 80) . "...\n";
         }
     }
 }
