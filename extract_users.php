@@ -28,19 +28,26 @@ foreach ($lines as $lineNum => $line) {
     }
     
     // Extract INSERT statements from the wrapped format
-    if (preg_match('/\(\'(INSERT INTO `[^`]+` VALUES \([^)]+\)[^\']*)\';?\'\s*,\s*\d+\)/', $line, $matches)) {
+    // Pattern: ('INSERT INTO `table` VALUES (...);', number),
+    if (preg_match('/\(\'(INSERT INTO `[^`]+` VALUES \([^)]+\))[^\']*\'\s*,\s*\d+\)/', $line, $matches)) {
         $insertStatement = $matches[1];
         
         // Fix double quotes in the extracted statement
         $insertStatement = str_replace('\'\'', "'", $insertStatement);
+        $insertStatement .= ';'; // Add semicolon
         
         // Categorize the statements
         if (strpos($insertStatement, 'INSERT INTO `roles`') !== false) {
-            $roles[] = $insertStatement . ';';
+            $roles[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `users`') !== false) {
-            $users[] = $insertStatement . ';';
+            $users[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `user_roles`') !== false) {
-            $userRoles[] = $insertStatement . ';';
+            $userRoles[] = $insertStatement;
+        }
+        
+        // Debug first few matches
+        if (count($roles) + count($users) + count($userRoles) <= 5) {
+            echo "Extracted: " . substr($insertStatement, 0, 60) . "...\n";
         }
     }
 }
