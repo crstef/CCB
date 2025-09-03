@@ -6,9 +6,6 @@
     <x-container class="relative">
         <div class="text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
                 {{ $categories->sum('documents_count') }} documente disponibile
             </div>
             <h1 class="text-5xl font-bold tracking-tight text-gray-900 mb-6">
@@ -188,7 +185,7 @@
                                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                 class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
                                                                 title="Vezi {{ $file['original_name'] }}">
-                                                            <svg class="w-3 h-3 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-5 h-5 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                             </svg>
                                                         </button>
@@ -197,7 +194,7 @@
                                                        download="{{ $file['original_name'] }}"
                                                        class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
                                                        title="Descarcă {{ $file['original_name'] }}">
-                                                        <svg class="w-3 h-3 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <svg class="w-5 h-5 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
                                                         </svg>
                                                     </a>
@@ -325,7 +322,7 @@
                                                             <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                     class="p-1.5 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
                                                                     title="Vezi {{ $file['original_name'] }}">
-                                                                <svg class="w-4 h-4 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <svg class="w-6 h-6 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                                 </svg>
                                                             </button>
@@ -334,7 +331,7 @@
                                                            download="{{ $file['original_name'] }}"
                                                            class="p-1.5 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
                                                            title="Descarcă {{ $file['original_name'] }}">
-                                                            <svg class="w-4 h-4 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-6 h-6 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
                                                             </svg>
                                                         </a>
