@@ -1,14 +1,12 @@
-<div>
-    <!-- Main Carousel Component -->
-    <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
-        @if($documents && $documents->count() > 0)
-            <!-- Header -->
-            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-900">Documente CCB</h3>
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-500">{{ $currentIndex + 1 }}/{{ $documents->count() }}</span>
-                    <!-- Navigation in Header -->
-                    @if($documents->count() > 1)
+<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
+    @if($documents && $documents->count() > 0)
+        <!-- Header -->
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-900">Documente CCB</h3>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-500">{{ $currentIndex + 1 }}/{{ $documents->count() }}</span>
+                <!-- Navigation in Header -->
+                @if($documents->count() > 1)
                     <div class="flex items-center space-x-2">
                         <button wire:click="previousDocument" 
                                 class="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200">
@@ -98,9 +96,9 @@
                             </div>
 
                             <div class="flex items-center space-x-2 flex-shrink-0">
-                                <!-- View Button - Opens in modal -->
+                                <!-- View Button - Opens in modal using global function -->
                                 @if($document->canViewInline($index))
-                                    <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
+                                    <button onclick="window.viewDocument && window.viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                             class="p-2 text-blue-600 hover:bg-blue-100 rounded-md transition-colors duration-200"
                                             title="Vezi {{ $file['original_name'] }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,16 +107,6 @@
                                         </svg>
                                     </button>
                                 @endif
-                                
-                                <!-- View Button - Opens in new tab -->
-                                <a href="{{ $file['url'] }}" target="_blank"
-                                   class="p-2 text-blue-600 hover:bg-blue-100 rounded-md transition-colors duration-200"
-                                   title="Vezi {{ $file['original_name'] }}">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </a>
                                 
                                 <!-- Download Button -->
                                 <a href="{{ $file['url'] }}" 
@@ -145,201 +133,42 @@
             <p class="text-gray-500">Nu sunt documente active pentru afișare momentan.</p>
         </div>
     @endif
-    </div>
 
-    <!-- Document Modal -->
-    <div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
-                <!-- Modal Header -->
-                <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                    <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Document</h3>
-                    <button onclick="closeDocumentModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <!-- Modal Content -->
-                <div id="modalContent" class="overflow-hidden" style="height: calc(90vh - 80px);">
-                    <!-- Content will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Event Listeners for Document Modal -->
     <script>
-    // Add global event listeners for the document modal
-    document.addEventListener('DOMContentLoaded', function() {
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                window.closeDocumentModal();
+    // Auto-play functionality for carousel
+    document.addEventListener('livewire:init', () => {
+        const autoPlayInterval = 5000; // 5 seconds
+        let autoPlayTimer;
+        
+        function startAutoPlay() {
+            if (@json($documents->count()) > 1) {
+                autoPlayTimer = setInterval(() => {
+                    @this.nextDocument();
+                }, autoPlayInterval);
             }
+        }
+        
+        function stopAutoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+            }
+        }
+        
+        // Start autoplay when component loads
+        startAutoPlay();
+        
+        // Pause autoplay on hover
+        const carousel = document.querySelector('.documents-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+        }
+        
+        // Reset autoplay when manually navigating
+        Livewire.on('documentChanged', () => {
+            stopAutoPlay();
+            setTimeout(startAutoPlay, 1000); // Resume after 1 second
         });
-
-        // Close modal when clicking outside
-        const documentModal = document.getElementById('documentModal');
-        if (documentModal) {
-            documentModal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    window.closeDocumentModal();
-                }
-            });
-        }
     });
-    </script>
-
-    <script>
-    // Make viewDocument and closeDocumentModal functions globally available
-window.viewDocument = function(url, name, type) {
-    console.log('viewDocument called with:', {url, name, type}); // Debug
-    
-    const modal = document.getElementById('documentModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalContent = document.getElementById('modalContent');
-    
-    if (!modal || !modalTitle || !modalContent) {
-        console.error('Modal elements not found');
-        return;
-    }
-    
-    // Show modal first
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    
-    modalTitle.textContent = name;
-    
-    // Show loading state
-    modalContent.innerHTML = `
-        <div class="flex items-center justify-center h-full">
-            <div class="text-center">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p class="text-gray-600">Se încarcă documentul...</p>
-            </div>
-        </div>
-    `;
-    
-    const extension = type.toLowerCase();
-    
-    // Small delay to ensure modal is visible
-    setTimeout(() => {
-    
-    if (extension === 'pdf') {
-        // PDF documents - direct iframe
-        modalContent.innerHTML = `
-            <iframe src="${url}" 
-                    class="w-full h-full border-0" 
-                    title="${name}">
-                <p>Browser-ul dumneavoastră nu suportă vizualizarea PDF-urilor. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
-            </iframe>
-        `;
-    } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension)) {
-        // Microsoft Office documents - using Office Online viewer
-        const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + url)}`;
-        modalContent.innerHTML = `
-            <iframe src="${officeViewerUrl}" 
-                    class="w-full h-full border-0" 
-                    title="${name}">
-                <p>Nu se poate încărca previzualizarea. <a href="${url}" target="_blank">Deschideți în tab nou</a></p>
-            </iframe>
-        `;
-    } else if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
-        // Images - direct display
-        modalContent.innerHTML = `
-            <div class="flex items-center justify-center h-full p-4">
-                <img src="${url}" alt="${name}" class="max-w-full max-h-full object-contain">
-            </div>
-        `;
-    } else if (extension === 'txt') {
-        // Text files - fetch and display content
-        fetch(url)
-            .then(response => response.text())
-            .then(text => {
-                modalContent.innerHTML = `
-                    <div class="p-6 h-full overflow-auto">
-                        <pre class="whitespace-pre-wrap text-sm font-mono">${text}</pre>
-                    </div>
-                `;
-            })
-            .catch(() => {
-                modalContent.innerHTML = `
-                    <div class="flex items-center justify-center h-full">
-                        <div class="text-center">
-                            <p class="text-lg font-medium text-gray-900 mb-2">Nu se poate încărca fișierul</p>
-                            <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                                Deschide în tab nou
-                            </a>
-                        </div>
-                    </div>
-                `;
-            });
-        return; // Exit early since we're using fetch
-    } else {
-        // Other file types - fallback message
-        modalContent.innerHTML = `
-            <div class="flex items-center justify-center h-full">
-                <div class="text-center">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <p class="text-lg font-medium text-gray-900 mb-2">Previzualizare indisponibilă</p>
-                    <p class="text-gray-600 mb-4">Acest tip de fișier nu poate fi previzualizat în browser.</p>
-                    <a href="${url}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
-                        Deschide în tab nou
-                    </a>
-                </div>
-            </div>
-        `;
-    }
-    
-    }, 100); // 100ms delay
-};
-
-window.closeDocumentModal = function() {
-    const modal = document.getElementById('documentModal');
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-};
-
-// Auto-play functionality for carousel
-document.addEventListener('livewire:init', () => {
-    const autoPlayInterval = 5000; // 5 seconds
-    let autoPlayTimer;
-    
-    function startAutoPlay() {
-        if (@json($documents->count()) > 1) {
-            autoPlayTimer = setInterval(() => {
-                @this.nextDocument();
-            }, autoPlayInterval);
-        }
-    }
-    
-    function stopAutoPlay() {
-        if (autoPlayTimer) {
-            clearInterval(autoPlayTimer);
-        }
-    }
-    
-    // Start autoplay when component loads
-    startAutoPlay();
-    
-    // Pause autoplay on hover
-    const carousel = document.querySelector('.documents-carousel');
-    if (carousel) {
-        carousel.addEventListener('mouseenter', stopAutoPlay);
-        carousel.addEventListener('mouseleave', startAutoPlay);
-    }
-    
-    // Reset autoplay when manually navigating
-    Livewire.on('documentChanged', () => {
-        stopAutoPlay();
-        setTimeout(startAutoPlay, 1000); // Resume after 1 second
-    });
-});
     </script>
 </div>
