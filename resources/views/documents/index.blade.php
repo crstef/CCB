@@ -85,26 +85,46 @@
                         $iconClass = $document->getFileIconClass(0);
                     @endphp
                     <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-gray-200">
-                        <!-- Document Header with Icon -->
-                        <div class="relative h-24 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center group-hover:from-blue-50 group-hover:to-indigo-100 transition-all duration-300">
+                        <!-- Document Header with Icon - Smaller -->
+                        <div class="relative h-16 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center group-hover:from-blue-50 group-hover:to-indigo-100 transition-all duration-300">
                             <div class="relative">
-                                <svg class="w-12 h-12 {{ $iconClass }} group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                @php
+                                    $ext = strtolower($extension);
+                                    $iconBg = match($ext) {
+                                        'pdf' => 'text-red-500',
+                                        'doc', 'docx' => 'text-blue-500',
+                                        'xls', 'xlsx' => 'text-green-500',
+                                        'ppt', 'pptx' => 'text-orange-500',
+                                        'jpg', 'jpeg', 'png', 'gif', 'webp' => 'text-purple-500',
+                                        'txt' => 'text-gray-500',
+                                        default => 'text-blue-500'
+                                    };
+                                    $icon = match($ext) {
+                                        'pdf' => '<path d="M8 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 13.172 2H8Z"/><path d="M9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Z"/><path d="M9 11a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"/><path d="M9 15a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"/>',
+                                        'doc', 'docx' => '<path d="M9 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 12.172 2H9Z"/><path d="M12 10H9a1 1 0 0 0 0 2h3a1 1 0 1 0 0-2Z"/><path d="M15 14H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2Z"/>',
+                                        'xls', 'xlsx' => '<path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 15.172 2H6Z"/><path d="M8 7h8v2H8V7Z"/><path d="M8 11h8v2H8v-2Z"/><path d="M8 15h8v2H8v-2Z"/>',
+                                        'ppt', 'pptx' => '<path d="M7 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 14.172 2H7Z"/><circle cx="12" cy="12" r="3"/>',
+                                        'jpg', 'jpeg', 'png', 'gif', 'webp' => '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"/>',
+                                        default => '<path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>'
+                                    };
+                                @endphp
+                                <svg class="w-8 h-8 {{ $iconBg }} group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                    {!! $icon !!}
                                 </svg>
                                 @if($extension)
-                                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-gray-100">
-                                        <span class="text-xs font-bold uppercase text-gray-700">{{ $extension }}</span>
+                                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100">
+                                        <span class="text-xs font-bold uppercase text-gray-700">{{ substr($extension, 0, 2) }}</span>
                                     </div>
                                 @endif
                             </div>
                         </div>
 
-                        <!-- Document Content -->
-                        <div class="p-5">
+                        <!-- Document Content - More compact -->
+                        <div class="p-4">
                             <!-- Category and Date -->
-                            <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center justify-between mb-2">
                                 @if($document->category)
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" 
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium text-white" 
                                           style="background-color: {{ $document->category->color }}">
                                         {{ $document->category->name }}
                                     </span>
@@ -114,25 +134,25 @@
                                 </time>
                             </div>
 
-                            <!-- Title -->
-                            <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                            <!-- Title - Smaller -->
+                            <h3 class="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
                                 {{ $document->title }}
                             </h3>
 
                             <!-- Description -->
                             @if($document->description)
-                                <p class="text-sm text-gray-600 mb-4 line-clamp-2">
+                                <p class="text-sm text-gray-600 mb-3 line-clamp-2">
                                     {{ $document->description }}
                                 </p>
                             @endif
 
                             <!-- Files Info -->
-                            <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center justify-between text-sm mb-3">
                                 <div class="flex items-center text-gray-500">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
-                                    <span>{{ count($fileUrls) }} fișier{{ count($fileUrls) > 1 ? 'e' : '' }}</span>
+                                    <span class="text-xs">{{ count($fileUrls) }} fișier{{ count($fileUrls) > 1 ? 'e' : '' }}</span>
                                 </div>
                                 @if($firstFile && $firstFile['size_formatted'])
                                     <span class="text-gray-400 text-xs">{{ $firstFile['size_formatted'] }}</span>
@@ -141,15 +161,27 @@
 
                             <!-- Files List Compact -->
                             @if(count($fileUrls) > 0)
-                                <div class="mt-4 space-y-2">
+                                <div class="space-y-1">
                                     @foreach($fileUrls as $index => $file)
                                         @if($index < 2) {{-- Show max 2 files in compact view --}}
                                             <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg text-sm group/file hover:bg-gray-100 transition-colors duration-200">
                                                 <div class="flex items-center flex-1 min-w-0">
-                                                    <span class="inline-block w-8 h-5 text-center text-xs font-bold bg-white rounded mr-2 leading-5 {{ $iconClass }}">
-                                                        {{ strtoupper($file['type']) ?: 'DOC' }}
+                                                    @php
+                                                        $ext = strtolower($file['type']);
+                                                        $iconBg = match($ext) {
+                                                            'pdf' => 'bg-red-500',
+                                                            'doc', 'docx' => 'bg-blue-500',
+                                                            'xls', 'xlsx' => 'bg-green-500',
+                                                            'ppt', 'pptx' => 'bg-orange-500',
+                                                            'jpg', 'jpeg', 'png', 'gif', 'webp' => 'bg-purple-500',
+                                                            'txt' => 'bg-gray-500',
+                                                            default => 'bg-blue-500'
+                                                        };
+                                                    @endphp
+                                                    <span class="inline-block w-6 h-6 text-center text-xs font-bold {{ $iconBg }} text-white rounded mr-2 leading-6">
+                                                        {{ strtoupper(substr($file['type'], 0, 1)) ?: 'D' }}
                                                     </span>
-                                                    <span class="truncate font-medium" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</span>
+                                                    <span class="truncate font-medium text-xs" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</span>
                                                 </div>
                                                 <div class="flex gap-1 ml-2 opacity-0 group-hover/file:opacity-100 transition-opacity duration-200">
                                                     @if($document->canViewInline($index))
@@ -174,10 +206,10 @@
                                         @endif
                                     @endforeach
                                     @if(count($fileUrls) > 2)
-                                        <button onclick="showAllFiles('{{ $document->id }}')" 
-                                                class="w-full text-center py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                                        <a href="{{ route('documents.show', $document) }}" 
+                                           class="block w-full text-center py-1 text-xs text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
                                             +{{ count($fileUrls) - 2 }} fișiere suplimentare
-                                        </button>
+                                        </a>
                                     @endif
                                 </div>
                             @endif
@@ -196,17 +228,37 @@
                         $iconClass = $document->getFileIconClass(0);
                     @endphp
                     <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden">
-                        <div class="p-6">
-                            <div class="flex items-start gap-6">
-                                <!-- Document Icon -->
+                        <div class="p-5">
+                            <div class="flex items-start gap-4">
+                                <!-- Document Icon - Smaller -->
                                 <div class="flex-shrink-0">
-                                    <div class="relative p-4 bg-gray-50 rounded-xl">
-                                        <svg class="w-8 h-8 {{ $iconClass }}" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    <div class="relative p-3 bg-gray-50 rounded-xl">
+                                        @php
+                                            $ext = strtolower($extension);
+                                            $iconBg = match($ext) {
+                                                'pdf' => 'text-red-500',
+                                                'doc', 'docx' => 'text-blue-500',
+                                                'xls', 'xlsx' => 'text-green-500',
+                                                'ppt', 'pptx' => 'text-orange-500',
+                                                'jpg', 'jpeg', 'png', 'gif', 'webp' => 'text-purple-500',
+                                                'txt' => 'text-gray-500',
+                                                default => 'text-blue-500'
+                                            };
+                                            $icon = match($ext) {
+                                                'pdf' => '<path d="M8 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 13.172 2H8Z"/><path d="M9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Z"/><path d="M9 11a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"/><path d="M9 15a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"/>',
+                                                'doc', 'docx' => '<path d="M9 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 12.172 2H9Z"/><path d="M12 10H9a1 1 0 0 0 0 2h3a1 1 0 1 0 0-2Z"/><path d="M15 14H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2Z"/>',
+                                                'xls', 'xlsx' => '<path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 15.172 2H6Z"/><path d="M8 7h8v2H8V7Z"/><path d="M8 11h8v2H8v-2Z"/><path d="M8 15h8v2H8v-2Z"/>',
+                                                'ppt', 'pptx' => '<path d="M7 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414l-2.828-2.828A2 2 0 0 0 14.172 2H7Z"/><circle cx="12" cy="12" r="3"/>',
+                                                'jpg', 'jpeg', 'png', 'gif', 'webp' => '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"/>',
+                                                default => '<path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>'
+                                            };
+                                        @endphp
+                                        <svg class="w-6 h-6 {{ $iconBg }}" fill="currentColor" viewBox="0 0 24 24">
+                                            {!! $icon !!}
                                         </svg>
                                         @if($extension)
-                                            <div class="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm border">
-                                                <span class="text-xs font-bold uppercase text-gray-600">{{ $extension }}</span>
+                                            <div class="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center shadow-sm border">
+                                                <span class="text-xs font-bold uppercase text-gray-600">{{ substr($extension, 0, 2) }}</span>
                                             </div>
                                         @endif
                                     </div>
@@ -215,7 +267,7 @@
                                 <!-- Document Info -->
                                 <div class="flex-1 min-w-0">
                                     <!-- Header -->
-                                    <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-start justify-between mb-2">
                                         <div class="flex items-center gap-3">
                                             @if($document->category)
                                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white" 
@@ -230,24 +282,36 @@
                                     </div>
 
                                     <!-- Title and Description -->
-                                    <h3 class="text-xl font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-200">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-200">
                                         {{ $document->title }}
                                     </h3>
 
                                     @if($document->description)
-                                        <p class="text-gray-600 mb-4 line-clamp-2">
+                                        <p class="text-gray-600 mb-3 line-clamp-2">
                                             {{ $document->description }}
                                         </p>
                                     @endif
 
                                     <!-- Files Grid in List View -->
                                     @if(count($fileUrls) > 0)
-                                        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                                            @foreach($fileUrls as $file)
-                                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                            @foreach($fileUrls as $index => $file)
+                                                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                                                     <div class="flex items-center flex-1 min-w-0">
-                                                        <span class="inline-block w-10 h-6 text-center text-xs font-bold bg-white rounded mr-3 leading-6 {{ $iconClass }}">
-                                                            {{ strtoupper($file['type']) ?: 'DOC' }}
+                                                        @php
+                                                            $ext = strtolower($file['type']);
+                                                            $iconBg = match($ext) {
+                                                                'pdf' => 'bg-red-500',
+                                                                'doc', 'docx' => 'bg-blue-500',
+                                                                'xls', 'xlsx' => 'bg-green-500',
+                                                                'ppt', 'pptx' => 'bg-orange-500',
+                                                                'jpg', 'jpeg', 'png', 'gif', 'webp' => 'bg-purple-500',
+                                                                'txt' => 'bg-gray-500',
+                                                                default => 'bg-blue-500'
+                                                            };
+                                                        @endphp
+                                                        <span class="inline-block w-7 h-7 text-center text-xs font-bold {{ $iconBg }} text-white rounded mr-2 leading-7">
+                                                            {{ strtoupper(substr($file['type'], 0, 1)) ?: 'D' }}
                                                         </span>
                                                         <div class="min-w-0 flex-1">
                                                             <p class="truncate font-medium text-sm" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</p>
@@ -257,20 +321,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex gap-1 ml-2">
-                                                        @if($document->canViewInline($loop->index))
+                                                        @if($document->canViewInline($index))
                                                             <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
-                                                                    class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                                    class="p-1.5 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
                                                                     title="Vezi {{ $file['original_name'] }}">
-                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                                 </svg>
                                                             </button>
                                                         @endif
                                                         <a href="{{ $file['url'] }}" 
                                                            download="{{ $file['original_name'] }}"
-                                                           class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                           class="p-1.5 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
                                                            title="Descarcă {{ $file['original_name'] }}">
-                                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
                                                             </svg>
                                                         </a>
@@ -482,11 +546,6 @@ function closeDocumentModal() {
     const modal = document.getElementById('documentModal');
     modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
-}
-
-function showAllFiles(documentId) {
-    // This could open a modal or expand the card to show all files
-    alert('Funcționalitate în dezvoltare pentru afișarea tuturor fișierelor documentului #' + documentId);
 }
 
 // Close modal with Escape key
