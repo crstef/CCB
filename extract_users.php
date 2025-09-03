@@ -82,4 +82,7 @@ foreach ($userRoles as $userRole) {
 file_put_contents($outputFile, $output);
 
 echo "\nClean export written to: $outputFile\n";
+echo "File exists: " . (file_exists($outputFile) ? "YES" : "NO") . "\n";
+echo "File size: " . (file_exists($outputFile) ? filesize($outputFile) . " bytes" : "N/A") . "\n";
+echo "Current directory: " . getcwd() . "\n";
 echo "Run: php artisan users:import users_full_export.sql --dry-run\n";
