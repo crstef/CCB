@@ -1,4 +1,5 @@
-<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">if($documents && $documents->count() > 0)
+<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
+    @if($documents && $documents->count() > 0)
         <!-- Header -->
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
             <h3 class="text-lg font-semibold text-gray-900">Documente CCB</h3>
