@@ -1,21 +1,7 @@
 <?php
-    'login' => [
-        'page_title' => 'Conectare',
-        'headline' => 'Conectare',
-        'subheadline' => 'Conectați-vă la contul dumneavoastră',
-        'show_subheadline' => false,
-        'email_address' => 'Adresa de Email',
-        'password' => 'Parola',
-        'remember_me' => 'Ține-mă minte',
-        'edit' => 'Editează',
-        'button' => 'Continuă',
-        'forget_password' => 'Ați uitat parola?',
-        'dont_have_an_account' => "Nu aveți un cont?",
-        'sign_up' => 'Înregistrați-vă',
-        'social_auth_authenticated_message' => 'Ați fost autentificat prin __social_providers_list__. Vă rugăm să vă conectați la acea rețea mai jos.',
-        'change_email' => 'Schimbați Email-ul',
-        'couldnt_find_your_account' => 'Nu am putut găsi contul dumneavoastră',
-    ],onfigs for your application
+
+/*
+ * Branding configs for your application
  */
 return [
     'login' => [
