@@ -19,17 +19,17 @@ class MergeDocumentCategories extends Command
         $this->info('Analyzing document categories for duplicates...');
         $this->line('');
 
-        // Define category merges
+        // Define category merges - target => [sources to merge]
         $merges = [
-            'Decizii' => ['decizie', 'decizii'],
+            'Decizii CD' => ['decizie', 'decizii', 'Decizii CD'],
             'Convocator AG' => ['convocator AG', 'Convocare AG'],
-            'Regulament' => ['regulament', 'Regulament'],
-            'Hotarare' => ['hotarare'],
+            'Convocator CD' => ['convocator CD', 'Teleconferinta Consiliu Director CCBO'],
+            'Regulamente' => ['regulament', 'Regulamente'],
+            'Hotarari AG' => ['hotarare', 'Hotarâri AG'],
             'Statut' => ['statut'],
             'Recomandari' => ['recomandari'],
-            'Procedura' => ['Procedura'],
+            'Proceduri' => ['Procedura', 'Proceduri'],
             'Taxe' => ['Taxe'],
-            'Convocator CD' => ['convocator CD', 'Teleconferinta Consiliu Director CCBO'],
         ];
 
         $totalMerged = 0;
