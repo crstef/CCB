@@ -98,7 +98,7 @@
                             <div class="flex items-center space-x-2 flex-shrink-0">
                                 <!-- View Button - Opens in modal using global function -->
                                 @if($document->canViewInline($index))
-                                    <button onclick="window.viewDocument && window.viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
+                                    <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                             class="p-2 text-blue-600 hover:bg-blue-100 rounded-md transition-colors duration-200"
                                             title="Vezi {{ $file['original_name'] }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
