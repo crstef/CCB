@@ -35,40 +35,22 @@
         <!-- Content -->
         @php $document = $documents[$currentIndex] @endphp
         <div class="p-6 h-full flex flex-col">
-            <div class="flex items-start space-x-4 mb-4">
-                <!-- Document Icon - Smaller and more suggestive -->
-                <div class="w-12 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0 relative">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
-                    </svg>
-                    @php
-                        $firstFile = $document->getUploadedFiles()[0] ?? null;
-                        $extension = $firstFile ? strtolower($firstFile['type']) : '';
-                    @endphp
-                    @if($extension)
-                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center text-xs font-bold text-gray-700 shadow-sm">
-                            {{ strtoupper(substr($extension, 0, 2)) }}
-                        </div>
-                    @endif
-                </div>
-                
-                <!-- Document Info -->
-                <div class="flex-1 min-w-0">
-                    <h4 class="text-base font-semibold text-gray-900 mb-2">{{ $document->title }}</h4>
-                    @if($document->description)
-                        <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ $document->description }}</p>
-                    @endif
-                    <div class="flex items-center space-x-3">
-                        @if($document->category)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                {{ $document->category->name }}
-                            </span>
-                        @endif
-                        <span class="text-xs text-gray-500">
-                            {{ $document->getUploadedFilesCount() }} 
-                            {{ $document->getUploadedFilesCount() == 1 ? 'fișier' : 'fișiere' }}
+            <!-- Document Info - No header icon as requested -->
+            <div class="flex-1 min-w-0 mb-4">
+                <h4 class="text-base font-semibold text-gray-900 mb-2">{{ $document->title }}</h4>
+                @if($document->description)
+                    <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ $document->description }}</p>
+                @endif
+                <div class="flex items-center space-x-3">
+                    @if($document->category)
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {{ $document->category->name }}
                         </span>
-                    </div>
+                    @endif
+                    <span class="text-xs text-gray-500">
+                        {{ $document->getUploadedFilesCount() }} 
+                        {{ $document->getUploadedFilesCount() == 1 ? 'fișier' : 'fișiere' }}
+                    </span>
                 </div>
             </div>
 
