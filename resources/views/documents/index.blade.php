@@ -2,7 +2,21 @@
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
-    <div class="absolute inset-0 bg-gri                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="absolute inset-0 bg-gri                                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{                                                            <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
+                                                                    class="p-1.5 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                                    title="Vezi {{ $file['original_name'] }}">
+                                                                <svg class="w-4 h-4 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                                </svg>
+                                                            </button>'type'] }}')"
+                                                                class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                                title="Vezi {{ $file['original_name'] }}">
+                                                            <svg class="w-3 h-3 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                            </svg>
+                                                        </button>                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
                                                                 </svg>                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
@@ -184,7 +198,7 @@
                                                     </span>
                                                     <span class="truncate font-medium text-xs" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</span>
                                                 </div>
-                                                <div class="flex gap-2 ml-2">
+                                                <div class="flex gap-1 ml-2">
                                                     @if($document->canViewInline($index))
                                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                 class="p-3 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
@@ -196,10 +210,11 @@
                                                     @endif
                                                     <a href="{{ $file['url'] }}" 
                                                        download="{{ $file['original_name'] }}"
-                                                       class="p-3 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                       class="p-1 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
                                                        title="Descarcă {{ $file['original_name'] }}">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <svg class="w-3 h-3 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4m5-4l-3-3m0 0l-3 3m3-3v12"></path>
                                                         </svg>
                                                     </a>
                                                 </div>
@@ -321,7 +336,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="flex gap-2 ml-2">
+                                                    <div class="flex gap-1 ml-2">
                                                         @if($document->canViewInline($index))
                                                             <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                     class="p-3 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
@@ -333,10 +348,11 @@
                                                         @endif
                                                         <a href="{{ $file['url'] }}" 
                                                            download="{{ $file['original_name'] }}"
-                                                           class="p-3 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                           class="p-1.5 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
                                                            title="Descarcă {{ $file['original_name'] }}">
-                                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-4 h-4 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4m5-4l-3-3m0 0l-3 3m3-3v12"></path>
                                                             </svg>
                                                         </a>
                                                     </div>
