@@ -2,8 +2,8 @@
 <?php
 
 // Extract clean SQL from users_analysis.sql
-$inputFile = '/workspaces/CCB/users_analysis.sql';
-$outputFile = '/workspaces/CCB/users_full_export.sql';
+$inputFile = __DIR__ . '/users_analysis.sql';
+$outputFile = __DIR__ . '/users_full_export.sql';
 
 if (!file_exists($inputFile)) {
     echo "Input file not found: $inputFile\n";
