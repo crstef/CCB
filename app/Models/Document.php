@@ -194,6 +194,14 @@ class Document extends Model
     }
 
     /**
+     * Get the uploaded files (alias for getFileUrls for backward compatibility)
+     */
+    public function getUploadedFiles()
+    {
+        return $this->getFileUrls();
+    }
+
+    /**
      * Get the number of uploaded files
      */
     public function getUploadedFilesCount()
