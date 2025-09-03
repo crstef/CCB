@@ -183,18 +183,18 @@
                                                 <div class="flex gap-2 ml-2">
                                                     @if($document->canViewInline($index))
                                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
-                                                                class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                                                class="p-3 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
                                                                 title="Vezi {{ $file['original_name'] }}">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                             </svg>
                                                         </button>
                                                     @endif
                                                     <a href="{{ $file['url'] }}" 
                                                        download="{{ $file['original_name'] }}"
-                                                       class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
+                                                       class="p-3 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
                                                        title="Descarcă {{ $file['original_name'] }}">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
                                                         </svg>
                                                     </a>
@@ -317,21 +317,21 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="flex gap-1 ml-2">
+                                                    <div class="flex gap-2 ml-2">
                                                         @if($document->canViewInline($index))
                                                             <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
-                                                                    class="p-1.5 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
+                                                                    class="p-3 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
                                                                     title="Vezi {{ $file['original_name'] }}">
-                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                                 </svg>
                                                             </button>
                                                         @endif
                                                         <a href="{{ $file['url'] }}" 
                                                            download="{{ $file['original_name'] }}"
-                                                           class="p-1.5 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                           class="p-3 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
                                                            title="Descarcă {{ $file['original_name'] }}">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
                                                             </svg>
                                                         </a>
