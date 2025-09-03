@@ -2,8 +2,8 @@
 <?php
 
 // Extract clean SQL from users_analysis.sql
-$inputFile = __DIR__ . '/users_analysis.sql';
-$outputFile = __DIR__ . '/users_full_export.sql';
+$inputFile = 'users_analysis.sql';
+$outputFile = 'users_full_export.sql';
 
 if (!file_exists($inputFile)) {
     echo "Input file not found: $inputFile\n";
@@ -18,6 +18,9 @@ $users = [];
 $userRoles = [];
 
 echo "Extracting data from wrapped SQL export...\n";
+echo "Input file: $inputFile\n";
+echo "Output file: $outputFile\n";
+echo "Total lines to process: " . count($lines) . "\n";
 
 foreach ($lines as $lineNum => $line) {
     $line = trim($line);
