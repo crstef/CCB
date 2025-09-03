@@ -35,7 +35,7 @@ foreach ($lines as $lineNum => $line) {
     if (preg_match('/\(\'(INSERT INTO `[^`]+` VALUES \([^)]+\))[^\']*\'\s*,\s*\d+\)/', $line, $matches)) {
         $insertStatement = $matches[1];
         
-        // Fix double quotes in the extracted statement
+        // Fix double quotes in the extracted statement - more comprehensive
         $insertStatement = str_replace('\'\'', "'", $insertStatement);
         $insertStatement .= ';'; // Add semicolon
         
@@ -43,6 +43,15 @@ foreach ($lines as $lineNum => $line) {
         if (strpos($insertStatement, 'INSERT INTO `roles`') !== false) {
             $roles[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `users`') !== false) {
+            // Check for duplicate email stef.cristian3@gmail.com and skip one
+            if (strpos($insertStatement, 'stef.cristian3@gmail.com') !== false) {
+                static $stefFound = false;
+                if ($stefFound) {
+                    echo "Skipping duplicate: stef.cristian3@gmail.com\n";
+                    continue; // Skip this duplicate
+                }
+                $stefFound = true;
+            }
             $users[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `user_roles`') !== false) {
             $userRoles[] = $insertStatement;
