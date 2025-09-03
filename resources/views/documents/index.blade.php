@@ -2,15 +2,7 @@
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
-    <div class="absolute inset-0 bg                                                    @if($document->canViewInline($index))
-                                                        <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
-                                                                class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
-                                                                title="Vezi {{ $file['original_name'] }}">
-                                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
-                                                            </svg>
-                                                        </button>
-                                                    @endifern opacity-20"></div>
+    <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
     <x-container class="relative">
         <div class="text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
