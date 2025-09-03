@@ -181,7 +181,7 @@
 @guest
     <div class="hidden relative z-30 flex-shrink-0 justify-center items-center space-x-3 h-full text-sm md:flex">
         <x-button href="{{ route('login') }}" tag="a" class="text-sm" color="secondary">Logare</x-button>
-        <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button>
+        <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
     </div>
 @else
     <x-button href="{{ route('login') }}" tag="a" class="text-sm" class="relative z-20 flex-shrink-0">Vezi Dashboard</x-button>
