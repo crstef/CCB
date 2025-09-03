@@ -45,15 +45,8 @@ foreach ($lines as $lineNum => $line) {
         if (strpos($insertStatement, 'INSERT INTO `roles`') !== false) {
             $roles[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `users`') !== false) {
-            // Check for duplicate email stef.cristian3@gmail.com and skip one
-            if (strpos($insertStatement, 'stef.cristian3@gmail.com') !== false) {
-                static $stefFound = false;
-                if ($stefFound) {
-                    echo "Skipping duplicate: stef.cristian3@gmail.com\n";
-                    continue; // Skip this duplicate
-                }
-                $stefFound = true;
-            }
+            // Nu mai skip-uim duplicatul pentru stef.cristian3@gmail.com
+            // Îl includem pentru că am șters userul din Wave 3.0
             $users[] = $insertStatement;
         } elseif (strpos($insertStatement, 'INSERT INTO `user_roles`') !== false) {
             $userRoles[] = $insertStatement;
