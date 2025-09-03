@@ -216,18 +216,21 @@ class ImportOldUsers extends Command
                     $roleName = $userRole ? $this->roleMapping[$userRole['role_id']]['new_name'] : 'registered';
                     $this->line("  → Would import: {$oldUser['name']} ({$oldUser['email']}) as {$roleName}");
                 } else {
-                    // Create user
+                    // Create user without role_id (doesn't exist in Wave 3.0)
                     $user = User::create([
                         'name' => $oldUser['name'],
                         'email' => $oldUser['email'],
                         'username' => $username,
                         'password' => $oldUser['password'], // Keep original hash
-                        'role_id' => $roleId,
                         'email_verified_at' => $oldUser['email_verified_at'] ? Carbon::parse($oldUser['email_verified_at']) : null,
                         'avatar' => $oldUser['avatar'],
                         'created_at' => $oldUser['created_at'] ? Carbon::parse($oldUser['created_at']) : now(),
                         'updated_at' => $oldUser['updated_at'] ? Carbon::parse($oldUser['updated_at']) : now(),
                     ]);
+
+                    // Assign role using Spatie Permissions
+                    $roleName = $userRole ? $this->roleMapping[$userRole['role_id']]['new_name'] : 'registered';
+                    $user->assignRole($roleName);
 
                     $roleName = $this->roleMapping[$userRole['role_id'] ?? '']['new_name'] ?? 'registered';
                     $this->line("  ✓ Imported: {$oldUser['name']} ({$oldUser['email']}) as {$roleName}");
