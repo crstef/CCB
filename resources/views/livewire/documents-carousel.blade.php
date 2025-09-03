@@ -1,12 +1,14 @@
-<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
-    @if($documents && $documents->count() > 0)
-        <!-- Header -->
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h3 class="text-lg font-semibold text-gray-900">Documente CCB</h3>
-            <div class="flex items-center space-x-4">
-                <span class="text-sm text-gray-500">{{ $currentIndex + 1 }}/{{ $documents->count() }}</span>
-                <!-- Navigation in Header -->
-                @if($documents->count() > 1)
+<div>
+    <!-- Main Carousel Component -->
+    <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
+        @if($documents && $documents->count() > 0)
+            <!-- Header -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-900">Documente CCB</h3>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">{{ $currentIndex + 1 }}/{{ $documents->count() }}</span>
+                    <!-- Navigation in Header -->
+                    @if($documents->count() > 1)
                     <div class="flex items-center space-x-2">
                         <button wire:click="previousDocument" 
                                 class="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200">
@@ -143,54 +145,54 @@
             <p class="text-gray-500">Nu sunt documente active pentru afișare momentan.</p>
         </div>
     @endif
-</div>
+    </div>
 
-<!-- Document Modal -->
-<div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between p-6 border-b border-gray-200">
-                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Document</h3>
-                <button onclick="closeDocumentModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <!-- Modal Content -->
-            <div id="modalContent" class="overflow-hidden" style="height: calc(90vh - 80px);">
-                <!-- Content will be inserted here -->
+    <!-- Document Modal -->
+    <div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Document</h3>
+                    <button onclick="closeDocumentModal()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Modal Content -->
+                <div id="modalContent" class="overflow-hidden" style="height: calc(90vh - 80px);">
+                    <!-- Content will be inserted here -->
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Event Listeners for Document Modal -->
-<script>
-// Add global event listeners for the document modal
-document.addEventListener('DOMContentLoaded', function() {
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            window.closeDocumentModal();
-        }
-    });
-
-    // Close modal when clicking outside
-    const documentModal = document.getElementById('documentModal');
-    if (documentModal) {
-        documentModal.addEventListener('click', function(e) {
-            if (e.target === this) {
+    <!-- Event Listeners for Document Modal -->
+    <script>
+    // Add global event listeners for the document modal
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
                 window.closeDocumentModal();
             }
         });
-    }
-});
-</script>
 
-<script>
-// Make viewDocument and closeDocumentModal functions globally available
+        // Close modal when clicking outside
+        const documentModal = document.getElementById('documentModal');
+        if (documentModal) {
+            documentModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    window.closeDocumentModal();
+                }
+            });
+        }
+    });
+    </script>
+
+    <script>
+    // Make viewDocument and closeDocumentModal functions globally available
 window.viewDocument = function(url, name, type) {
     console.log('viewDocument called with:', {url, name, type}); // Debug
     
@@ -339,4 +341,5 @@ document.addEventListener('livewire:init', () => {
         setTimeout(startAutoPlay, 1000); // Resume after 1 second
     });
 });
-</script>
+    </script>
+</div>
