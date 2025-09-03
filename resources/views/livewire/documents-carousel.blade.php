@@ -1,4 +1,4 @@
-<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative">
+<div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative documents-carousel">
     @if($documents && $documents->count() > 0)
         <!-- Header -->
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
@@ -133,3 +133,41 @@
         </div>
     @endif
 </div>
+
+<script>
+// Auto-play functionality for carousel
+document.addEventListener('livewire:init', () => {
+    const autoPlayInterval = 5000; // 5 seconds
+    let autoPlayTimer;
+    
+    function startAutoPlay() {
+        if (@json($documents->count()) > 1) {
+            autoPlayTimer = setInterval(() => {
+                @this.nextDocument();
+            }, autoPlayInterval);
+        }
+    }
+    
+    function stopAutoPlay() {
+        if (autoPlayTimer) {
+            clearInterval(autoPlayTimer);
+        }
+    }
+    
+    // Start autoplay when component loads
+    startAutoPlay();
+    
+    // Pause autoplay on hover
+    const carousel = document.querySelector('.documents-carousel');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+    }
+    
+    // Reset autoplay when manually navigating
+    Livewire.on('documentChanged', () => {
+        stopAutoPlay();
+        setTimeout(startAutoPlay, 1000); // Resume after 1 second
+    });
+});
+</script>
