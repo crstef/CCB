@@ -1,4 +1,5 @@
 <div>
+    <!-- Main Carousel -->
     <div class="bg-white rounded-2xl shadow-lg {{ $height }} overflow-hidden relative">
         @if($documents && $documents->count() > 0)
             <!-- Header -->
@@ -139,6 +140,7 @@
         @endif
     </div>
 
+    <!-- Modal -->
     <div id="documentModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="relative bg-white rounded-2xl shadow-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
