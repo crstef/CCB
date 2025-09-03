@@ -2,7 +2,13 @@
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
-    <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+    <div class="absolute inset-0 bg-gri                                                            <svg class="w-10 h-10 hover:scale-125 transition-transform duration-200" fill="n                                                                <svg class="w-12 h-12 hover:scale-125 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                                </svg>" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                            </svg>attern opacity-20"></div>
     <x-container class="relative">
         <div class="text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
@@ -82,7 +88,7 @@
                         $iconClass = $document->getFileIconClass(0);
                     @endphp
                     <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-gray-200">
-                        <!-- Document Header with Icon - Smaller -->
+                        <!-- Document Header with Icon - Smaller 
                         <div class="relative h-16 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center group-hover:from-blue-50 group-hover:to-indigo-100 transition-all duration-300">
                             <div class="relative">
                                 @php
@@ -114,7 +120,7 @@
                                     </div>
                                 @endif
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Document Content - More compact -->
                         <div class="p-4">
