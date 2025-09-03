@@ -2,7 +2,15 @@
 
 <!-- Hero Section -->
 <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20">
-    <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+    <div class="absolute inset-0 bg                                                    @if($document->canViewInline($index))
+                                                        <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
+                                                                class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                                                title="Vezi {{ $file['original_name'] }}">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                                                            </svg>
+                                                        </button>
+                                                    @endif                                               <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
     <x-container class="relative">
         <div class="text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
@@ -180,7 +188,7 @@
                                                     </span>
                                                     <span class="truncate font-medium text-xs" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</span>
                                                 </div>
-                                                <div class="flex gap-1 ml-2">
+                                                <div class="flex gap-2 ml-2">
                                                     @if($document->canViewInline($index))
                                                         <a href="{{ $file['url'] }}" 
                                                            target="_blank"
@@ -193,7 +201,7 @@
                                                     @endif
                                                     <a href="{{ $file['url'] }}" 
                                                        download="{{ $file['original_name'] }}"
-                                                       class="p-2 text-green-600 hover:bg-green-100 rounded transition-colors duration-200"
+                                                       class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors duration-200"
                                                        title="Descarcă {{ $file['original_name'] }}">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3"></path>
