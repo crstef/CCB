@@ -183,7 +183,7 @@
                                                     </span>
                                                     <span class="truncate font-medium text-xs" title="{{ $file['original_name'] }}">{{ $file['original_name'] }}</span>
                                                 </div>
-                                                <div class="flex gap-1 ml-2 opacity-0 group-hover/file:opacity-100 transition-opacity duration-200">
+                                                <div class="flex gap-1 ml-2">
                                                     @if($document->canViewInline($index))
                                                         <button onclick="viewDocument('{{ $file['url'] }}', '{{ $file['original_name'] }}', '{{ $file['type'] }}')"
                                                                 class="p-1 text-blue-600 hover:bg-blue-100 rounded transition-colors duration-200"
