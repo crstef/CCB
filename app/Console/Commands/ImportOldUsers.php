@@ -58,44 +58,49 @@ class ImportOldUsers extends Command
     private function parseSqlFile($file)
     {
         $content = file_get_contents($file);
+        $lines = explode("\n", $content);
         
-        // Parse roles table
-        if (preg_match('/INSERT INTO.*?`roles`.*?VALUES\s*(.+?);/s', $content, $matches)) {
-            $this->parseInsertValues($matches[1], function($values) {
+        foreach ($lines as $line) {
+            $line = trim($line);
+            
+            if (empty($line) || strpos($line, '--') === 0) {
+                continue;
+            }
+            
+            // Parse individual INSERT statements for roles
+            if (preg_match('/INSERT INTO `roles` VALUES \((\d+),\'([^\']*)\',\'([^\']*)\',\'([^\']*)\',\'([^\']*)\'\);/', $line, $matches)) {
                 $this->oldRoles[] = [
-                    'id' => $values[0],
-                    'name' => trim($values[1], "'\""),
-                    'display_name' => trim($values[2] ?? '', "'\""),
+                    'id' => $matches[1],
+                    'name' => $matches[2],
+                    'display_name' => $matches[3],
+                    'created_at' => $matches[4],
+                    'updated_at' => $matches[5]
                 ];
-            });
-        }
-
-        // Parse users table
-        if (preg_match('/INSERT INTO.*?`users`.*?VALUES\s*(.+?);/s', $content, $matches)) {
-            $this->parseInsertValues($matches[1], function($values) {
+            }
+            
+            // Parse individual INSERT statements for users
+            if (preg_match('/INSERT INTO `users` VALUES \((\d+),\'([^\']*)\',\'([^\']*)\',([^,]*),\'([^\']*)\',([^,]*),\'([^\']*)\',\'([^\']*)\',\'([^\']*)\',([^)]*)\);/', $line, $matches)) {
                 $this->oldUsers[] = [
-                    'id' => $values[0],
-                    'name' => trim($values[1], "'\""),
-                    'email' => trim($values[2], "'\""),
-                    'email_verified_at' => $values[3] !== 'NULL' ? trim($values[3], "'\"") : null,
-                    'password' => trim($values[4], "'\""),
-                    'remember_token' => $values[5] !== 'NULL' ? trim($values[5], "'\"") : null,
-                    'created_at' => $values[6] !== 'NULL' ? trim($values[6], "'\"") : null,
-                    'updated_at' => $values[7] !== 'NULL' ? trim($values[7], "'\"") : null,
-                    'avatar' => isset($values[8]) && $values[8] !== 'NULL' ? trim($values[8], "'\"") : null,
-                    'settings' => isset($values[9]) && $values[9] !== 'NULL' ? trim($values[9], "'\"") : null,
+                    'id' => $matches[1],
+                    'name' => $matches[2],
+                    'email' => $matches[3],
+                    'email_verified_at' => $matches[4] === 'NULL' ? null : trim($matches[4], "'"),
+                    'password' => $matches[5],
+                    'remember_token' => $matches[6] === 'NULL' ? null : trim($matches[6], "'"),
+                    'created_at' => $matches[7],
+                    'updated_at' => $matches[8],
+                    'avatar' => $matches[9],
+                    'settings' => $matches[10] === 'NULL' ? null : trim($matches[10], "'")
                 ];
-            });
-        }
-
-        // Parse user_roles table
-        if (preg_match('/INSERT INTO.*?`user_roles`.*?VALUES\s*(.+?);/s', $content, $matches)) {
-            $this->parseInsertValues($matches[1], function($values) {
+            }
+            
+            // Parse individual INSERT statements for user_roles
+            if (preg_match('/INSERT INTO `user_roles` VALUES \((\d+),(\d+)\);/', $line, $matches)) {
                 $this->oldUserRoles[] = [
-                    'user_id' => $values[0],
-                    'role_id' => $values[1],
+                    'user_id' => $matches[1],
+                    'role_id' => $matches[2]
                 ];
-            });
+            }
         }
     }
 
