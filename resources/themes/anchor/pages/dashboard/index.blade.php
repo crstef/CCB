@@ -56,7 +56,7 @@
 
                 {{-- Logo CCB în colțul drept sus --}}
                 <div class="absolute top-3 right-3 w-16 h-16">
-                    <img src="./storage/wave-logo.png" alt="Logo CCB" class="w-full h-full object-contain" onerror="this.outerHTML='<div class=&quot;w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold&quot;>CCB</div>'">
+                    <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain" onerror="this.outerHTML='<div class=&quot;w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold&quot;>CCB</div>'">
                 </div>
 
                 {{-- Titlu LEGITIMAȚIE --}}
@@ -192,21 +192,22 @@
                     
                     const element = document.getElementById('member-card');
                     const opt = {
-                        margin: [5, 5, 5, 5],
+                        margin: [0, 0, 0, 0],
                         filename: 'legitimatie_membru_ccb.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { 
                             scale: 2.2, 
                             useCORS: true,
                             backgroundColor: '#ffffff',
-                            width: 480,
-                            height: 300
+                            width: 450,
+                            height: 280
                         },
                         jsPDF: { 
                             unit: 'mm', 
                             format: [85, 54], // Format ID card standard
                             orientation: 'landscape'
-                        }
+                        },
+                        pagebreak: { mode: ['avoid-all'] }
                     };
                     
                     try {
@@ -221,136 +222,66 @@
                     const printWindow = window.open('', '', 'width=800,height=600');
                     const cardElement = document.getElementById('member-card');
                     const cardHtml = cardElement.outerHTML;
-                    
+
+                    // Collect current stylesheets and inline styles
+                    const styleTags = Array.from(document.querySelectorAll('style'))
+                        .map(tag => tag.outerHTML)
+                        .join('\n');
+                    const linkTags = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+                        .map(link => link.outerHTML)
+                        .join('\n');
+
                     printWindow.document.write(`
                         <!DOCTYPE html>
                         <html>
                         <head>
                             <title>Legitimație Membru CCB</title>
                             <meta charset="UTF-8">
+                            ${linkTags}
+                            ${styleTags}
                             <style>
-                                @page {
-                                    size: 85mm 54mm;
-                                    margin: 0;
-                                }
-                                
+                                @page { size: 85mm 54mm; margin: 0; }
+                                html, body { height: 100%; }
                                 body { 
-                                    font-family: Arial, sans-serif; 
                                     margin: 0; 
-                                    padding: 2mm;
-                                    background: white;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    min-height: 54mm;
+                                    padding: 0; 
+                                    background: #ffffff; 
+                                    display: flex; 
+                                    justify-content: center; 
+                                    align-items: center; 
                                 }
-                                
-                                /* Container principal */
-                                .max-w-lg { 
-                                    width: 81mm !important; 
-                                    height: 50mm !important; 
-                                    max-width: none !important;
-                                }
-                                .mx-auto { margin: 0 auto; }
-                                .bg-white { background-color: white; }
-                                .shadow-xl { box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-                                .rounded-xl { border-radius: 3mm; }
-                                .overflow-hidden { overflow: hidden; }
-                                
-                                /* Header tricolor */
-                                .h-3 { height: 2mm; }
-                                .bg-gradient-to-r { 
-                                    background: linear-gradient(to right, #2563eb 33.33%, #facc15 33.33%, #facc15 66.66%, #dc2626 66.66%);
-                                }
-                                
-                                /* Padding */
-                                .p-6 { padding: 3mm; }
-                                .p-5 { padding: 2.5mm; }
-                                .h-full { height: calc(50mm - 1.5mm); }
-                                
-                                /* Layout flex */
-                                .flex { display: flex; }
-                                .items-center { align-items: center; }
-                                .items-end { align-items: flex-end; }
-                                .justify-between { justify-content: space-between; }
-                                .gap-4 { gap: 2mm; }
-                                .flex-1 { flex: 1; }
-                                .ml-4 { margin-left: 2mm; }
-                                .ml-2 { margin-left: 1mm; }
-                                .mt-3 { margin-top: 1.5mm; }
-                                .mt-4 { margin-top: 2mm; }
-                                .mb-1 { margin-bottom: 0.5mm; }
-                                .mb-4 { margin-bottom: 2mm; }
-                                .space-y-2 > * + * { margin-top: 1mm; }
-                                
-                                /* Typography */
-                                .text-xl { font-size: 4mm; line-height: 5mm; }
-                                .text-2xl { font-size: 5mm; line-height: 6mm; }
-                                .text-sm { font-size: 2.5mm; line-height: 3mm; }
-                                .text-xs { font-size: 2mm; line-height: 2.5mm; }
-                                .font-bold { font-weight: 700; }
-                                .font-semibold { font-weight: 600; }
+                                /* Ensure print colors are preserved */
+                                * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                                /* Fallback minimal utilities if Tailwind is unavailable */
+                                .absolute { position: absolute; }
                                 .text-center { text-align: center; }
                                 .text-right { text-align: right; }
-                                .leading-tight { line-height: 1.1; }
-                                .tracking-widest { letter-spacing: 0.3mm; }
-                                .uppercase { text-transform: uppercase; }
-                                
-                                /* Colors */
-                                .text-gray-900 { color: #111827; }
-                                .text-gray-700 { color: #374151; }
-                                .text-gray-600 { color: #4b5563; }
-                                .text-gray-500 { color: #6b7280; }
-                                .text-gray-400 { color: #9ca3af; }
-                                .text-blue-600 { color: #2563eb; }
-                                .text-blue-800 { color: #1e40af; }
-                                .bg-gray-100 { background-color: #f3f4f6; }
-                                .border-gray-300 { border-color: #d1d5db; }
-                                .border-gray-400 { border-color: #9ca3af; }
-                                
-                                /* Borders */
-                                .border-2 { border-width: 0.2mm; }
-                                .border-b { border-bottom-width: 0.1mm; }
-                                .border-dotted { border-style: dotted; }
-                                .rounded { border-radius: 1mm; }
-                                .pb-1 { padding-bottom: 0.5mm; }
-                                
-                                /* Sizing */
-                                .w-16 { width: 8mm; }
-                                .h-16 { height: 8mm; }
-                                .w-20 { width: 10mm; }
-                                .h-24 { height: 12mm; }
-                                .w-24 { width: 12mm; }
-                                
-                                /* Object fit */
+                                .font-bold { font-weight: 700; }
+                                .font-semibold { font-weight: 600; }
+                                .border-2 { border-width: 2px; border-style: solid; }
+                                .border-gray-800 { border-color: #1f2937; }
+                                .w-16 { width: 64px; }
+                                .h-16 { height: 64px; }
                                 .object-contain { object-fit: contain; }
                                 .object-cover { object-fit: cover; }
-                                
-                                /* Hide upload for print */
-                                .hidden { display: none !important; }
-                                input, label { display: none !important; }
-                                
-                                /* Print adjustments */
-                                @media print {
-                                    body { 
-                                        transform: scale(0.95);
-                                        transform-origin: center;
-                                    }
-                                    * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; }
-                                }
                             </style>
                         </head>
                         <body>
                             ${cardHtml}
+                            <script>
+                                // Hide upload controls in print
+                                document.querySelectorAll('input[type=file], label[for=photo-upload]').forEach(el => el && (el.style.display = 'none'));
+                            <\/script>
                         </body>
                         </html>
                     `);
-                    
+
                     printWindow.document.close();
                     setTimeout(() => {
+                        printWindow.focus();
                         printWindow.print();
                         printWindow.close();
-                    }, 1000);
+                    }, 500);
                 },
                 
                 loadScript(src) {
