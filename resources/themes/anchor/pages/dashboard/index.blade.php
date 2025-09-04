@@ -35,100 +35,86 @@
                 </div>
             </div>
 
-            {{-- Legitimația - Design final optimizat --}}
-            <div id="member-card" class="max-w-2xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden border" style="width: 480px; height: 300px;">
-                {{-- Header cu bordură tricolor --}}
-                <div class="h-2 bg-gradient-to-r from-blue-600 via-yellow-400 to-red-600"></div>
+            {{-- Legitimația - EXACT ca în poza inițială --}}
+            <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative;">
                 
-                <div class="p-5 h-full">
-                    {{-- Header cu logo și text --}}
-                    <div class="flex items-start justify-between mb-3">
-                        {{-- Stânga: ROMÂNIA + descriere --}}
-                        <div class="flex-1">
-                            <h1 class="text-lg font-bold text-gray-900 mb-1">ROMÂNIA</h1>
-                            <p class="text-xs text-gray-600 leading-tight">CLUBUL DE CIOBĂNEȘTI BELGIENI<br>DIN ROMÂNIA</p>
-                        </div>
-                        
-                        {{-- Dreapta: Logo CCB --}}
-                        <div class="w-14 h-14 ml-4 flex-shrink-0">
-                            <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <div class="w-full h-full bg-blue-600 rounded-full hidden items-center justify-center text-white font-bold text-xs">CCB</div>
-                        </div>
+                {{-- Steagul României în colțul stâng sus --}}
+                <div class="absolute top-3 left-3">
+                    <div class="w-12 h-8 border border-gray-600" style="background: linear-gradient(to bottom, #0066cc 33.33%, #ffcc00 33.33%, #ffcc00 66.66%, #cc0000 66.66%); transform: rotate(-15deg);"></div>
+                </div>
+                
+                {{-- UNCO.R 1997 sub steag --}}
+                <div class="absolute top-8 left-6 text-xs">
+                    <div class="bg-blue-600 text-white px-1 text-center font-bold" style="font-size: 8px;">UNCO.R</div>
+                    <div class="text-center font-bold mt-1" style="font-size: 8px;">1997</div>
+                </div>
+
+                {{-- Header centrat --}}
+                <div class="text-center pt-4 px-16">
+                    <h1 class="text-xl font-bold">ROMÂNIA</h1>
+                    <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
+                    <p class="text-xs">DIN ROMÂNIA</p>
+                </div>
+
+                {{-- Logo CCB în colțul drept --}}
+                <div class="absolute top-3 right-3 w-16 h-16">
+                    <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain rounded-full border" onerror="this.outerHTML='<div class=&quot;w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold&quot;>CCB</div>'">
+                </div>
+
+                {{-- Titlu LEGITIMAȚIE --}}
+                <div class="text-center mt-4 mb-4">
+                    <h2 class="text-2xl font-bold tracking-wider">LEGITIMAȚIE</h2>
+                </div>
+
+                {{-- Container principal cu poza și datele --}}
+                <div class="flex px-6 gap-4">
+                    {{-- Poza --}}
+                    <div class="w-20 h-26 bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
+                        <template x-if="userPhoto">
+                            <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
+                        </template>
+                        <template x-if="!userPhoto">
+                            <div class="text-center">
+                                <svg class="w-6 h-6 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 underline">Adaugă</label>
+                                <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
+                            </div>
+                        </template>
                     </div>
 
-                    {{-- Titlul LEGITIMAȚIE --}}
-                    <div class="text-center mb-3">
-                        <h2 class="text-xl font-bold text-gray-900 tracking-widest">LEGITIMAȚIE</h2>
-                    </div>
-
-                    {{-- Corpul legitimației --}}
-                    <div class="flex gap-4 items-start">
-                        {{-- Poza utilizatorului - mai sus --}}
-                        <div class="w-20 h-24 bg-gray-100 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden flex-shrink-0">
-                            <template x-if="userPhoto">
-                                <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
-                            </template>
-                            <template x-if="!userPhoto">
-                                <div class="text-center p-1">
-                                    <svg class="w-6 h-6 mx-auto text-gray-400 mb-1" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                    </svg>
-                                    <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 hover:text-blue-800 underline block">
-                                        Adaugă
-                                    </label>
-                                    <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
-                                </div>
-                            </template>
+                    {{-- Datele --}}
+                    <div class="flex-1 text-sm space-y-1">
+                        <div>
+                            <span class="font-semibold">Prenumele</span>
+                            <span class="ml-8 border-b border-dotted border-black pb-1 inline-block w-48">{{ auth()->user()->name ?? '' }}</span>
                         </div>
-
-                        {{-- Datele membrului --}}
-                        <div class="flex-1 space-y-2">
-                            {{-- Prenumele --}}
-                            <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">Prenumele:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
-                                    <span class="text-sm text-gray-900">{{ auth()->user()->name ?? 'Cristian' }}</span>
-                                </div>
-                            </div>
-                            
-                            {{-- Numele --}}
-                            <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">NUMELE:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
-                                    <span class="text-sm text-gray-900 uppercase">{{ auth()->user()->last_name ?? 'ȘTEFAN' }}</span>
-                                </div>
-                            </div>
-                            
-                            {{-- Funcția --}}
-                            <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">Funcția:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
-                                    <span class="text-sm text-gray-900">Membru CCB</span>
-                                </div>
-                            </div>
-                            
-                            {{-- Perioada --}}
-                            <div class="flex items-center mt-3">
-                                <span class="text-sm font-semibold text-gray-700">Perioada de valabilitate:</span>
-                                <span class="ml-2 text-sm font-bold text-gray-900">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
-                            </div>
+                        <div>
+                            <span class="font-semibold">NUMELE</span>
+                            <span class="ml-10 border-b border-dotted border-black pb-1 inline-block w-48">{{ strtoupper(auth()->user()->last_name ?? '') }}</span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Funcția</span>
+                            <span class="ml-10 border-b border-dotted border-black pb-1 inline-block w-48">Membru CCB</span>
+                        </div>
+                        <div class="mt-3">
+                            <span class="font-semibold text-sm">Perioada de valabilitate</span>
+                            <span class="ml-8 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
                         </div>
                     </div>
+                </div>
 
-                    {{-- Footer --}}
-                    <div class="flex justify-between items-end mt-4 pt-2">
-                        {{-- Data emisă --}}
-                        <div class="text-xs text-gray-500">
-                            Emisă la: {{ date('d.m.Y') }}
-                        </div>
-                        
-                        {{-- Semnătura --}}
-                        <div class="text-right text-xs text-gray-600 leading-tight">
-                            <div>Prenume NUME,</div>
-                            <div>Președintele Filialei Județene</div>
-                            <div class="text-xs">a Clubului de Ciobănești Belgieni din România</div>
-                        </div>
-                    </div>
+                {{-- Footer cu semnătura --}}
+                <div class="absolute bottom-8 right-6 text-xs text-right">
+                    <div>Prenume NUME,</div>
+                    <div>Președintele Filialei Județene</div>
+                    <div>a Clubului de Ciobănești Belgieni din România</div>
+                </div>
+
+                {{-- Data emisă --}}
+                <div class="absolute bottom-3 left-6 text-xs">
+                    Emisă la: {{ date('d.m.Y') }}
                 </div>
             </div>
         </div>
