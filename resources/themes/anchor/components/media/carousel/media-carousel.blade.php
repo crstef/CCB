@@ -114,35 +114,17 @@
         },
         
         // Oprește video la close
-        closeModal() {
-                // Stop local video completely
-                if (this.$refs.modalVideo) {
-                    this.$refs.modalVideo.pause();
-                    this.$refs.modalVideo.currentTime = 0;
-                    this.$refs.modalVideo.src = '';
-                    setTimeout(() => {
-                        this.$refs.modalVideo.src = this.items[this.currentVideo].url;
-                    }, 100);
-                }
-                
-                // Stop YouTube video completely - găsește și oprește iframe-ul
-                const iframe = document.querySelector('iframe[src*="youtube.com"]');
-                if (iframe) {
-                    // Schimbă src-ul pentru a opri video-ul complet
-                    let src = iframe.src;
-                    iframe.src = '';
-                    setTimeout(() => {
-                        // Resetează cu autoplay=0 pentru a preveni pornirea automată
-                        iframe.src = src.replace('autoplay=1', 'autoplay=0');
-                    }, 100);
-                }
-                
+            closeModal() {
+                // EXACT ca în galerie-video - oprește video-ul complet prin golirea containerului
                 this.showModal = false;
                 this.isPlaying = false;
                 document.body.style.overflow = 'auto';
-            },
-        
-        // Copiat exact din galerie-video
+                
+                // După ce se închide modalul, resetează video-ul pentru următoarea deschidere
+                this.$nextTick(() => {
+                    // Permite să se reseteze complet între utilizări
+                });
+            },        // Copiat exact din galerie-video
         togglePlay() {
             const video = this.$refs.modalVideo;
             if (video) {
@@ -329,12 +311,13 @@
                 </svg>
             </button>
             
-            {{-- Video Player --}}
-            <template x-if="items[currentVideo]">
+            {{-- Video Player - se regenerează complet la fiecare deschidere --}}
+            <template x-if="items[currentVideo] && showModal">
                 <div class="text-center h-full flex flex-col justify-center">
                     {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
+                            :key="'youtube-' + currentVideo + '-' + Date.now()"
                             :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
                             class="w-full h-[80%] mx-auto" 
                             frameborder="0" 
@@ -343,20 +326,22 @@
                         </iframe>
                     </template>
                     
-                    {{-- Pentru videoclipuri locale - EXACT ca în galerie-video --}}
+                    {{-- Pentru videoclipuri locale --}}
                     <template x-if="!items[currentVideo].url || (!items[currentVideo].url.includes('youtube.com') && !items[currentVideo].url.includes('youtu.be'))">
                         <video 
+                            :key="'video-' + currentVideo + '-' + Date.now()"
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
                             class="w-full h-[80%] mx-auto object-contain"
                             controls
+                            autoplay
                             @play="isPlaying = true"
                             @pause="isPlaying = false"
                             @ended="isPlaying = false"
                         ></video>
                     </template>
                     
-                    {{-- Video Info - EXACT ca în galerie-video --}}
+                    {{-- Video Info --}}
                     <div class="mt-4 text-white text-center">
                         <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
                         <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
