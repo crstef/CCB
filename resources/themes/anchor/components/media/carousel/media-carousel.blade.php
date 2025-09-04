@@ -115,26 +115,32 @@
         
         // Oprește video la close
         closeModal() {
-            this.showModal = false;
-            this.isPlaying = false;
-            document.body.style.overflow = 'auto';
-            
-            // Oprește video local
-            const video = this.$refs.modalVideo;
-            if (video) {
-                video.pause();
-            }
-            
-            // Oprește YouTube prin resetarea iframe-ului
-            const iframe = this.$el.querySelector('.fixed iframe');
-            if (iframe) {
-                const currentSrc = iframe.src;
-                iframe.src = '';
-                setTimeout(() => {
-                    iframe.src = currentSrc.replace('autoplay=1', 'autoplay=0');
-                }, 100);
-            }
-        },
+                // Stop local video completely
+                if (this.$refs.modalVideo) {
+                    this.$refs.modalVideo.pause();
+                    this.$refs.modalVideo.currentTime = 0;
+                    this.$refs.modalVideo.src = '';
+                    setTimeout(() => {
+                        this.$refs.modalVideo.src = this.items[this.currentVideo].url;
+                    }, 100);
+                }
+                
+                // Stop YouTube video completely - găsește și oprește iframe-ul
+                const iframe = document.querySelector('iframe[src*="youtube.com"]');
+                if (iframe) {
+                    // Schimbă src-ul pentru a opri video-ul complet
+                    let src = iframe.src;
+                    iframe.src = '';
+                    setTimeout(() => {
+                        // Resetează cu autoplay=0 pentru a preveni pornirea automată
+                        iframe.src = src.replace('autoplay=1', 'autoplay=0');
+                    }, 100);
+                }
+                
+                this.showModal = false;
+                this.isPlaying = false;
+                document.body.style.overflow = 'auto';
+            },
         
         // Copiat exact din galerie-video
         togglePlay() {
@@ -311,8 +317,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - 85% din display --}}
-        <div class="relative max-w-6xl mx-4 w-[85%] h-[85vh]">
+        {{-- Modal Content - fereastra 85% din display, video mare în interior --}}
+        <div class="relative mx-4 w-[85vw] h-[85vh]">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -325,12 +331,12 @@
             
             {{-- Video Player --}}
             <template x-if="items[currentVideo]">
-                <div class="text-center">
+                <div class="text-center h-full flex flex-col justify-center">
                     {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
                             :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
-                            class="max-w-full max-h-[80vh] mx-auto w-full aspect-video" 
+                            class="w-full h-[80%] mx-auto" 
                             frameborder="0" 
                             allowfullscreen
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -342,7 +348,7 @@
                         <video 
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
-                            class="max-w-full max-h-[80vh] mx-auto"
+                            class="w-full h-[80%] mx-auto object-contain"
                             controls
                             @play="isPlaying = true"
                             @pause="isPlaying = false"
