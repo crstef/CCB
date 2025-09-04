@@ -199,7 +199,7 @@
                             </div>
                         </template>
                         
-                        {{-- Video local cu preload pentru thumbnail --}}
+                        {{-- Thumbnail pentru video local cu preload --}}
                         <template x-if="!item.url || (!item.url.includes('youtube.com') && !item.url.includes('youtu.be'))">
                             <video 
                                 :src="item.url"
@@ -207,13 +207,13 @@
                                 class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                                 style="min-height: 100%; min-width: 100%;"
                                 muted
-                                loop
                                 playsinline
                                 preload="metadata"
+                                :poster="item.thumbnail_url || ''"
                             ></video>
                         </template>
                         
-                        {{-- Play Button Overlay - cu pointer-events-none --}}
+                        {{-- Play Button Overlay --}}
                         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 pointer-events-none">
                             <div class="bg-white/90 backdrop-blur-sm rounded-full p-4 group-hover:scale-110 transition-transform duration-300">
                                 <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
@@ -289,7 +289,7 @@
         </div>
     </template>
     
-    {{-- Modal Video Player - Adaptat pentru YouTube --}}
+    {{-- Modal Video Player - Dimensiuni ca în galerie-video --}}
     <div 
         x-show="showModal" 
         x-transition:enter="transition ease-out duration-300"
@@ -301,8 +301,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content --}}
-        <div class="relative w-full max-w-7xl mx-4 h-full max-h-full flex items-center justify-center">
+        {{-- Modal Content - aceleași dimensiuni ca în galerie-video --}}
+        <div class="relative max-w-6xl max-h-full mx-4 w-full">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -315,18 +315,16 @@
             
             {{-- Video Player --}}
             <template x-if="items[currentVideo]">
-                <div class="w-full h-full flex flex-col items-center justify-center">
-                    {{-- Pentru YouTube videos --}}
+                <div class="text-center">
+                    {{-- Pentru YouTube videos - FĂRĂ autoplay --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
-                        <div class="w-full max-w-6xl aspect-video">
-                            <iframe 
-                                :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
-                                class="w-full h-full" 
-                                frameborder="0" 
-                                allowfullscreen
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                            </iframe>
-                        </div>
+                        <iframe 
+                            :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=0&rel=0&modestbranding=1'"
+                            class="max-w-full max-h-[80vh] mx-auto w-full aspect-video" 
+                            frameborder="0" 
+                            allowfullscreen
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
                     </template>
                     
                     {{-- Pentru videoclipuri locale --}}
@@ -343,9 +341,9 @@
                     </template>
                     
                     {{-- Video Info --}}
-                    <div class="mt-6 text-white text-center max-w-4xl">
-                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-2xl font-semibold mb-2"></h3>
-                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300 text-lg"></p>
+                    <div class="mt-4 text-white text-center">
+                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
+                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
                     </div>
                 </div>
             </template>
