@@ -35,11 +35,11 @@
                 </div>
             </div>
 
-            {{-- Legitimația - EXACT ca în poza inițială cu corecțiile --}}
-            <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative;">
+            {{-- Legitimația - Recreată conform imaginii originale --}}
+            <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif;">
                 
                 {{-- Steagul României SVG în colțul stâng sus --}}
-                <div class="absolute top-3 left-3">
+                <div class="absolute" style="top: 12px; left: 12px;">
                     <svg width="48" height="32" viewBox="0 0 48 32" style="transform: rotate(-15deg); border: 1px solid #4b5563;">
                         <rect x="0" y="0" width="16" height="32" fill="#0066cc"/>
                         <rect x="16" y="0" width="16" height="32" fill="#ffcc00"/>
@@ -48,68 +48,68 @@
                 </div>
 
                 {{-- Header centrat --}}
-                <div class="text-center pt-4 px-16">
+                <div class="text-center" style="position: absolute; top: 16px; left: 0; right: 0;">
                     <h1 class="text-xl font-bold">ROMÂNIA</h1>
                     <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
                     <p class="text-xs">DIN ROMÂNIA</p>
                 </div>
 
                 {{-- Logo CCB în colțul drept sus --}}
-                <div class="absolute top-3 right-3 w-16 h-16">
-                    <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain" onerror="this.outerHTML='<div class=&quot;w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold&quot;>CCB</div>'">
+                <div class="absolute" style="top: 12px; right: 12px; width: 64px; height: 64px;">
+                    <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
                 </div>
 
                 {{-- Titlu LEGITIMAȚIE --}}
-                <div class="text-center mt-4 mb-4">
+                <div class="text-center" style="position: absolute; top: 80px; left: 0; right: 0;">
                     <h2 class="text-2xl font-bold tracking-wider">LEGITIMAȚIE</h2>
                 </div>
 
-                {{-- Poza chiar sub tricolor (stânga) --}}
+                {{-- Poza --}}
                 <div class="absolute" style="top: 120px; left: 24px;">
-                    <div class="w-20 bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
+                    <div class="w-24 bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
                         <template x-if="userPhoto">
                             <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
                         </template>
                         <template x-if="!userPhoto">
-                            <div class="text-center">
+                            <div class="text-center p-2">
                                 <svg class="w-6 h-6 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
-                                <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 underline">Adaugă</label>
+                                <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 underline mt-1 inline-block">Adaugă</label>
                                 <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
                             </div>
                         </template>
                     </div>
                 </div>
 
-                {{-- Datele în dreapta pozei --}}
-                <div class="absolute text-sm space-y-1" style="top: 120px; left: 130px; width: 300px;">
-                    <div>
-                        <span class="font-semibold">Prenumele</span>
-                        <span class="ml-8 border-b border-dotted border-black pb-1 inline-block w-48">{{ auth()->user()->name ?? 'Cristian' }}</span>
+                {{-- Datele --}}
+                <div class="absolute text-sm" style="top: 120px; left: 140px; right: 24px;">
+                    <div class="flex items-baseline">
+                        <span class="font-semibold" style="width: 70px;">Prenumele</span>
+                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
                     </div>
-                    <div>
-                        <span class="font-semibold">NUMELE</span>
-                        <span class="ml-10 border-b border-dotted border-black pb-1 inline-block w-48">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
+                    <div class="flex items-baseline mt-2">
+                        <span class="font-semibold" style="width: 70px;">NUMELE</span>
+                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
                     </div>
-                    <div>
-                        <span class="font-semibold">Funcția</span>
-                        <span class="ml-10 border-b border-dotted border-black pb-1 inline-block w-48">Membru CCB</span>
+                    <div class="flex items-baseline mt-2">
+                        <span class="font-semibold" style="width: 70px;">Funcția</span>
+                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-4">
                         <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                        <span class="ml-8 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
+                        <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
                     </div>
                 </div>
 
-                {{-- Semnătura în dreapta jos --}}
-                <div class="absolute bottom-8 right-6 text-xs text-right">
+                {{-- Semnătura --}}
+                <div class="absolute text-xs text-right" style="bottom: 24px; right: 24px;">
                     <div class="font-semibold">Președinte CCB</div>
                     <div class="mt-1">Gabriel Panoiu</div>
                 </div>
 
                 {{-- Data emisă --}}
-                <div class="absolute bottom-3 left-6 text-xs">
+                <div class="absolute text-xs" style="bottom: 12px; left: 24px;">
                     Emisă la: {{ date('d.m.Y') }}
                 </div>
             </div>
