@@ -107,10 +107,16 @@
         playCurrentVideo() {
             const currentItem = this.items[this.currentSlide];
             if (this.isVideo(currentItem)) {
-                const video = this.$el.querySelector(`video[data-slide='${this.currentSlide}']`);
-                if (video) {
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
+                // Pentru YouTube videos, deschide într-o fereastră nouă
+                if (currentItem.url && (currentItem.url.includes('youtube.com') || currentItem.url.includes('youtu.be'))) {
+                    window.open(currentItem.url, '_blank');
+                } else {
+                    // Pentru videoclipuri locale, reda în carousel
+                    const video = this.$el.querySelector(`video[data-slide='${this.currentSlide}']`);
+                    if (video) {
+                        video.currentTime = 0;
+                        video.play().catch(() => {});
+                    }
                 }
             }
         },
@@ -165,14 +171,23 @@
                     <div class="relative w-full h-full group cursor-pointer" @click="playCurrentVideo()">
                         {{-- Thumbnail pentru YouTube --}}
                         <template x-if="item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))">
-                            <img 
-                                :src="item.url.includes('youtube.com') ? 
-                                    'https://img.youtube.com/vi/' + new URLSearchParams(new URL(item.url).search).get('v') + '/hqdefault.jpg' : 
-                                    'https://img.youtube.com/vi/' + item.url.split('/').pop().split('?')[0] + '/hqdefault.jpg'"
-                                :alt="item.title || 'YouTube thumbnail'"
-                                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                                style="min-height: 100%; min-width: 100%;"
-                            />
+                            <div class="w-full h-full">
+                                <img 
+                                    :src="(() => {
+                                        let videoId = '';
+                                        if (item.url.includes('youtube.com/watch?v=')) {
+                                            videoId = item.url.split('v=')[1].split('&')[0];
+                                        } else if (item.url.includes('youtu.be/')) {
+                                            videoId = item.url.split('youtu.be/')[1].split('?')[0];
+                                        }
+                                        return videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : '';
+                                    })()"
+                                    :alt="item.title || 'YouTube thumbnail'"
+                                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                                    style="min-height: 100%; min-width: 100%;"
+                                    @error="$el.src = 'https://via.placeholder.com/480x360/cccccc/666666?text=Video'"
+                                />
+                            </div>
                         </template>
                         
                         {{-- Video local cu preload pentru thumbnail --}}
