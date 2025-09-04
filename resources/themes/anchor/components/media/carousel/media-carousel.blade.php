@@ -99,54 +99,18 @@
                 return item.type.includes('video');
             }
             if (item.url) {
-                return /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(item.url) || 
-                       item.url.includes('youtube.com') || 
-                       item.url.includes('youtu.be');
+                return /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(item.url);
             }
             return false;
-        },
-        
-        isYouTubeVideo(item) {
-            return item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'));
-        },
-        
-        getYouTubeThumbnail(item) {
-            if (!this.isYouTubeVideo(item)) return null;
-            
-            let videoId = '';
-            if (item.url.includes('youtube.com')) {
-                const urlParams = new URLSearchParams(new URL(item.url).search);
-                videoId = urlParams.get('v');
-            } else if (item.url.includes('youtu.be')) {
-                videoId = item.url.split('/').pop().split('?')[0];
-            }
-            
-            return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
-        },
-        
-        getVideoThumbnail(item) {
-            if (this.isYouTubeVideo(item)) {
-                return this.getYouTubeThumbnail(item);
-            }
-            // Pentru videoclipuri locale, folosește thumbnail-ul setat sau prima frameă
-            return item.thumbnail || null;
         },
         
         playCurrentVideo() {
             const currentItem = this.items[this.currentSlide];
             if (this.isVideo(currentItem)) {
-                if (this.isYouTubeVideo(currentItem)) {
-                    // Pentru YouTube, deschide într-o fereastră nouă sau modal
-                    window.open(currentItem.url, '_blank');
-                } else {
-                    // Pentru videoclipuri locale
-                    const video = this.$el.querySelector(`video[data-slide='${this.currentSlide}']`);
-                    if (video) {
-                        video.currentTime = 0;
-                        video.play().catch(() => {
-                            console.log('Video autoplay prevented');
-                        });
-                    }
+                const video = this.$el.querySelector(`video[data-slide='${this.currentSlide}']`);
+                if (video) {
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
                 }
             }
         },
@@ -198,21 +162,21 @@
                 
                 {{-- Video display --}}
                 <template x-if="isVideo(item)">
-                    <div class="relative w-full h-full group cursor-pointer" 
-                         @click="playCurrentVideo()">
-                        
-                        {{-- Video thumbnail pentru YouTube sau local --}}
-                        <template x-if="getVideoThumbnail(item)">
+                    <div class="relative w-full h-full group">
+                        {{-- Pentru videoclipuri YouTube, afișează thumbnail-ul --}}
+                        <template x-if="item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))">
                             <img 
-                                :src="getVideoThumbnail(item)"
-                                :alt="item.title || 'Video thumbnail'"
+                                :src="item.url.includes('youtube.com') ? 
+                                    'https://img.youtube.com/vi/' + new URLSearchParams(new URL(item.url).search).get('v') + '/hqdefault.jpg' : 
+                                    'https://img.youtube.com/vi/' + item.url.split('/').pop().split('?')[0] + '/hqdefault.jpg'"
+                                :alt="item.title || 'YouTube thumbnail'"
                                 class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                                 style="min-height: 100%; min-width: 100%;"
                             />
                         </template>
                         
-                        {{-- Fallback la video direct dacă nu există thumbnail --}}
-                        <template x-if="!getVideoThumbnail(item) && !isYouTubeVideo(item)">
+                        {{-- Pentru videoclipuri locale --}}
+                        <template x-if="!item.url || (!item.url.includes('youtube.com') && !item.url.includes('youtu.be'))">
                             <video 
                                 :src="item.url"
                                 :data-slide="index"
@@ -225,30 +189,19 @@
                             ></video>
                         </template>
                         
-                        {{-- Overlay gradient pentru contrast --}}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
-                        
-                        {{-- Video play indicator - mai mare și mai vizibil --}}
+                        {{-- Video play indicator - smaller and more subtle --}}
                         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="bg-white/95 backdrop-blur-sm rounded-full p-6 group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-300 border-2 border-white/50 shadow-xl hover:shadow-2xl">
-                                <svg class="w-12 h-12 text-gray-800 group-hover:text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-black/30 backdrop-blur-sm rounded-full p-4 group-hover:scale-110 transition-all duration-300 border border-white/30">
+                                <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
                             </div>
                         </div>
                         
-                        {{-- Video indicator badge --}}
-                        <div class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg flex items-center">
-                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <span x-text="isYouTubeVideo(item) ? 'YouTube' : 'VIDEO'"></span>
-                        </div>
-                        
-                        {{-- Title and description at bottom --}}
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white z-20">
+                        {{-- Small title and description at bottom with very transparent background --}}
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/10 p-3 text-white z-20">
                             <h4 x-text="item.title || 'Video'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
-                            <p x-text="item.description || 'Faceți clic pentru a reda videoclipul'" class="text-xs text-white/90 mt-1 drop-shadow-md"></p>
+                            <p x-text="item.description || 'Video din galeria multimedia'" class="text-xs text-white opacity-95 mt-1 drop-shadow-md"></p>
                         </div>
                     </div>
                 </template>
