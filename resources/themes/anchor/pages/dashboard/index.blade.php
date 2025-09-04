@@ -35,44 +35,45 @@
                 </div>
             </div>
 
-            {{-- Legitimația - Design modern și organizat --}}
-            <div id="member-card" class="max-w-lg mx-auto bg-white shadow-xl rounded-xl overflow-hidden" style="width: 400px; height: 250px;">
+            {{-- Legitimația - Design final optimizat --}}
+            <div id="member-card" class="max-w-2xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden border" style="width: 480px; height: 300px;">
                 {{-- Header cu bordură tricolor --}}
-                <div class="h-3 bg-gradient-to-r from-blue-600 via-yellow-400 to-red-600"></div>
+                <div class="h-2 bg-gradient-to-r from-blue-600 via-yellow-400 to-red-600"></div>
                 
-                <div class="p-6 h-full">
+                <div class="p-5 h-full">
                     {{-- Header cu logo și text --}}
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-start justify-between mb-3">
                         {{-- Stânga: ROMÂNIA + descriere --}}
                         <div class="flex-1">
-                            <h1 class="text-xl font-bold text-gray-900 mb-1">ROMÂNIA</h1>
+                            <h1 class="text-lg font-bold text-gray-900 mb-1">ROMÂNIA</h1>
                             <p class="text-xs text-gray-600 leading-tight">CLUBUL DE CIOBĂNEȘTI BELGIENI<br>DIN ROMÂNIA</p>
                         </div>
                         
                         {{-- Dreapta: Logo CCB --}}
-                        <div class="w-16 h-16 ml-4">
-                            <img src="/storage/wave-logo.png" alt="Logo CCB" class="w-full h-full object-contain">
+                        <div class="w-14 h-14 ml-4 flex-shrink-0">
+                            <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div class="w-full h-full bg-blue-600 rounded-full hidden items-center justify-center text-white font-bold text-xs">CCB</div>
                         </div>
                     </div>
 
                     {{-- Titlul LEGITIMAȚIE --}}
-                    <div class="text-center mb-4">
-                        <h2 class="text-2xl font-bold text-gray-900 tracking-widest">LEGITIMAȚIE</h2>
+                    <div class="text-center mb-3">
+                        <h2 class="text-xl font-bold text-gray-900 tracking-widest">LEGITIMAȚIE</h2>
                     </div>
 
                     {{-- Corpul legitimației --}}
-                    <div class="flex gap-4">
-                        {{-- Poza utilizatorului --}}
-                        <div class="w-20 h-24 bg-gray-100 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden">
+                    <div class="flex gap-4 items-start">
+                        {{-- Poza utilizatorului - mai sus --}}
+                        <div class="w-20 h-24 bg-gray-100 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden flex-shrink-0">
                             <template x-if="userPhoto">
                                 <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
                             </template>
                             <template x-if="!userPhoto">
-                                <div class="text-center p-2">
-                                    <svg class="w-8 h-8 mx-auto text-gray-400 mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <div class="text-center p-1">
+                                    <svg class="w-6 h-6 mx-auto text-gray-400 mb-1" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
-                                    <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 hover:text-blue-800 underline">
+                                    <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 hover:text-blue-800 underline block">
                                         Adaugă
                                     </label>
                                     <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
@@ -84,24 +85,24 @@
                         <div class="flex-1 space-y-2">
                             {{-- Prenumele --}}
                             <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24">Prenumele:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2">
-                                    <span class="text-sm text-gray-900">{{ auth()->user()->name ?? 'Cristian Ștefan' }}</span>
+                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">Prenumele:</span>
+                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
+                                    <span class="text-sm text-gray-900">{{ auth()->user()->name ?? 'Cristian' }}</span>
                                 </div>
                             </div>
                             
                             {{-- Numele --}}
                             <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24">NUMELE:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2">
+                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">NUMELE:</span>
+                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
                                     <span class="text-sm text-gray-900 uppercase">{{ auth()->user()->last_name ?? 'ȘTEFAN' }}</span>
                                 </div>
                             </div>
                             
                             {{-- Funcția --}}
                             <div class="flex items-center">
-                                <span class="text-sm font-semibold text-gray-700 w-24">Funcția:</span>
-                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2">
+                                <span class="text-sm font-semibold text-gray-700 w-24 flex-shrink-0">Funcția:</span>
+                                <div class="flex-1 border-b border-dotted border-gray-400 pb-1 ml-2 min-h-[20px]">
                                     <span class="text-sm text-gray-900">Membru CCB</span>
                                 </div>
                             </div>
@@ -115,7 +116,7 @@
                     </div>
 
                     {{-- Footer --}}
-                    <div class="flex justify-between items-end mt-4">
+                    <div class="flex justify-between items-end mt-4 pt-2">
                         {{-- Data emisă --}}
                         <div class="text-xs text-gray-500">
                             Emisă la: {{ date('d.m.Y') }}
@@ -125,7 +126,7 @@
                         <div class="text-right text-xs text-gray-600 leading-tight">
                             <div>Prenume NUME,</div>
                             <div>Președintele Filialei Județene</div>
-                            <div>a Clubului de Ciobănești Belgieni din România</div>
+                            <div class="text-xs">a Clubului de Ciobănești Belgieni din România</div>
                         </div>
                     </div>
                 </div>
@@ -213,11 +214,11 @@
                         filename: 'legitimatie_membru_ccb.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { 
-                            scale: 2.5, 
+                            scale: 2.2, 
                             useCORS: true,
                             backgroundColor: '#ffffff',
-                            width: 400,
-                            height: 250
+                            width: 480,
+                            height: 300
                         },
                         jsPDF: { 
                             unit: 'mm', 
@@ -282,7 +283,8 @@
                                 
                                 /* Padding */
                                 .p-6 { padding: 3mm; }
-                                .h-full { height: calc(50mm - 2mm); }
+                                .p-5 { padding: 2.5mm; }
+                                .h-full { height: calc(50mm - 1.5mm); }
                                 
                                 /* Layout flex */
                                 .flex { display: flex; }
