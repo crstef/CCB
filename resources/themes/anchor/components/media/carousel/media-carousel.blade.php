@@ -162,7 +162,7 @@
                 
                 {{-- Video display --}}
                 <template x-if="isVideo(item)">
-                    <div class="relative w-full h-full group" @click="playCurrentVideo()">
+                    <div class="relative w-full h-full group cursor-pointer" @click="playCurrentVideo()">
                         {{-- Thumbnail pentru YouTube --}}
                         <template x-if="item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))">
                             <img 
@@ -189,8 +189,8 @@
                             ></video>
                         </template>
                         
-                        {{-- Play Button Overlay - EXACT ca în galeria video --}}
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300">
+                        {{-- Play Button Overlay - cu pointer-events-none --}}
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 pointer-events-none">
                             <div class="bg-white/90 backdrop-blur-sm rounded-full p-4 group-hover:scale-110 transition-transform duration-300">
                                 <svg class="w-8 h-8 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z"/>
@@ -199,7 +199,7 @@
                         </div>
                         
                         {{-- Small title and description at bottom --}}
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/10 p-3 text-white z-20">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/10 p-3 text-white z-20 pointer-events-none">
                             <h4 x-text="item.title || 'Video'" class="text-sm font-semibold text-white drop-shadow-lg"></h4>
                             <p x-text="item.description || 'Video din galeria multimedia'" class="text-xs text-white opacity-95 mt-1 drop-shadow-md"></p>
                         </div>
