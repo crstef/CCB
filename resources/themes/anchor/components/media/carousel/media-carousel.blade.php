@@ -162,7 +162,7 @@
                 
                 {{-- Video display --}}
                 <template x-if="isVideo(item)">
-                    <div class="relative w-full h-full group">
+                    <div class="relative w-full h-full group" @click="playCurrentVideo()">
                         {{-- Pentru videoclipuri YouTube, afișează thumbnail-ul --}}
                         <template x-if="item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))">
                             <img 
