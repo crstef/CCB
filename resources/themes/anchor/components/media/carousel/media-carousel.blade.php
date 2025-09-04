@@ -173,19 +173,10 @@
                         <template x-if="item.url && (item.url.includes('youtube.com') || item.url.includes('youtu.be'))">
                             <div class="w-full h-full">
                                 <img 
-                                    :src="(() => {
-                                        let videoId = '';
-                                        if (item.url.includes('youtube.com/watch?v=')) {
-                                            videoId = item.url.split('v=')[1].split('&')[0];
-                                        } else if (item.url.includes('youtu.be/')) {
-                                            videoId = item.url.split('youtu.be/')[1].split('?')[0];
-                                        }
-                                        return videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : '';
-                                    })()"
+                                    :src="'https://img.youtube.com/vi/' + (item.url.includes('youtube.com') ? item.url.split('v=')[1].split('&')[0] : item.url.split('youtu.be/')[1].split('?')[0]) + '/hqdefault.jpg'"
                                     :alt="item.title || 'YouTube thumbnail'"
                                     class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                                     style="min-height: 100%; min-width: 100%;"
-                                    @error="$el.src = 'https://via.placeholder.com/480x360/cccccc/666666?text=Video'"
                                 />
                             </div>
                         </template>
