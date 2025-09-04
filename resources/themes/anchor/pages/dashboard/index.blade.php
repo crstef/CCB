@@ -35,87 +35,98 @@
                 </div>
             </div>
 
-            {{-- Legitimația --}}
-            <div id="member-card" class="max-w-md mx-auto bg-gradient-to-r from-blue-600 via-yellow-500 to-red-600 p-1 rounded-lg">
-                <div class="bg-white rounded-lg p-6">
-                    {{-- Header cu steagul României și logo CCB --}}
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-6 bg-gradient-to-r from-blue-600 via-yellow-500 to-red-600 rounded"></div>
-                            <span class="text-xs font-bold">ROMÂNIA</span>
+            {{-- Legitimația - EXACT ca în imaginea de referință --}}
+            <div id="member-card" class="max-w-sm mx-auto bg-white border-2 border-gray-800 rounded-lg p-6" style="width: 340px; height: 220px;">
+                {{-- Header cu steagul României și textul ROMÂNIA --}}
+                <div class="flex items-start justify-between mb-3">
+                    {{-- Stânga: Steagul României în colț cu ROMÂNIA dedesubt --}}
+                    <div class="relative">
+                        <div class="w-16 h-12 bg-gradient-to-b from-blue-600 via-yellow-400 to-red-600 rounded transform -rotate-12 border border-gray-600"></div>
+                        <div class="absolute -bottom-1 left-3 text-xs font-bold">
+                            <div class="bg-blue-600 text-white px-1 rounded text-center">UNCO.R</div>
+                            <div class="text-center text-xs font-bold mt-1">1997</div>
                         </div>
-                        <div class="text-right">
-                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs">
-                                CCB
+                    </div>
+                    
+                    {{-- Centru: ROMÂNIA --}}
+                    <div class="text-center flex-1">
+                        <h2 class="text-lg font-bold text-gray-900">ROMÂNIA</h2>
+                        <p class="text-xs text-gray-700">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
+                        <p class="text-xs text-gray-700">DIN ROMÂNIA</p>
+                    </div>
+
+                    {{-- Dreapta: Logo CCB --}}
+                    <div class="w-16 h-16 flex-shrink-0">
+                        <img src="/storage/gallery/photos/ccb-evenimente-speciale.png" alt="Logo CCB" class="w-full h-full object-contain rounded-full border border-gray-400">
+                    </div>
+                </div>
+
+                {{-- Titlul LEGITIMAȚIE --}}
+                <div class="text-center mb-4">
+                    <h1 class="text-xl font-bold text-gray-900 tracking-wider">LEGITIMAȚIE</h1>
+                </div>
+
+                {{-- Corpul legitimației cu poza și datele --}}
+                <div class="flex space-x-4 mb-4">
+                    {{-- Poza utilizatorului --}}
+                    <div class="w-20 h-24 bg-gray-200 border border-gray-600 flex items-center justify-center flex-shrink-0">
+                        <template x-if="userPhoto">
+                            <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
+                        </template>
+                        <template x-if="!userPhoto">
+                            <div class="text-center">
+                                <svg class="w-8 h-8 mx-auto text-gray-400 mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 hover:underline">
+                                    Adaugă poză
+                                </label>
+                                <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
+                            </div>
+                        </template>
+                    </div>
+
+                    {{-- Datele membrului --}}
+                    <div class="flex-1 text-xs space-y-1">
+                        <div class="flex">
+                            <span class="font-semibold w-20">Prenumele:</span>
+                            <div class="flex-1 border-b border-dotted border-gray-600 pb-1">
+                                {{ auth()->user()->name ?? '' }}
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <span class="font-semibold w-20">NUMELE:</span>
+                            <div class="flex-1 border-b border-dotted border-gray-600 pb-1">
+                                {{ strtoupper(auth()->user()->last_name ?? '') }}
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <span class="font-semibold w-20">Funcția:</span>
+                            <div class="flex-1 border-b border-dotted border-gray-600 pb-1">
+                                Membru CCB
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <span class="font-semibold text-xs">Perioada de valabilitate:</span>
+                            <div class="ml-2 font-bold">
+                                {{ date('Y') }} - {{ date('Y') + 1 }}
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="text-center mb-4">
-                        <h2 class="text-sm font-bold text-gray-800">CLUBUL DE CIOBĂNEȘTI BELGIENI</h2>
-                        <h1 class="text-lg font-bold text-gray-900 mt-1">LEGITIMAȚIE</h1>
+                {{-- Footer cu semnătura --}}
+                <div class="text-right text-xs">
+                    <div class="space-y-0">
+                        <div>Prenume NUME,</div>
+                        <div>Președintele Filialei Județene</div>
+                        <div>a Clubului de Ciobănești Belgieni din România</div>
                     </div>
+                </div>
 
-                    <div class="flex space-x-4">
-                        {{-- Poza utilizatorului --}}
-                        <div class="w-20 h-24 bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
-                            <template x-if="userPhoto">
-                                <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
-                            </template>
-                            <template x-if="!userPhoto">
-                                <div class="text-center">
-                                    <svg class="w-8 h-8 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                    </svg>
-                                    <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 hover:underline">
-                                        Adaugă poză
-                                    </label>
-                                    <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
-                                </div>
-                            </template>
-                        </div>
-
-                        {{-- Datele membrului --}}
-                        <div class="flex-1 text-xs space-y-1">
-                            <div>
-                                <span class="font-semibold">Prenumele:</span>
-                                <div class="border-b border-dotted border-gray-400 pb-1">
-                                    {{ auth()->user()->name ?? '________________________' }}
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-semibold">NUMELE:</span>
-                                <div class="border-b border-dotted border-gray-400 pb-1">
-                                    {{ strtoupper(auth()->user()->last_name ?? '________________________') }}
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-semibold">Calitatea:</span>
-                                <div class="border-b border-dotted border-gray-400 pb-1">
-                                    Membru CCB
-                                </div>
-                            </div>
-                            <div>
-                                <span class="font-semibold">Perioada de valabilitate:</span>
-                                <div class="border-b border-dotted border-gray-400 pb-1">
-                                    {{ date('Y') }} - {{ date('Y') + 1 }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Footer --}}
-                    <div class="mt-4 text-right">
-                        <div class="text-xs">
-                            <div>Prenume NUME,</div>
-                            <div>Președintele Filialei Județene</div>
-                            <div>a Clubului de Ciobănești Belgieni din România</div>
-                        </div>
-                    </div>
-
-                    <div class="mt-2 text-xs text-gray-500 text-center">
-                        Emisă la: {{ date('d.m.Y') }}
-                    </div>
+                {{-- Data emisă --}}
+                <div class="absolute bottom-2 left-6 text-xs text-gray-600">
+                    Emisă la: {{ date('d.m.Y') }}
                 </div>
             </div>
         </div>
@@ -197,11 +208,21 @@
                     
                     const element = document.getElementById('member-card');
                     const opt = {
-                        margin: 10,
+                        margin: [10, 10, 10, 10],
                         filename: 'legitimatie_membru_ccb.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2, useCORS: true },
-                        jsPDF: { unit: 'mm', format: [85.6, 54], orientation: 'landscape' } // Format ID card
+                        html2canvas: { 
+                            scale: 3, 
+                            useCORS: true,
+                            backgroundColor: '#ffffff',
+                            width: 340,
+                            height: 220
+                        },
+                        jsPDF: { 
+                            unit: 'mm', 
+                            format: [85, 54], // Format standard ID card
+                            orientation: 'landscape'
+                        }
                     };
                     
                     try {
@@ -214,72 +235,138 @@
                 
                 printCard() {
                     const printWindow = window.open('', '', 'width=800,height=600');
-                    const cardHtml = document.getElementById('member-card').outerHTML;
+                    const cardElement = document.getElementById('member-card');
+                    const cardHtml = cardElement.outerHTML;
                     
                     printWindow.document.write(`
                         <!DOCTYPE html>
                         <html>
                         <head>
                             <title>Legitimație Membru CCB</title>
+                            <meta charset="UTF-8">
                             <style>
-                                body { font-family: Arial, sans-serif; margin: 20px; }
-                                .max-w-md { max-width: 350px; }
+                                @page {
+                                    size: 85.6mm 54mm;
+                                    margin: 0;
+                                }
+                                
+                                body { 
+                                    font-family: Arial, sans-serif; 
+                                    margin: 0; 
+                                    padding: 10mm;
+                                    background: white;
+                                }
+                                
+                                /* Layout și pozitionare */
+                                .max-w-sm { max-width: 340px; width: 340px; }
                                 .mx-auto { margin: 0 auto; }
-                                .bg-gradient-to-r { background: linear-gradient(to right, #2563eb, #eab308, #dc2626); }
-                                .from-blue-600 { background-color: #2563eb; }
-                                .via-yellow-500 { background-color: #eab308; }
-                                .to-red-600 { background-color: #dc2626; }
-                                .p-1 { padding: 4px; }
-                                .p-6 { padding: 24px; }
-                                .rounded-lg { border-radius: 8px; }
                                 .bg-white { background-color: white; }
+                                .border-2 { border: 2px solid; }
+                                .border-gray-800 { border-color: #1f2937; }
+                                .rounded-lg { border-radius: 8px; }
+                                .p-6 { padding: 24px; }
+                                
+                                /* Flexbox */
                                 .flex { display: flex; }
+                                .items-start { align-items: flex-start; }
                                 .items-center { align-items: center; }
                                 .justify-between { justify-content: space-between; }
-                                .space-x-2 > * + * { margin-left: 8px; }
                                 .space-x-4 > * + * { margin-left: 16px; }
                                 .space-y-1 > * + * { margin-top: 4px; }
+                                .flex-1 { flex: 1; }
+                                .flex-shrink-0 { flex-shrink: 0; }
+                                
+                                /* Spacing */
+                                .mb-3 { margin-bottom: 12px; }
                                 .mb-4 { margin-bottom: 16px; }
                                 .mt-1 { margin-top: 4px; }
-                                .mt-2 { margin-top: 8px; }
-                                .mt-4 { margin-top: 16px; }
-                                .w-8 { width: 32px; }
-                                .h-6 { height: 24px; }
-                                .w-12 { width: 48px; }
-                                .h-12 { height: 48px; }
-                                .w-20 { width: 80px; }
-                                .h-24 { height: 96px; }
-                                .text-xs { font-size: 12px; }
-                                .text-sm { font-size: 14px; }
-                                .text-lg { font-size: 18px; }
-                                .font-bold { font-weight: bold; }
+                                .ml-2 { margin-left: 8px; }
+                                .pb-1 { padding-bottom: 4px; }
+                                
+                                /* Typography */
+                                .text-xs { font-size: 12px; line-height: 16px; }
+                                .text-lg { font-size: 18px; line-height: 28px; }
+                                .text-xl { font-size: 20px; line-height: 28px; }
+                                .font-bold { font-weight: 700; }
                                 .font-semibold { font-weight: 600; }
                                 .text-center { text-align: center; }
                                 .text-right { text-align: right; }
-                                .text-gray-800 { color: #1f2937; }
+                                .tracking-wider { letter-spacing: 0.05em; }
+                                
+                                /* Colors */
                                 .text-gray-900 { color: #111827; }
-                                .text-gray-500 { color: #6b7280; }
-                                .text-white { color: white; }
+                                .text-gray-700 { color: #374151; }
+                                .text-gray-600 { color: #4b5563; }
+                                .text-gray-400 { color: #9ca3af; }
                                 .bg-gray-200 { background-color: #e5e7eb; }
-                                .bg-blue-600 { background-color: #2563eb; }
-                                .border-2 { border-width: 2px; }
+                                .border-gray-600 { border-color: #4b5563; }
                                 .border-gray-400 { border-color: #9ca3af; }
+                                
+                                /* Gradients */
+                                .bg-gradient-to-b { 
+                                    background: linear-gradient(to bottom, #2563eb, #facc15, #dc2626); 
+                                }
+                                .bg-blue-600 { background-color: #2563eb; }
+                                .text-white { color: white; }
+                                
+                                /* Borders */
+                                .border { border-width: 1px; }
                                 .border-b { border-bottom-width: 1px; }
                                 .border-dotted { border-style: dotted; }
-                                .pb-1 { padding-bottom: 4px; }
                                 .rounded { border-radius: 4px; }
                                 .rounded-full { border-radius: 50%; }
-                                .flex-1 { flex: 1; }
+                                
+                                /* Sizing */
+                                .w-16 { width: 64px; }
+                                .h-12 { height: 48px; }
+                                .h-16 { height: 64px; }
+                                .w-20 { width: 80px; }
+                                .h-24 { height: 96px; }
+                                
+                                /* Positioning */
+                                .relative { position: relative; }
+                                .absolute { position: absolute; }
+                                .transform { transform: rotate(-12deg); }
+                                .-bottom-1 { bottom: -4px; }
+                                .left-3 { left: 12px; }
+                                .bottom-2 { bottom: 8px; }
+                                .left-6 { left: 24px; }
+                                
+                                /* Object fit */
+                                .object-contain { object-fit: contain; }
                                 .object-cover { object-fit: cover; }
+                                
+                                /* Display */
+                                .space-y-0 > * + * { margin-top: 0; }
+                                
+                                /* Custom pentru steag */
+                                .romania-flag {
+                                    width: 64px;
+                                    height: 48px;
+                                    background: linear-gradient(to bottom, 
+                                        #2563eb 0%, #2563eb 33.33%, 
+                                        #facc15 33.33%, #facc15 66.66%, 
+                                        #dc2626 66.66%, #dc2626 100%);
+                                    transform: rotate(-12deg);
+                                    border: 1px solid #4b5563;
+                                    border-radius: 4px;
+                                }
+                                
+                                /* Print specific */
                                 @media print {
-                                    body { margin: 0; }
-                                    .max-w-md { max-width: none; width: 100%; }
+                                    body { 
+                                        padding: 5mm;
+                                        transform: scale(0.9);
+                                        transform-origin: top left;
+                                    }
+                                    .no-print { display: none; }
                                 }
                             </style>
                         </head>
                         <body>
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <h1>Legitimație de Membru CCB</h1>
+                            <div style="text-align: center; margin-bottom: 10px;">
+                                <h1 style="margin: 0; font-size: 16px; font-weight: bold;">LEGITIMAȚIE DE MEMBRU CCB</h1>
+                                <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Clubul de Ciobănești Belgieni din România</p>
                             </div>
                             ${cardHtml}
                         </body>
@@ -290,7 +377,7 @@
                     setTimeout(() => {
                         printWindow.print();
                         printWindow.close();
-                    }, 500);
+                    }, 1000);
                 },
                 
                 loadScript(src) {
