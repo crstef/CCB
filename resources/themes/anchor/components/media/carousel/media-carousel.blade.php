@@ -299,27 +299,27 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - fereastra 85% din ecran, video MARE --}}
-        <div class="relative w-[85vw] h-[85vh]">
+        {{-- Modal Content - fereastra 85% din ecran --}}
+        <div class="relative max-w-6xl max-h-full mx-4 w-full">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
-                class="absolute top-4 right-4 z-10 bg-black bg-opacity-70 text-white rounded-full p-2 hover:bg-opacity-90 transition-all"
+                class="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-all"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
             
-            {{-- Video Player - CÂT MAI MARE --}}
+            {{-- Video Player - dimensiuni mari ca la început --}}
             <template x-if="items[currentVideo] && showModal">
-                <div class="w-full h-full bg-black rounded-lg overflow-hidden">
+                <div class="text-center">
                     {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
                             :key="'youtube-' + currentVideo + '-' + Date.now()"
                             :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
-                            class="w-full h-full rounded-lg" 
+                            class="max-w-full max-h-[80vh] mx-auto w-full aspect-video" 
                             frameborder="0" 
                             allowfullscreen
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -332,7 +332,7 @@
                             :key="'video-' + currentVideo + '-' + Date.now()"
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
-                            class="w-full h-full object-cover rounded-lg"
+                            class="max-w-full max-h-[80vh] mx-auto"
                             controls
                             autoplay
                             @play="isPlaying = true"
@@ -340,6 +340,12 @@
                             @ended="isPlaying = false"
                         ></video>
                     </template>
+                    
+                    {{-- Video Info --}}
+                    <div class="mt-4 text-white text-center">
+                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
+                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
+                    </div>
                 </div>
             </template>
         </div>
