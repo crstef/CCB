@@ -289,7 +289,7 @@
         </div>
     </template>
     
-    {{-- Modal Video Player - Copiat exact din galerie-video --}}
+    {{-- Modal Video Player - Adaptat pentru YouTube --}}
     <div 
         x-show="showModal" 
         x-transition:enter="transition ease-out duration-300"
@@ -302,7 +302,7 @@
         @click.self="closeModal()"
     >
         {{-- Modal Content --}}
-        <div class="relative max-w-6xl max-h-full mx-4 w-full">
+        <div class="relative w-full max-w-7xl mx-4 h-full max-h-full flex items-center justify-center">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -315,16 +315,18 @@
             
             {{-- Video Player --}}
             <template x-if="items[currentVideo]">
-                <div class="text-center">
+                <div class="w-full h-full flex flex-col items-center justify-center">
                     {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
-                        <iframe 
-                            :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
-                            class="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] mx-auto" 
-                            frameborder="0" 
-                            allowfullscreen
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                        </iframe>
+                        <div class="w-full max-w-6xl aspect-video">
+                            <iframe 
+                                :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
+                                class="w-full h-full" 
+                                frameborder="0" 
+                                allowfullscreen
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                            </iframe>
+                        </div>
                     </template>
                     
                     {{-- Pentru videoclipuri locale --}}
@@ -341,9 +343,9 @@
                     </template>
                     
                     {{-- Video Info --}}
-                    <div class="mt-4 text-white text-center">
-                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
-                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
+                    <div class="mt-6 text-white text-center max-w-4xl">
+                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-2xl font-semibold mb-2"></h3>
+                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300 text-lg"></p>
                     </div>
                 </div>
             </template>
