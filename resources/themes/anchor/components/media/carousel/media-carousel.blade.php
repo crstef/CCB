@@ -113,16 +113,24 @@
             document.body.style.overflow = 'hidden';
         },
         
-        // Copiat exact din galerie-video
+        // Copiat exact din galerie-video + oprire video
         closeModal() {
             this.showModal = false;
             this.isPlaying = false;
             document.body.style.overflow = 'auto';
             
-            // Pause video when closing modal
+            // Oprește video local dacă există
             const video = this.$refs.modalVideo;
             if (video) {
                 video.pause();
+            }
+            
+            // Oprește YouTube video prin resetarea iframe-ului
+            const iframe = this.$el.querySelector('iframe');
+            if (iframe) {
+                const src = iframe.src;
+                iframe.src = '';
+                iframe.src = src.replace('autoplay=0', 'autoplay=0');
             }
         },
         
@@ -301,8 +309,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - aceleași dimensiuni ca în galerie-video --}}
-        <div class="relative max-w-6xl max-h-full mx-4 w-full">
+        {{-- Modal Content - 85% din ecran --}}
+        <div class="relative max-w-5xl w-[85%] h-[85vh] mx-4">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -315,12 +323,12 @@
             
             {{-- Video Player --}}
             <template x-if="items[currentVideo]">
-                <div class="text-center">
+                <div class="text-center h-full flex flex-col justify-center">
                     {{-- Pentru YouTube videos - FĂRĂ autoplay --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
                             :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=0&rel=0&modestbranding=1'"
-                            class="max-w-full max-h-[80vh] mx-auto w-full aspect-video" 
+                            class="w-full h-[70%] mx-auto" 
                             frameborder="0" 
                             allowfullscreen
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -332,7 +340,7 @@
                         <video 
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
-                            class="max-w-full max-h-[80vh] mx-auto"
+                            class="w-full h-[70%] mx-auto object-contain"
                             controls
                             @play="isPlaying = true"
                             @pause="isPlaying = false"
