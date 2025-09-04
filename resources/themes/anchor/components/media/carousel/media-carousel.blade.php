@@ -299,8 +299,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - fereastra 85% din ecran, video ocupă tot spațiul --}}
-        <div class="relative w-[85vw] h-[85vh] bg-black rounded-lg overflow-hidden">
+        {{-- Modal Content - fereastra 85% din ecran, video MARE --}}
+        <div class="relative w-[85vw] h-[85vh]">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -311,15 +311,15 @@
                 </svg>
             </button>
             
-            {{-- Video Player - ocupă toată fereastra modalului --}}
+            {{-- Video Player - CÂT MAI MARE --}}
             <template x-if="items[currentVideo] && showModal">
-                <div class="w-full h-full">
+                <div class="w-full h-full bg-black rounded-lg overflow-hidden">
                     {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
                             :key="'youtube-' + currentVideo + '-' + Date.now()"
                             :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
-                            class="w-full h-full" 
+                            class="w-full h-full rounded-lg" 
                             frameborder="0" 
                             allowfullscreen
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
@@ -332,7 +332,7 @@
                             :key="'video-' + currentVideo + '-' + Date.now()"
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
-                            class="w-full h-full object-contain"
+                            class="w-full h-full object-cover rounded-lg"
                             controls
                             autoplay
                             @play="isPlaying = true"
