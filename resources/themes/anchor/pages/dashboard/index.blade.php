@@ -36,14 +36,15 @@
             </div>
 
             {{-- Legitimația - Model nou, conform imaginii de referință --}}
+            {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Banda tricoloră diagonală --}}
-                <div class="absolute top-0 left-0 w-full h-full" style="z-index: 0;">
-                    <svg width="100%" height="100%" viewBox="0 0 450 280" preserveAspectRatio="none">
-                        <path d="M-40 -40 L200 0 L0 200 Z" style="fill: #0066cc;"/>
-                        <path d="M100 -25 L280 0 L0 280 L-20 260 Z" style="fill: #ffcc00;"/>
-                        <path d="M200 -10 L360 0 L0 360 L-20 340 Z" style="fill: #cc0000;"/>
+                {{-- Banda tricoloră diagonală (varianta corectată) --}}
+                <div class="absolute top-0 left-0" style="width: 150px; height: 150px; z-index: 0;">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0,0 L100,0 L0,100 Z" style="fill: #0066cc;"/>
+                        <path d="M25,0 L100,0 L0,100 L0,75 Z" style="fill: #ffcc00;"/>
+                        <path d="M50,0 L100,0 L0,100 L0,50 Z" style="fill: #cc0000;"/>
                     </svg>
                 </div>
 
@@ -67,14 +68,14 @@
                     </div>
 
                     {{-- Titlu --}}
-                    <div class="text-center mt-2 mb-2">
+                    <div class="text-center mt-1 mb-1">
                         <h2 class="text-xl font-bold tracking-wider">LEGITIMAȚIE</h2>
                     </div>
 
                     {{-- Conținut principal (Poză + Detalii) --}}
-                    <div class="flex flex-grow">
+                    <div class="flex flex-grow items-stretch">
                         {{-- Poză și Data Emiterii --}}
-                        <div class="w-24 flex-shrink-0 flex flex-col justify-between">
+                        <div class="w-24 flex-shrink-0 flex flex-col">
                             <div class="w-full bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
                                 <template x-if="userPhoto">
                                     <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
@@ -89,7 +90,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <p class="text-xs mt-1">Emisă la: {{ date('d.m.Y') }}</p>
+                            <p class="text-xs mt-2">Emisă la: {{ date('d.m.Y') }}</p>
                         </div>
 
                         {{-- Detalii și Semnătură --}}
