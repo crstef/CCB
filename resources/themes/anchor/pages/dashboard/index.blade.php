@@ -35,84 +35,89 @@
                 </div>
             </div>
 
-            {{-- Legitimația - Ajustări fine conform imaginii de referință --}}
-            <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif;">
+            {{-- Legitimația - Model nou, conform imaginii de referință --}}
+            <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Steagul României SVG în colțul stâng sus --}}
-                <div class="absolute" style="top: 12px; left: 12px;">
-                    <svg width="48" height="32" viewBox="0 0 48 32" style="transform: rotate(-15deg); border: 1px solid #4b5563; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
-                        <rect x="0" y="0" width="16" height="32" fill="#0066cc"/>
-                        <rect x="16" y="0" width="16" height="32" fill="#ffcc00"/>
-                        <rect x="32" y="0" width="16" height="32" fill="#cc0000"/>
+                {{-- Banda tricoloră diagonală --}}
+                <div class="absolute top-0 left-0 w-full h-full" style="z-index: 0;">
+                    <svg width="100%" height="100%" viewBox="0 0 450 280" preserveAspectRatio="none">
+                        <path d="M-40 -40 L200 0 L0 200 Z" style="fill: #0066cc;"/>
+                        <path d="M100 -25 L280 0 L0 280 L-20 260 Z" style="fill: #ffcc00;"/>
+                        <path d="M200 -10 L360 0 L0 360 L-20 340 Z" style="fill: #cc0000;"/>
                     </svg>
                 </div>
 
-                {{-- Header centrat --}}
-                <div class="text-center" style="position: absolute; top: 16px; left: 0; right: 0;">
-                    <h1 class="text-xl font-bold">ROMÂNIA</h1>
-                    <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
-                    <p class="text-xs">DIN ROMÂNIA</p>
-                </div>
+                <div style="position: relative; z-index: 1; padding: 16px; height: 100%; display: flex; flex-direction: column;">
+                    {{-- Header --}}
+                    <div class="flex justify-between items-start">
+                        {{-- Spațiu gol pentru a alinia textul --}}
+                        <div class="w-20"></div>
+                        
+                        {{-- Text Centrat --}}
+                        <div class="text-center">
+                            <h1 class="text-xl font-bold">ROMÂNIA</h1>
+                            <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
+                            <p class="text-xs">DIN ROMÂNIA</p>
+                        </div>
+                        
+                        {{-- Logo CCB --}}
+                        <div class="w-16 h-16">
+                            <img id="card-logo" src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
+                        </div>
+                    </div>
 
-                {{-- Logo CCB în colțul drept sus --}}
-                <div class="absolute" style="top: 12px; right: 12px; width: 64px; height: 64px;">
-                    <img src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
-                </div>
+                    {{-- Titlu --}}
+                    <div class="text-center mt-2 mb-2">
+                        <h2 class="text-xl font-bold tracking-wider">LEGITIMAȚIE</h2>
+                    </div>
 
-                {{-- Titlu LEGITIMAȚIE --}}
-                <div class="text-center" style="position: absolute; top: 80px; left: 0; right: 0;">
-                    <h2 class="text-xl font-bold tracking-wider">LEGITIMAȚIE</h2>
-                </div>
-
-                {{-- Poza --}}
-                <div class="absolute" style="top: 120px; left: 24px;">
-                    <div class="w-24 bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
-                        <template x-if="userPhoto">
-                            <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
-                        </template>
-                        <template x-if="!userPhoto">
-                            <div class="text-center p-2">
-                                <svg class="w-6 h-6 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
-                                <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 underline mt-1 inline-block">Adaugă</label>
-                                <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
+                    {{-- Conținut principal (Poză + Detalii) --}}
+                    <div class="flex flex-grow">
+                        {{-- Poză și Data Emiterii --}}
+                        <div class="w-24 flex-shrink-0 flex flex-col justify-between">
+                            <div class="w-full bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
+                                <template x-if="userPhoto">
+                                    <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
+                                </template>
+                                <template x-if="!userPhoto">
+                                    <div class="text-center p-2">
+                                        <svg class="w-6 h-6 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                        </svg>
+                                        <label for="photo-upload" class="cursor-pointer text-xs text-blue-600 underline mt-1 inline-block">Adaugă</label>
+                                        <input type="file" id="photo-upload" accept="image/*" class="hidden" @change="handlePhotoUpload($event)">
+                                    </div>
+                                </template>
                             </div>
-                        </template>
-                    </div>
-                </div>
+                            <p class="text-xs mt-1">Emisă la: {{ date('d.m.Y') }}</p>
+                        </div>
 
-                {{-- Datele și Semnătura --}}
-                <div class="absolute flex flex-col text-sm" style="top: 120px; left: 140px; right: 24px; bottom: 40px;">
-                    {{-- Date --}}
-                    <div class="flex-grow">
-                        <div class="flex items-baseline">
-                            <span class="font-semibold" style="width: 70px;">Prenumele</span>
-                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
-                        </div>
-                        <div class="flex items-baseline mt-2">
-                            <span class="font-semibold" style="width: 70px;">NUMELE</span>
-                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
-                        </div>
-                        <div class="flex items-baseline mt-2">
-                            <span class="font-semibold" style="width: 70px;">Funcția</span>
-                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
-                        </div>
-                        <div class="mt-3">
-                            <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                            <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
+                        {{-- Detalii și Semnătură --}}
+                        <div class="ml-4 flex-grow flex flex-col text-sm">
+                            <div class="flex-grow space-y-2">
+                                <div class="flex items-baseline">
+                                    <span class="font-semibold" style="width: 70px;">Prenumele</span>
+                                    <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
+                                </div>
+                                <div class="flex items-baseline">
+                                    <span class="font-semibold" style="width: 70px;">NUMELE</span>
+                                    <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
+                                </div>
+                                <div class="flex items-baseline">
+                                    <span class="font-semibold" style="width: 70px;">Funcția</span>
+                                    <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
+                                </div>
+                                <div class="pt-1">
+                                    <span class="font-semibold text-sm">Perioada de valabilitate</span>
+                                    <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
+                                </div>
+                            </div>
+                            <div class="text-xs text-right">
+                                <div class="font-semibold">Președinte CCB</div>
+                                <div class="mt-1">Gabriel Panoiu</div>
+                            </div>
                         </div>
                     </div>
-                    {{-- Semnătura --}}
-                    <div class="text-xs text-right">
-                        <div class="font-semibold">Președinte CCB</div>
-                        <div class="mt-1">Gabriel Panoiu</div>
-                    </div>
-                </div>
-
-                {{-- Data emisă --}}
-                <div class="absolute text-xs" style="bottom: 12px; left: 24px;">
-                    Emisă la: {{ date('d.m.Y') }}
                 </div>
             </div>
         </div>
@@ -193,27 +198,47 @@
                     }
                     
                     const element = document.getElementById('member-card');
+                    const elementClone = element.cloneNode(true);
+
+                    // Embed logo as Base64
+                    const logoImg = elementClone.querySelector('#card-logo');
+                    if (logoImg && logoImg.src) {
+                        try {
+                            const response = await fetch(logoImg.src);
+                            const blob = await response.blob();
+                            const dataUrl = await new Promise(resolve => {
+                                const reader = new FileReader();
+                                reader.onloadend = () => resolve(reader.result);
+                                reader.readAsDataURL(blob);
+                            });
+                            logoImg.src = dataUrl;
+                        } catch (e) {
+                            console.error("Could not embed logo:", e);
+                        }
+                    }
+
                     const opt = {
                         margin: [0, 0, 0, 0],
                         filename: 'legitimatie_membru_ccb.pdf',
-                        image: { type: 'jpeg', quality: 0.98 },
+                        image: { type: 'jpeg', quality: 1.0 },
                         html2canvas: { 
-                            scale: 2.2, 
+                            scale: 3, 
                             useCORS: true,
                             backgroundColor: '#ffffff',
                             width: 450,
-                            height: 280
+                            height: 280,
+                            scrollX: 0,
+                            scrollY: 0,
                         },
                         jsPDF: { 
                             unit: 'mm', 
-                            format: [85, 54], // Format ID card standard
+                            format: [85.6, 54], // Format ID-1 (credit card)
                             orientation: 'landscape'
-                        },
-                        pagebreak: { mode: ['avoid-all'] }
+                        }
                     };
                     
                     try {
-                        await html2pdf().set(opt).from(element).save();
+                        await html2pdf().set(opt).from(elementClone).save();
                     } catch (error) {
                         console.error('Eroare la generarea PDF:', error);
                         alert('Nu s-a putut genera PDF-ul. Vă rugăm să încercați din nou.');
@@ -223,15 +248,23 @@
                 printCard() {
                     const printWindow = window.open('', '', 'width=800,height=600');
                     const cardElement = document.getElementById('member-card');
-                    const cardHtml = cardElement.outerHTML;
+                    
+                    // Clone the element to modify it for printing
+                    const cardClone = cardElement.cloneNode(true);
+                    
+                    // Embed logo as Base64 for printing
+                    const logoImg = cardClone.querySelector('#card-logo');
+                    if (logoImg && logoImg.src) {
+                        // This part is tricky for print as it's async. 
+                        // A better approach is to have the dataURL ready if possible
+                        // For now, we hope the browser caches it from the PDF generation
+                    }
+
+                    const cardHtml = cardClone.outerHTML;
 
                     // Collect current stylesheets and inline styles
-                    const styleTags = Array.from(document.querySelectorAll('style'))
-                        .map(tag => tag.outerHTML)
-                        .join('\n');
-                    const linkTags = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-                        .map(link => link.outerHTML)
-                        .join('\n');
+                    const styleTags = Array.from(document.querySelectorAll('style')).map(tag => tag.outerHTML).join('\n');
+                    const linkTags = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(link => link.outerHTML).join('\n');
 
                     printWindow.document.write(`
                         <!DOCTYPE html>
@@ -242,30 +275,31 @@
                             ${linkTags}
                             ${styleTags}
                             <style>
-                                @page { size: 85mm 54mm; margin: 0; }
-                                html, body { height: 100%; }
-                                body { 
+                                @page { 
+                                    size: 85.6mm 54mm; 
+                                    margin: 0;
+                                }
+                                html, body { 
+                                    width: 100%;
+                                    height: 100%;
                                     margin: 0; 
                                     padding: 0; 
                                     background: #ffffff; 
                                     display: flex; 
                                     justify-content: center; 
-                                    align-items: center; 
+                                    align-items: center;
                                 }
-                                /* Ensure print colors are preserved */
-                                * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-                                /* Fallback minimal utilities if Tailwind is unavailable */
-                                .absolute { position: absolute; }
-                                .text-center { text-align: center; }
-                                .text-right { text-align: right; }
-                                .font-bold { font-weight: 700; }
-                                .font-semibold { font-weight: 600; }
-                                .border-2 { border-width: 2px; border-style: solid; }
-                                .border-gray-800 { border-color: #1f2937; }
-                                .w-16 { width: 64px; }
-                                .h-16 { height: 64px; }
-                                .object-contain { object-fit: contain; }
-                                .object-cover { object-fit: cover; }
+                                * {
+                                    -webkit-print-color-adjust: exact !important;
+                                    print-color-adjust: exact !important;
+                                }
+                                #member-card {
+                                    width: 85.6mm;
+                                    height: 54mm;
+                                    transform: scale(1);
+                                    border: none !important;
+                                    box-shadow: none !important;
+                                }
                             </style>
                         </head>
                         <body>
@@ -273,17 +307,16 @@
                             <script>
                                 // Hide upload controls in print
                                 document.querySelectorAll('input[type=file], label[for=photo-upload]').forEach(el => el && (el.style.display = 'none'));
+                                setTimeout(() => {
+                                    window.print();
+                                    window.close();
+                                }, 250);
                             <\/script>
                         </body>
                         </html>
                     `);
 
                     printWindow.document.close();
-                    setTimeout(() => {
-                        printWindow.focus();
-                        printWindow.print();
-                        printWindow.close();
-                    }, 500);
                 },
                 
                 loadScript(src) {
