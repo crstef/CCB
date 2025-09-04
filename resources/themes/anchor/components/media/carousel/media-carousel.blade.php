@@ -11,6 +11,11 @@
         autoplayDelay: 5000,
         autoplayTimer: null,
         
+        // Modal pentru video (copiat din galerie-video)
+        showModal: false,
+        currentVideo: 0,
+        isPlaying: false,
+        
         transitionEffects: [
             'fade',
             'slideLeft', 
@@ -26,9 +31,6 @@
             if (this.autoplay && this.items.length > 1) {
                 this.startAutoplay();
             }
-            this.$nextTick(() => {
-                this.playCurrentVideo();
-            });
         },
         
         startAutoplay() {
@@ -55,18 +57,12 @@
             this.pauseCurrentVideo();
             this.setRandomTransition();
             this.currentSlide = (this.currentSlide + 1) % this.items.length;
-            this.$nextTick(() => {
-                this.playCurrentVideo();
-            });
         },
         
         prevSlide() {
             this.pauseCurrentVideo();
             this.setRandomTransition();
             this.currentSlide = this.currentSlide === 0 ? this.items.length - 1 : this.currentSlide - 1;
-            this.$nextTick(() => {
-                this.playCurrentVideo();
-            });
         },
         
         goToSlide(index) {
@@ -74,9 +70,6 @@
             this.setRandomTransition();
             this.currentSlide = index;
             this.restartAutoplay();
-            this.$nextTick(() => {
-                this.playCurrentVideo();
-            });
         },
         
         setRandomTransition() {
@@ -104,62 +97,46 @@
             return false;
         },
         
+        // Copiez exact din galerie-video
         playCurrentVideo() {
             const currentItem = this.items[this.currentSlide];
             if (this.isVideo(currentItem)) {
-                // Pentru videoclipuri (incluzând YouTube), deschide modal
-                this.openVideoModal(currentItem);
+                this.openModal(this.currentSlide);
             }
         },
         
-        openVideoModal(videoItem) {
-            // Creează modal-ul pentru video
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95';
-            modal.onclick = (e) => {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                    document.body.style.overflow = 'auto';
-                }
-            };
-            
-            // Conținutul modal-ului
-            modal.innerHTML = `
-                <div class="relative max-w-6xl max-h-full mx-4 w-full">
-                    <button onclick="document.body.removeChild(this.closest('.fixed')); document.body.style.overflow = 'auto';" 
-                            class="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-all">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                    
-                    <div class="text-center">
-                        ${videoItem.url && (videoItem.url.includes('youtube.com') || videoItem.url.includes('youtu.be')) 
-                            ? `<iframe 
-                                 src="https://www.youtube.com/embed/${videoItem.url.includes('youtube.com') ? videoItem.url.split('v=')[1].split('&')[0] : videoItem.url.split('youtu.be/')[1].split('?')[0]}?autoplay=1" 
-                                 class="max-w-full max-h-[80vh] mx-auto w-full h-96 md:h-[500px] lg:h-[600px]" 
-                                 frameborder="0" 
-                                 allowfullscreen
-                                 allow="autoplay; encrypted-media">
-                               </iframe>` 
-                            : `<video 
-                                 src="${videoItem.url}" 
-                                 class="max-w-full max-h-[80vh] mx-auto" 
-                                 controls 
-                                 autoplay>
-                               </video>`
-                        }
-                        
-                        <div class="mt-4 text-white text-center">
-                            <h3 class="text-xl font-semibold mb-2">${videoItem.title || 'Video'}</h3>
-                            <p class="text-gray-300">${videoItem.description || 'Video din galeria multimedia'}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
+        // Copiat exact din galerie-video
+        openModal(index) {
+            this.currentVideo = index;
+            this.showModal = true;
+            this.isPlaying = false;
             document.body.style.overflow = 'hidden';
+        },
+        
+        // Copiat exact din galerie-video
+        closeModal() {
+            this.showModal = false;
+            this.isPlaying = false;
+            document.body.style.overflow = 'auto';
+            
+            // Pause video when closing modal
+            const video = this.$refs.modalVideo;
+            if (video) {
+                video.pause();
+            }
+        },
+        
+        // Copiat exact din galerie-video
+        togglePlay() {
+            const video = this.$refs.modalVideo;
+            if (video) {
+                if (this.isPlaying) {
+                    video.pause();
+                } else {
+                    video.play();
+                }
+                this.isPlaying = !this.isPlaying;
+            }
         },
         
         pauseCurrentVideo() {
@@ -311,4 +288,65 @@
             </div>
         </div>
     </template>
+    
+    {{-- Modal Video Player - Copiat exact din galerie-video --}}
+    <div 
+        x-show="showModal" 
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
+        @click.self="closeModal()"
+    >
+        {{-- Modal Content --}}
+        <div class="relative max-w-6xl max-h-full mx-4 w-full">
+            {{-- Close Button --}}
+            <button 
+                @click="closeModal()"
+                class="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-all"
+            >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            {{-- Video Player --}}
+            <template x-if="items[currentVideo]">
+                <div class="text-center">
+                    {{-- Pentru YouTube videos --}}
+                    <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
+                        <iframe 
+                            :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
+                            class="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] mx-auto" 
+                            frameborder="0" 
+                            allowfullscreen
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </template>
+                    
+                    {{-- Pentru videoclipuri locale --}}
+                    <template x-if="!items[currentVideo].url || (!items[currentVideo].url.includes('youtube.com') && !items[currentVideo].url.includes('youtu.be'))">
+                        <video 
+                            x-ref="modalVideo"
+                            :src="items[currentVideo].url" 
+                            class="max-w-full max-h-[80vh] mx-auto"
+                            controls
+                            @play="isPlaying = true"
+                            @pause="isPlaying = false"
+                            @ended="isPlaying = false"
+                        ></video>
+                    </template>
+                    
+                    {{-- Video Info --}}
+                    <div class="mt-4 text-white text-center">
+                        <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
+                        <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
 </div>
