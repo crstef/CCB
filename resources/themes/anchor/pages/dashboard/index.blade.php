@@ -35,12 +35,12 @@
                 </div>
             </div>
 
-            {{-- Legitimația - Recreată conform imaginii originale --}}
+            {{-- Legitimația - Ajustări fine conform imaginii de referință --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif;">
                 
                 {{-- Steagul României SVG în colțul stâng sus --}}
                 <div class="absolute" style="top: 12px; left: 12px;">
-                    <svg width="48" height="32" viewBox="0 0 48 32" style="transform: rotate(-15deg); border: 1px solid #4b5563;">
+                    <svg width="48" height="32" viewBox="0 0 48 32" style="transform: rotate(-15deg); border: 1px solid #4b5563; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
                         <rect x="0" y="0" width="16" height="32" fill="#0066cc"/>
                         <rect x="16" y="0" width="16" height="32" fill="#ffcc00"/>
                         <rect x="32" y="0" width="16" height="32" fill="#cc0000"/>
@@ -61,7 +61,7 @@
 
                 {{-- Titlu LEGITIMAȚIE --}}
                 <div class="text-center" style="position: absolute; top: 80px; left: 0; right: 0;">
-                    <h2 class="text-2xl font-bold tracking-wider">LEGITIMAȚIE</h2>
+                    <h2 class="text-xl font-bold tracking-wider">LEGITIMAȚIE</h2>
                 </div>
 
                 {{-- Poza --}}
@@ -82,30 +82,32 @@
                     </div>
                 </div>
 
-                {{-- Datele --}}
-                <div class="absolute text-sm" style="top: 120px; left: 140px; right: 24px;">
-                    <div class="flex items-baseline">
-                        <span class="font-semibold" style="width: 70px;">Prenumele</span>
-                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
+                {{-- Datele și Semnătura --}}
+                <div class="absolute flex flex-col text-sm" style="top: 120px; left: 140px; right: 24px; bottom: 40px;">
+                    {{-- Date --}}
+                    <div class="flex-grow">
+                        <div class="flex items-baseline">
+                            <span class="font-semibold" style="width: 70px;">Prenumele</span>
+                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
+                        </div>
+                        <div class="flex items-baseline mt-2">
+                            <span class="font-semibold" style="width: 70px;">NUMELE</span>
+                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
+                        </div>
+                        <div class="flex items-baseline mt-2">
+                            <span class="font-semibold" style="width: 70px;">Funcția</span>
+                            <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
+                        </div>
+                        <div class="mt-3">
+                            <span class="font-semibold text-sm">Perioada de valabilitate</span>
+                            <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
+                        </div>
                     </div>
-                    <div class="flex items-baseline mt-2">
-                        <span class="font-semibold" style="width: 70px;">NUMELE</span>
-                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
+                    {{-- Semnătura --}}
+                    <div class="text-xs text-right">
+                        <div class="font-semibold">Președinte CCB</div>
+                        <div class="mt-1">Gabriel Panoiu</div>
                     </div>
-                    <div class="flex items-baseline mt-2">
-                        <span class="font-semibold" style="width: 70px;">Funcția</span>
-                        <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
-                    </div>
-                    <div class="mt-4">
-                        <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                        <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
-                    </div>
-                </div>
-
-                {{-- Semnătura --}}
-                <div class="absolute text-xs text-right" style="bottom: 24px; right: 24px;">
-                    <div class="font-semibold">Președinte CCB</div>
-                    <div class="mt-1">Gabriel Panoiu</div>
                 </div>
 
                 {{-- Data emisă --}}
