@@ -113,24 +113,16 @@
             document.body.style.overflow = 'hidden';
         },
         
-        // Copiat exact din galerie-video + oprire video
+        // EXACT ca în galerie-video
         closeModal() {
             this.showModal = false;
             this.isPlaying = false;
             document.body.style.overflow = 'auto';
             
-            // Oprește video local dacă există
+            // Pause video when closing modal
             const video = this.$refs.modalVideo;
             if (video) {
                 video.pause();
-            }
-            
-            // Oprește YouTube video prin resetarea iframe-ului
-            const iframe = this.$el.querySelector('iframe');
-            if (iframe) {
-                const src = iframe.src;
-                iframe.src = '';
-                iframe.src = src.replace('autoplay=0', 'autoplay=0');
             }
         },
         
@@ -297,7 +289,7 @@
         </div>
     </template>
     
-    {{-- Modal Video Player - Dimensiuni ca în galerie-video --}}
+    {{-- Modal Video Player - EXACT ca în galerie-video dar adaptat pentru YouTube --}}
     <div 
         x-show="showModal" 
         x-transition:enter="transition ease-out duration-300"
@@ -309,8 +301,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - 85% din ecran --}}
-        <div class="relative max-w-5xl w-[85%] h-[85vh] mx-4">
+        {{-- Modal Content - EXACT ca în galerie-video --}}
+        <div class="relative max-w-6xl max-h-full mx-4 w-full">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
@@ -323,24 +315,24 @@
             
             {{-- Video Player --}}
             <template x-if="items[currentVideo]">
-                <div class="text-center h-full flex flex-col justify-center">
-                    {{-- Pentru YouTube videos - FĂRĂ autoplay --}}
+                <div class="text-center">
+                    {{-- Pentru YouTube videos --}}
                     <template x-if="items[currentVideo].url && (items[currentVideo].url.includes('youtube.com') || items[currentVideo].url.includes('youtu.be'))">
                         <iframe 
-                            :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=0&rel=0&modestbranding=1'"
-                            class="w-full h-[70%] mx-auto" 
+                            :src="'https://www.youtube.com/embed/' + (items[currentVideo].url.includes('youtube.com') ? items[currentVideo].url.split('v=')[1].split('&')[0] : items[currentVideo].url.split('youtu.be/')[1].split('?')[0]) + '?autoplay=1&rel=0&modestbranding=1'"
+                            class="max-w-full max-h-[80vh] mx-auto w-full aspect-video" 
                             frameborder="0" 
                             allowfullscreen
-                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         </iframe>
                     </template>
                     
-                    {{-- Pentru videoclipuri locale --}}
+                    {{-- Pentru videoclipuri locale - EXACT ca în galerie-video --}}
                     <template x-if="!items[currentVideo].url || (!items[currentVideo].url.includes('youtube.com') && !items[currentVideo].url.includes('youtu.be'))">
                         <video 
                             x-ref="modalVideo"
                             :src="items[currentVideo].url" 
-                            class="w-full h-[70%] mx-auto object-contain"
+                            class="max-w-full max-h-[80vh] mx-auto"
                             controls
                             @play="isPlaying = true"
                             @pause="isPlaying = false"
@@ -348,7 +340,7 @@
                         ></video>
                     </template>
                     
-                    {{-- Video Info --}}
+                    {{-- Video Info - EXACT ca în galerie-video --}}
                     <div class="mt-4 text-white text-center">
                         <h3 x-text="items[currentVideo].title || 'Video'" class="text-xl font-semibold mb-2"></h3>
                         <p x-text="items[currentVideo].description || 'Video din galeria multimedia'" class="text-gray-300"></p>
