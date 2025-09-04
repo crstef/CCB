@@ -113,16 +113,26 @@
             document.body.style.overflow = 'hidden';
         },
         
-        // EXACT ca în galerie-video
+        // Oprește video la close
         closeModal() {
             this.showModal = false;
             this.isPlaying = false;
             document.body.style.overflow = 'auto';
             
-            // Pause video when closing modal
+            // Oprește video local
             const video = this.$refs.modalVideo;
             if (video) {
                 video.pause();
+            }
+            
+            // Oprește YouTube prin resetarea iframe-ului
+            const iframe = this.$el.querySelector('.fixed iframe');
+            if (iframe) {
+                const currentSrc = iframe.src;
+                iframe.src = '';
+                setTimeout(() => {
+                    iframe.src = currentSrc.replace('autoplay=1', 'autoplay=0');
+                }, 100);
             }
         },
         
@@ -301,8 +311,8 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95"
         @click.self="closeModal()"
     >
-        {{-- Modal Content - EXACT ca în galerie-video --}}
-        <div class="relative max-w-6xl max-h-full mx-4 w-full">
+        {{-- Modal Content - 85% din display --}}
+        <div class="relative max-w-6xl mx-4 w-[85%] h-[85vh]">
             {{-- Close Button --}}
             <button 
                 @click="closeModal()"
