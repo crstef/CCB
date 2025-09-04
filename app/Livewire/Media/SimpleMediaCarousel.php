@@ -250,6 +250,7 @@ class SimpleMediaCarousel extends Component
             ]
         ];
     }
+    }
 
     /**
      * Get item counts by type

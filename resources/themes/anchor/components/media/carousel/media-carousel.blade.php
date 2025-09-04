@@ -107,18 +107,59 @@
         playCurrentVideo() {
             const currentItem = this.items[this.currentSlide];
             if (this.isVideo(currentItem)) {
-                // Pentru YouTube videos, deschide într-o fereastră nouă
-                if (currentItem.url && (currentItem.url.includes('youtube.com') || currentItem.url.includes('youtu.be'))) {
-                    window.open(currentItem.url, '_blank');
-                } else {
-                    // Pentru videoclipuri locale, reda în carousel
-                    const video = this.$el.querySelector(`video[data-slide='${this.currentSlide}']`);
-                    if (video) {
-                        video.currentTime = 0;
-                        video.play().catch(() => {});
-                    }
-                }
+                // Pentru videoclipuri (incluzând YouTube), deschide modal
+                this.openVideoModal(currentItem);
             }
+        },
+        
+        openVideoModal(videoItem) {
+            // Creează modal-ul pentru video
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95';
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                    document.body.style.overflow = 'auto';
+                }
+            };
+            
+            // Conținutul modal-ului
+            modal.innerHTML = `
+                <div class="relative max-w-6xl max-h-full mx-4 w-full">
+                    <button onclick="document.body.removeChild(this.closest('.fixed')); document.body.style.overflow = 'auto';" 
+                            class="absolute top-4 right-4 z-10 bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="text-center">
+                        ${videoItem.url && (videoItem.url.includes('youtube.com') || videoItem.url.includes('youtu.be')) 
+                            ? `<iframe 
+                                 src="https://www.youtube.com/embed/${videoItem.url.includes('youtube.com') ? videoItem.url.split('v=')[1].split('&')[0] : videoItem.url.split('youtu.be/')[1].split('?')[0]}?autoplay=1" 
+                                 class="max-w-full max-h-[80vh] mx-auto w-full h-96 md:h-[500px] lg:h-[600px]" 
+                                 frameborder="0" 
+                                 allowfullscreen
+                                 allow="autoplay; encrypted-media">
+                               </iframe>` 
+                            : `<video 
+                                 src="${videoItem.url}" 
+                                 class="max-w-full max-h-[80vh] mx-auto" 
+                                 controls 
+                                 autoplay>
+                               </video>`
+                        }
+                        
+                        <div class="mt-4 text-white text-center">
+                            <h3 class="text-xl font-semibold mb-2">${videoItem.title || 'Video'}</h3>
+                            <p class="text-gray-300">${videoItem.description || 'Video din galeria multimedia'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
         },
         
         pauseCurrentVideo() {

@@ -150,8 +150,14 @@ class MediaCarousel extends Component
         $items = [];
         
         foreach ($mediaItems as $media) {
+            // Pentru videoclipuri YouTube, folosește youtube_url în loc de url
+            $mediaUrl = $media->url;
+            if ($media->media_type === 'video' && $media->video_source === 'youtube' && $media->youtube_url) {
+                $mediaUrl = $media->youtube_url;
+            }
+            
             $items[] = [
-                'url' => $media->url,
+                'url' => $mediaUrl,
                 'name' => $media->file_name,
                 'title' => $media->title,
                 'description' => $media->description ?: $this->generateDescription($media->media_type),
