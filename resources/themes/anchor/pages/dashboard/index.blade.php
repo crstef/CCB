@@ -44,7 +44,7 @@
                     <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <path d="M0,0 L100,0 L0,100 L0,0 Z" style="fill: #0066cc;"/>
                         <path d="M25,0 L100,0 L0,100 L0,25 Z" style="fill: #ffcc00;"/>
-                        <path d="M50,0 L100,0 L0,100 L0,50" style="fill: #cc0000;"/>
+                        <path d="M50,0 L75,0 L0,75 L0,50" style="fill: #cc0000;"/>
                     </svg>
                 </div>
 
