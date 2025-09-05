@@ -42,9 +42,9 @@
                 {{-- Banda tricoloră diagonală (varianta corectată) --}}
                 <div class="absolute top-0 left-0" style="width: 150px; height: 150px; z-index: 0;">
                     <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M0,0 L100,0 L0,100 Z" style="fill: #0066cc;"/>
+                        <path d="M0,0 L100,0 L0,75 Z" style="fill: #0066cc;"/>
                         <path d="M25,0 L100,0 L0,100 L0,75 Z" style="fill: #ffcc00;"/>
-                        <path d="M50,0 L100,0 L0,100 L0,50 Z" style="fill: #cc0000;"/>
+                        <path d="M50,0 L100,0 L0,100 L0,75 Z" style="fill: #cc0000;"/>
                     </svg>
                 </div>
 
@@ -56,7 +56,7 @@
                         
                         {{-- Text Centrat --}}
                         <div class="text-center">
-                            <h1 class="text-xl font-bold">ROMÂNIA</h1>
+                            <h1 class="text-xs font-bold">ROMÂNIA</h1>
                             <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
                             <p class="text-xs">DIN ROMÂNIA</p>
                         </div>
@@ -69,7 +69,7 @@
 
                     {{-- Titlu --}}
                     <div class="text-center mt-1 mb-1">
-                        <h2 class="text-xl font-bold tracking-wider">LEGITIMAȚIE</h2>
+                        <h2 class="text-xs font-bold tracking-wider">LEGITIMAȚIE</h2>
                     </div>
 
                     {{-- Conținut principal (Poză + Detalii) --}}
@@ -90,7 +90,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <p class="text-xs mt-2">Emisă la: {{ date('d.m.Y') }}</p>
+                            <p class="text-xs mt-2">Emisă la: {{ date('Y') }}</p>
                         </div>
 
                         {{-- Detalii și Semnătură --}}
@@ -101,11 +101,11 @@
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
                                 </div>
                                 <div class="flex items-baseline">
-                                    <span class="font-semibold" style="width: 70px;">NUMELE</span>
+                                    <span class="font-semibold" style="width: 70px;">Numele</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
                                 </div>
                                 <div class="flex items-baseline">
-                                    <span class="font-semibold" style="width: 70px;">Funcția</span>
+                                    <span class="font-semibold" style="width: 70px;">Calitatea de</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
                                 </div>
                                 <div class="pt-1">
@@ -160,7 +160,7 @@
 				image="/wave/img/globe.png"
 			/>
 		</div>
- -->
+
 		<div class="mt-5 space-y-5">
 			@subscriber
 				<p>Esti un utilizator abonat cu rolul <strong>{{ auth()->user()->roles()->first()->name }}</strong>. Află <a href="https://devdojo.com/wave/docs/features/roles-permissions" target="_blank" class="underline">mai multe despre roluri</a> aici.</p>
@@ -172,7 +172,7 @@
 			@admin
 				<x-app.message-for-admin />
 			@endadmin
-		</div>
+		</div>   -->
     </x-app.container>
 
     {{-- Scripts pentru legitimația de membru --}}
