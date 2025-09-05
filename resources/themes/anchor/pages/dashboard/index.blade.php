@@ -63,7 +63,7 @@
                         
                         {{-- Logo CCB --}}
                         <div class="w-16 h-16">
-                            <img id="card-logo" src="{{ asset('storage/wave-logo.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
+                            <img id="card-logo" src="{{ setting('site.favicon', '/wave/favicon.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
                         </div>
                     </div>
 
