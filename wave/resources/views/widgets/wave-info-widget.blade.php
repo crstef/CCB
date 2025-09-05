@@ -15,8 +15,8 @@
                 </p>
             </div>
 
-            <!-- <div class="flex flex-col gap-y-1 items-end">
-                 <x-filament::link
+            <div class="flex flex-col gap-y-1 items-end">
+                <x-filament::link
                     color="gray"
                     href="https://wave.devdojo.com/docs"
                     icon="heroicon-m-book-open"
@@ -25,9 +25,9 @@
                     target="_blank"
                 >
                     {{ __('filament-panels::widgets/filament-info-widget.actions.open_documentation.label') }}
-                </x-filament::link> 
+                </x-filament::link>
 
-                <x-filament::link
+                <!-- <x-filament::link
                     color="gray"
                     href="https://github.com/thedevdojo/wave"
                     icon-alias="panels::widgets.filament-info.open-github-button"
@@ -49,8 +49,8 @@
                     </x-slot>
 
                     {{ __('filament-panels::widgets/filament-info-widget.actions.open_github.label') }}
-                </x-filament::link>
-            </div> -->
+                </x-filament::link> -->
+            </div>
         </div>
     </x-filament::section>
 </x-filament-widgets::widget>
