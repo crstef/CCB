@@ -42,7 +42,7 @@
                 {{-- Banda tricoloră diagonală (varianta corectată) --}}
                 <div class="absolute top-0 left-0" style="width: 150px; height: 150px; z-index: 0;">
                     <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M0,0 L100,0 L0,75 Z" style="fill: #0066cc;"/>
+                        <path d="M0,0 L100,0 L0,100 L0,75 Z" style="fill: #0066cc;"/>
                         <path d="M25,0 L100,0 L0,100 L0,75 Z" style="fill: #ffcc00;"/>
                         <path d="M50,0 L100,0 L0,100 L0,75 Z" style="fill: #cc0000;"/>
                     </svg>
