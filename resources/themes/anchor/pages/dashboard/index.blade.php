@@ -56,7 +56,6 @@
                         
                         {{-- Text Centrat --}}
                         <div class="text-center">
-                            <h1 class="text-xs font-bold">ROMÂNIA</h1>
                             <p class="text-xs mt-1">CLUBUL DE CIOBĂNEȘTI BELGIENI</p>
                             <p class="text-xs">DIN ROMÂNIA</p>
                         </div>
@@ -105,7 +104,7 @@
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
                                 </div>
                                 <div class="flex items-baseline">
-                                    <span class="font-semibold" style="width: 70px;">Calitatea de</span>
+                                    <span class="font-semibold" style="width: 70px;">Calitatea</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
                                 </div>
                                 <div class="pt-1">

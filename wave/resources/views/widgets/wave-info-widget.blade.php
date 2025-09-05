@@ -16,7 +16,7 @@
             </div>
 
             <div class="flex flex-col gap-y-1 items-end">
-                <x-filament::link
+                <!-- <x-filament::link
                     color="gray"
                     href="https://wave.devdojo.com/docs"
                     icon="heroicon-m-book-open"
@@ -25,7 +25,7 @@
                     target="_blank"
                 >
                     {{ __('filament-panels::widgets/filament-info-widget.actions.open_documentation.label') }}
-                </x-filament::link>
+                </x-filament::link> -->
 
                 <x-filament::link
                     color="gray"
