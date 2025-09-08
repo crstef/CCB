@@ -15,6 +15,7 @@ use Wave\Facades\Wave;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactController;
+use Laravel\Folio\Folio;
 
 // Gallery routes
 Route::get('/galerie-foto', [GalleryController::class, 'photoGallery'])->name('galerie-foto');
@@ -32,3 +33,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 
 // Wave routes
 Wave::routes();
+
+// Folio routes
+Folio::route('resources/themes/anchor/pages/evenimente/[event:slug].blade.php')->name('evenimente.show');
