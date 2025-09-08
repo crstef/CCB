@@ -1,5 +1,4 @@
 <?php
-@php
     use Wave\Event;
     use Illuminate\Support\Str;
     use Carbon\Carbon;
@@ -31,7 +30,6 @@
         $status = 'Finished';
         $statusColor = 'bg-red-600';
     }
-@endphp
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
