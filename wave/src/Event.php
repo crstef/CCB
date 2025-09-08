@@ -5,19 +5,22 @@ namespace Wave;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use TCG\Voyager\Facades\Voyager;
-
-// Am eliminat use-urile pentru Resizable si Translatable
+use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
-    use HasFactory; // Am eliminat trait-urile de aici
-
-    // Am eliminat array-ul $translatable
-    // protected $translatable = ['title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
+    use HasFactory;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'disciplines' => 'array',
+        'judges' => 'array',
+        'event_start_date' => 'datetime',
+        'event_end_date' => 'datetime',
+        'booking_start_date' => 'datetime',
+        'booking_end_date' => 'datetime',
+    ];
 
     public function save(array $options = [])
     {
@@ -49,20 +52,8 @@ class Event extends Model
         return url('evenimente/' . $this->slug);
     }
 
-    public function image($storage_path = null)
+    public function image()
     {
-        if (is_null($storage_path)) {
-            $storage_path = $this->image;
-        }
-        return Voyager::image($storage_path);
+        return Storage::url($this->image);
     }
-
-    protected $casts = [
-        'disciplines' => 'array',
-        'judges' => 'array',
-        'event_start_date' => 'datetime',
-        'event_end_date' => 'datetime',
-        'booking_start_date' => 'datetime',
-        'booking_end_date' => 'datetime',
-    ];
 }
