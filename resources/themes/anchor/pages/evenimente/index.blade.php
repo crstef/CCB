@@ -1,7 +1,7 @@
 <?php
     use Wave\Event;
     use Carbon\Carbon;
-    $events = Event::where('status', 'published')->orderBy('created_at', 'desc')->paginate(10);
+    $events = Event::where('status', 'published')->orderBy('created_at', 'desc')->paginate(6);
 ?>
 
 <x-layouts.marketing>
@@ -9,65 +9,71 @@
     <div class="bg-white">
         <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Evenimente</h2>
-                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Ultimele Noutăți</p>
-                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Fii la curent cu cele mai recente evenimente și activități.</p>
+                <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Clubul de Ciobanesti Belgieni si Olandezi Romania</h2>
+                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Evenimentele Noastre</p>
+                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Fii la curent cu cele mai recente competiții, examene și activități.</p>
             </div>
         </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Grid de carduri -->
-        <div class="mt-12 max-w-lg mx-auto grid gap-8 lg:grid-cols-3 lg:max-w-none">
+        <!-- Grid de carduri modern -->
+        <div class="mt-12 max-w-lg mx-auto grid gap-8 lg:grid-cols-2 lg:max-w-none">
 
             @foreach($events as $event)
                 @php
-                    $status = '';
-                    $statusColor = '';
-                    if ($event->booking_end_date && Carbon::parse($event->booking_end_date)->isPast()) {
-                        $status = 'Înscrieri încheiate';
-                        $statusColor = 'bg-red-100 text-red-800';
-                    } elseif ($event->booking_start_date && Carbon::parse($event->booking_start_date)->isFuture()) {
-                        $status = 'Înscrieri în curând';
-                        $statusColor = 'bg-yellow-100 text-yellow-800';
-                    } elseif ($event->booking_start_date && $event->booking_end_date && now()->between($event->booking_start_date, $event->booking_end_date)) {
-                        $status = 'Înscrieri deschise';
-                        $statusColor = 'bg-green-100 text-green-800';
-                    }
+                    $isFinished = $event->event_start_date && Carbon::parse($event->event_start_date)->isPast();
                 @endphp
-
                 <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
-                    <div class="flex-shrink-0 relative">
-                        <a href="{{ url('/evenimente/' . $event->slug) }}">
-                            <img class="h-48 w-full object-cover" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
-                        </a>
-                        @if($status)
-                            <span class="absolute top-2 left-2 px-2 py-1 text-xs font-bold uppercase rounded-full {{ $statusColor }}">
-                                {{ $status }}
-                            </span>
-                        @endif
-                    </div>
-                    <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-                        <div class="flex-1">
-                            <div class="mb-2">
-                                @if($event->event_start_date)
-                                <p class="text-sm font-semibold text-indigo-600">
-                                    <time datetime="{{ Carbon::parse($event->event_start_date)->toDateString() }}">{{ Carbon::parse($event->event_start_date)->format('d F Y') }}</time>
-                                </p>
-                                @endif
-                                @if($event->location)
-                                <p class="text-sm text-gray-500 mt-1 flex items-center">
-                                    <svg class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                    {{ $event->location }}
-                                </p>
-                                @endif
-                            </div>
-                            <a href="{{ url('/evenimente/' . $event->slug) }}" class="block mt-2">
-                                <p class="text-xl font-semibold text-gray-900">{{ $event->title }}</p>
-                                <p class="mt-3 text-base text-gray-500">{{ $event->excerpt }}</p>
-                            </a>
+                    <a href="{{ url('/evenimente/' . $event->slug) }}">
+                        <div class="flex-shrink-0 relative">
+                            <img class="h-64 w-full object-cover" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
+                            @if($isFinished)
+                                <div class="absolute top-4 right-4 bg-red-600 text-white text-sm font-bold uppercase px-3 py-1 rounded-md">Finished</div>
+                            @endif
                         </div>
-                        <!-- SECTIUNEA AUTOR A FOST STEARSA DE AICI -->
+                    </a>
+                    <div class="flex-1 bg-white flex">
+                        <!-- Coloana Stanga (Galbena) -->
+                        @if($event->disciplines && count($event->disciplines) > 0)
+                        <div class="bg-yellow-400 p-4 flex flex-col justify-center items-center w-1/3">
+                            <ul class="text-center text-gray-800 font-bold">
+                                @foreach($event->disciplines as $discipline)
+                                    <li class="py-1">{{ strtoupper($discipline) }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        <!-- Coloana Dreapta -->
+                        <div class="p-6 flex flex-col justify-between flex-1">
+                            <div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    @if($event->event_start_date)
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-gray-500">
+                                            Data: {{ Carbon::parse($event->event_start_date)->format('d-m-Y') }}
+                                        </span>
+                                    @endif
+                                     @if($event->booking_start_date)
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-orange-500">
+                                            Start Book: {{ Carbon::parse($event->booking_start_date)->format('d-m-Y') }}
+                                        </span>
+                                    @endif
+                                    @if($event->booking_end_date)
+                                        <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-orange-500">
+                                            Stop Book: {{ Carbon::parse($event->booking_end_date)->format('d-m-Y') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <a href="{{ url('/evenimente/' . $event->slug) }}" class="block">
+                                    <h3 class="text-2xl font-bold text-gray-900">{{ $event->title }}</h3>
+                                    @if($event->location)
+                                        <p class="text-md font-semibold text-gray-600 mt-1">{{ $event->location }}</p>
+                                    @endif
+                                    <p class="mt-3 text-base text-gray-500 line-clamp-3">{{ $event->excerpt }}</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
