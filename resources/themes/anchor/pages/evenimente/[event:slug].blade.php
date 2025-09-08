@@ -128,6 +128,15 @@ if ($now->lt($startDate)) {
                                     <span class="text-gray-600">{{ Carbon::parse($event->booking_end_date)->format('d.m.Y') }}</span>
                                 </div>
                             @endif
+
+                            @if($event->link && $event->link != '#')
+                                <div class="flex items-center text-sm">
+                                    <span class="font-medium text-gray-900 w-20">🔗 Link:</span>
+                                    <a href="{{ $event->link }}" target="_blank" class="text-indigo-600 hover:text-indigo-500 underline">
+                                        Accesează evenimentul
+                                    </a>
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Coloana dreapta -->
