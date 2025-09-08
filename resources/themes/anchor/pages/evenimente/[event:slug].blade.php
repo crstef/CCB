@@ -1,4 +1,5 @@
 <?php
+
     use Wave\Event;
     use Illuminate\Support\Str;
     use Carbon\Carbon;
@@ -6,7 +7,7 @@
     if (!Str::startsWith(request()->path(), 'evenimente/')) {
         return;
     }
-
+@php
     $slug = request()->segment(2);
     $event = Event::where('slug', $slug)->firstOrFail();
     
@@ -27,7 +28,7 @@
         $status = 'Finished';
         $statusColor = 'bg-red-600';
     }
-
+@endphp  {{-- <-- ACEASTA ESTE LINIA CRUCIALĂ CARE LIPSEA --}}
 
 <x-layouts.marketing
     :seo="[
