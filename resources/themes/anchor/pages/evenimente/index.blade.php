@@ -21,8 +21,6 @@
                 align="left"
             />
             
-            @include('theme::partials.events.categories')
-
             <div class="space-y-12 mx-auto mt-5 md:mt-10">
                 @include('theme::partials.events.events-loop', ['events' => $events])
             </div>
