@@ -2,14 +2,16 @@
     use Wave\Event;
     use Illuminate\Support\Str;
 
-    // Folio should handle this automatically, but as a robust fallback:
-    // We ensure this logic only runs on event pages.
+    // ACEASTĂ VERIFICARE ESTE CRUCIALĂ
+    // Asigură că logica de mai jos rulează DOAR pe paginile de evenimente
     if (Str::startsWith(request()->path(), 'evenimente/')) {
-        $slug = request()->segment(2); // Get the slug from 'evenimente/{slug}'
+        $slug = request()->segment(2); // Ia slug-ul din URL, ex: 'eveniment-test'
         $event = Event::where('slug', $slug)->firstOrFail();
     } else {
-        // If we somehow land here from another page, prevent errors.
-        abort(404);
+        // Dacă, din orice motiv, acest fișier este accesat de pe altă pagină,
+        // se oprește execuția pentru a nu strica pagina respectivă.
+        // Aceasta este o măsură de siguranță.
+        return;
     }
 ?>
 <x-layouts.marketing
