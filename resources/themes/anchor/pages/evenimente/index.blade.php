@@ -52,7 +52,7 @@
                         <div class="flex-shrink-0">
                             <a href="{{ $event->link() }}">
                                 <div class="relative">
-                                    <img class="h-32 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
+                                    <img class="h-48 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
                                     
                                     <!-- Badge orizontal în stânga sus cu 15px de sus -->
                                     @if($status)
