@@ -3,7 +3,7 @@
     use Illuminate\Support\Str;
     use Carbon\Carbon;
 
-    // ACEASTA ESTE GARDA DE PROTECȚIE CRUCIALĂ
+    // ACEASTA ESTE GARDA DE PROTECȚIE CARE REZOLVĂ PROBLEMA
     // Oprește execuția dacă nu suntem pe o pagină de eveniment
     if (!Str::startsWith(request()->path(), 'evenimente/')) {
         return;
