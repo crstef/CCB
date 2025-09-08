@@ -1,12 +1,10 @@
 <?php
+@php
     use Wave\Event;
     use Illuminate\Support\Str;
     use Carbon\Carbon;
 
-    // This check is crucial. It ensures the logic below only runs on event pages.
     if (!Str::startsWith(request()->path(), 'evenimente/')) {
-        // If for some reason this file is accessed from another page,
-        // it stops execution to avoid breaking that page.
         return;
     }
 
@@ -30,6 +28,8 @@
         $status = 'Finished';
         $statusColor = 'bg-red-600';
     }
+@endphp
+
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
