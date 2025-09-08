@@ -67,19 +67,7 @@
                                 <p class="mt-3 text-base text-gray-500">{{ $event->excerpt }}</p>
                             </a>
                         </div>
-                        <div class="mt-6 flex items-center">
-                            <div class="flex-shrink-0">
-                                <a href="#">
-                                    <span class="sr-only">{{ $event->user->name }}</span>
-                                    <img class="h-10 w-10 rounded-full" src="{{ $event->user->avatar() }}" alt="">
-                                </a>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">
-                                    <a href="#" class="hover:underline">{{ $event->user->name }}</a>
-                                </p>
-                            </div>
-                        </div>
+                        <!-- SECTIUNEA AUTOR A FOST STEARSA DE AICI -->
                     </div>
                 </div>
             @endforeach
