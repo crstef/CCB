@@ -167,9 +167,9 @@ if ($now->lt($startDate)) {
 
             <!-- Conținutul evenimentului -->
             <div class="mt-8 prose prose-indigo prose-lg text-gray-500 mx-auto">
-                @if($event->excerpt)
+               <!--  @if($event->excerpt)
                     <p class="text-xl text-gray-500 leading-8 mb-6">{{ $event->excerpt }}</p>
-                @endif
+                @endif -->
                 
                 <div class="mt-6">
                     {!! $event->body !!}
