@@ -1,14 +1,4 @@
-<?php
- 
-use function Laravel\Folio\state;
-use Wave\Event;
- 
-state(function (Event $event) {
-    // Eager load relationships for better performance
-    return ['event' => $event->load(['user', 'categories'])];
-});
- 
-?><x-layouts.marketing
+<x-layouts.marketing
     :seo="[
         'title' => $event->title,
         'description' => $event->excerpt ?? Str::limit(strip_tags($event->body), 150),
