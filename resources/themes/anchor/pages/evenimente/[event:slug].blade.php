@@ -1,3 +1,8 @@
+<?php
+    use Wave\Event;
+    $slug = request()->segment(count(request()->segments()));
+    $event = Event::where('slug', $slug)->firstOrFail();
+?>
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
@@ -80,7 +85,7 @@
                         @if($event->event_start_date)
                         <div>
                             <dt class="text-sm font-medium text-gray-500">Data Evenimentului</dt>
-                            <dd class="mt-1 text-md text-gray-900 font-semibold">{{ $event->event_start_date->format('d F Y') }}</dd>
+                            <dd class="mt-1 text-md text-gray-900 font-semibold">{{ \Carbon\Carbon::parse($event->event_start_date)->format('d F Y') }}</dd>
                         </div>
                         @endif
 
@@ -88,7 +93,7 @@
                         <div>
                             <dt class="text-sm font-medium text-gray-500">Perioada de Înscrieri</dt>
                             <dd class="mt-1 text-md text-gray-900 font-semibold">
-                                {{ $event->booking_start_date ? $event->booking_start_date->format('d M') : '' }} - {{ $event->booking_end_date ? $event->booking_end_date->format('d M, Y') : '' }}
+                                {{ $event->booking_start_date ? \Carbon\Carbon::parse($event->booking_start_date)->format('d M') : '' }} - {{ $event->booking_end_date ? \Carbon\Carbon::parse($event->booking_end_date)->format('d M, Y') : '' }}
                             </dd>
                         </div>
                         @endif
