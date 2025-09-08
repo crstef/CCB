@@ -163,8 +163,8 @@
             </div>
         </li>
         <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">
-            <a href="#_" class="flex items-center h-full text-base font-medium text-zinc-500 transition duration-300 hover:text-zinc-800">
-                Competitii
+            <a href="/evenimente" class="flex items-center h-full text-base font-medium text-zinc-500 transition duration-300 hover:text-zinc-800">
+                Evenimente
             </a>
         </li>
         <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">

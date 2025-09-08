@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\PostResource\Pages;
+namespace App\Filament\Resources\EventResource\Pages;
 
-use App\Filament\Resources\PostResource;
+use App\Filament\Resources\EventResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListPosts extends ListRecords
+class ListEvents extends ListRecords
 {
-    protected static string $resource = PostResource::class;
+    protected static string $resource = EventResource::class;
 
     protected function getHeaderActions(): array
     {

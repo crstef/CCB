@@ -1,8 +1,9 @@
 <?php
     use function Laravel\Folio\{name};
-    name('blog');
+    use Wave\Event;
+    name('evenimente');
 
-    $posts = \Wave\Post::orderBy('created_at', 'DESC')->paginate(6);
+    $events = Event::where('status', 'PUBLISHED')->orderBy('event_start_date', 'DESC')->paginate(6);
     $categories = \Wave\Category::all();
 ?>
 
@@ -20,15 +21,15 @@
                 align="left"
             />
             
-            @include('theme::partials.blog.categories')
+            @include('theme::partials.events.categories')
 
-            <div class="grid gap-5 mx-auto mt-5 md:mt-10 sm:grid-cols-2 lg:grid-cols-3">
-                @include('theme::partials.blog.posts-loop', ['posts' => $posts])
+            <div class="space-y-12 mx-auto mt-5 md:mt-10">
+                @include('theme::partials.events.events-loop', ['events' => $events])
             </div>
         </div>
 
         <div class="flex justify-center my-10">
-            {{ $posts->links('theme::partials.pagination') }}
+            {{ $events->links('theme::partials.pagination') }}
         </div>
 
     </x-container>

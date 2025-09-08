@@ -3,6 +3,7 @@
 namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 
@@ -10,9 +11,9 @@ class Category extends Model
 {
     protected $guarded = [];
 
-    public function posts(): HasMany
+    public function events(): BelongsToMany
     {
-        return $this->hasMany('Wave\Post');
+        return $this->belongsToMany(Event::class, 'category_event');
     }
 
     /**
