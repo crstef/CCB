@@ -40,7 +40,7 @@ return new class extends Migration
 
         Schema::create('category_event', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedInteger('category_id');
             $table->unsignedBigInteger('event_id');
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
