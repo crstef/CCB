@@ -18,7 +18,7 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Grid de carduri modern -->
-        <div class="mt-12 max-w-lg mx-auto grid gap-8 lg:grid-cols-2 lg:max-w-none">
+        <div class="mt-12 max-w-5xl mx-auto grid gap-8 lg:grid-cols-2">
 
             @foreach($events as $event)
                 @php
@@ -50,8 +50,8 @@
                         </div>
                     </a>
                     <div class="flex-1 bg-white flex">
-                        <!-- Coloana Stanga (Galbena) -->
-                        <div class="bg-yellow-400 p-4 flex flex-col justify-start items-center w-1/3">
+                        <!-- Coloana Stanga -->
+                        <div class="p-4 flex flex-col justify-start items-center w-1/3 border-r border-gray-200">
                             @if($event->disciplines && count($event->disciplines) > 0)
                                 <div class="text-center w-full mb-4">
                                     <h4 class="font-bold text-gray-800 uppercase border-b border-gray-600 pb-1 mb-2">Discipline</h4>
