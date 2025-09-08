@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Traits\Resizable;
+// Am șters "use TCG\Voyager\Traits\Resizable;" de aici
 use TCG\Voyager\Traits\Translatable;
 
 class Event extends Model
 {
     use HasFactory,
-        Resizable,
+        // Am șters "Resizable," de aici
         Translatable;
 
     protected $translatable = ['title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
