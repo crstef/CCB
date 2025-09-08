@@ -73,9 +73,9 @@
                                 <div class="flex flex-wrap items-center gap-2 mb-1 text-xs">
                                     @if($event->event_start_date)
                                         <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded">
-                                            📅 {{ Carbon::parse($event->event_start_date)->format('d.m') }}
+                                            📅 {{ Carbon::parse($event->event_start_date)->format('d.m.y') }}
                                             @if($event->event_end_date && $event->event_start_date != $event->event_end_date)
-                                                - {{ Carbon::parse($event->event_end_date)->format('d.m') }}
+                                                - {{ Carbon::parse($event->event_end_date)->format('d.m.y') }}
                                             @endif
                                         </span>
                                     @endif
