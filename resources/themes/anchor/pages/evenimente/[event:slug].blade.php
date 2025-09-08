@@ -1,7 +1,16 @@
 <?php
     use Wave\Event;
-    $slug = request()->segment(count(request()->segments()));
-    $event = Event::where('slug', $slug)->firstOrFail();
+    use Illuminate\Support\Str;
+
+    // Folio should handle this automatically, but as a robust fallback:
+    // We ensure this logic only runs on event pages.
+    if (Str::startsWith(request()->path(), 'evenimente/')) {
+        $slug = request()->segment(2); // Get the slug from 'evenimente/{slug}'
+        $event = Event::where('slug', $slug)->firstOrFail();
+    } else {
+        // If we somehow land here from another page, prevent errors.
+        abort(404);
+    }
 ?>
 <x-layouts.marketing
     :seo="[
