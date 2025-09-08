@@ -2,8 +2,22 @@
 use Wave\Event;
 use Carbon\Carbon;
 
-// Găsim evenimentul după slug
-$event = Event::where('slug', $slug)->where('status', 'published')->firstOrFail();
+// În Folio, parametrii din URL sunt accesibili direct ca variabile
+// Verificăm dacă suntem într-o rută de eveniment
+if (!isset($event) || !$event) {
+    $currentPath = request()->path();
+    if (str_starts_with($currentPath, 'evenimente/')) {
+        $slug = basename($currentPath);
+        $event = Event::where('slug', $slug)->where('status', 'published')->first();
+        
+        if (!$event) {
+            abort(404, 'Evenimentul nu a fost găsit.');
+        }
+    } else {
+        // Nu suntem pe o pagină de eveniment, nu executăm restul codului
+        return;
+    }
+}
 
 // Calculăm statusul evenimentului
 $status = '';
