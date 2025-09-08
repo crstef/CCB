@@ -11,28 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('posts', 'events');
+        // Since the original 'posts' table might be gone, we create 'events' from scratch.
+        // This combines the original structure of 'posts' with the new event-specific fields.
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('author_id');
+            $table->string('title');
+            $table->string('seo_title')->nullable();
+            $table->text('excerpt')->nullable();
+            $table->text('body');
+            $table->string('image')->nullable();
+            $table->string('slug')->unique();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');
+            $table->boolean('featured')->default(0);
+            $table->timestamps();
 
-        Schema::table('events', function (Blueprint $table) {
-            if (Schema::hasColumn('events', 'category_id')) {
-                // Drop foreign key if it exists, checking for its existence first
-                $foreignKeys = Schema::getConnection()->getDoctrineSchemaManager()->listTableForeignKeys('events');
-                foreach ($foreignKeys as $foreignKey) {
-                    if (in_array('category_id', $foreignKey->getLocalColumns())) {
-                        $table->dropForeign(['category_id']);
-                        break;
-                    }
-                }
-                $table->dropColumn('category_id');
-            }
-
-            $table->string('location')->nullable()->after('body');
-            $table->text('disciplines')->nullable()->after('location');
-            $table->text('judges')->nullable()->after('disciplines');
-            $table->date('event_start_date')->nullable()->after('judges');
-            $table->date('booking_start_date')->nullable()->after('event_start_date');
-            $table->date('booking_end_date')->nullable()->after('booking_start_date');
-            $table->string('caniva_link')->nullable()->after('booking_end_date');
+            // New event fields
+            $table->string('location')->nullable();
+            $table->text('disciplines')->nullable();
+            $table->text('judges')->nullable();
+            $table->date('event_start_date')->nullable();
+            $table->date('booking_start_date')->nullable();
+            $table->date('booking_end_date')->nullable();
+            $table->string('caniva_link')->nullable();
         });
 
         Schema::create('category_event', function (Blueprint $table) {
@@ -49,20 +52,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('category_event');
-
-        Schema::table('events', function (Blueprint $table) {
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->dropColumn([
-                'location',
-                'disciplines',
-                'judges',
-                'event_start_date',
-                'booking_start_date',
-                'booking_end_date',
-                'caniva_link',
-            ]);
-        });
-
-        Schema::rename('events', 'posts');
+        Schema::dropIfExists('events');
     }
 };
