@@ -2,65 +2,107 @@
 
 namespace Wave;
 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Traits\Resizable;
+use TCG\Voyager\Traits\Translatable;
 
 class Event extends Model
 {
-    protected $table = 'events';
-    public $guarded = [];
+    use HasFactory,
+        Resizable,
+        Translatable;
 
-    protected $casts = [
-        'event_start_date' => 'date',
-        'booking_start_date' => 'date',
-        'booking_end_date' => 'date',
-        'disciplines' => 'array',
-        'judges' => 'array',
-    ];
+    protected $translatable = ['title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
 
-    public function link()
+    protected $guarded = [];
+
+    public function save(array $options = [])
     {
-        // Since an event can have multiple categories, we'll link to the event page directly.
-        // The page itself can then display all its categories.
-        return url('/evenimente/' . $this->slug);
+        // If no author has been assigned, assign the current user's id as the author of the post
+        if (!$this->author_id && Auth::user()) {
+            $this->author_id = Auth::user()->getKey();
+        }
+
+        parent::save();
     }
 
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function image()
+    public function authorId()
     {
-        return Storage::url($this->image);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function categories(): BelongsToMany
+    public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_event');
     }
 
-    public function getStatusAttribute()
+    public function link()
     {
+        return url('evenimente/' . $this->slug);
+    }
+
+    public function image($storage_path = null)
+    {
+        if (is_null($storage_path)) {
+            $storage_path = $this->image;
+        }
+        return Voyager::image($storage_path);
+    }
+
+    protected $casts = [
+        'disciplines' => 'array',
+        'judges' => 'array',
+        'event_start_date' => 'datetime',
+        'event_end_date' => 'datetime',
+        'booking_start_date' => 'datetime',
+        'booking_end_date' => 'datetime',
+    ];
+
+    /**
+     * Get the status details for the event (text and color).
+     *
+     * @return array
+     */
+    public function getStatusDetails(): array
+    {
+        $status = '';
+        $statusColor = '';
+        $now = now();
+
         if (!$this->event_start_date) {
-            return ['text' => '', 'class' => ''];
+            return ['text' => '', 'color' => ''];
         }
 
-        $now = Carbon::now()->startOfDay();
-        $eventDate = Carbon::parse($this->event_start_date)->startOfDay();
+        $startDate = \Carbon\Carbon::parse($this->event_start_date);
+        $endDate = $this->event_end_date ? \Carbon\Carbon::parse($this->event_end_date) : $startDate;
 
-        if ($now->isAfter($eventDate)) {
-            return ['text' => 'Terminat', 'class' => 'bg-red-600'];
-        } else {
-            $daysRemaining = $now->diffInDays($eventDate);
-            if ($daysRemaining == 0) {
-                return ['text' => 'Astăzi', 'class' => 'bg-green-500 bg-opacity-90'];
+        if ($now->lt($startDate)) {
+            $days_left = $now->diffInDays($startDate);
+            if ($days_left === 0) {
+                $status = 'Azi';
+            } elseif ($days_left === 1) {
+                $status = 'Maine';
+            } else {
+                $status = "Mai sunt {$days_left} zile";
             }
-            $days_text = ($daysRemaining == 1) ? 'zi' : 'zile';
-            return ['text' => 'Mai sunt ' . $daysRemaining . ' ' . $days_text, 'class' => 'bg-green-500 bg-opacity-90'];
+            $statusColor = 'bg-blue-600';
+        } elseif ($now->between($startDate, $endDate->endOfDay())) {
+            $status = 'Live';
+            $statusColor = 'bg-green-600';
+        } elseif ($now->gt($endDate)) {
+            $status = 'Finished';
+            $statusColor = 'bg-red-600';
         }
+
+        return ['text' => $status, 'color' => $statusColor];
     }
 }
