@@ -1,39 +1,12 @@
 <?php
-@php
-    use Wave\Event;
-    use Illuminate\Support\Str;
-    use Carbon\Carbon;
-
-    if (!Str::startsWith(request()->path(), 'evenimente/')) {
-        return;
-    }
-
-    $slug = request()->segment(2);
-    $event = Event::where('slug', $slug)->firstOrFail();
-    
-    $status = '';
-    $statusColor = '';
-    $now = now();
-    $startDate = Carbon::parse($event->event_start_date);
-    $endDate = $event->event_end_date ? Carbon::parse($event->event_end_date) : $startDate;
-
-    if ($now->lt($startDate)) {
-        $days_left = $now->diffInDays($startDate);
-        $status = "Mai sunt {$days_left} zile";
-        $statusColor = 'bg-blue-600';
-    } elseif ($now->between($startDate, $endDate->endOfDay())) {
-        $status = 'Live';
-        $statusColor = 'bg-green-600';
-    } elseif ($now->gt($endDate)) {
-        $status = 'Finished';
-        $statusColor = 'bg-red-600';
-    }
-@endphp  {{-- <-- ACEASTA ESTE LINIA CRUCIALĂ CARE LIPSEA --}}
-
+    // This is the ONLY PHP block. It's simple and safe.
+    $event = \Wave\Event::where('slug', request()->segment(2))->firstOrFail();
+    $statusDetails = $event->getStatusDetails(); // Call the new method from the model
+?>
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
-        'description' => $event->excerpt ?? Str::limit(strip_tags($event->body), 150),
+        'description' => $event->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($event->body), 150),
         'image' => $event->image ? asset('storage/' . $event->image) : '',
     ]"
 >
@@ -44,8 +17,8 @@
                 <!-- Imaginea principala -->
                 <div class="relative">
                     <img class="h-96 w-full object-cover" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
-                    @if($status)
-                        <div class="absolute top-4 right-4 {{ $statusColor }} text-white text-sm font-bold uppercase px-3 py-1 rounded-md">{{ $status }}</div>
+                    @if($statusDetails['text'])
+                        <div class="absolute top-4 right-4 {{ $statusDetails['color'] }} text-white text-sm font-bold uppercase px-3 py-1 rounded-md">{{ $statusDetails['text'] }}</div>
                     @endif
                 </div>
 
@@ -89,17 +62,17 @@
                         <div class="flex flex-wrap gap-2 mb-4">
                             @if($event->event_start_date)
                                 <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-gray-500">
-                                    Data Evenimentului: {{ Carbon::parse($event->event_start_date)->format('d-m-Y') }}
+                                    Data Evenimentului: {{ \Carbon\Carbon::parse($event->event_start_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                              @if($event->booking_start_date)
                                 <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-orange-500">
-                                    Start Înscrieri: {{ Carbon::parse($event->booking_start_date)->format('d-m-Y') }}
+                                    Start Înscrieri: {{ \Carbon\Carbon::parse($event->booking_start_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                             @if($event->booking_end_date)
                                 <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-red-500">
-                                    Închidere Înscrieri: {{ Carbon::parse($event->booking_end_date)->format('d-m-Y') }}
+                                    Închidere Înscrieri: {{ \Carbon\Carbon::parse($event->booking_end_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                         </div>
