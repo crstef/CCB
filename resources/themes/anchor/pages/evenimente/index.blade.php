@@ -52,18 +52,23 @@
                         <div class="flex-shrink-0">
                             <a href="{{ $event->link() }}">
                                 <div class="relative">
-                                    <img class="h-48 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
+                                    <img class="h-40 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
                                     @if($status)
                                         <div class="absolute top-2 right-2 {{ $statusColor }} text-white text-xs font-bold uppercase px-2 py-1 rounded-md">{{ $status }}</div>
                                     @endif
                                 </div>
                             </a>
                         </div>
-                        <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+                        <div class="flex-1 bg-white p-4 flex flex-col justify-between">
                             <div class="flex-1">
-                                <div class="mb-3">
+                                <a href="{{ $event->link() }}" class="block">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $event->title }}</h3>
+                                </a>
+                                
+                                <!-- Date și Locație -->
+                                <div class="flex flex-wrap items-center gap-2 mb-2 text-xs">
                                     @if($event->event_start_date)
-                                        <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 mb-1 px-2.5 py-0.5 rounded">
+                                        <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded">
                                             📅 {{ Carbon::parse($event->event_start_date)->format('d.m.Y') }}
                                             @if($event->event_end_date && $event->event_start_date != $event->event_end_date)
                                                 - {{ Carbon::parse($event->event_end_date)->format('d.m.Y') }}
@@ -71,74 +76,57 @@
                                         </span>
                                     @endif
                                     @if($event->location)
-                                        <span class="inline-block bg-green-100 text-green-800 text-xs font-medium mr-2 mb-1 px-2.5 py-0.5 rounded">
-                                            📍 {{ $event->location }}
-                                        </span>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded">📍 {{ $event->location }}</span>
                                     @endif
                                 </div>
 
-                                <a href="{{ $event->link() }}" class="block mt-2">
-                                    <p class="text-xl font-semibold text-gray-900">{{ $event->title }}</p>
-                                    <p class="mt-2 text-base text-gray-500 line-clamp-2">{{ $event->excerpt }}</p>
-                                </a>
-
                                 <!-- Booking dates -->
                                 @if($event->booking_start_date || $event->booking_end_date)
-                                    <div class="mt-3">
+                                    <div class="flex flex-wrap gap-1 mb-2 text-xs">
                                         @if($event->booking_start_date)
-                                            <span class="inline-block bg-orange-100 text-orange-800 text-xs font-medium mr-2 mb-1 px-2.5 py-0.5 rounded">
-                                                🟢 Înscrieri: {{ Carbon::parse($event->booking_start_date)->format('d.m.Y') }}
-                                            </span>
+                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">🟢 {{ Carbon::parse($event->booking_start_date)->format('d.m') }}</span>
                                         @endif
                                         @if($event->booking_end_date)
-                                            <span class="inline-block bg-red-100 text-red-800 text-xs font-medium mr-2 mb-1 px-2.5 py-0.5 rounded">
-                                                🔴 Închidere: {{ Carbon::parse($event->booking_end_date)->format('d.m.Y') }}
-                                            </span>
+                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">🔴 {{ Carbon::parse($event->booking_end_date)->format('d.m') }}</span>
                                         @endif
                                     </div>
                                 @endif
 
-                                <!-- Disciplines -->
+                                <!-- Disciplines - compacte -->
                                 @if($event->disciplines && count($event->disciplines) > 0)
-                                    <div class="mt-3">
-                                        <p class="text-sm font-medium text-gray-700 mb-1">Discipline:</p>
+                                    <div class="mb-2">
                                         <div class="flex flex-wrap gap-1">
-                                            @foreach($event->disciplines as $discipline)
-                                                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">{{ $discipline }}</span>
+                                            @foreach(array_slice($event->disciplines, 0, 3) as $discipline)
+                                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">{{ $discipline }}</span>
                                             @endforeach
+                                            @if(count($event->disciplines) > 3)
+                                                <span class="text-xs text-gray-500 px-2 py-1">+{{ count($event->disciplines) - 3 }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 @endif
 
-                                <!-- Judges -->
+                                <!-- Arbitri - doar primul sau primii doi -->
                                 @if($event->judges && count($event->judges) > 0)
-                                    <div class="mt-3">
-                                        <p class="text-sm font-medium text-gray-700 mb-1">Arbitri:</p>
-                                        <div class="text-sm text-gray-600">
-                                            @foreach($event->judges as $judge)
-                                                <span class="block">• {{ $judge }}</span>
-                                            @endforeach
-                                        </div>
+                                    <div class="mb-2 text-xs text-gray-600">
+                                        <span class="font-medium">Arbitri:</span> 
+                                        {{ implode(', ', array_slice($event->judges, 0, 2)) }}
+                                        @if(count($event->judges) > 2)
+                                            <span class="text-gray-500">+{{ count($event->judges) - 2 }}</span>
+                                        @endif
                                     </div>
                                 @endif
+
+                                <p class="text-sm text-gray-500 line-clamp-2">{{ $event->excerpt }}</p>
                             </div>
 
-                            <div class="mt-6 flex items-center">
-                                <div class="flex-shrink-0">
-                                    <a href="#">
-                                        <span class="sr-only">{{ $event->user->name }}</span>
-                                        <img class="h-10 w-10 rounded-full" src="{{ $event->user->avatar() }}" alt="">
-                                    </a>
+                            <!-- <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img class="h-6 w-6 rounded-full" src="{{ $event->user->avatar() }}" alt="">
+                                    <span class="ml-2 text-xs text-gray-500">{{ $event->user->name }}</span>
                                 </div>
-                                <div class="ml-3">
-                                    <p class="text-sm font-medium text-gray-900">
-                                        <a href="#" class="hover:underline">{{ $event->user->name }}</a>
-                                    </p>
-                                    <div class="flex space-x-1 text-sm text-gray-500">
-                                        <time datetime="{{ $event->created_at }}">{{ $event->created_at->diffForHumans() }}</time>
-                                    </div>
-                                </div>
-                            </div>
+                                <time class="text-xs text-gray-400">{{ $event->created_at->diffForHumans() }}</time>
+                            </div> -->
                         </div>
                     </div>
                 @endforeach
