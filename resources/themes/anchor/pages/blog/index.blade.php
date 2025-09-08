@@ -8,15 +8,15 @@
 
 <x-layouts.marketing
     :seo="[
-        'title' => 'Blog',
-        'description' => 'Our Blog',
+        'title' => 'Evenimente',
+        'description' => 'Evenimentele noastre recente si viitoare.',
     ]"
 >
     <x-container>
         <div class="relative pt-6">
             <x-marketing.elements.heading
-                title="From The Blog"
-                description="Check out some of our latest blog posts below."
+                title="Evenimente"
+                description="Verificati unele dintre cele mai recente evenimente ale noastre mai jos."
                 align="left"
             />
             

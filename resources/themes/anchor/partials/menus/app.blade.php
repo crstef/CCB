@@ -35,10 +35,10 @@
                             </a>
                             <a href="{{ route('blog') }}" class="block px-5 py-3 -m-3 space-y-1 rounded-xl transition duration-150 ease-in-out hover:bg-zinc-100">
                                 <p class="text-base font-medium leading-6 text-zinc-900">
-                                    Din blog
+                                    Din din evenimente
                                 </p>
                                 <p class="text-xs leading-5 text-zinc-500">
-                                    Vezi blogul aplicației tale.
+                                    Vezi evenimentele aplicației tale.
                                 </p>
                             </a>
                         </div>
