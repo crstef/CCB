@@ -22,7 +22,7 @@
             @foreach($events as $event)
                 <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
                     <div class="flex-shrink-0">
-                        <a href="{{ route('evenimente.show', $event->slug) }}">
+                        <a href="{{ url('/evenimente/' . $event->slug) }}">
                             <img class="h-48 w-full object-cover" src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
                         </a>
                     </div>
@@ -40,7 +40,7 @@
                                     {{ $event->created_at->format('d M, Y') }}
                                 </p>
                             </div>
-                            <a href="{{ route('evenimente.show', $event->slug) }}" class="block mt-2">
+                            <a href="{{ url('/evenimente/' . $event->slug) }}" class="block mt-2">
                                 <p class="text-xl font-semibold text-gray-900">{{ $event->title }}</p>
                                 <p class="mt-3 text-base text-gray-500">{{ $event->excerpt }}</p>
                             </a>
