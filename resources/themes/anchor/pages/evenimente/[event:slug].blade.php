@@ -70,17 +70,17 @@
                         <div class="flex flex-wrap gap-2 mb-4">
                             @if($event->event_start_date)
                                 <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-gray-500">
-                                    Data: {{ Carbon::parse($event->event_start_date)->format('d-m-Y') }}
+                                    Data Evenimentului: {{ Carbon::parse($event->event_start_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                              @if($event->booking_start_date)
                                 <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-orange-500">
-                                    Start Book: {{ Carbon::parse($event->booking_start_date)->format('d-m-Y') }}
+                                    Start Înscrieri: {{ Carbon::parse($event->booking_start_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                             @if($event->booking_end_date)
-                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-orange-500">
-                                    Stop Book: {{ Carbon::parse($event->booking_end_date)->format('d-m-Y') }}
+                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-white bg-red-500">
+                                    Închidere Înscrieri: {{ Carbon::parse($event->booking_end_date)->format('d-m-Y') }}
                                 </span>
                             @endif
                         </div>
