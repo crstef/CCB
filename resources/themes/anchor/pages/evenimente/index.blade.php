@@ -54,10 +54,9 @@
                                 <div class="relative">
                                     <img class="h-32 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
                                     
-                                    <!-- Badge vertical pe partea stângă -->
+                                    <!-- Badge orizontal în stânga sus cu 15px de sus -->
                                     @if($status)
-                                        <div class="absolute top-2 left-0 {{ $statusColor }} text-white text-xs font-bold px-2 py-1 transform -rotate-90 origin-top-left" 
-                                             style="transform-origin: 0 0; transform: rotate(-90deg) translate(-100%, 0);">
+                                        <div class="absolute left-2 {{ $statusColor }} text-white text-xs font-bold uppercase px-2 py-1 rounded-md" style="top: 15px;">
                                             {{ $status }}
                                         </div>
                                     @endif
@@ -89,10 +88,10 @@
                                 @if($event->booking_start_date || $event->booking_end_date)
                                     <div class="flex flex-wrap gap-1 mb-1 text-xs">
                                         @if($event->booking_start_date)
-                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">🟢 {{ Carbon::parse($event->booking_start_date)->format('d.m') }}</span>
+                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">� Înscrieri din: {{ Carbon::parse($event->booking_start_date)->format('d.m') }}</span>
                                         @endif
                                         @if($event->booking_end_date)
-                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">🔴 {{ Carbon::parse($event->booking_end_date)->format('d.m') }}</span>
+                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">⏰ Până pe: {{ Carbon::parse($event->booking_end_date)->format('d.m') }}</span>
                                         @endif
                                     </div>
                                 @endif
@@ -101,9 +100,9 @@
                                 <div class="mb-1 text-xs">
                                     @if($event->disciplines && count($event->disciplines) > 0)
                                         <span class="mr-3">
-                                            <span class="font-medium text-gray-700">🏆</span>
+                                            <span class="font-medium text-gray-700">🏆 Discipline:</span>
                                             @foreach(array_slice($event->disciplines, 0, 2) as $discipline)
-                                                <span class="bg-blue-100 text-blue-800 px-1 py-0.5 rounded mr-1">{{ Str::limit($discipline, 8) }}</span>
+                                                <span class="bg-blue-100 text-blue-800 px-1 py-0.5 rounded mr-1">{{ Str::limit($discipline, 10) }}</span>
                                             @endforeach
                                             @if(count($event->disciplines) > 2)
                                                 <span class="text-gray-500">+{{ count($event->disciplines) - 2 }}</span>
@@ -113,7 +112,7 @@
 
                                     @if($event->judges && count($event->judges) > 0)
                                         <span>
-                                            <span class="font-medium text-gray-700">⚖️</span>
+                                            <span class="font-medium text-gray-700">⚖️ Arbitri:</span>
                                             <span class="text-gray-600">{{ Str::limit(implode(', ', array_slice($event->judges, 0, 1)), 15) }}</span>
                                             @if(count($event->judges) > 1)
                                                 <span class="text-gray-500">+{{ count($event->judges) - 1 }}</span>
