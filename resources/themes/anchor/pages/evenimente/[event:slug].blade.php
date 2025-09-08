@@ -1,33 +1,34 @@
 <?php
+@php
     use Wave\Event;
     use Illuminate\Support\Str;
     use Carbon\Carbon;
 
-    if (Str::startsWith(request()->path(), 'evenimente/')) {
-        $slug = request()->segment(2);
-        $event = Event::where('slug', $slug)->firstOrFail();
-        
-        $status = '';
-        $statusColor = '';
-        $now = now();
-        $startDate = Carbon::parse($event->event_start_date);
-        $endDate = $event->event_end_date ? Carbon::parse($event->event_end_date) : $startDate;
-
-        if ($now->lt($startDate)) {
-            $days_left = $now->diffInDays($startDate);
-            $status = "Mai sunt {$days_left} zile";
-            $statusColor = 'bg-blue-600';
-        } elseif ($now->between($startDate, $endDate->endOfDay())) {
-            $status = 'Live';
-            $statusColor = 'bg-green-600';
-        } elseif ($now->gt($endDate)) {
-            $status = 'Finished';
-            $statusColor = 'bg-red-600';
-        }
-    } else {
-        return;
+    if (!Str::startsWith(request()->path(), 'evenimente/')) {
+        return; // Exit early if not an event page
     }
-?>
+
+    $slug = request()->segment(2);
+    $event = Event::where('slug', $slug)->firstOrFail();
+    
+    $status = '';
+    $statusColor = '';
+    $now = now();
+    $startDate = Carbon::parse($event->event_start_date);
+    $endDate = $event->event_end_date ? Carbon::parse($event->event_end_date) : $startDate;
+
+    if ($now->lt($startDate)) {
+        $days_left = $now->diffInDays($startDate);
+        $status = "Mai sunt {$days_left} zile";
+        $statusColor = 'bg-blue-600';
+    } elseif ($now->between($startDate, $endDate->endOfDay())) {
+        $status = 'Live';
+        $statusColor = 'bg-green-600';
+    } elseif ($now->gt($endDate)) {
+        $status = 'Finished';
+        $statusColor = 'bg-red-600';
+    }
+@endphp
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
@@ -108,4 +109,15 @@
 
                         @if($event->caniva_link)
                         <div class="mt-8">
-                            <a href="{{ $event->caniva_link }}" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-
+                            <a href="{{ $event->caniva_link }}" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Înscrie-te pe Caniva
+                            </a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</x-layouts.marketing>
