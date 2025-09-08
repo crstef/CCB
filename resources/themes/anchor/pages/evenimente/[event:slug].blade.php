@@ -4,8 +4,11 @@
     use Illuminate\Support\Str;
     use Carbon\Carbon;
 
+    // This check is crucial. It ensures the logic below only runs on event pages.
     if (!Str::startsWith(request()->path(), 'evenimente/')) {
-        return; // Exit early if not an event page
+        // If for some reason this file is accessed from another page,
+        // it stops execution to avoid breaking that page.
+        return;
     }
 
     $slug = request()->segment(2);
