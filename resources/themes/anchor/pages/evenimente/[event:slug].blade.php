@@ -28,12 +28,14 @@
         $statusColor = 'bg-red-600';
     }
 
+
 <x-layouts.marketing
     :seo="[
         'title' => $event->title,
         'description' => $event->excerpt ?? Str::limit(strip_tags($event->body), 150),
         'image' => $event->image ? asset('storage/' . $event->image) : '',
     ]"
+>
 
     <div class="bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
