@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use TCG\Voyager\Facades\Voyager;
-// Am șters "use TCG\Voyager\Traits\Resizable;" de aici
-use TCG\Voyager\Traits\Translatable;
+
+// Am eliminat use-urile pentru Resizable si Translatable
 
 class Event extends Model
 {
-    use HasFactory,
-        // Am șters "Resizable," de aici
-        Translatable;
+    use HasFactory; // Am eliminat trait-urile de aici
 
-    protected $translatable = ['title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
+    // Am eliminat array-ul $translatable
+    // protected $translatable = ['title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
 
     protected $guarded = [];
 
