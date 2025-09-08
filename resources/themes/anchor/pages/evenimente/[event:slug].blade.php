@@ -3,14 +3,7 @@ use Wave\Event;
 use Carbon\Carbon;
 
 // În Folio, parametrii din URL sunt accesibili direct ca variabile
-// Verificăm dacă sun                            @if($event->caniva_link)
-                                <div class="flex items-center text-sm">
-                                    <span class="font-medium text-gray-900 w-20">🔗 Înscriere:</span>
-                                    <a href="{{ $event->caniva_link }}" target="_blank" class="text-indigo-600 hover:text-indigo-500 underline">
-                                        Înscriere Caniva
-                                    </a>
-                                </div>
-                            @endif-o rută de eveniment
+// Verificăm dacă suntem într-o rută de eveniment
 if (!isset($event) || !$event) {
     $currentPath = request()->path();
     if (str_starts_with($currentPath, 'evenimente/')) {
@@ -136,11 +129,11 @@ if ($now->lt($startDate)) {
                                 </div>
                             @endif
 
-                            @if(isset($event->external_link) && $event->external_link && $event->external_link != '#')
+                            @if($event->caniva_link)
                                 <div class="flex items-center text-sm">
-                                    <span class="font-medium text-gray-900 w-20">🔗 Link:</span>
-                                    <a href="{{ $event->external_link }}" target="_blank" class="text-indigo-600 hover:text-indigo-500 underline">
-                                        Link de inscriere Caniva
+                                    <span class="font-medium text-gray-900 w-20">🔗 Înscriere:</span>
+                                    <a href="{{ $event->caniva_link }}" target="_blank" class="text-indigo-600 hover:text-indigo-500 underline">
+                                        Înscriere Caniva
                                     </a>
                                 </div>
                             @endif
