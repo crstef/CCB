@@ -66,43 +66,4 @@ class Event extends Model
         'booking_start_date' => 'datetime',
         'booking_end_date' => 'datetime',
     ];
-
-    /**
-     * Get the status details for the event (text and color).
-     *
-     * @return array
-     */
-    public function getStatusDetails(): array
-    {
-        $status = '';
-        $statusColor = '';
-        $now = now();
-
-        if (!$this->event_start_date) {
-            return ['text' => '', 'color' => ''];
-        }
-
-        $startDate = \Carbon\Carbon::parse($this->event_start_date);
-        $endDate = $this->event_end_date ? \Carbon\Carbon::parse($this->event_end_date) : $startDate;
-
-        if ($now->lt($startDate)) {
-            $days_left = $now->diffInDays($startDate);
-            if ($days_left === 0) {
-                $status = 'Azi';
-            } elseif ($days_left === 1) {
-                $status = 'Maine';
-            } else {
-                $status = "Mai sunt {$days_left} zile";
-            }
-            $statusColor = 'bg-blue-600';
-        } elseif ($now->between($startDate, $endDate->endOfDay())) {
-            $status = 'Live';
-            $statusColor = 'bg-green-600';
-        } elseif ($now->gt($endDate)) {
-            $status = 'Finished';
-            $statusColor = 'bg-red-600';
-        }
-
-        return ['text' => $status, 'color' => $statusColor];
-    }
 }
