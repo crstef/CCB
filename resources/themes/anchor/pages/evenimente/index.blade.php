@@ -88,10 +88,10 @@
                                 @if($event->booking_start_date || $event->booking_end_date)
                                     <div class="flex flex-wrap gap-1 mb-1 text-xs">
                                         @if($event->booking_start_date)
-                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">� Înscrieri din: {{ Carbon::parse($event->booking_start_date)->format('d.m') }}</span>
+                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">� Înscrieri din: {{ Carbon::parse($event->booking_start_date)->format('d.m.y') }}</span>
                                         @endif
                                         @if($event->booking_end_date)
-                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">⏰ Până pe: {{ Carbon::parse($event->booking_end_date)->format('d.m') }}</span>
+                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded">⏰ Până pe: {{ Carbon::parse($event->booking_end_date)->format('d.m.y') }}</span>
                                         @endif
                                     </div>
                                 @endif
