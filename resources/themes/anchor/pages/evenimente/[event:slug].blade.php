@@ -132,7 +132,8 @@ if ($now->lt($startDate)) {
                             @if($event->caniva_link)
                                 <div class="flex items-center text-sm">
                                     <span class="font-medium text-gray-900 w-20">🔗 Înscriere:</span>
-                                    <a href="{{ $event->caniva_link }}" target="_blank" class="text-indigo-600 hover:text-indigo-500 underline">
+                                    <a href="{{ $event->caniva_link }}" target="_blank" 
+                                       class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                         Înscriere Caniva
                                     </a>
                                 </div>
