@@ -153,10 +153,13 @@ class EventResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'DRAFT' => 'gray',
-                        'PUBLISHED' => 'success',
-                        'ARCHIVED' => 'danger',
+                    ->color(fn (string $state): string => match (true) {
+                        $state === 'DRAFT' => 'gray',
+                        $state === 'PUBLISHED' => 'success',
+                        $state === 'ARCHIVED' => 'danger',
+                        $state === 'Terminat' => 'warning',
+                        str_starts_with($state, 'Mai sunt') => 'info',
+                        default => 'gray',
                     }),
                 Tables\Columns\IconColumn::make('featured')
                     ->label('Recomandat')
