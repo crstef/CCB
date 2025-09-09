@@ -12,7 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Wave\Page;
-use FilamentTiptapEditor\TiptapEditor;
 
 class CompetitiiResource extends Resource
 {
@@ -43,40 +42,12 @@ class CompetitiiResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(191),
-                TiptapEditor::make('body')
+                Forms\Components\Textarea::make('body')
                     ->required()
                     ->columnSpanFull()
-                    ->profile('default')
-                    ->tools([
-                        'heading',
-                        'bullet-list',
-                        'ordered-list',
-                        'checked-list',
-                        'blockquote',
-                        'hr',
-                        '|',
-                        'bold',
-                        'italic',
-                        'strike',
-                        'underline',
-                        'superscript',
-                        'subscript',
-                        'align-left',
-                        'align-center',
-                        'align-right',
-                        '|',
-                        'link',
-                        'media',
-                        'oembed',
-                        'table',
-                        '|',
-                        'text-color',
-                        'highlight',
-                        '|',
-                        'source',
-                    ])
-                    ->disk('public')
-                    ->directory('uploads'),
+                    ->rows(20)
+                    ->helperText('Poți introduce HTML cu clase Tailwind CSS direct aici. Exemplu: <div class="bg-blue-50 p-6">Conținut</div>')
+                    ->placeholder('Introduceți HTML-ul pentru pagină...'),
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
