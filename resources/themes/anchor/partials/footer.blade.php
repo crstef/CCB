@@ -10,31 +10,31 @@
                     <h3 class="font-semibold text-black">Discipline</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="mondioring" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Mondioring</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="igp" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>IGP</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="canicross-bikejoring" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Canicross & Bikejoring</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="agility" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Agility</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="obedience" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Obedience</span>
                             </a>
@@ -45,19 +45,19 @@
                     <h3 class="font-semibold text-black">Despre noi</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="despre-noi" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Istoria Clubului</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                        <!-- <li>
+                            <a href="echipa" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Echipa</span>
                             </a>
-                        </li>      
+                        </li>   -->    
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="cum-devii-membru" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Cum devii membru</span>
                             </a>
@@ -68,37 +68,37 @@
                     <h3 class="font-semibold text-black">Rasa</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="istoria-ciobanescului-belgian" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Istoria Rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="confirmarea-rasei" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Confirmarea rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="groenendael" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Groenendael</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="laekenois" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Laekenois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="Malinois" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Malinois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="tervueren" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Tervueren</span>
                             </a>
@@ -109,19 +109,19 @@
                     <h3 class="font-semibold text-black">Contact</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="publicitate" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Publicitate</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="presa" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Presa</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#_" class="relative inline-block text-black group">
+                            <a href="parteneri" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Parteneri</span>
                             </a>
@@ -140,7 +140,7 @@
         <div class="flex flex-col items-center justify-between py-10 border-t border-solid lg:flex-row border-gray">
             <ul class="flex flex-wrap space-x-5 text-xs">
                 <li class="mb-6 text-center flex-full lg:flex-none lg:mb-0">&copy; {{ date('Y') }} {{ setting('site.title', 'Laravel Wave') }}, Inc. All rights reserved.</li>
-                <li class="lg:ml-6">
+                <!-- <li class="lg:ml-6">
                     <a href="#_" class="relative inline-block text-black group">
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>Privacy Policy</span>
@@ -157,10 +157,10 @@
                         <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0"></span>
                         <span>Terms and Conditions</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
 
-            <ul class="flex items-center mt-10 space-x-5 lg:mt-0">
+            <!-- <ul class="flex items-center mt-10 space-x-5 lg:mt-0">
                 <li>
                     <a href="#" class="text-zinc-600 hover:text-zinc-900">
                         <span class="sr-only">Facebook</span>
@@ -185,7 +185,7 @@
                         </svg>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </x-container>
 </footer>
