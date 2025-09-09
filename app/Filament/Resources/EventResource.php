@@ -105,12 +105,6 @@ class EventResource extends Resource
                             )
                             ->searchable()
                             ->required(),
-                        Forms\Components\Select::make('categories')
-                            ->label('Categorii')
-                            ->multiple()
-                            ->relationship('categories', 'name')
-                            ->preload()
-                            ->searchable(),
                         Forms\Components\Select::make('status')
                             ->required()
                             ->options([
@@ -143,9 +137,8 @@ class EventResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Imagine'),
-                Tables\Columns\TextColumn::make('categories.name')
-                    ->label('Categorii')
-                    ->badge()
+                Tables\Columns\TextColumn::make('location')
+                    ->label('Locație')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event_start_date')
                     ->label('Data Eveniment')

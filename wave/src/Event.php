@@ -42,11 +42,6 @@ class Event extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'category_event');
-    }
-
     public function link()
     {
         return url('evenimente/' . $this->slug);
