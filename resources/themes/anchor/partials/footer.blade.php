@@ -10,31 +10,31 @@
                     <h3 class="font-semibold text-black">Discipline</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="mondioring" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'mondioring') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Mondioring</span>
                             </a>
                         </li>
                         <li>
-                            <a href="igp" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'igp') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>IGP</span>
                             </a>
                         </li>
                         <li>
-                            <a href="canicross-bikejoring" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'canicross-bikejoring') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Canicross & Bikejoring</span>
                             </a>
                         </li>
                         <li>
-                            <a href="agility" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'agility') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Agility</span>
                             </a>
                         </li>
                         <li>
-                            <a href="obedience" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'obedience') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Obedience</span>
                             </a>
@@ -45,7 +45,7 @@
                     <h3 class="font-semibold text-black">Despre noi</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="despre-noi" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'despre-noi') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Istoria Clubului</span>
                             </a>
@@ -57,7 +57,7 @@
                             </a>
                         </li>   -->    
                         <li>
-                            <a href="cum-devii-membru" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'cum-devii-membru') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Cum devii membru</span>
                             </a>
@@ -68,37 +68,37 @@
                     <h3 class="font-semibold text-black">Rasa</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="istoria-ciobanescului-belgian" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'istoria-ciobanescului-belgian') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Istoria Rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="confirmarea-rasei" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'confirmarea-rasei') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Confirmarea rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="groenendael" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'groenendael') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Groenendael</span>
                             </a>
                         </li>
                         <li>
-                            <a href="laekenois" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'laekenois') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Laekenois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="Malinois" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'malinois') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Malinois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="tervueren" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'tervueren') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Tervueren</span>
                             </a>
@@ -109,19 +109,19 @@
                     <h3 class="font-semibold text-black">Contact</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="publicitate" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'publicitate') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Publicitate</span>
                             </a>
                         </li>
                         <li>
-                            <a href="presa" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'presa') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Presa</span>
                             </a>
                         </li>
                         <li>
-                            <a href="parteneri" class="relative inline-block text-black group">
+                            <a href="{{ route('page.show', 'parteneri') }" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Parteneri</span>
                             </a>
