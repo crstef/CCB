@@ -13,7 +13,6 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Wave\Category;
 use Wave\Event;
-use FilamentTiptapEditor\TiptapEditor;
 
 class EventResource extends Resource
 {
@@ -47,41 +46,10 @@ class EventResource extends Resource
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(191),
-                        TiptapEditor::make('body')
+                        Forms\Components\RichEditor::make('body')
                             ->label('Descriere')
                             ->required()
-                            ->columnSpanFull()
-                            ->profile('default')
-                            ->tools([
-                                'heading',
-                                'bullet-list',
-                                'ordered-list',
-                                'checked-list',
-                                'blockquote',
-                                'hr',
-                                '|',
-                                'bold',
-                                'italic',
-                                'strike',
-                                'underline',
-                                'superscript',
-                                'subscript',
-                                'align-left',
-                                'align-center',
-                                'align-right',
-                                '|',
-                                'link',
-                                'media',
-                                'oembed',
-                                'table',
-                                '|',
-                                'text-color',
-                                'highlight',
-                                '|',
-                                'source',
-                            ])
-                            ->disk('public')
-                            ->directory('uploads'),
+                            ->columnSpanFull(),
                         Forms\Components\Textarea::make('excerpt')
                             ->label('Scurtă Descriere (opțional)')
                             ->columnSpanFull(),
