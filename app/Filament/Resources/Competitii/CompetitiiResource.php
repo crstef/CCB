@@ -45,14 +45,9 @@ class CompetitiiResource extends Resource
                 Forms\Components\Textarea::make('body')
                     ->required()
                     ->columnSpanFull()
-                    ->rows(25)
-                    ->label('Body (HTML)')
-                    ->helperText('Introduceți HTML cu clase Tailwind CSS. Exemplu din pagina Malinois funcțională.')
-                    ->placeholder('<div class="max-w-4xl mx-auto py-12 px-4">
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 mb-8 text-white">
-        <p class="text-xl opacity-90">Conținutul tău aici...</p>
-    </div>
-</div>'),
+                    ->rows(20)
+                    ->helperText('Poți introduce HTML cu clase Tailwind CSS direct aici. Exemplu: <div class="bg-blue-50 p-6">Conținut</div>')
+                    ->placeholder('Introduceți HTML-ul pentru pagină...'),
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
