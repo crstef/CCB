@@ -9,6 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Wave\Changelog;
+use FilamentTiptapEditor\TiptapEditor;
 
 class ChangelogResource extends Resource
 {
@@ -36,9 +37,40 @@ class ChangelogResource extends Resource
                 Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(191),
-                Forms\Components\RichEditor::make('body')
+                TiptapEditor::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->profile('default')
+                    ->tools([
+                        'heading',
+                        'bullet-list',
+                        'ordered-list',
+                        'checked-list',
+                        'blockquote',
+                        'hr',
+                        '|',
+                        'bold',
+                        'italic',
+                        'strike',
+                        'underline',
+                        'superscript',
+                        'subscript',
+                        'align-left',
+                        'align-center',
+                        'align-right',
+                        '|',
+                        'link',
+                        'media',
+                        'oembed',
+                        'table',
+                        '|',
+                        'text-color',
+                        'highlight',
+                        '|',
+                        'source',
+                    ])
+                    ->disk('public')
+                    ->directory('uploads'),
             ]);
     }
 

@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Wave\Page;
+use FilamentTiptapEditor\TiptapEditor;
 
 class CompetitiiResource extends Resource
 {
@@ -42,9 +43,40 @@ class CompetitiiResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(191),
-                Forms\Components\RichEditor::make('body')
+                TiptapEditor::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->profile('default')
+                    ->tools([
+                        'heading',
+                        'bullet-list',
+                        'ordered-list',
+                        'checked-list',
+                        'blockquote',
+                        'hr',
+                        '|',
+                        'bold',
+                        'italic',
+                        'strike',
+                        'underline',
+                        'superscript',
+                        'subscript',
+                        'align-left',
+                        'align-center',
+                        'align-right',
+                        '|',
+                        'link',
+                        'media',
+                        'oembed',
+                        'table',
+                        '|',
+                        'text-color',
+                        'highlight',
+                        '|',
+                        'source',
+                    ])
+                    ->disk('public')
+                    ->directory('uploads'),
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
