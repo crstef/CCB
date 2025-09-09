@@ -42,9 +42,12 @@ class CompetitiiResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(191),
-                Forms\Components\RichEditor::make('body')
+                Forms\Components\Textarea::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->rows(20)
+                    ->helperText('Poți introduce HTML cu clase Tailwind CSS direct aici. Exemplu: <div class="bg-blue-50 p-6">Conținut</div>')
+                    ->placeholder('Introduceți HTML-ul pentru pagină...'),
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
