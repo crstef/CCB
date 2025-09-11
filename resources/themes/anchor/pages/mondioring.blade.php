@@ -1,4 +1,8 @@
 <?php
+use function Laravel\Folio\{name};
+
+name('page.mondioring');
+
 $seo = (object) [
     'title' => 'Mondioring - Disciplina de Elită pentru Câinii de Serviciu',
     'description' => 'Mondioring este o disciplină complexă și prestigioasă care testează abilitățile de lucru ale câinilor și stăpânilor într-un mediu controlat.',

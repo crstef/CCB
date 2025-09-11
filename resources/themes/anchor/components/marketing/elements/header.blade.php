@@ -168,27 +168,27 @@
                             <ul class="flex flex-col justify-between mx-auto max-w-7xl md:flex-row md:px-12">
                                 <div class="flex flex-col w-full border-l border-r divide-x md:flex-row divide-zinc-100 border-zinc-100">
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="/mondioring" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                        <a href="{{ route('page.mondioring') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
                                             <span class="block mb-1 font-medium text-black">Mondioring</span>
                                             <span class="block font-light leading-5 opacity-50">Sport canin cu 3 secțiuni: obediență, agilitate și protecție</span>
                                         </a>
-                                        <a href="/igp" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                        <a href="{{ route('page.igp') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
                                             <span class="block mb-1 font-medium text-black">IGP</span>
                                             <span class="block leading-5 opacity-50">International Working Dog - standardul internațional</span>
                                         </a>
                                     </div>
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="/agility" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.agility') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Agility</span>
                                             <span class="block font-light leading-5 opacity-50">Parcursuri cu obstacole pentru viteză și precizie</span>
                                         </a>
-                                        <a href="/canicross-bikejoring" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.canicross-bikejoring') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Canicross & Bikejoring</span>
                                             <span class="block leading-5 opacity-50">Sporturi de rezistență în alergare și ciclism</span>
                                         </a>
                                     </div>
                                     <div class="w-auto divide-y divide-zinc-100">
-                                        <a href="/obedience" class="block text-sm p-7 hover:bg-neutral-100">
+                                        <a href="{{ route('page.obedience') }}" class="block text-sm p-7 hover:bg-neutral-100">
                                             <span class="block mb-1 font-medium text-black">Obedience</span>
                                             <span class="block leading-5 opacity-50">Disciplina clasică a obedienței canine precise</span>
                                         </a>
