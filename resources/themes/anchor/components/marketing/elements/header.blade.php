@@ -159,6 +159,50 @@
                     </li>
                     <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
                         <a href="#_" x-on:click="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
+                            <span class="">Discipline</span>
+                            <svg :class="{ 'group-hover:-rotate-180' : !mobileMenuOpen, '-rotate-180' : mobileMenuOpen && open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
+                        </a>
+                        <div 
+                            :class="{ 'hidden md:block opacity-0 invisible md:absolute' : !open, 'md:invisible md:opacity-0 md:hidden md:absolute' : open }"
+                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0" x-cloak>
+                            <ul class="flex flex-col justify-between mx-auto max-w-7xl md:flex-row md:px-12">
+                                <div class="flex flex-col w-full border-l border-r divide-x md:flex-row divide-zinc-100 border-zinc-100">
+                                    <div class="w-auto divide-y divide-zinc-100">
+                                        <a href="{{ route('page.show', 'mondioring') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                            <span class="block mb-1 font-medium text-black">Mondioring</span>
+                                            <span class="block font-light leading-5 opacity-50">Sport canin cu 3 secțiuni: obediență, agilitate și protecție</span>
+                                        </a>
+                                        <a href="{{ route('page.show', 'igp') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                            <span class="block mb-1 font-medium text-black">IGP</span>
+                                            <span class="block leading-5 opacity-50">International Working Dog - standardul internațional</span>
+                                        </a>
+                                    </div>
+                                    <div class="w-auto divide-y divide-zinc-100">
+                                        <a href="{{ route('page.show', 'agility') }}" class="block text-sm p-7 hover:bg-neutral-100">
+                                            <span class="block mb-1 font-medium text-black">Agility</span>
+                                            <span class="block font-light leading-5 opacity-50">Parcursuri cu obstacole pentru viteză și precizie</span>
+                                        </a>
+                                        <a href="{{ route('page.show', 'canicross-bikejoring') }}" class="block text-sm p-7 hover:bg-neutral-100">
+                                            <span class="block mb-1 font-medium text-black">Canicross & Bikejoring</span>
+                                            <span class="block leading-5 opacity-50">Sporturi de rezistență în alergare și ciclism</span>
+                                        </a>
+                                    </div>
+                                    <div class="w-auto divide-y divide-zinc-100">
+                                        <a href="{{ route('page.show', 'obedience') }}" class="block text-sm p-7 hover:bg-neutral-100">
+                                            <span class="block mb-1 font-medium text-black">Obedience</span>
+                                            <span class="block leading-5 opacity-50">Disciplina clasică a obedienței canine precise</span>
+                                        </a>
+                                        <div class="block text-sm p-7 opacity-50">
+                                            <span class="block mb-1 font-medium text-gray-400">Alte discipline</span>
+                                            <span class="block leading-5 text-gray-400">În curând...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </li>
+                    <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
+                        <a href="#_" x-on:click="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
                             <span class="">Galerie</span>
                             <svg :class="{ 'rotate-180' : open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
                         </a>
@@ -250,163 +294,10 @@
                     <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
                         <a href="{{ url('/evenimente') }}" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">Evenimente</a>
                     </li>
-                    <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
-                        <a href="#" x-on:click="open=!open" class="flex items-center w-full h-16 gap-1 text-sm font-semibold text-gray-700 transition duration-300 hover:bg-gray-100 md:hover:bg-transparent px-7 md:h-full md:px-0 md:w-auto hover:text-gray-900">
-                            <span class="">Contact</span>
-                            <svg :class="{ 'rotate-180' : open }" class="w-5 h-5 transition-all duration-300 ease-out" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" class=""></path></svg>
+                    <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
+                        <a href="{{ route('contact') }}" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">
+                            Contact
                         </a>
-                        <div 
-                            :class="{ 'hidden md:block opacity-0 invisible md:absolute' : !open, 'md:invisible md:opacity-0 md:hidden md:absolute' : open }"
-                            class="top-0 left-0 w-screen space-y-3 transition-transform duration-300 ease-out bg-white border-t border-b border-gray-100 md:shadow-md md:-translate-y-2 md:mt-24 md:block md:group-hover:block md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0 z-50" x-cloak>
-                            <div class="mx-auto max-w-6xl p-6">
-                                <div class="flex flex-col lg:flex-row gap-6 items-stretch">
-                                    {{-- Left Side - Contact Information --}}
-                                    <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-6">
-                                        <div class="text-center mb-4">
-                                            <h2 class="text-xl font-bold text-blue-700 mb-2">Intră în legătură cu noi</h2>
-                                            <p class="text-gray-600 text-sm leading-relaxed">
-                                                Ai întrebări despre serviciile noastre sau ai nevoie de asistență? Suntem aici să te ajutăm!
-                                            </p>
-                                        </div>
-
-                                        <div class="space-y-4">
-                                            {{-- Phone Contact --}}
-                                            <div class="flex items-start space-x-3">
-                                                <div class="flex-shrink-0">
-                                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h3 class="text-sm font-semibold text-gray-900 mb-1">Sună-ne</h3>
-                                                    <p class="text-gray-600 text-sm">
-                                                        <a href="tel:0723644822" class="text-blue-600 font-semibold hover:text-blue-800">0723 644 822</a>
-                                                    </p>
-                                                    <p class="text-gray-500 text-xs mt-1">Luni - Vineri: 9:00 - 17:00</p>
-                                                </div>
-                                            </div>
-
-                                            {{-- Email Contact --}}
-                                            <div class="flex items-start space-x-3">
-                                                <div class="flex-shrink-0">
-                                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h3 class="text-sm font-semibold text-gray-900 mb-1">Trimite-ne un email</h3>
-                                                    <p class="text-gray-600 text-sm">
-                                                        <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800">office@ccbor.ro</a>
-                                                    </p>
-                                                    <p class="text-gray-500 text-xs mt-1">Răspuns în maxim 24 de ore</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- Right Side - Contact Form --}}
-                                    <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-lg p-6">
-                                        <div class="text-center mb-4">
-                                            <h3 class="text-xl font-bold text-blue-700 mb-2">Trimite-ne un mesaj</h3>
-                                            <p class="text-gray-600 text-sm">
-                                                Completează formularul de mai jos și îți vom răspunde cât mai curând posibil.
-                                            </p>
-                                        </div>
-                                        
-                                        <form id="headerContactForm" @submit.prevent="submitContactForm" class="space-y-3">
-                                            @csrf
-                                            {{-- First and Last Name --}}
-                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                <div>
-                                                    <label for="header_first_name" class="block text-xs font-medium text-gray-700 mb-1">Prenume <span class="text-red-500">*</span></label>
-                                                    <input type="text" 
-                                                           id="header_first_name" 
-                                                           name="first_name" 
-                                                           required
-                                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                           placeholder="Prenumele">
-                                                </div>
-                                                <div>
-                                                    <label for="header_last_name" class="block text-xs font-medium text-gray-700 mb-1">Nume <span class="text-red-500">*</span></label>
-                                                    <input type="text" 
-                                                           id="header_last_name" 
-                                                           name="last_name" 
-                                                           required
-                                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                           placeholder="Numele">
-                                                </div>
-                                            </div>
-
-                                            {{-- Email --}}
-                                            <div>
-                                                <label for="header_email" class="block text-xs font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
-                                                <input type="email" 
-                                                       id="header_email" 
-                                                       name="email" 
-                                                       required
-                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                       placeholder="your@email.com">
-                                            </div>
-
-                                            {{-- Phone (optional) --}}
-                                            <div>
-                                                <label for="header_phone" class="block text-xs font-medium text-gray-700 mb-1">Telefon <span class="text-gray-400">(opțional)</span></label>
-                                                <input type="tel" 
-                                                       id="header_phone" 
-                                                       name="phone"
-                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                       placeholder="+40 123 456 789">
-                                            </div>
-
-                                            {{-- Subject --}}
-                                            <div>
-                                                <label for="header_subject" class="block text-xs font-medium text-gray-700 mb-1">Subiect <span class="text-red-500">*</span></label>
-                                                <input type="text" 
-                                                       id="header_subject" 
-                                                       name="subject" 
-                                                       required
-                                                       class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                       placeholder="Subiectul mesajului">
-                                            </div>
-
-                                            {{-- Message --}}
-                                            <div>
-                                                <label for="header_message" class="block text-xs font-medium text-gray-700 mb-1">Mesaj <span class="text-red-500">*</span></label>
-                                                <textarea id="header_message" 
-                                                          name="message" 
-                                                          rows="3" 
-                                                          required
-                                                          class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                          placeholder="Mesajul dumneavoastră..."></textarea>
-                                            </div>
-
-                                            {{-- Submit Button --}}
-                                            <div>
-                                                <button type="submit" 
-                                                        id="headerSubmitBtn"
-                                                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200">
-                                                    Trimite mesajul
-                                                </button>
-                                            </div>
-                                        </form>
-
-                                        {{-- Success/Error Messages --}}
-                                        <div id="headerFormMessages" class="mt-3 hidden">
-                                            <div id="headerSuccessMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-3 py-2 rounded text-sm">
-                                                Mesajul a fost trimis cu succes! Vă vom contacta în curând.
-                                            </div>
-                                            <div id="headerErrorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-sm">
-                                                A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </li>
 
                     @guest
@@ -435,121 +326,7 @@
         </div>
     </x-container>
 
-    <!-- Success/Error Toast Notifications -->
-    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
-
     <script>
-                // Contact form submission
-        function submitContactForm(event) {
-            event.preventDefault();
-            
-            const form = document.getElementById('headerContactForm');
-            const submitBtn = document.getElementById('headerSubmitBtn');
-            const formMessages = document.getElementById('headerFormMessages');
-            const successMessage = document.getElementById('headerSuccessMessage');
-            const errorMessage = document.getElementById('headerErrorMessage');
-
-            // Disable submit button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Se trimite...';
-
-            // Hide previous messages
-            formMessages.classList.add('hidden');
-            successMessage.classList.add('hidden');
-            errorMessage.classList.add('hidden');
-
-            const formData = new FormData(form);
-            
-            fetch('{{ route("contact.store") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    successMessage.classList.remove('hidden');
-                    formMessages.classList.remove('hidden');
-                    showToast('Mesajul a fost trimis cu succes! Vă vom contacta în curând.', 'success');
-                    
-                    // Reset form
-                    form.reset();
-                    
-                    // Close dropdown after a delay
-                    setTimeout(() => {
-                        const dropdown = form.closest('[x-data]');
-                        if (dropdown && dropdown.__x) {
-                            dropdown.__x.$data.open = false;
-                        }
-                    }, 2000);
-                } else {
-                    // Show error message
-                    errorMessage.textContent = data.message || 'A apărut o eroare la trimiterea mesajului.';
-                    errorMessage.classList.remove('hidden');
-                    formMessages.classList.remove('hidden');
-                    showToast('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                errorMessage.textContent = 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.';
-                errorMessage.classList.remove('hidden');
-                formMessages.classList.remove('hidden');
-                showToast('A apărut o eroare de conexiune. Vă rugăm să încercați din nou.', 'error');
-            })
-            .finally(() => {
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Trimite mesajul';
-            });
-        }
-        
-        // Toast notification function
-        function showToast(message, type = 'success') {
-            const toastContainer = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-            const icon = type === 'success' ? 
-                '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>' :
-                '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-            
-            toast.className = `${bgColor} text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 transform transition-all duration-300 translate-x-full opacity-0`;
-            toast.innerHTML = `
-                ${icon}
-                <span>${message}</span>
-                <button onclick="this.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            `;
-            
-            toastContainer.appendChild(toast);
-            
-            // Trigger animation
-            setTimeout(() => {
-                toast.classList.remove('translate-x-full', 'opacity-0');
-            }, 100);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                toast.classList.add('translate-x-full', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 5000);
-        }
-        
-        // Attach form submission handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('headerContactForm');
-            if (form) {
-                form.addEventListener('submit', submitContactForm);
-            }
-        });
-        
         // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
