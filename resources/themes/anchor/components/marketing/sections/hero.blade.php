@@ -150,13 +150,23 @@ a.gallery-button:hover .gallery-button-icon {
     <div class="flex-shrink-0 lg:h-[150px] flex border-t border-zinc-200 items-center w-full bg-white mt-2 lg:mt-0">
         <div class="grid h-auto grid-cols-1 px-8 py-8 mx-auto space-y-5 divide-y max-w-7xl lg:space-y-0 lg:divide-y-0 divide-zinc-200 lg:py-0 lg:divide-x md:px-12 lg:px-20 lg:divide-zinc-200 lg:grid-cols-3">
             <div class="">
-                <a href="{{ route('page.show', 'cum-sa-devii-membru') }}" class="block p-4 -m-4 rounded-lg group transition-all duration-300 hover:bg-blue-50 hover:shadow-lg">
-                    <h3 class="flex items-center font-medium text-zinc-900 group-hover:text-blue-600 transition-colors duration-300">
-                        Cum devii membru
-                    </h3>
-                    <p class="mt-2 text-sm font-medium text-zinc-500 group-hover:text-blue-700 transition-colors duration-300">
-                        Modalitatea și beneficiile de a deveni membru. <span class="hidden lg:inline">Mai multe explicații</span>
-                    </p>
+                <a href="{{ route('page.show', 'cum-sa-devii-membru') }}" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
+                    <!-- Subtle background animation on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/5 group-hover:to-indigo-400/5 transition-all duration-500 ease-out"></div>
+                    <div class="relative">
+                        <h3 class="flex items-center font-semibold text-zinc-900 group-hover:text-blue-700 transition-all duration-300 group-hover:transform group-hover:translate-x-1">
+                            <svg class="w-5 h-5 mr-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Cum devii membru
+                            <svg class="w-4 h-4 ml-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </h3>
+                        <p class="mt-3 text-sm font-medium text-zinc-600 group-hover:text-blue-800 transition-all duration-300 leading-relaxed">
+                            Modalitatea și beneficiile de a deveni membru. <span class="hidden lg:inline group-hover:text-blue-700">Află cum poți să te alături echipei noastre</span>
+                        </p>
+                    </div>
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
