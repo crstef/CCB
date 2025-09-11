@@ -1,5 +1,9 @@
 <?php
-use function Laravel\Folio\{name};
+use fun    :breadcrumbs="[
+        ['name' => 'Acasă', 'url' => route('home')],
+        ['name' => 'Discipline', 'url' => '#'],
+        ['name' => 'Canicross & Bikejoring', 'url' => '']
+    ]"n Laravel\Folio\{name};
 name('page.show.canicross-bikejoring');
 
 $seo = (object) [

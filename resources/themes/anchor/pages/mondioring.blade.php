@@ -13,9 +13,10 @@ $seo = (object) [
 <x-layouts.marketing 
     :seo="$seo"
     :breadcrumbs="[
-        ['name' => 'Acasă', 'url' => route('wave.home')],
+        ['name' => 'Acasă', 'url' => route('home')],
         ['name' => 'Discipline', 'url' => '#'],
         ['name' => 'Mondioring', 'url' => '']
+    ]"
     ]"
 >
 
