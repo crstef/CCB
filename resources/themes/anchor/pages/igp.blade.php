@@ -110,7 +110,7 @@ $seo = (object) [
         <h3 class="font-bold text-teal-800 mb-2">Alătură-te Programului IGP</h3>
         <p class="text-teal-700">Clubul CCB România oferă programe complete de antrenament IGP pentru toate nivelurile. De la evaluarea inițială până la pregătirea pentru competițiile internaționale, echipa noastră de antrenori certificați te va ghida în această călătorie extraordinară.</p>
         <div class="mt-4">
-            <a href="{{ route('page.show', 'contact') }}" class="inline-flex items-center px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
                 Contactează-ne pentru IGP
             </a>
         </div>

@@ -184,7 +184,7 @@ $seo = (object) [
         <p class="text-purple-700">Obedience este mai mult decât un sport - este o artă care celebrează comunicarea perfectă între om și câine. Fiecare exercițiu executat cu precizie întărește legătura și înțelegerea reciprocă.</p>
         <p class="text-purple-700 mt-2">Clubul CCB România oferă programe structurate de Obedience pentru toate nivelurile, de la începători până la pregătirea pentru competițiile naționale și internaționale.</p>
         <div class="mt-4">
-            <a href="{{ route('page.show', 'contact') }}" class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
                 Începe Călătoria în Obedience
             </a>
         </div>

@@ -164,7 +164,7 @@ $seo = (object) [
         <p class="text-emerald-700">Canicross și Bikejoring oferă o modalitate unică de a explora natura alături de câinele tău, dezvoltând simultan condiția fizică și legătura specială dintre voi.</p>
         <p class="text-emerald-700 mt-2">Clubul CCB România organizează ieșiri de grup și antrenamente pentru începători în ambele discipline.</p>
         <div class="mt-4">
-            <a href="{{ route('page.show', 'contact') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
                 Alătură-te Echipei de Alergare
             </a>
         </div>

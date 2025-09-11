@@ -122,7 +122,7 @@ $seo = (object) [
         <h3 class="font-bold text-blue-800 mb-2">Începe Călătoria în Mondioring</h3>
         <p class="text-blue-700">Contactează clubul nostru pentru o evaluare inițială și participă la antrenamente pentru a vedea dacă disciplina ți se potrivește. Siguranța și progresul gradual sunt prioritățile noastre.</p>
         <div class="mt-4">
-            <a href="{{ route('page.show', 'contact') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
                 Contactează-ne pentru Mondioring
             </a>
         </div>

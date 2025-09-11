@@ -129,7 +129,7 @@ $seo = (object) [
         <p class="text-orange-700">Clubul de Ciobănești Belgieni și Olandezi România organizează cursuri de agility pentru toate nivelurile, de la începători absoluti până la pregătirea pentru competițiile internaționale.</p>
         <p class="text-orange-700 mt-2">Vino să descoperi de ce agility-ul este numit "cel mai distractiv sport canin din lume"!</p>
         <div class="mt-4">
-            <a href="{{ route('page.show', 'contact') }}" class="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition duration-150 ease-in-out">
                 Contactează-ne pentru Agility
             </a>
         </div>
