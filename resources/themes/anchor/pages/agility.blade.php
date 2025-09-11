@@ -1,8 +1,11 @@
 <?php
+use function Laravel\Folio\{name};
+name('page.show.agility');
+
 $seo = (object) [
-    'title' => 'Agility - Sportul Spectaculos al Vitezei și Preciziei',
-    'description' => 'Agility este unul dintre cele mai dinamice și distractive sporturi canine, combinând viteză, precizie și colaborare perfectă între câine și stăpân.',
-    'keywords' => 'agility, sport canin, obstacole câini, antrenament agility, competiții canine, viteză precizie, club canin românia'
+    'title' => 'Agility - Sportul Vitezei și Preciziei Canine',
+    'description' => 'Agility este o disciplină spectaculoasă care combină viteza, agilitatea și comunicarea perfectă între câine și stăpân pe parcursuri cu obstacole.',
+    'keywords' => 'agility, sport canin, obstacole câini, viteză, precizie, competiții agility, antrenament agilitate'
 ];
 ?>
 

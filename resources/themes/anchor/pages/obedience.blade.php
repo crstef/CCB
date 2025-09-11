@@ -1,4 +1,7 @@
 <?php
+use function Laravel\Folio\{name};
+name('page.show.obedience');
+
 $seo = (object) [
     'title' => 'Obedience - Disciplina Clasică a Obedienței Canine',
     'description' => 'Obedience este disciplina care testează precizia și armonia în executarea exercițiilor de obediență între câine și conducător.',

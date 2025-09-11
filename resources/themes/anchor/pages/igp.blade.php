@@ -1,8 +1,11 @@
 <?php
+use function Laravel\Folio\{name};
+name('page.show.igp');
+
 $seo = (object) [
-    'title' => 'IGP - Proba Internațională pentru Câini de Utilitate',
-    'description' => 'IGP (fostul Schutzhund) este standardul internațional pentru testarea câinilor de serviciu și utilitate. Descoperă această disciplină prestigioasă.',
-    'keywords' => 'IGP, schutzhund, câini utilitate, urmărire, obediență, protecție, probe canine, antrenament câini'
+    'title' => 'IGP - International Working Dog',
+    'description' => 'IGP (International Working Dog) este standardul internațional pentru antrenamentul și evaluarea câinilor de serviciu în tracking, obediență și protecție.',
+    'keywords' => 'IGP, International Working Dog, câini de serviciu, tracking, obediență, protecție, antrenament canin, FCI'
 ];
 ?>
 

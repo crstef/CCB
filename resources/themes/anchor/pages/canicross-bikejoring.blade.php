@@ -1,4 +1,7 @@
 <?php
+use function Laravel\Folio\{name};
+name('page.show.canicross-bikejoring');
+
 $seo = (object) [
     'title' => 'Canicross și Bikejoring - Alergarea cu Câinele',
     'description' => 'Canicross și Bikejoring sunt disciplinele care combină sportul uman cu puterea și rezistența câinilor. Descoperă aceste sporturi dinamice de alergare și ciclism.',
