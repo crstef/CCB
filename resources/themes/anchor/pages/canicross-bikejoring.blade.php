@@ -1,10 +1,6 @@
 <?php
-use fun    :breadcrumbs="[
-        ['name' => 'Acasă', 'url' => route('home')],
-        ['name' => 'Discipline', 'url' => '#'],
-        ['name' => 'Canicross & Bikejoring', 'url' => '']
-    ]"n Laravel\Folio\{name};
-name('page.show.canicross-bikejoring');
+use function Laravel\Folio\{name};
+name('page.canicross-bikejoring');
 
 $seo = (object) [
     'title' => 'Canicross și Bikejoring - Alergarea cu Câinele',
@@ -16,9 +12,9 @@ $seo = (object) [
 <x-layouts.marketing 
     :seo="$seo"
     :breadcrumbs="[
-        ['name' => 'Acasă', 'url' => route('wave.home')],
+        ['name' => 'Acasă', 'url' => route('home')],
         ['name' => 'Discipline', 'url' => '#'],
-        ['name' => 'Canicross-Bikejoring', 'url' => '']
+        ['name' => 'Canicross & Bikejoring', 'url' => '']
     ]"
 >
 

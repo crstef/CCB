@@ -1,6 +1,6 @@
 <?php
 use function Laravel\Folio\{name};
-name('page.show.igp');
+name('page.igp');
 
 $seo = (object) [
     'title' => 'IGP - International Working Dog',
@@ -15,7 +15,6 @@ $seo = (object) [
         ['name' => 'Acasă', 'url' => route('home')],
         ['name' => 'Discipline', 'url' => '#'],
         ['name' => 'IGP', 'url' => '']
-    ]"
     ]"
 >
 

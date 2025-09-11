@@ -17,7 +17,6 @@ $seo = (object) [
         ['name' => 'Discipline', 'url' => '#'],
         ['name' => 'Mondioring', 'url' => '']
     ]"
-    ]"
 >
 
 <div class="max-w-4xl mx-auto py-12 px-4">

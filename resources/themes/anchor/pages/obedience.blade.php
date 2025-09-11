@@ -1,6 +1,6 @@
 <?php
 use function Laravel\Folio\{name};
-name('page.show.obedience');
+name('page.obedience');
 
 $seo = (object) [
     'title' => 'Obedience - Disciplina Clasică a Obedienței Canine',
@@ -15,7 +15,6 @@ $seo = (object) [
         ['name' => 'Acasă', 'url' => route('home')],
         ['name' => 'Discipline', 'url' => '#'],
         ['name' => 'Obedience', 'url' => '']
-    ]"
     ]"
 >
 
