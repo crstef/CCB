@@ -26,19 +26,19 @@
             return $form
                 ->schema([
                     TextInput::make('current_password')
-                        ->label('Current Password')
+                        ->label('Parola actuala')
                         ->required()
                         ->currentPassword()
                         ->password()
                         ->revealable(),
                     TextInput::make('password')
-                        ->label('New Password')
+                        ->label('Parola noua')
                         ->required()
                         ->minLength(4)
                         ->password()
                         ->revealable(),
                     TextInput::make('password_confirmation')
-                        ->label('Confirm New Password')
+                        ->label('Confirma parola noua')
                         ->required()
                         ->password()
                         ->revealable()
@@ -60,7 +60,7 @@
             $this->form->fill();
 
             Notification::make()
-                ->title('Successfully changed password')
+                ->title('Parola a fost actualizata cu succes!')
                 ->success()
                 ->send();
         }
