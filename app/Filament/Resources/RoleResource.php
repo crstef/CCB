@@ -31,15 +31,27 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nume')
                     ->required()
                     ->maxLength(191),
                 Forms\Components\TextInput::make('guard_name')
+                    ->label('Guard')
                     ->required()
-                    ->maxLength(191),
+                    ->maxLength(191)
+                    ->default('web'),
                 Forms\Components\TextInput::make('description')
+                    ->label('Descriere')
                     ->required()
                     ->maxLength(191)
                     ->columnSpanFull(),
+                Forms\Components\Select::make('permissions')
+                    ->label('Permisiuni')
+                    ->multiple()
+                    ->relationship('permissions', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->columnSpanFull()
+                    ->helperText('Selectează permisiunile pe care le are acest rol'),
             ]);
     }
 
@@ -48,14 +60,32 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nume')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Descriere')
+                    ->searchable()
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('permissions_count')
+                    ->label('Nr. Permisiuni')
+                    ->counts('permissions')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('permissions.name')
+                    ->label('Permisiuni')
+                    ->badge()
+                    ->limit(3)
+                    ->limitedRemainingText(),
                 Tables\Columns\TextColumn::make('guard_name')
-                    ->searchable(),
+                    ->label('Guard')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creat la')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizat la')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

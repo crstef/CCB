@@ -31,11 +31,15 @@ class PermissionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nume')
                     ->required()
-                    ->maxLength(191),
+                    ->maxLength(191)
+                    ->helperText('Ex: edit-posts, delete-users, view-admin'),
                 Forms\Components\TextInput::make('guard_name')
+                    ->label('Guard')
                     ->required()
-                    ->maxLength(191),
+                    ->maxLength(191)
+                    ->default('web'),
             ]);
     }
 
@@ -44,14 +48,23 @@ class PermissionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nume')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('guard_name')
+                    ->label('Guard')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label('Utilizat în Roluri')
+                    ->badge()
+                    ->limit(3)
+                    ->limitedRemainingText(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creat la')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizat la')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

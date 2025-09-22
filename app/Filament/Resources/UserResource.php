@@ -63,6 +63,13 @@ class UserResource extends Resource
                     ->preload()
                     ->searchable()
                     ->required(),
+                Forms\Components\Select::make('permissions')
+                    ->label('Permisiuni Directe')
+                    ->multiple()
+                    ->relationship('permissions', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->helperText('Permisiuni suplimentare pe lângă cele din roluri'),
                 Forms\Components\DateTimePicker::make('trial_ends_at')
                     ->label('Perioada de Probă se Termină La'),
                 Forms\Components\TextInput::make('verification_code')
@@ -90,6 +97,12 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('username')
                     ->label('Nume Utilizator')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label('Roluri')
+                    ->badge()
+                    ->color('info')
+                    ->limit(2)
+                    ->limitedRemainingText(),
                 Tables\Columns\IconColumn::make('verified')
                     ->label('Verificat')
                     ->boolean()
