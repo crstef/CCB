@@ -90,9 +90,26 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('username')
                     ->label('Nume Utilizator')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('verified')
+                    ->label('Verificat')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('verified')
+                    ->label('Status Verificare')
+                    ->placeholder('Toți utilizatorii')
+                    ->trueLabel('Doar verificați')
+                    ->falseLabel('Doar neverificați')
+                    ->queries(
+                        true: fn ($query) => $query->where('verified', true),
+                        false: fn ($query) => $query->where('verified', false),
+                        blank: fn ($query) => $query,
+                    ),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
