@@ -74,7 +74,7 @@ class RoleResource extends Resource
                     ->label('Permisiuni')
                     ->badge()
                     ->limit(3)
-                    ->limitedRemainingText(),
+                    ->limitList(),
                 Tables\Columns\TextColumn::make('guard_name')
                     ->label('Guard')
                     ->searchable()

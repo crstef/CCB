@@ -57,7 +57,7 @@ class PermissionResource extends Resource
                     ->label('Utilizat în Roluri')
                     ->badge()
                     ->limit(3)
-                    ->limitedRemainingText(),
+                    ->limitList(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creat la')
                     ->dateTime()

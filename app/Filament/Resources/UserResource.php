@@ -102,7 +102,7 @@ class UserResource extends Resource
                     ->badge()
                     ->color('info')
                     ->limit(2)
-                    ->limitedRemainingText(),
+                    ->limitList(),
                 Tables\Columns\IconColumn::make('verified')
                     ->label('Verificat')
                     ->boolean()
