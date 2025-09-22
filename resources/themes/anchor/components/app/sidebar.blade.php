@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-start items-center px-4 space-y-1.5 w-full h-full text-slate-600 dark:text-zinc-400">
+               <!--  <div class="flex flex-col justify-start items-center px-4 space-y-1.5 w-full h-full text-slate-600 dark:text-zinc-400">
                     <x-app.sidebar-link href="/dashboard" icon="phosphor-house" :active="Request::is('dashboard')">Panou de control</x-app.sidebar-link>
                     <x-app.sidebar-dropdown text="Proiecte" icon="phosphor-stack" id="projects_dropdown" :active="(Request::is('projects'))" :open="(Request::is('project_a') || Request::is('project_b') || Request::is('project_c')) ? '1' : '0'">
                         <x-app.sidebar-link onclick="event.preventDefault(); new FilamentNotification().title('Modifică acest buton în sidebar.blade.php').send()" icon="phosphor-cube" :active="(Request::is('project_a'))">Proiect A</x-app.sidebar-link>
@@ -55,7 +55,7 @@
                         <h5 class="pb-1 text-sm font-bold -translate-y-0.5">Editează această secțiune</h5>
                         <p class="block pb-1 text-xs opacity-80 text-balance">Poți edita orice aspect al panoului de utilizator. Această secțiune se găsește în componenta theme/app/sidebar.</p>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="w-full h-px my-2 bg-slate-100 dark:bg-zinc-700"></div>
                 @auth
@@ -63,7 +63,7 @@
                 @else
                     <div class="px-2.5 space-y-1.5 text-zinc-700 dark:text-zinc-400">
                         <x-app.sidebar-link href="{{ route('login') }}" icon="phosphor-sign-in-duotone" active="false">Conectare</x-app.sidebar-link>
-                        <x-app.sidebar-link href="{{ route('register') }}" icon="phosphor-user-plus-duotone" active="false">Înregistrare</x-app.sidebar-link>
+                       <!--  <x-app.sidebar-link href="{{ route('register') }}" icon="phosphor-user-plus-duotone" active="false">Înregistrare</x-app.sidebar-link> -->
                     </div>
                 @endauth
             </div>
