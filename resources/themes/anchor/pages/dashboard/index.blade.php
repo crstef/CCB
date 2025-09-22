@@ -96,12 +96,8 @@
                         <div class="ml-4 flex-grow flex flex-col text-sm">
                             <div class="flex-grow space-y-2">
                                 <div class="flex items-baseline">
-                                    <span class="font-semibold" style="width: 70px;">Prenumele</span>
+                                    <span class="font-semibold" style="width: 70px;">Nume</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
-                                </div>
-                                <div class="flex items-baseline">
-                                    <span class="font-semibold" style="width: 70px;">Numele</span>
-                                    <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ strtoupper(auth()->user()->last_name ?? 'ȘTEFAN') }}</span>
                                 </div>
                                 <div class="flex items-baseline">
                                     <span class="font-semibold" style="width: 70px;">Calitatea</span>
