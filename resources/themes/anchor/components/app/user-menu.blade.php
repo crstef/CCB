@@ -31,14 +31,14 @@
             <div class="relative flex flex-col p-2 space-y-1">
                 <x-app.sidebar-link :hideUntilGroupHover="false" href="{{ route('notifications') }}" icon="phosphor-bell-duotone" active="false">Notificări</x-app.sidebar-link>
                 <x-app.sidebar-link :hideUntilGroupHover="false" href="{{ '/profile/' . auth()->user()->username }}" icon="phosphor-planet-duotone" active="false">Profil Public</x-app.sidebar-link>
-                {{-- @subscriber
+                <!-- {{-- @subscriber
                                 <x-app.sidebar-link href="{{ '/profile/' . auth()->user()->username }}" icon="phosphor-credit-card">Administrare abonament</x-app.sidebar-link>
-                @endsubscriber --}}
+                @endsubscriber --}} -->
 
                 <x-app.sidebar-link :hideUntilGroupHover="false" href="{{ route('settings.profile') }}" icon="phosphor-gear-duotone" active="false">Setări</x-app.sidebar-link>
-                @notsubscriber
+               <!--  @notsubscriber
                 <x-app.sidebar-link href="/settings/subscription" icon="phosphor-sparkle-duotone">Upgrade</x-app.sidebar-link>
-                @endnotsubscriber
+                @endnotsubscriber -->
                 @if(auth()->user()->isAdmin())
                 <x-app.sidebar-link :hideUntilGroupHover="false" :ajax="false" href="/admin" icon="phosphor-crown-duotone" active="false">Vizualizare Admin</x-app.sidebar-link>
                 @endif
