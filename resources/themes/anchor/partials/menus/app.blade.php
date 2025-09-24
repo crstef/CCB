@@ -1,6 +1,7 @@
 <div x-data="{ open: false }" class="flex h-full md:flex-1">
     <div class="hidden flex-1 space-x-8 h-full font-semibold md:flex">
-        <a href="{{ route('wave.dashboard') }}" class="inline-flex items-center px-1 pt-1 text-sm leading-5 transition duration-150 ease-in-out focus:outline-none border-b-2 border-transparent @if(Request::is('dashboard')){{ 'text-zinc-900' }}@else{{ 'text-zinc-800 hover:text-zinc-900' }}@endif">Panou de control</a>
+    <a href="{{ route('wave.dashboard') }}" class="inline-flex items-center px-1 pt-1 text-sm leading-5 transition duration-150 ease-in-out focus:outline-none border-b-2 border-transparent @if(Request::is('dashboard')){{ 'text-zinc-900' }}@else{{ 'text-zinc-800 hover:text-zinc-900' }}@endif">Panou de control</a>
+    <a href="/rescue" class="inline-flex items-center px-1 pt-1 text-sm leading-5 border-b-2 border-transparent transition duration-150 ease-in-out hover:text-zinc-900">Rescue Dog</a>
         <div x-data="{ dropdown: false }" @mouseenter="dropdown = true" @mouseleave="dropdown=false" @click.away="dropdown=false" class="inline-flex relative items-center px-1 pt-1 text-sm leading-5 border-b-2 border-transparent transition duration-150 ease-in-out cursor-pointer text-zinc-800 hover:text-zinc-900 hover:border-zinc-300">
             <span>Resurse</span>
             <svg class="ml-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">

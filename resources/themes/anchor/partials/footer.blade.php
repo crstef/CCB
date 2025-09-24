@@ -10,6 +10,12 @@
                     <h3 class="font-semibold text-black">Discipline</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
+                            <a href="/rescue" class="relative inline-block text-black group">
+                                <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
+                                <span>Rescue Dog</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('page.mondioring') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Mondioring</span>
