@@ -193,21 +193,21 @@ class ImportUsersSeeder extends Seeder
     {
         try {
             $username = $this->generateUsername($userData['nume'], $userData['prenume']);
-            
+
             $user = User::create([
                 'name' => $userData['full_name'],
                 'username' => $username,
                 'email' => $username . '@temp.ccb', // Email temporar
                 'password' => Hash::make($userData['password']),
                 'verified' => 1,
-                'avatar' => 'demo/default.png',
+                'avatar' => '/images/ccb-logo.png', // Avatar implicit pentru toți userii
             ]);
 
             // Atribuie rolul de bază (membru)
             $user->assignRole('basic');
 
             $this->command->info("Utilizator creat: {$userData['full_name']} (username: {$username})");
-            
+
         } catch (\Exception $e) {
             $this->command->error("Eroare la crearea utilizatorului {$userData['full_name']}: " . $e->getMessage());
         }
