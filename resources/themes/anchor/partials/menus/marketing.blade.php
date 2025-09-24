@@ -1,5 +1,10 @@
 <nav class="relative h-full">
     <ul id="menu" class="flex hidden flex-1 gap-x-8 justify-center items-center ml-0 w-full h-full bg-white border-t border-zinc-100 md:flex md:w-auto md:items-center md:border-t-0 md:flex-row">
+        <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">
+            <a href="/misiunea" class="flex items-center h-full text-base font-medium text-zinc-500 transition duration-300 hover:text-zinc-800">
+                Misiunea Clubului
+            </a>
+        </li>
         <li x-data="{ open: false }" @mouseenter="open=true" @mouseleave="open=false" class="flex relative z-30 flex-col items-start h-full border-b border-zinc-100 md:border-b-0 group md:flex-row md:items-center">
             <a href="#_" x-on:click="open=!open" class="flex gap-1 items-center px-6 w-full h-16 text-base font-medium text-zinc-500 transition duration-300 md:h-full md:px-0 md:w-auto hover:text-zinc-800">
                 <span class="">Despre Noi</span>
