@@ -1,10 +1,10 @@
 <nav class="relative h-full">
     <ul id="menu" class="flex hidden flex-1 gap-x-8 justify-center items-center ml-0 w-full h-full bg-white border-t border-zinc-100 md:flex md:w-auto md:items-center md:border-t-0 md:flex-row">
-        <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">
+       <!--  <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">
             <a href="/misiunea" class="flex items-center h-full text-base font-medium text-zinc-500 transition duration-300 hover:text-zinc-800">
                 Misiunea Clubului
             </a>
-        </li>
+        </li> -->
         <li class="px-6 h-16 border-b border-zinc-100 md:px-0 md:border-b-0 md:h-full">
             <a href="/despre-noi" class="flex items-center h-full text-base font-medium text-zinc-500 transition duration-300 hover:text-zinc-800">
                 Despre Noi
@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li class="w-full border-l border-zinc-100 md:w-1/6">
-                        <a href="#_" class="block p-6 text-lg font-semibold rounded-lg transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
+                        <a href="/istoria-ciobanescului-belgian" class="block p-6 text-lg font-semibold rounded-lg transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
                             <!-- Pictogramă pentru istorie -->
                             <svg class="mb-4 w-auto h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
