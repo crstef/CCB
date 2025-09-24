@@ -276,6 +276,10 @@ class User extends AuthUser implements FilamentUser, HasAvatar, JWTSubject
 
     public function avatar()
     {
+        // Dacă avatarul începe cu '/images', returnează direct path-ul (pentru imagini din public/images)
+        if ($this->avatar && str_starts_with($this->avatar, '/images')) {
+            return $this->avatar;
+        }
         return Storage::url($this->avatar);
     }
 
