@@ -200,7 +200,7 @@ class ImportUsersSeeder extends Seeder
                 'email' => $username . '@temp.ccb', // Email temporar
                 'password' => Hash::make($userData['password']),
                 'verified' => 1,
-                'avatar' => 'images/ccb-logo.png', // Avatar implicit pentru toți userii
+                'avatar' => 'images/ccb-logo.png', // Avatar implicit pentru toți userii (fără slash)
             ]);
 
             // Atribuie rolul de bază (membru)
