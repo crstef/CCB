@@ -170,10 +170,12 @@ a.gallery-button:hover .gallery-button-icon {
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
-                <h3 class="font-medium text-zinc-900">Misiunea Clubului</h3>
-                <p class="mt-2 text-sm text-zinc-500">
-                    Ce ne propunem să realizăm. <span class="hidden lg:inline">Explică aici.</span>
-                </p>
+                <a href="/misiunea" class="group block transition-all duration-300 hover:scale-105">
+                    <h3 class="font-medium text-zinc-900 group-hover:text-blue-700 transition-all duration-300">Misiunea Clubului</h3>
+                    <p class="mt-2 text-sm text-zinc-500 group-hover:text-blue-800 transition-all duration-300">
+                        Ce ne propunem să realizăm. <span class="hidden lg:inline">Explică aici.</span>
+                    </p>
+                </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
                 <h3 class="font-medium text-zinc-900">Calendar Competițional</h3>
