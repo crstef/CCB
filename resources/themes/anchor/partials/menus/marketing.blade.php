@@ -18,14 +18,14 @@
                 x-cloak>
                 <ul class="flex flex-col justify-between px-8 mx-auto max-w-6xl md:px-12 md:flex-row">
                     <li class="w-full border-l border-zinc-100 md:w-1/5">
-                        <a href="#_" class="block p-6 h-full text-lg font-semibold transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
+                        <a href="/despre-noi" class="block p-6 h-full text-lg font-semibold transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
                             <svg class="mb-5 w-auto h-6" viewBox="0 0 73 49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z" fill="#68DBFF"></path><path d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z" fill="#FF7917"></path><path d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z" fill="#5D2C02"></path></svg>
                             <span class="block my-2 text-xs font-bold uppercase text-slate-800">Istoria Clubului</span>
                             <span class="block text-xs font-medium leading-5 text-slate-500">Cateva relatari cronologice</span>
                         </a>
                     </li>
                     <li class="w-full border-l border-zinc-100 md:w-1/5">
-                        <a href="#_" class="block p-6 h-full text-lg font-semibold transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
+                        <a href="#" class="block p-6 h-full text-lg font-semibold transition duration-300 hover:bg-zinc-50 lg:p-7 lg:py-10">
                             <svg class="mt-0.5 mb-5 w-auto h-5" viewBox="0 0 78 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M55.5 0h22l-19 32h-22l19-32Z" fill="#FF7A00"></path><path d="M35.5 0h16l-19 32h-16l19-32Z" fill="#FF9736"></path><path d="M19.5 0h12l-19 32H.5l19-32Z" fill="#FFBC7D"></path></svg>
                             <span class="block my-2 text-xs font-bold uppercase text-slate-800">Echpipa CCB</span>
                             <span class="block text-xs font-medium leading-5 text-slate-500">Membrii echipei CCB</span>
@@ -36,6 +36,7 @@
                             <svg class="mb-4 w-auto h-7" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.684 40.138c11.046 0 20-8.954 20-20s-8.954-20-20-20-20 8.954-20 20 8.954 20 20 20Zm6.24-30.683c.303-1.079-.744-1.717-1.7-1.036l-13.347 9.509c-1.037.738-.874 2.21.245 2.21h3.515v-.027h6.85l-5.582 1.97-2.46 8.74c-.304 1.079.743 1.717 1.7 1.036l13.346-9.508c1.037-.74.874-2.211-.245-2.211h-5.33l3.007-10.683Z" fill="#F15757"></path></svg>
                             <span class="block my-2 text-xs font-bold uppercase text-slate-800">Cum devii membru</span>
                             <span class="block text-xs font-medium leading-5 text-slate-500">Descrierea modului de a deveni membru</span>
+                            <span class="block mt-2 text-xs text-blue-600 underline"><a href=\"/misiunea\">Misiunea Clubului</a></span>
                         </a>
                     </li>
                     

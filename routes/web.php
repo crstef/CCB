@@ -32,3 +32,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 
 // Wave routes
 Wave::routes();
+
+// Include pagini statice pentru meniuri și footer
+require_once __DIR__.'/static_pages.php';
