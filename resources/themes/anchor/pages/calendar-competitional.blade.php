@@ -102,21 +102,24 @@
                                     $isUpcoming = $current->gt(now()->startOfDay());
                                 @endphp
                                 
-                                <div class="relative p-2 h-12 border border-gray-100 
-                                    {{ !$isCurrentMonth ? 'bg-gray-50 text-gray-400' : '' }}
-                                    {{ $dayEvents->count() > 0 && $isCurrentMonth ? 'cursor-pointer hover:bg-gray-50' : '' }}"
+                                <div class="relative p-2 h-16 border border-gray-100 
+                                    {{ !$isCurrentMonth ? 'bg-gray-50 text-gray-400' : 'bg-white' }}
+                                    {{ $dayEvents->count() > 0 && $isCurrentMonth ? 'cursor-pointer transition-all duration-200 hover:shadow-md' : '' }}
+                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isToday ? 'bg-green-50 border-green-200 hover:bg-green-100' : '' }}
+                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isPast ? 'bg-gray-100 border-gray-200 hover:bg-gray-150' : '' }}
+                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isUpcoming ? 'bg-blue-50 border-blue-200 hover:bg-blue-100' : '' }}"
                                     @if($dayEvents->count() > 0 && $isCurrentMonth)
-                                        onclick="showEventsForDate('{{ $dateString }}', {{ json_encode($dayEvents->map(function($event) {
+                                        data-tooltip="{{ $dayEvents->first()->title }}"
+                                        data-date="{{ $current->format('d M Y') }}"
+                                        onclick="goToEvent('{{ $dayEvents->first()->slug }}')"
+                                        onmouseenter="showTooltip(this, {{ json_encode($dayEvents->map(function($event) {
                                             return [
-                                                'id' => $event->id,
                                                 'title' => $event->title,
-                                                'slug' => $event->slug,
-                                                'location' => $event->location,
-                                                'disciplines' => $event->disciplines,
-                                                'event_start_date' => $event->event_start_date->format('H:i'),
-                                                'event_end_date' => $event->event_end_date ? $event->event_end_date->format('H:i') : null
+                                                'time' => $event->event_start_date->format('H:i'),
+                                                'location' => $event->location
                                             ];
                                         })) }})"
+                                        onmouseleave="hideTooltip()"
                                     @endif>
                                     
                                     <!-- Day Number -->
@@ -128,19 +131,29 @@
                                     @if($dayEvents->count() > 0 && $isCurrentMonth)
                                         <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2">
                                             @if($isToday)
-                                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
                                             @elseif($isPast)
-                                                <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                                <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
                                             @else
-                                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                                <div class="w-3 h-3 bg-blue-500 rounded-full animate-bounce shadow-lg"></div>
                                             @endif
                                         </div>
                                         
                                         @if($dayEvents->count() > 1)
-                                            <span class="absolute top-0 right-0 text-xs bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
+                                            <span class="absolute top-1 right-1 text-xs bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-md">
                                                 {{ $dayEvents->count() }}
                                             </span>
                                         @endif
+                                        
+                                        <!-- Event title preview for larger screens -->
+                                        <div class="absolute inset-x-1 bottom-4 hidden lg:block">
+                                            <div class="text-[8px] text-center font-medium truncate
+                                                {{ $isToday ? 'text-green-700' : '' }}
+                                                {{ $isPast ? 'text-gray-500' : '' }}
+                                                {{ $isUpcoming ? 'text-blue-700' : '' }}">
+                                                {{ $dayEvents->first()->title }}
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                                 
@@ -187,88 +200,152 @@
     </div>
 </x-layouts.marketing>
 
+<!-- Floating Tooltip -->
+<div id="eventTooltip" class="fixed z-50 hidden pointer-events-none">
+    <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 shadow-lg max-w-xs">
+        <div id="tooltipContent"></div>
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+    </div>
+</div>
+
 <script>
-function showEventsForDate(dateString, events) {
-    const modal = document.getElementById('eventModal');
-    const modalDate = document.getElementById('modalDate');
-    const modalEvents = document.getElementById('modalEvents');
+let tooltip = null;
+
+function showTooltip(element, events) {
+    tooltip = document.getElementById('eventTooltip');
+    const tooltipContent = document.getElementById('tooltipContent');
     
-    // Format date for display
-    const date = new Date(dateString);
-    const options = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-    };
-    const romanianMonths = {
-        'January': 'Ianuarie', 'February': 'Februarie', 'March': 'Martie',
-        'April': 'Aprilie', 'May': 'Mai', 'June': 'Iunie',
-        'July': 'Iulie', 'August': 'August', 'September': 'Septembrie',
-        'October': 'Octombrie', 'November': 'Noiembrie', 'December': 'Decembrie'
-    };
-    const romanianDays = {
-        'Monday': 'Luni', 'Tuesday': 'Marți', 'Wednesday': 'Miercuri',
-        'Thursday': 'Joi', 'Friday': 'Vineri', 'Saturday': 'Sâmbătă', 'Sunday': 'Duminică'
-    };
-    
-    let formattedDate = date.toLocaleDateString('en-US', options);
-    Object.keys(romanianMonths).forEach(month => {
-        formattedDate = formattedDate.replace(month, romanianMonths[month]);
-    });
-    Object.keys(romanianDays).forEach(day => {
-        formattedDate = formattedDate.replace(day, romanianDays[day]);
-    });
-    
-    modalDate.textContent = formattedDate;
-    
-    // Build events HTML
-    let eventsHTML = '';
-    events.forEach(event => {
-        eventsHTML += `
-            <div class="bg-gray-50 rounded-lg p-4 mb-4 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
-                 onclick="window.open('/evenimente/${event.slug}', '_blank')">
-                <h4 class="font-semibold text-gray-900 mb-2">${event.title}</h4>
-                
-                <div class="space-y-2 text-sm text-gray-600">
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        ${event.event_start_date}${event.event_end_date ? ' - ' + event.event_end_date : ''}
-                    </div>
-                    
-                    ${event.location ? `
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            ${event.location}
-                        </div>
-                    ` : ''}
-                    
-                    ${event.disciplines && event.disciplines.length > 0 ? `
-                        <div class="flex flex-wrap gap-1 mt-2">
-                            ${event.disciplines.map(discipline => `
-                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">${discipline}</span>
-                            `).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-                
-                <div class="mt-3 text-xs text-blue-600 font-medium">
-                    Click pentru detalii complete →
-                </div>
-            </div>
+    let content = '';
+    events.forEach((event, index) => {
+        if (index > 0) content += '<hr class="my-1 border-gray-600">';
+        content += `
+            <div class="font-semibold">${event.title}</div>
+            <div class="text-gray-300">${event.time}</div>
+            ${event.location ? `<div class="text-gray-400 text-xs">${event.location}</div>` : ''}
         `;
     });
     
-    modalEvents.innerHTML = eventsHTML;
+    if (events.length > 1) {
+        content += `<div class="text-xs text-yellow-300 mt-1">Click pentru detalii complete</div>`;
+    } else {
+        content += `<div class="text-xs text-yellow-300 mt-1">Click pentru a vedea evenimentul</div>`;
+    }
     
-    // Show modal
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    tooltipContent.innerHTML = content;
+    
+    // Position tooltip
+    const rect = element.getBoundingClientRect();
+    tooltip.style.left = (rect.left + rect.width / 2 - 100) + 'px';
+    tooltip.style.top = (rect.top - 10) + 'px';
+    tooltip.style.transform = 'translateY(-100%)';
+    
+    // Adjust if tooltip would go off screen
+    const tooltipRect = tooltip.getBoundingClientRect();
+    if (tooltipRect.left < 10) {
+        tooltip.style.left = '10px';
+    }
+    if (tooltipRect.right > window.innerWidth - 10) {
+        tooltip.style.left = (window.innerWidth - tooltipRect.width - 10) + 'px';
+    }
+    
+    tooltip.classList.remove('hidden');
+}
+
+function hideTooltip() {
+    if (tooltip) {
+        tooltip.classList.add('hidden');
+    }
+}
+
+function goToEvent(slug) {
+    window.open('/evenimente/' + slug, '_blank');
+}
+
+// Alternative function for multiple events on one day
+function showEventsForDate(dateString, events) {
+    if (events.length === 1) {
+        goToEvent(events[0].slug);
+    } else {
+        // Show modal for multiple events
+        const modal = document.getElementById('eventModal');
+        const modalDate = document.getElementById('modalDate');
+        const modalEvents = document.getElementById('modalEvents');
+        
+        // Format date for display
+        const date = new Date(dateString);
+        const romanianMonths = {
+            'January': 'Ianuarie', 'February': 'Februarie', 'March': 'Martie',
+            'April': 'Aprilie', 'May': 'Mai', 'June': 'Iunie',
+            'July': 'Iulie', 'August': 'August', 'September': 'Septembrie',
+            'October': 'Octombrie', 'November': 'Noiembrie', 'December': 'Decembrie'
+        };
+        const romanianDays = {
+            'Monday': 'Luni', 'Tuesday': 'Marți', 'Wednesday': 'Miercuri',
+            'Thursday': 'Joi', 'Friday': 'Vineri', 'Saturday': 'Sâmbătă', 'Sunday': 'Duminică'
+        };
+        
+        let formattedDate = date.toLocaleDateString('en-US', { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+        Object.keys(romanianMonths).forEach(month => {
+            formattedDate = formattedDate.replace(month, romanianMonths[month]);
+        });
+        Object.keys(romanianDays).forEach(day => {
+            formattedDate = formattedDate.replace(day, romanianDays[day]);
+        });
+        
+        modalDate.textContent = formattedDate;
+        
+        // Build events HTML
+        let eventsHTML = '';
+        events.forEach(event => {
+            eventsHTML += `
+                <div class="bg-gray-50 rounded-lg p-4 mb-4 hover:bg-blue-50 transition-colors duration-200 cursor-pointer transform hover:scale-105"
+                     onclick="window.open('/evenimente/${event.slug}', '_blank')">
+                    <h4 class="font-semibold text-gray-900 mb-2">${event.title}</h4>
+                    
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            ${event.event_start_date}${event.event_end_date ? ' - ' + event.event_end_date : ''}
+                        </div>
+                        
+                        ${event.location ? `
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                ${event.location}
+                            </div>
+                        ` : ''}
+                        
+                        ${event.disciplines && event.disciplines.length > 0 ? `
+                            <div class="flex flex-wrap gap-1 mt-2">
+                                ${event.disciplines.map(discipline => `
+                                    <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">${discipline}</span>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="mt-3 text-xs text-blue-600 font-medium flex items-center">
+                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        Click pentru detalii complete
+                    </div>
+                </div>
+            `;
+        });
+        
+        modalEvents.innerHTML = eventsHTML;
+        
+        // Show modal
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeEventModal() {
@@ -281,6 +358,7 @@ function closeEventModal() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeEventModal();
+        hideTooltip();
     }
 });
 
@@ -291,4 +369,8 @@ document.addEventListener('click', function(e) {
         closeEventModal();
     }
 });
+
+// Hide tooltip on scroll
+window.addEventListener('scroll', hideTooltip);
+window.addEventListener('resize', hideTooltip);
 </script>
