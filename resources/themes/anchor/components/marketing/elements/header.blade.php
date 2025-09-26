@@ -192,12 +192,10 @@
                                             <span class="block mb-1 font-medium text-black">Obedience</span>
                                             <span class="block leading-5 opacity-50">Disciplina clasică a obedienței canine precise</span>
                                         </a>
-                                        <div class="block text-sm p-7 opacity-50">
-                                            <a href="/rescue" class="block text-sm p-7 hover:bg-neutral-100">
-                                                <span class="block mb-1 font-medium text-black">Rescue</span>
-                                                <span class="block leading-5 opacity-50">Disciplina de salvare și recuperare</span>
-                                            </a>
-                                        </div>
+                                        <a href="/rescue" class="block text-sm p-7 hover:bg-neutral-100">
+                                            <span class="block mb-1 font-medium text-black">Rescue</span>
+                                            <span class="block leading-5 opacity-50">Disciplina de salvare și recuperare</span>
+                                        </a>
                                     </div>
                                 </div>
                             </ul>
