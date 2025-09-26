@@ -86,36 +86,40 @@ $seo = (object) [
                                     $isPast = now()->create($currentYear, $month, $day)->isPast();
                                 @endphp
                                 
-                                <div class="h-14 border-r border-b border-gray-100 p-1 relative
-                                    @if($isToday) bg-green-50 border-green-200 
-                                    @elseif($dayEvents->count() > 0 && $isPast) bg-gray-50
-                                    @elseif($dayEvents->count() > 0) bg-blue-50 border-blue-200
-                                    @else hover:bg-gray-50
+                                <div class="h-20 border-r border-b border-gray-200 p-1 relative overflow-hidden
+                                    @if($dayEvents->count() > 0)
+                                        @if($isToday) bg-green-500 text-white
+                                        @elseif($isPast) bg-gray-400 text-white  
+                                        @else bg-blue-500 text-white
+                                        @endif
+                                    @else bg-white hover:bg-gray-50
                                     @endif">
                                     
                                     <!-- Day Number -->
-                                    <div class="text-xs text-gray-600 mb-1">{{ $day }}</div>
+                                    <div class="text-xs font-medium mb-1 
+                                        @if($dayEvents->count() > 0) text-white 
+                                        @else text-gray-700 
+                                        @endif">
+                                        {{ $day }}
+                                    </div>
                                     
                                     @if($dayEvents->count() > 0)
                                         @php $event = $dayEvents->first(); @endphp
-                                        <!-- Event Badge -->
-                                        <div class="event-item cursor-pointer relative"
+                                        <!-- Event Title - Full visibility -->
+                                        <div class="cursor-pointer h-full"
                                              onclick="window.open('/evenimente/{{ $event->slug }}', '_blank')"
                                              onmouseover="showHoverPopup(event, '{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}')"
                                              onmouseout="hideHoverPopup()">
                                             
-                                            <!-- Event Title Badge -->
-                                            <div class="px-1 py-0.5 rounded text-[8px] leading-tight truncate
-                                                @if($isToday) bg-green-100 text-green-800 border border-green-200
-                                                @elseif($isPast) bg-gray-100 text-gray-600 border border-gray-200
-                                                @else bg-blue-100 text-blue-800 border border-blue-200
-                                                @endif">
-                                                {{ Str::limit($event->title, 18) }}
+                                            <div class="text-[10px] leading-tight text-white font-medium break-words">
+                                                {{ $event->title }}
                                             </div>
                                             
-                                            <!-- Multiple Events Dot -->
+                                            <!-- Multiple Events Indicator -->
                                             @if($dayEvents->count() > 1)
-                                                <div class="absolute -top-1 -right-1 w-2 h-2 bg-orange-400 rounded-full"></div>
+                                                <div class="absolute bottom-1 right-1 text-[8px] bg-white bg-opacity-30 rounded px-1">
+                                                    +{{ $dayEvents->count() - 1 }}
+                                                </div>
                                             @endif
                                         </div>
                                     @endif
@@ -129,15 +133,15 @@ $seo = (object) [
             <!-- Legend -->
             <div class="flex justify-center gap-6 mt-8 text-sm">
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-blue-50 border border-blue-200 rounded mr-2"></div>
+                    <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
                     <span>Evenimente viitoare</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-green-50 border border-green-200 rounded mr-2"></div>
-                    <span>Astăzi</span>
+                    <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                    <span>În curs / Astăzi</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-gray-100 border border-gray-200 rounded mr-2"></div>
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
                     <span>Trecute</span>
                 </div>
             </div>
