@@ -30,7 +30,6 @@
 
 <?php
 
-use Carbon\Carbon;
 use App\Models\Event;
 
 // Get current year and events
@@ -77,7 +76,7 @@ $seo = (object) [
                                 <td class="px-1 py-1 text-xs text-center border-r border-gray-200 w-12">
                                     <div class="font-bold">{{ $day }}</div>
                                     @php
-                                        $date = Carbon::create($currentYear, 3, $day);
+                                        $date = now()->create($currentYear, 3, $day);
                                         if ($date->month == 3) {
                                             echo '<div class="text-gray-500">' . $dayNames[$date->dayOfWeek] . '</div>';
                                         }
@@ -86,15 +85,15 @@ $seo = (object) [
                                 @foreach([3, 4, 5, 6, 7, 8, 9, 10, 11] as $month)
                                     <td class="px-1 py-1 text-xs border-r border-gray-200 last:border-r-0 h-8">
                                         @php
-                                            $date = Carbon::create($currentYear, $month, 1);
+                                            $date = now()->create($currentYear, $month, 1);
                                             if ($day <= $date->daysInMonth) {
-                                                $dateString = Carbon::create($currentYear, $month, $day)->format('Y-m-d');
+                                                $dateString = now()->create($currentYear, $month, $day)->format('Y-m-d');
                                                 $dayEvents = $events->get($dateString, collect());
-                                                $dayName = $dayNames[Carbon::create($currentYear, $month, $day)->dayOfWeek];
+                                                $dayName = $dayNames[now()->create($currentYear, $month, $day)->dayOfWeek];
                                                 
                                                 if ($dayEvents->count() > 0) {
                                                     $event = $dayEvents->first();
-                                                    $isPast = Carbon::create($currentYear, $month, $day)->lt(now()->startOfDay());
+                                                    $isPast = now()->create($currentYear, $month, $day)->lt(now()->startOfDay());
                                                     $colorClass = $isPast ? 'bg-gray-400' : 'bg-blue-500';
                                                     
                                                     echo '<div class="' . $colorClass . ' text-white px-1 rounded text-center cursor-pointer hover:opacity-75" 
