@@ -103,9 +103,9 @@
                             </ul>
                         </div>
                     </li> -->
-                    <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
-                        <a href="{{ route('page.despre-noi') }} class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">
-                            Despre noi
+                     <li class="flex-shrink-0 h-16 border-b border-gray-100 md:border-b-0 md:h-full">
+                        <a href="/despre-noi" class="flex items-center h-full text-sm font-semibold text-gray-700 transition duration-300 md:px-0 px-7 hover:bg-gray-100 md:hover:bg-transparent hover:text-gray-900">
+                            Despre Noi
                         </a>
                     </li>
                     <li x-data="{ open: false }" @mouseenter="showOverlay=true" @mouseleave="showOverlay=false" class="z-30 flex flex-col items-start h-auto border-b border-gray-100 md:h-full md:border-b-0 group md:flex-row md:items-center">
