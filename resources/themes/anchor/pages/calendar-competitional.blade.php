@@ -86,38 +86,34 @@ $seo = (object) [
                                     $isPast = now()->create($currentYear, $month, $day)->isPast();
                                 @endphp
                                 
-                                <div class="h-12 border-r border-b border-gray-200 p-1 relative cursor-pointer
-                                    @if($dayEvents->count() > 0) hover:bg-gray-100 
-                                    @else hover:bg-gray-50
+                                <div class="h-12 border-r border-b border-gray-200 p-1 relative
+                                    @if($dayEvents->count() > 0)
+                                        @if($isToday) bg-green-500 text-white
+                                        @elseif($isPast) bg-gray-400 text-white  
+                                        @else bg-blue-500 text-white
+                                        @endif
+                                    @else bg-white hover:bg-gray-50
                                     @endif"
                                     @if($dayEvents->count() > 0)
                                         @php $event = $dayEvents->first(); @endphp
+                                        onmouseover="showCellPopup(this, '{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
+                                        onmouseout="hideCellPopup()"
                                         onclick="openEventPopup('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
+                                        class="cursor-pointer"
                                     @endif>
                                     
                                     <!-- Day Number -->
-                                    <div class="text-xs font-medium text-gray-700">{{ $day }}</div>
+                                    <div class="text-xs font-medium 
+                                        @if($dayEvents->count() > 0) text-white 
+                                        @else text-gray-700 
+                                        @endif">
+                                        {{ $day }}
+                                    </div>
                                     
-                                    @if($dayEvents->count() > 0)
-                                        @php $event = $dayEvents->first(); @endphp
-                                        <!-- Event Indicator Dot -->
-                                        <div class="absolute bottom-1 left-1 w-2 h-2 rounded-full
-                                            @if($isToday) bg-green-500
-                                            @elseif($isPast) bg-gray-400
-                                            @else bg-blue-500
-                                            @endif">
-                                        </div>
-                                        
-                                        <!-- Multiple Events -->
-                                        @if($dayEvents->count() > 1)
-                                            <div class="absolute bottom-1 left-4 w-2 h-2 bg-orange-400 rounded-full"></div>
-                                        @endif
-                                        
-                                        <!-- Event Title Hint (on hover) -->
-                                        <div class="absolute inset-0 bg-blue-500 bg-opacity-0 hover:bg-opacity-10 transition-all duration-200 rounded flex items-center justify-center opacity-0 hover:opacity-100">
-                                            <div class="text-[8px] text-blue-700 font-medium text-center px-1">
-                                                Click pentru detalii
-                                            </div>
+                                    @if($dayEvents->count() > 1)
+                                        <!-- Multiple Events Indicator -->
+                                        <div class="absolute bottom-1 right-1 text-[8px] bg-white bg-opacity-30 rounded px-1 text-white">
+                                            +{{ $dayEvents->count() - 1 }}
                                         </div>
                                     @endif
                                 </div>
@@ -130,20 +126,16 @@ $seo = (object) [
             <!-- Legend -->
             <div class="flex justify-center gap-6 mt-8 text-sm">
                 <div class="flex items-center">
-                    <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                    <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
                     <span>Evenimente viitoare</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                    <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
                     <span>În curs / Astăzi</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
                     <span>Trecute</span>
-                </div>
-                <div class="flex items-center">
-                    <div class="w-3 h-3 bg-orange-400 rounded-full mr-2"></div>
-                    <span>Evenimente multiple</span>
                 </div>
             </div>
             
@@ -160,9 +152,25 @@ $seo = (object) [
         </div>
     </div>
 
+    <!-- Hover Popup (positioned above cell) -->
+    <div id="cellHoverPopup" class="fixed bg-white border border-gray-300 rounded-lg shadow-xl p-3 z-40 hidden max-w-xs transform -translate-x-1/2">
+        <div class="text-sm font-semibold text-gray-900 mb-1" id="hoverTitle"></div>
+        <div class="text-xs text-gray-600 mb-1 flex items-center" id="hoverLocation">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            </svg>
+            <span id="hoverLocationText"></span>
+        </div>
+        <div class="text-xs text-gray-500" id="hoverDate"></div>
+        <div class="text-xs text-blue-600 mt-2">Click pentru mai multe detalii</div>
+        <!-- Arrow pointing down -->
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-white"></div>
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-[-1px] w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-300"></div>
+    </div>
+
     <!-- Event Details Popup -->
-    <div id="eventPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 transform scale-95 transition-transform">
+    <div id="eventPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform">
             <!-- Popup Header -->
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center">
@@ -224,8 +232,51 @@ $seo = (object) [
 
     <script>
         let currentEventSlug = '';
+        let hoverTimeout;
+        let isMobile = window.innerWidth <= 768;
+        
+        // Detect if device is mobile/touch
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+        
+        function showCellPopup(cell, title, location, date, slug) {
+            if (isMobile) return; // Skip hover on mobile
+            
+            clearTimeout(hoverTimeout);
+            
+            const popup = document.getElementById('cellHoverPopup');
+            const rect = cell.getBoundingClientRect();
+            
+            // Set content
+            document.getElementById('hoverTitle').textContent = title;
+            document.getElementById('hoverLocationText').textContent = location;
+            document.getElementById('hoverDate').textContent = new Date(date).toLocaleDateString('ro-RO', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long'
+            });
+            
+            // Position popup above the cell
+            popup.style.left = (rect.left + rect.width/2 + window.scrollX) + 'px';
+            popup.style.top = (rect.top + window.scrollY - 10) + 'px';
+            popup.style.transform = 'translateX(-50%) translateY(-100%)';
+            
+            popup.classList.remove('hidden');
+        }
+        
+        function hideCellPopup() {
+            if (isMobile) return;
+            
+            hoverTimeout = setTimeout(() => {
+                document.getElementById('cellHoverPopup').classList.add('hidden');
+            }, 200);
+        }
         
         function openEventPopup(title, location, date, slug) {
+            // Hide hover popup first
+            document.getElementById('cellHoverPopup').classList.add('hidden');
+            
             // Set content
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('locationText').textContent = location;
@@ -267,6 +318,7 @@ $seo = (object) [
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeEventPopup();
+                hideCellPopup();
             }
         });
         
@@ -276,5 +328,30 @@ $seo = (object) [
                 closeEventPopup();
             }
         });
+        
+        // Touch support for mobile
+        if (isMobile) {
+            document.addEventListener('touchstart', function(e) {
+                const target = e.target.closest('[onmouseover]');
+                if (target && target.hasAttribute('onmouseover')) {
+                    // Extract event data from attributes
+                    const onclick = target.getAttribute('onclick');
+                    if (onclick && onclick.includes('openEventPopup')) {
+                        // Long press to show popup on mobile
+                        let longPressTimer = setTimeout(() => {
+                            target.click();
+                        }, 500);
+                        
+                        target.addEventListener('touchend', () => {
+                            clearTimeout(longPressTimer);
+                        }, { once: true });
+                        
+                        target.addEventListener('touchmove', () => {
+                            clearTimeout(longPressTimer);
+                        }, { once: true });
+                    }
+                }
+            });
+        }
     </script>
 </x-layouts.marketing>
