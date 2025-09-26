@@ -1,3 +1,9 @@
+<?php
+use function Laravel\Folio\{name};
+
+name('page.despre-noi');
+?>
+
 <x-layouts.marketing>
     <x-app.container>
         <x-app.heading

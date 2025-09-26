@@ -1,3 +1,9 @@
+<?php
+use function Laravel\Folio\{name};
+
+name('page.rescue');
+?>
+
 <x-layouts.marketing>
     <x-app.container>
         <x-app.heading
@@ -5,7 +11,7 @@
             description="Descoperă disciplina canină dedicată salvării de vieți omenești."
         />
         <div class="max-w-3xl mx-auto mt-8 prose prose-lg lg:prose-xl dark:prose-invert">
-            <p class="lead font-semibold text-primary">“Rescue Dog Sport” este un sport canin recunoscut internațional, inspirat din activitatea câinilor de salvare în situații reale – avalanșe, cutremure sau căutarea persoanelor dispărute.</p>
+            <p class="lead font-semibold text-primary">"Rescue Dog Sport" este un sport canin recunoscut internațional, inspirat din activitatea câinilor de salvare în situații reale – avalanșe, cutremure sau căutarea persoanelor dispărute.</p>
             <p>Este o disciplină în care câinele și conductorul (handlerul) își demonstrează abilitățile de căutare și salvare, însă într-un cadru competițional. Sportul este structurat, în general, în două mari părți:</p>
             <ul>
                 <li><b>Exerciții de căutare</b> – localizarea și semnalarea persoanelor ascunse în diverse medii (pădure, dărâmături, piste de urmă).</li>
