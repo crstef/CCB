@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
 class AuthController extends Controller
 {
     /**
@@ -25,16 +29,21 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $this->ensureIsNotRateLimited($request);
+
         $request->validate([
             'username' => ['required', 'string'],
             'password' => ['required'],
         ]);
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->boolean('remember'))) {
+            RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
 
             return redirect()->intended('/');
         }
+
+        RateLimiter::hit($this->throttleKey($request));
 
         return back()->withErrors([
             'username' => 'Datele de autentificare introduse sunt incorecte.',
@@ -87,5 +96,32 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    /**
+     * Ensure the login request is not rate limited.
+     */
+    public function ensureIsNotRateLimited(Request $request): void
+    {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+            return;
+        }
+
+        $seconds = RateLimiter::availableIn($this->throttleKey($request));
+
+        throw ValidationException::withMessages([
+            'username' => trans('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ]),
+        ]);
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request.
+     */
+    public function throttleKey(Request $request): string
+    {
+        return Str::transliterate(Str::lower($request->input('username')).'|'.$request->ip());
     }
 }
