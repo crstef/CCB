@@ -98,7 +98,7 @@ $seo = (object) [
                                         @php $event = $dayEvents->first(); @endphp
                                         onmouseover="showCellPopup(this, '{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
                                         onmouseout="hideCellPopup()"
-                                        onclick="openEventPopup('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
+                                        onclick="showEventDetails('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
                                         class="cursor-pointer"
                                     @endif>
                                     
@@ -152,80 +152,75 @@ $seo = (object) [
         </div>
     </div>
 
-    <!-- Hover Popup (positioned above cell) -->
-    <div id="cellHoverPopup" class="fixed bg-white border border-gray-300 rounded-lg shadow-xl p-3 z-40 hidden max-w-xs transform -translate-x-1/2">
-        <div class="text-sm font-semibold text-gray-900 mb-1" id="hoverTitle"></div>
-        <div class="text-xs text-gray-600 mb-1 flex items-center" id="hoverLocation">
-            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Hover Popup Window -->
+    <div id="hoverWindow" class="fixed bg-white border-2 border-gray-300 rounded-lg shadow-xl p-4 z-50 hidden max-w-sm">
+        <div class="text-sm font-bold text-gray-900 mb-2" id="hoverTitle"></div>
+        <div class="text-xs text-gray-600 flex items-center mb-1">
+            <svg class="w-3 h-3 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
             </svg>
             <span id="hoverLocationText"></span>
         </div>
-        <div class="text-xs text-gray-500" id="hoverDate"></div>
-        <div class="text-xs text-blue-600 mt-2">Click pentru mai multe detalii</div>
-        <!-- Arrow pointing down -->
-        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-white"></div>
-        <div class="absolute top-full left-1/2 transform -translate-x-1/2 translate-y-[-1px] w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-300"></div>
+        <div class="text-xs text-blue-600 mt-2 font-medium">Click pentru detalii complete</div>
     </div>
 
-    <!-- Event Details Popup -->
-    <div id="eventPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 transform scale-95 transition-transform">
-            <!-- Popup Header -->
-            <div class="flex justify-between items-start mb-4">
-                <div class="flex items-center">
-                    <div id="popupStatusDot" class="w-3 h-3 rounded-full mr-3"></div>
-                    <h3 class="text-lg font-semibold text-gray-900">Detalii Eveniment</h3>
-                </div>
-                <button onclick="closeEventPopup()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            
-            <!-- Event Info -->
+    <!-- Event Details Section (in same page) -->
+    <div id="eventDetails" class="hidden mt-8 bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-900">Detalii Eveniment</h3>
+            <button onclick="hideEventDetails()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Left Column -->
             <div class="space-y-4">
-                <!-- Event Title -->
                 <div>
-                    <label class="text-sm font-medium text-gray-500 block mb-1">Denumire Concurs</label>
-                    <p id="popupTitle" class="text-gray-900 font-medium"></p>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Denumire Concurs</label>
+                    <p id="detailsTitle" class="text-lg font-semibold text-gray-900"></p>
                 </div>
                 
-                <!-- Location -->
                 <div>
-                    <label class="text-sm font-medium text-gray-500 block mb-1">Locația</label>
-                    <p id="popupLocation" class="text-gray-700 flex items-center">
-                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Locația</label>
+                    <p id="detailsLocation" class="text-gray-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span id="locationText"></span>
+                        <span id="detailsLocationText"></span>
                     </p>
                 </div>
                 
-                <!-- Date -->
                 <div>
-                    <label class="text-sm font-medium text-gray-500 block mb-1">Data</label>
-                    <p id="popupDate" class="text-gray-700 flex items-center">
-                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Data și Ora</label>
+                    <p id="detailsDate" class="text-gray-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <span id="dateText"></span>
+                        <span id="detailsDateText"></span>
                     </p>
                 </div>
             </div>
             
-            <!-- Action Buttons -->
-            <div class="flex gap-3 mt-6">
-                <button onclick="viewEventDetails()" 
-                        class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                    Vezi Toate Detaliile
-                </button>
-                <button onclick="closeEventPopup()" 
-                        class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium">
-                    Închide
-                </button>
+            <!-- Right Column -->
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Status</label>
+                    <div id="detailsStatus" class="flex items-center">
+                        <div id="detailsStatusDot" class="w-3 h-3 rounded-full mr-2"></div>
+                        <span id="detailsStatusText" class="text-sm font-medium"></span>
+                    </div>
+                </div>
+                
+                <div class="pt-4">
+                    <button onclick="openEventPage()" 
+                            class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                        Vezi Pagina Completă a Evenimentului
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -235,123 +230,106 @@ $seo = (object) [
         let hoverTimeout;
         let isMobile = window.innerWidth <= 768;
         
-        // Detect if device is mobile/touch
+        // Detect mobile
         window.addEventListener('resize', () => {
             isMobile = window.innerWidth <= 768;
         });
         
         function showCellPopup(cell, title, location, date, slug) {
-            if (isMobile) return; // Skip hover on mobile
-            
             clearTimeout(hoverTimeout);
             
-            const popup = document.getElementById('cellHoverPopup');
+            const popup = document.getElementById('hoverWindow');
             const rect = cell.getBoundingClientRect();
             
             // Set content
             document.getElementById('hoverTitle').textContent = title;
             document.getElementById('hoverLocationText').textContent = location;
-            document.getElementById('hoverDate').textContent = new Date(date).toLocaleDateString('ro-RO', {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long'
-            });
             
-            // Position popup above the cell
-            popup.style.left = (rect.left + rect.width/2 + window.scrollX) + 'px';
-            popup.style.top = (rect.top + window.scrollY - 10) + 'px';
-            popup.style.transform = 'translateX(-50%) translateY(-100%)';
+            // Position popup near the cell
+            const left = rect.left + window.scrollX + rect.width + 10;
+            const top = rect.top + window.scrollY;
+            
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+            
+            // Check if popup goes off screen and adjust
+            setTimeout(() => {
+                const popupRect = popup.getBoundingClientRect();
+                if (popupRect.right > window.innerWidth) {
+                    popup.style.left = (rect.left + window.scrollX - popup.offsetWidth - 10) + 'px';
+                }
+                if (popupRect.bottom > window.innerHeight) {
+                    popup.style.top = (rect.top + window.scrollY - popup.offsetHeight + rect.height) + 'px';
+                }
+            }, 10);
             
             popup.classList.remove('hidden');
         }
         
         function hideCellPopup() {
-            if (isMobile) return;
-            
             hoverTimeout = setTimeout(() => {
-                document.getElementById('cellHoverPopup').classList.add('hidden');
-            }, 200);
+                document.getElementById('hoverWindow').classList.add('hidden');
+            }, 300);
         }
         
-        function openEventPopup(title, location, date, slug) {
-            // Hide hover popup first
-            document.getElementById('cellHoverPopup').classList.add('hidden');
+        function showEventDetails(title, location, date, slug) {
+            // Hide hover popup
+            document.getElementById('hoverWindow').classList.add('hidden');
             
             // Set content
-            document.getElementById('popupTitle').textContent = title;
-            document.getElementById('locationText').textContent = location;
-            document.getElementById('dateText').textContent = new Date(date).toLocaleDateString('ro-RO', {
+            document.getElementById('detailsTitle').textContent = title;
+            document.getElementById('detailsLocationText').textContent = location;
+            document.getElementById('detailsDateText').textContent = new Date(date).toLocaleDateString('ro-RO', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric'
             });
             
-            // Set status dot color based on date
+            // Set status
             const eventDate = new Date(date);
             const today = new Date();
-            const dot = document.getElementById('popupStatusDot');
+            const dot = document.getElementById('detailsStatusDot');
+            const statusText = document.getElementById('detailsStatusText');
             
             if (eventDate.toDateString() === today.toDateString()) {
-                dot.className = 'w-3 h-3 rounded-full mr-3 bg-green-500';
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-green-500';
+                statusText.textContent = 'În desfășurare / Astăzi';
+                statusText.className = 'text-sm font-medium text-green-700';
             } else if (eventDate < today) {
-                dot.className = 'w-3 h-3 rounded-full mr-3 bg-gray-400';
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-gray-400';
+                statusText.textContent = 'Eveniment trecut';
+                statusText.className = 'text-sm font-medium text-gray-600';
             } else {
-                dot.className = 'w-3 h-3 rounded-full mr-3 bg-blue-500';
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-blue-500';
+                statusText.textContent = 'Eveniment viitor';
+                statusText.className = 'text-sm font-medium text-blue-700';
             }
             
             currentEventSlug = slug;
-            document.getElementById('eventPopup').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            document.getElementById('eventDetails').classList.remove('hidden');
+            
+            // Scroll to details
+            document.getElementById('eventDetails').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
         
-        function closeEventPopup() {
-            document.getElementById('eventPopup').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+        function hideEventDetails() {
+            document.getElementById('eventDetails').classList.add('hidden');
         }
         
-        function viewEventDetails() {
+        function openEventPage() {
             window.open('/evenimente/' + currentEventSlug, '_blank');
         }
         
-        // Close on Escape key
+        // Close on Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closeEventPopup();
+                hideEventDetails();
                 hideCellPopup();
             }
         });
-        
-        // Close when clicking outside
-        document.getElementById('eventPopup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEventPopup();
-            }
-        });
-        
-        // Touch support for mobile
-        if (isMobile) {
-            document.addEventListener('touchstart', function(e) {
-                const target = e.target.closest('[onmouseover]');
-                if (target && target.hasAttribute('onmouseover')) {
-                    // Extract event data from attributes
-                    const onclick = target.getAttribute('onclick');
-                    if (onclick && onclick.includes('openEventPopup')) {
-                        // Long press to show popup on mobile
-                        let longPressTimer = setTimeout(() => {
-                            target.click();
-                        }, 500);
-                        
-                        target.addEventListener('touchend', () => {
-                            clearTimeout(longPressTimer);
-                        }, { once: true });
-                        
-                        target.addEventListener('touchmove', () => {
-                            clearTimeout(longPressTimer);
-                        }, { once: true });
-                    }
-                }
-            });
-        }
     </script>
 </x-layouts.marketing>
