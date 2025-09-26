@@ -86,41 +86,50 @@ $seo = (object) [
                                     $isPast = now()->create($currentYear, $month, $day)->isPast();
                                 @endphp
                                 
-                                <div class="h-12 border-r border-b border-gray-100 p-1 relative
+                                <div class="h-16 border-r border-b border-gray-100 p-1 relative
                                     @if($isToday) bg-green-50 border-green-200 
                                     @elseif($dayEvents->count() > 0 && $isPast) bg-gray-100
                                     @elseif($dayEvents->count() > 0) bg-blue-50 border-blue-200
                                     @else hover:bg-gray-50
                                     @endif">
                                     
-                                    <!-- Day Number -->
-                                    <div class="text-xs font-medium 
-                                        @if($isToday) text-green-700
-                                        @elseif($dayEvents->count() > 0 && $isPast) text-gray-500
-                                        @elseif($dayEvents->count() > 0) text-blue-700
-                                        @else text-gray-700
-                                        @endif">
-                                        {{ $day }}
-                                    </div>
-                                    
-                                    <!-- Event Indicator/Title -->
                                     @if($dayEvents->count() > 0)
                                         @php $event = $dayEvents->first(); @endphp
-                                        <div class="absolute inset-x-1 bottom-0 cursor-pointer"
+                                        <!-- Event Day with Circle Background -->
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
                                              onclick="showEventDetails('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ $event->slug }}', '{{ $dateString }}')">
-                                            <div class="text-[9px] leading-tight font-medium truncate
-                                                @if($isToday) text-green-800
-                                                @elseif($isPast) text-gray-600
-                                                @else text-blue-800
+                                            
+                                            <!-- Day Number in Circle -->
+                                            <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mb-1
+                                                @if($isToday) bg-green-500 text-white shadow-md
+                                                @elseif($isPast) bg-gray-400 text-white
+                                                @else bg-blue-500 text-white shadow-md
                                                 @endif">
-                                                {{ Str::limit($event->title, 12) }}
+                                                {{ $day }}
                                             </div>
                                             
+                                            <!-- Event Title -->
+                                            <div class="text-[8px] leading-none font-medium text-center px-1
+                                                @if($isToday) text-green-700
+                                                @elseif($isPast) text-gray-600
+                                                @else text-blue-700
+                                                @endif">
+                                                {{ Str::limit($event->title, 15) }}
+                                            </div>
+                                            
+                                            <!-- Multiple Events Indicator -->
                                             @if($dayEvents->count() > 1)
-                                                <div class="text-[8px] text-gray-500">
-                                                    +{{ $dayEvents->count() - 1 }} mai multe
+                                                <div class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full text-white text-[6px] flex items-center justify-center font-bold">
+                                                    {{ $dayEvents->count() }}
                                                 </div>
                                             @endif
+                                        </div>
+                                    @else
+                                        <!-- Regular Day without Event -->
+                                        <div class="absolute top-1 left-1">
+                                            <div class="text-xs font-medium text-gray-700">
+                                                {{ $day }}
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
