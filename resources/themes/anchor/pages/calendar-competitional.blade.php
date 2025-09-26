@@ -28,6 +28,26 @@
     ];
 ?>
 
+<?php
+
+use Carbon\Carbon;
+use App\Models\Event;
+
+// Get current year and events
+$currentYear = now()->year;
+$events = Event::whereYear('event_date', $currentYear)->get()->groupBy('event_date');
+
+// Day names mapping (0 = Sunday, 1 = Monday, etc.)
+$dayNames = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+
+// SEO configuration
+$seo = (object) [
+    'title' => 'Calendar Competițional ' . $currentYear . ' - CCB',
+    'description' => 'Calendarul competițional pentru anul ' . $currentYear . ' cu toate evenimentele și concursurile planificate.',
+];
+
+?>
+
 <x-layouts.marketing :seo="$seo">
     <div class="min-h-screen bg-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +79,7 @@
                                     @php
                                         $date = Carbon::create($currentYear, 3, $day);
                                         if ($date->month == 3) {
-                                            echo '<div class="text-gray-500">' . substr($dayNames[$date->dayOfWeek], 0, 1) . '</div>';
+                                            echo '<div class="text-gray-500">' . $dayNames[$date->dayOfWeek] . '</div>';
                                         }
                                     @endphp
                                 </td>
@@ -70,7 +90,7 @@
                                             if ($day <= $date->daysInMonth) {
                                                 $dateString = Carbon::create($currentYear, $month, $day)->format('Y-m-d');
                                                 $dayEvents = $events->get($dateString, collect());
-                                                $dayName = substr($dayNames[Carbon::create($currentYear, $month, $day)->dayOfWeek], 0, 1);
+                                                $dayName = $dayNames[Carbon::create($currentYear, $month, $day)->dayOfWeek];
                                                 
                                                 if ($dayEvents->count() > 0) {
                                                     $event = $dayEvents->first();
