@@ -112,14 +112,8 @@
                                         data-tooltip="{{ $dayEvents->first()->title }}"
                                         data-date="{{ $current->format('d M Y') }}"
                                         onclick="goToEvent('{{ $dayEvents->first()->slug }}')"
-                                        onmouseenter="showTooltip(this, {{ json_encode($dayEvents->map(function($event) {
-                                            return [
-                                                'title' => $event->title,
-                                                'time' => $event->event_start_date->format('H:i'),
-                                                'location' => $event->location
-                                            ];
-                                        })) }})"
-                                        onmouseleave="hideTooltip()"
+                                        onmouseenter="showSimpleTooltip(this, '{{ addslashes($dayEvents->first()->title) }}')"
+                                        onmouseleave="hideSimpleTooltip()"
                                     @endif>
                                     
                                     <!-- Day Number -->
@@ -200,60 +194,51 @@
     </div>
 </x-layouts.marketing>
 
-<!-- Floating Tooltip -->
-<div id="eventTooltip" class="fixed z-50 hidden pointer-events-none">
-    <div class="bg-gray-900 text-white text-xs rounded-lg px-3 py-2 shadow-lg max-w-xs">
-        <div id="tooltipContent"></div>
-        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+<!-- Simple Tooltip -->
+<div id="simpleTooltip" class="fixed z-50 hidden pointer-events-none">
+    <div class="bg-gray-800 text-white text-sm rounded px-3 py-2 shadow-lg whitespace-nowrap">
+        <span id="tooltipText"></span>
+        <!-- Arrow pointing down -->
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
     </div>
 </div>
 
 <script>
-let tooltip = null;
+<script>
+let simpleTooltip = null;
 
-function showTooltip(element, events) {
-    tooltip = document.getElementById('eventTooltip');
-    const tooltipContent = document.getElementById('tooltipContent');
+function showSimpleTooltip(element, eventTitle) {
+    simpleTooltip = document.getElementById('simpleTooltip');
+    const tooltipText = document.getElementById('tooltipText');
     
-    let content = '';
-    events.forEach((event, index) => {
-        if (index > 0) content += '<hr class="my-1 border-gray-600">';
-        content += `
-            <div class="font-semibold">${event.title}</div>
-            <div class="text-gray-300">${event.time}</div>
-            ${event.location ? `<div class="text-gray-400 text-xs">${event.location}</div>` : ''}
-        `;
-    });
+    tooltipText.textContent = eventTitle;
     
-    if (events.length > 1) {
-        content += `<div class="text-xs text-yellow-300 mt-1">Click pentru detalii complete</div>`;
-    } else {
-        content += `<div class="text-xs text-yellow-300 mt-1">Click pentru a vedea evenimentul</div>`;
-    }
-    
-    tooltipContent.innerHTML = content;
-    
-    // Position tooltip
+    // Position tooltip directly above the cell
     const rect = element.getBoundingClientRect();
-    tooltip.style.left = (rect.left + rect.width / 2 - 100) + 'px';
-    tooltip.style.top = (rect.top - 10) + 'px';
-    tooltip.style.transform = 'translateY(-100%)';
+    const tooltipWidth = simpleTooltip.offsetWidth || 200; // Estimated width
+    
+    simpleTooltip.style.left = (rect.left + rect.width / 2) + 'px';
+    simpleTooltip.style.top = (rect.top - 10) + 'px';
+    simpleTooltip.style.transform = 'translateX(-50%) translateY(-100%)';
     
     // Adjust if tooltip would go off screen
-    const tooltipRect = tooltip.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const tooltipRect = simpleTooltip.getBoundingClientRect();
+    
     if (tooltipRect.left < 10) {
-        tooltip.style.left = '10px';
-    }
-    if (tooltipRect.right > window.innerWidth - 10) {
-        tooltip.style.left = (window.innerWidth - tooltipRect.width - 10) + 'px';
+        simpleTooltip.style.left = (rect.left + 10) + 'px';
+        simpleTooltip.style.transform = 'translateY(-100%)';
+    } else if (tooltipRect.right > viewportWidth - 10) {
+        simpleTooltip.style.left = (rect.right - 10) + 'px';
+        simpleTooltip.style.transform = 'translateX(-100%) translateY(-100%)';
     }
     
-    tooltip.classList.remove('hidden');
+    simpleTooltip.classList.remove('hidden');
 }
 
-function hideTooltip() {
-    if (tooltip) {
-        tooltip.classList.add('hidden');
+function hideSimpleTooltip() {
+    if (simpleTooltip) {
+        simpleTooltip.classList.add('hidden');
     }
 }
 
@@ -358,7 +343,7 @@ function closeEventModal() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeEventModal();
-        hideTooltip();
+        hideSimpleTooltip();
     }
 });
 
@@ -371,6 +356,6 @@ document.addEventListener('click', function(e) {
 });
 
 // Hide tooltip on scroll
-window.addEventListener('scroll', hideTooltip);
-window.addEventListener('resize', hideTooltip);
+window.addEventListener('scroll', hideSimpleTooltip);
+window.addEventListener('resize', hideSimpleTooltip);
 </script>
