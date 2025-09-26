@@ -36,13 +36,11 @@ class FeatureResource extends Resource
                             ->label('Titlu'),
                         
                         Forms\Components\Textarea::make('description')
-                            ->required()
                             ->label('Descriere')
                             ->rows(3),
                         
                         Forms\Components\Select::make('icon')
                             ->options(self::getIconOptions())
-                            ->required()
                             ->label('Iconiță')
                             ->searchable()
                             ->getSearchResultsUsing(function (string $search) {
