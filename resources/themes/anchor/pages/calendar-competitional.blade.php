@@ -2,6 +2,7 @@
 
 use Wave\Event;
 use function Laravel\Folio\name;
+use Illuminate\Support\Str;
 
 name('calendar-competitional');
 
@@ -36,70 +37,90 @@ $seo = (object) [
                 </h1>
             </div>
 
-            <!-- Calendar Table -->
+            <!-- Calendar Grid -->
             <div class="bg-white border border-gray-300 rounded-lg overflow-hidden shadow-sm">
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-blue-600">
-                            @foreach(['Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie'] as $monthName)
-                                <th class="px-2 py-3 text-white text-sm font-semibold text-center border-r border-blue-500 last:border-r-0">
-                                    {{ $monthName }}
-                                </th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for($day = 1; $day <= 31; $day++)
-                            <tr class="border-b border-gray-200">
-                                <td class="px-1 py-1 text-xs text-center border-r border-gray-200 w-12">
-                                    <div class="font-bold">{{ $day }}</div>
-                                    @php
-                                        $date = now()->create($currentYear, 3, $day);
-                                        if ($date->month == 3) {
-                                            echo '<div class="text-gray-500">' . $dayNames[$date->dayOfWeek] . '</div>';
-                                        }
-                                    @endphp
-                                </td>
-                                @foreach([3, 4, 5, 6, 7, 8, 9, 10, 11] as $month)
-                                    <td class="px-1 py-1 text-xs border-r border-gray-200 last:border-r-0 h-8">
-                                        @php
-                                            $date = now()->create($currentYear, $month, 1);
-                                            if ($day <= $date->daysInMonth) {
-                                                $dateString = now()->create($currentYear, $month, $day)->format('Y-m-d');
-                                                $dayEvents = $events->get($dateString, collect());
-                                                $dayName = $dayNames[now()->create($currentYear, $month, $day)->dayOfWeek];
-                                                
-                                                if ($dayEvents->count() > 0) {
-                                                    $event = $dayEvents->first();
-                                                    $isPast = now()->create($currentYear, $month, $day)->lt(now()->startOfDay());
-                                                    $colorClass = $isPast ? 'bg-gray-400' : 'bg-blue-500';
-                                                    
-                                                    echo '<div class="' . $colorClass . ' text-white px-1 rounded text-center cursor-pointer hover:opacity-75" 
-                                                          title="' . htmlspecialchars($event->title) . '"
-                                                          onclick="window.open(\'/evenimente/' . $event->slug . '\', \'_blank\')">' . 
-                                                          $dayName . '</div>';
-                                                } else {
-                                                    echo '<div class="text-gray-400 text-center">' . $dayName . '</div>';
-                                                }
+                <!-- Header cu lunile -->
+                <div class="grid grid-cols-10 bg-blue-600">
+                    <div class="p-3 text-white text-sm font-semibold text-center border-r border-blue-500">
+                        Ziua
+                    </div>
+                    @foreach(['Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie'] as $monthName)
+                        <div class="p-3 text-white text-sm font-semibold text-center border-r border-blue-500 last:border-r-0">
+                            {{ $monthName }}
+                        </div>
+                    @endforeach
+                </div>
+                
+                <!-- Calendar days -->
+                @for($day = 1; $day <= 31; $day++)
+                    <div class="grid grid-cols-10 border-b border-gray-200 min-h-[60px]">
+                        <!-- Coloana cu ziua -->
+                        <div class="p-2 border-r border-gray-200 bg-gray-50 flex flex-col items-center justify-center">
+                            <div class="font-bold text-sm">{{ $day }}</div>
+                            @php
+                                $date = now()->create($currentYear, 3, $day);
+                                if ($date->month == 3 && $day <= $date->daysInMonth) {
+                                    echo '<div class="text-gray-500 text-xs">' . $dayNames[$date->dayOfWeek] . '</div>';
+                                }
+                            @endphp
+                        </div>
+                        
+                        <!-- Celule pentru fiecare lună -->
+                        @foreach([3, 4, 5, 6, 7, 8, 9, 10, 11] as $month)
+                            <div class="p-1 border-r border-gray-200 last:border-r-0 relative">
+                                @php
+                                    $date = now()->create($currentYear, $month, 1);
+                                    if ($day <= $date->daysInMonth) {
+                                        $dateString = now()->create($currentYear, $month, $day)->format('Y-m-d');
+                                        $dayEvents = $events->get($dateString, collect());
+                                        
+                                        if ($dayEvents->count() > 0) {
+                                            $event = $dayEvents->first();
+                                            $isPast = now()->create($currentYear, $month, $day)->lt(now()->startOfDay());
+                                            $isToday = now()->create($currentYear, $month, $day)->isToday();
+                                            
+                                            // Determinăm culoarea
+                                            if ($isToday) {
+                                                $bgColor = 'bg-green-500';
+                                                $textColor = 'text-white';
+                                                $borderColor = 'border-green-600';
+                                            } elseif ($isPast) {
+                                                $bgColor = 'bg-gray-400';
+                                                $textColor = 'text-white';
+                                                $borderColor = 'border-gray-500';
+                                            } else {
+                                                $bgColor = 'bg-blue-500';
+                                                $textColor = 'text-white';
+                                                $borderColor = 'border-blue-600';
                                             }
-                                        @endphp
-                                    </td>
-                                @endforeach
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table>
+                                            
+                                            // Afișăm badge-ul cu titlul evenimentului
+                                            echo '<div class="' . $bgColor . ' ' . $textColor . ' ' . $borderColor . ' rounded-md p-1 text-xs font-medium cursor-pointer hover:scale-105 transition-all duration-200 border-2 shadow-sm" 
+                                                      onclick="window.open(\'/evenimente/' . $event->slug . '\', \'_blank\')"
+                                                      title="Click pentru detalii">' . 
+                                                      htmlspecialchars(Str::limit($event->title, 20)) . '</div>';
+                                        }
+                                    }
+                                @endphp
+                            </div>
+                        @endforeach
+                    </div>
+                @endfor
             </div>
             
             <!-- Legend -->
-            <div class="flex justify-center gap-6 mt-4 text-sm">
+            <div class="flex flex-wrap justify-center gap-6 mt-6 text-sm">
                 <div class="flex items-center">
                     <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
                     <span>Evenimente viitoare</span>
                 </div>
                 <div class="flex items-center">
+                    <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                    <span>Evenimente astăzi</span>
+                </div>
+                <div class="flex items-center">
                     <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
-                    <span>Evenimente trecute</span>
+                    <span>evenimente trecute</span>
                 </div>
             </div>
             
