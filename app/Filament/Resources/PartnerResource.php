@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class PartnerResource extends Resource
 {
@@ -50,6 +49,16 @@ class PartnerResource extends Resource
                             ->placeholder('https://example.com')
                             ->helperText('URL-ul complet către site-ul partenerului'),
 
+                        Forms\Components\FileUpload::make('logo_path')
+                            ->label('Logo Partner')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('partners/logos')
+                            ->disk('public')
+                            ->maxSize(2048)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                            ->helperText('Încarcă logo-ul partenerului (max 2MB)'),
+
                         Forms\Components\TextInput::make('order')
                             ->label('Ordinea afișării')
                             ->numeric()
@@ -62,25 +71,6 @@ class PartnerResource extends Resource
                             ->helperText('Activează sau dezactivează afișarea partenerului'),
                     ])
                     ->columns(2),
-
-                Forms\Components\Section::make('Logo Partner')
-                    ->schema([
-                        SpatieMediaLibraryFileUpload::make('logo')
-                            ->label('Logo Partner')
-                            ->collection('logo')
-                            ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                null,
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ])
-                            ->maxSize(2048)
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
-                            ->helperText('Încarcă logo-ul partenerului (max 2MB). Dimensiune recomandată: 300x300px')
-                            ->required(),
-                    ]),
             ]);
     }
 
@@ -88,10 +78,9 @@ class PartnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('logo')
+                Tables\Columns\ImageColumn::make('logo_path')
                     ->label('Logo')
-                    ->collection('logo')
-                    ->conversion('thumb')
+                    ->disk('public')
                     ->size(60)
                     ->circular(),
 

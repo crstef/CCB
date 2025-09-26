@@ -12,6 +12,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // Check if users already exist before seeding
+        if (\App\Models\User::count() > 0) {
+            echo "Users already exist, skipping user seeding..." . PHP_EOL;
+            return;
+        }
 
         DB::table('users')->delete();
 
