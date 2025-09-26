@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Disable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(ChangelogsTableSeeder::class);
@@ -41,6 +44,9 @@ class DatabaseSeeder extends Seeder
         
         // Partners seeder for partners section
         $this->call(PartnersTableSeeder::class);
+        
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         
         fixPostgresSequence();
     }
