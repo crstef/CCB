@@ -34,7 +34,7 @@ use Wave\Event;
 
 // Get current year and events
 $currentYear = now()->year;
-$events = Event::whereYear('event_date', $currentYear)->get()->groupBy('event_date');
+$events = Event::whereYear('event_start_date', $currentYear)->get()->groupBy('event_start_date');
 
 // Day names mapping (0 = Sunday, 1 = Monday, etc.)
 $dayNames = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
