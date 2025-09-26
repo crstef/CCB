@@ -30,7 +30,7 @@
 
 <?php
 
-use App\Models\Event;
+use Wave\Event;
 
 // Get current year and events
 $currentYear = now()->year;
