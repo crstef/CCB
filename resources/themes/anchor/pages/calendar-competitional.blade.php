@@ -86,50 +86,37 @@ $seo = (object) [
                                     $isPast = now()->create($currentYear, $month, $day)->isPast();
                                 @endphp
                                 
-                                <div class="h-16 border-r border-b border-gray-100 p-1 relative
+                                <div class="h-14 border-r border-b border-gray-100 p-1 relative
                                     @if($isToday) bg-green-50 border-green-200 
-                                    @elseif($dayEvents->count() > 0 && $isPast) bg-gray-100
+                                    @elseif($dayEvents->count() > 0 && $isPast) bg-gray-50
                                     @elseif($dayEvents->count() > 0) bg-blue-50 border-blue-200
                                     @else hover:bg-gray-50
                                     @endif">
                                     
+                                    <!-- Day Number -->
+                                    <div class="text-xs text-gray-600 mb-1">{{ $day }}</div>
+                                    
                                     @if($dayEvents->count() > 0)
                                         @php $event = $dayEvents->first(); @endphp
-                                        <!-- Event Day with Circle Background -->
-                                        <div class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
-                                             onclick="showEventDetails('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ $event->slug }}', '{{ $dateString }}')">
+                                        <!-- Event Badge -->
+                                        <div class="event-item cursor-pointer relative"
+                                             onclick="window.open('/evenimente/{{ $event->slug }}', '_blank')"
+                                             onmouseover="showHoverPopup(event, '{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}')"
+                                             onmouseout="hideHoverPopup()">
                                             
-                                            <!-- Day Number in Circle -->
-                                            <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mb-1
-                                                @if($isToday) bg-green-500 text-white shadow-md
-                                                @elseif($isPast) bg-gray-400 text-white
-                                                @else bg-blue-500 text-white shadow-md
+                                            <!-- Event Title Badge -->
+                                            <div class="px-1 py-0.5 rounded text-[8px] leading-tight truncate
+                                                @if($isToday) bg-green-100 text-green-800 border border-green-200
+                                                @elseif($isPast) bg-gray-100 text-gray-600 border border-gray-200
+                                                @else bg-blue-100 text-blue-800 border border-blue-200
                                                 @endif">
-                                                {{ $day }}
+                                                {{ Str::limit($event->title, 18) }}
                                             </div>
                                             
-                                            <!-- Event Title -->
-                                            <div class="text-[8px] leading-none font-medium text-center px-1
-                                                @if($isToday) text-green-700
-                                                @elseif($isPast) text-gray-600
-                                                @else text-blue-700
-                                                @endif">
-                                                {{ Str::limit($event->title, 15) }}
-                                            </div>
-                                            
-                                            <!-- Multiple Events Indicator -->
+                                            <!-- Multiple Events Dot -->
                                             @if($dayEvents->count() > 1)
-                                                <div class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full text-white text-[6px] flex items-center justify-center font-bold">
-                                                    {{ $dayEvents->count() }}
-                                                </div>
+                                                <div class="absolute -top-1 -right-1 w-2 h-2 bg-orange-400 rounded-full"></div>
                                             @endif
-                                        </div>
-                                    @else
-                                        <!-- Regular Day without Event -->
-                                        <div class="absolute top-1 left-1">
-                                            <div class="text-xs font-medium text-gray-700">
-                                                {{ $day }}
-                                            </div>
                                         </div>
                                     @endif
                                 </div>
@@ -168,72 +155,41 @@ $seo = (object) [
         </div>
     </div>
 
-    <!-- Event Details Modal -->
-    <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 id="modalTitle" class="text-lg font-semibold text-gray-900 mb-2"></h3>
-                        <p id="modalDate" class="text-sm text-gray-600"></p>
-                    </div>
-                    <button onclick="closeEventModal()" class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button onclick="viewEvent()" 
-                            class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                        Vezi Detalii
-                    </button>
-                    <button onclick="closeEventModal()" 
-                            class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
-                        Închide
-                    </button>
-                </div>
-            </div>
-        </div>
+    <!-- Hover Popup -->
+    <div id="hoverPopup" class="fixed bg-white border border-gray-300 rounded-lg shadow-lg p-3 z-50 hidden max-w-xs">
+        <div class="text-sm font-medium text-gray-900 mb-1" id="popupTitle"></div>
+        <div class="text-xs text-gray-600 mb-1" id="popupLocation"></div>
+        <div class="text-xs text-gray-500" id="popupDate"></div>
+        <div class="text-xs text-blue-600 mt-2">Click pentru detalii complete</div>
     </div>
 
     <script>
-        let currentEventSlug = '';
+        let popupTimeout;
         
-        function showEventDetails(title, slug, date) {
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalDate').textContent = new Date(date).toLocaleDateString('ro-RO', {
+        function showHoverPopup(event, title, location, date) {
+            clearTimeout(popupTimeout);
+            const popup = document.getElementById('hoverPopup');
+            
+            document.getElementById('popupTitle').textContent = title;
+            document.getElementById('popupLocation').textContent = location;
+            document.getElementById('popupDate').textContent = new Date(date).toLocaleDateString('ro-RO', {
                 weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+                day: 'numeric',
+                month: 'long'
             });
-            document.getElementById('eventModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            currentEventSlug = slug;
+            
+            // Position popup near mouse
+            const rect = event.target.getBoundingClientRect();
+            popup.style.left = (rect.left + window.scrollX + 10) + 'px';
+            popup.style.top = (rect.top + window.scrollY - 10) + 'px';
+            
+            popup.classList.remove('hidden');
         }
         
-        function closeEventModal() {
-            document.getElementById('eventModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+        function hideHoverPopup() {
+            popupTimeout = setTimeout(() => {
+                document.getElementById('hoverPopup').classList.add('hidden');
+            }, 100);
         }
-        
-        function viewEvent() {
-            window.open('/evenimente/' + currentEventSlug, '_blank');
-        }
-        
-        // Close on Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeEventModal();
-            }
-        });
-        
-        // Close when clicking outside
-        document.getElementById('eventModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEventModal();
-            }
-        });
     </script>
 </x-layouts.marketing>
