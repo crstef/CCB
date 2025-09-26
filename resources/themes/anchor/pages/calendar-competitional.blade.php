@@ -86,41 +86,38 @@ $seo = (object) [
                                     $isPast = now()->create($currentYear, $month, $day)->isPast();
                                 @endphp
                                 
-                                <div class="h-20 border-r border-b border-gray-200 p-1 relative overflow-hidden
+                                <div class="h-12 border-r border-b border-gray-200 p-1 relative cursor-pointer
+                                    @if($dayEvents->count() > 0) hover:bg-gray-100 
+                                    @else hover:bg-gray-50
+                                    @endif"
                                     @if($dayEvents->count() > 0)
-                                        @if($isToday) bg-green-500 text-white
-                                        @elseif($isPast) bg-gray-400 text-white  
-                                        @else bg-blue-500 text-white
-                                        @endif
-                                    @else bg-white hover:bg-gray-50
-                                    @endif">
+                                        @php $event = $dayEvents->first(); @endphp
+                                        onclick="openEventPopup('{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}', '{{ $event->slug }}')"
+                                    @endif>
                                     
                                     <!-- Day Number -->
-                                    <div class="text-xs font-medium mb-1 
-                                        @if($dayEvents->count() > 0) text-white 
-                                        @else text-gray-700 
-                                        @endif">
-                                        {{ $day }}
-                                    </div>
+                                    <div class="text-xs font-medium text-gray-700">{{ $day }}</div>
                                     
                                     @if($dayEvents->count() > 0)
                                         @php $event = $dayEvents->first(); @endphp
-                                        <!-- Event Title - Full visibility -->
-                                        <div class="cursor-pointer h-full"
-                                             onclick="window.open('/evenimente/{{ $event->slug }}', '_blank')"
-                                             onmouseover="showHoverPopup(event, '{{ htmlspecialchars($event->title, ENT_QUOTES) }}', '{{ htmlspecialchars($event->location ?? 'Locația va fi anunțată', ENT_QUOTES) }}', '{{ $dateString }}')"
-                                             onmouseout="hideHoverPopup()">
-                                            
-                                            <div class="text-[10px] leading-tight text-white font-medium break-words">
-                                                {{ $event->title }}
+                                        <!-- Event Indicator Dot -->
+                                        <div class="absolute bottom-1 left-1 w-2 h-2 rounded-full
+                                            @if($isToday) bg-green-500
+                                            @elseif($isPast) bg-gray-400
+                                            @else bg-blue-500
+                                            @endif">
+                                        </div>
+                                        
+                                        <!-- Multiple Events -->
+                                        @if($dayEvents->count() > 1)
+                                            <div class="absolute bottom-1 left-4 w-2 h-2 bg-orange-400 rounded-full"></div>
+                                        @endif
+                                        
+                                        <!-- Event Title Hint (on hover) -->
+                                        <div class="absolute inset-0 bg-blue-500 bg-opacity-0 hover:bg-opacity-10 transition-all duration-200 rounded flex items-center justify-center opacity-0 hover:opacity-100">
+                                            <div class="text-[8px] text-blue-700 font-medium text-center px-1">
+                                                Click pentru detalii
                                             </div>
-                                            
-                                            <!-- Multiple Events Indicator -->
-                                            @if($dayEvents->count() > 1)
-                                                <div class="absolute bottom-1 right-1 text-[8px] bg-white bg-opacity-30 rounded px-1">
-                                                    +{{ $dayEvents->count() - 1 }}
-                                                </div>
-                                            @endif
                                         </div>
                                     @endif
                                 </div>
@@ -133,16 +130,20 @@ $seo = (object) [
             <!-- Legend -->
             <div class="flex justify-center gap-6 mt-8 text-sm">
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
+                    <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
                     <span>Evenimente viitoare</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                     <span>În curs / Astăzi</span>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+                    <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
                     <span>Trecute</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-orange-400 rounded-full mr-2"></div>
+                    <span>Evenimente multiple</span>
                 </div>
             </div>
             
@@ -159,41 +160,121 @@ $seo = (object) [
         </div>
     </div>
 
-    <!-- Hover Popup -->
-    <div id="hoverPopup" class="fixed bg-white border border-gray-300 rounded-lg shadow-lg p-3 z-50 hidden max-w-xs">
-        <div class="text-sm font-medium text-gray-900 mb-1" id="popupTitle"></div>
-        <div class="text-xs text-gray-600 mb-1" id="popupLocation"></div>
-        <div class="text-xs text-gray-500" id="popupDate"></div>
-        <div class="text-xs text-blue-600 mt-2">Click pentru detalii complete</div>
+    <!-- Event Details Popup -->
+    <div id="eventPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 transform scale-95 transition-transform">
+            <!-- Popup Header -->
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center">
+                    <div id="popupStatusDot" class="w-3 h-3 rounded-full mr-3"></div>
+                    <h3 class="text-lg font-semibold text-gray-900">Detalii Eveniment</h3>
+                </div>
+                <button onclick="closeEventPopup()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Event Info -->
+            <div class="space-y-4">
+                <!-- Event Title -->
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-1">Denumire Concurs</label>
+                    <p id="popupTitle" class="text-gray-900 font-medium"></p>
+                </div>
+                
+                <!-- Location -->
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-1">Locația</label>
+                    <p id="popupLocation" class="text-gray-700 flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span id="locationText"></span>
+                    </p>
+                </div>
+                
+                <!-- Date -->
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-1">Data</label>
+                    <p id="popupDate" class="text-gray-700 flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span id="dateText"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex gap-3 mt-6">
+                <button onclick="viewEventDetails()" 
+                        class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                    Vezi Toate Detaliile
+                </button>
+                <button onclick="closeEventPopup()" 
+                        class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                    Închide
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        let popupTimeout;
+        let currentEventSlug = '';
         
-        function showHoverPopup(event, title, location, date) {
-            clearTimeout(popupTimeout);
-            const popup = document.getElementById('hoverPopup');
-            
+        function openEventPopup(title, location, date, slug) {
+            // Set content
             document.getElementById('popupTitle').textContent = title;
-            document.getElementById('popupLocation').textContent = location;
-            document.getElementById('popupDate').textContent = new Date(date).toLocaleDateString('ro-RO', {
+            document.getElementById('locationText').textContent = location;
+            document.getElementById('dateText').textContent = new Date(date).toLocaleDateString('ro-RO', {
                 weekday: 'long',
                 day: 'numeric',
-                month: 'long'
+                month: 'long',
+                year: 'numeric'
             });
             
-            // Position popup near mouse
-            const rect = event.target.getBoundingClientRect();
-            popup.style.left = (rect.left + window.scrollX + 10) + 'px';
-            popup.style.top = (rect.top + window.scrollY - 10) + 'px';
+            // Set status dot color based on date
+            const eventDate = new Date(date);
+            const today = new Date();
+            const dot = document.getElementById('popupStatusDot');
             
-            popup.classList.remove('hidden');
+            if (eventDate.toDateString() === today.toDateString()) {
+                dot.className = 'w-3 h-3 rounded-full mr-3 bg-green-500';
+            } else if (eventDate < today) {
+                dot.className = 'w-3 h-3 rounded-full mr-3 bg-gray-400';
+            } else {
+                dot.className = 'w-3 h-3 rounded-full mr-3 bg-blue-500';
+            }
+            
+            currentEventSlug = slug;
+            document.getElementById('eventPopup').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
         
-        function hideHoverPopup() {
-            popupTimeout = setTimeout(() => {
-                document.getElementById('hoverPopup').classList.add('hidden');
-            }, 100);
+        function closeEventPopup() {
+            document.getElementById('eventPopup').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
+        
+        function viewEventDetails() {
+            window.open('/evenimente/' + currentEventSlug, '_blank');
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEventPopup();
+            }
+        });
+        
+        // Close when clicking outside
+        document.getElementById('eventPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEventPopup();
+            }
+        });
     </script>
 </x-layouts.marketing>
