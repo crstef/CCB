@@ -307,7 +307,7 @@
                         </li>
                     @else
                         <li class="flex items-center justify-center w-full pt-3 md:hidden px-7">
-                            <x-button href="{{ route('login') }}" tag="a" class="w-full text-sm">Vezi Dashboard</x-button>
+                            <x-button href="{{ route('login') }}" tag="a" class="w-full text-sm">Printeaza Legitimatia</x-button>
                         </li>
                     @endguest
 
@@ -320,7 +320,7 @@
                     <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
                 </div>
             @else
-                <x-button href="{{ route('login') }}" tag="a" class="text-sm" class="relative z-20 flex-shrink-0 hidden ml-2 md:block">Vezi Dashboard</x-button>
+                <x-button href="{{ route('login') }}" tag="a" class="text-sm" class="relative z-20 flex-shrink-0 hidden ml-2 md:block">Printeaza Legitimatia</x-button>
             @endguest
 
         </div>

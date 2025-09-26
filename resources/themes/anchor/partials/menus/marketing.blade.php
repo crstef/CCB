@@ -83,7 +83,11 @@
             </a>
         </li>
 
-        <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Vezi Dashboard</a>
+        @role('admin')
+            <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-green-600 md:hidden">Panou de management</a>
+        @else
+            <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Printeaza legitimatia</a>
+        @endrole
     </ul>
     
 </nav>
@@ -96,5 +100,9 @@
         <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
     </div>
 @else
-    <x-button href="{{ route('login') }}" tag="a" class="text-sm" class="relative z-20 flex-shrink-0">Vezi Dashboard</x-button>
+    @role('admin')
+        <x-button href="/admin" tag="a" class="text-sm bg-green-600 hover:bg-green-700 text-white relative z-20 flex-shrink-0">Panou de management</x-button>
+    @else
+        <x-button href="{{ route('dashboard') }}" tag="a" class="text-sm relative z-20 flex-shrink-0">Printeaza legitimatia</x-button>
+    @endrole
 @endguest
