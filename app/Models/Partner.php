@@ -51,4 +51,3 @@ class Partner extends Model
         return null;
     }
 }
-}
