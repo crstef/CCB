@@ -127,6 +127,7 @@ $seo = (object) [
                             @endfor
                         </div>
                     </div>
+                @endfor
             </div>
             
             <!-- Legend -->
