@@ -13,21 +13,14 @@
             return $event->event_start_date->format('Y-m-d');
         });
 
-    // Helper function to get month names in Romanian
-    function getMonthName($monthNumber) {
-        $months = [
-            1 => 'Ianuarie', 2 => 'Februarie', 3 => 'Martie', 4 => 'Aprilie',
-            5 => 'Mai', 6 => 'Iunie', 7 => 'Iulie', 8 => 'August',
-            9 => 'Septembrie', 10 => 'Octombrie', 11 => 'Noiembrie', 12 => 'Decembrie'
-        ];
-        return $months[$monthNumber];
-    }
-
-    // Helper function to get day names in Romanian
-    function getDayName($dayNumber) {
-        $days = ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'];
-        return $days[$dayNumber];
-    }
+    // Helper arrays for Romanian month and day names
+    $monthNames = [
+        1 => 'Ianuarie', 2 => 'Februarie', 3 => 'Martie', 4 => 'Aprilie',
+        5 => 'Mai', 6 => 'Iunie', 7 => 'Iulie', 8 => 'August',
+        9 => 'Septembrie', 10 => 'Octombrie', 11 => 'Noiembrie', 12 => 'Decembrie'
+    ];
+    
+    $dayNames = ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'];
 
     $seo = [
         'seo_title' => 'Calendar Competițional ' . $currentYear . ' - Club Chinologic București Otopeni',
@@ -80,7 +73,7 @@
                         <!-- Month Header -->
                         <div class="bg-blue-600 text-white p-4">
                             <h3 class="text-lg font-semibold text-center">
-                                {{ getMonthName($month) }}
+                                {{ $monthNames[$month] }}
                             </h3>
                         </div>
                         
@@ -88,7 +81,7 @@
                         <div class="grid grid-cols-7 bg-gray-100">
                             @for($i = 0; $i < 7; $i++)
                                 <div class="p-2 text-center text-xs font-medium text-gray-600">
-                                    {{ getDayName($i) }}
+                                    {{ $dayNames[$i] }}
                                 </div>
                             @endfor
                         </div>

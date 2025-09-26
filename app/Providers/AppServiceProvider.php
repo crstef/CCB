@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Folio\Folio;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -69,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->bootRoute();
+        $this->registerThemeFolioDirectory();
     }
 
     private function setSchemaDefaultLength(): void
@@ -84,6 +86,17 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
 
+    protected function registerThemeFolioDirectory()
+    {
+        $themePath = resource_path('themes/anchor/pages');
+        if (file_exists($themePath)) {
+            Folio::path($themePath)->middleware([
+                '*' => [
+                    //
+                ],
+            ]);
+        }
     }
 }
