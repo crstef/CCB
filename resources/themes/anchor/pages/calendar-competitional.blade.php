@@ -20,178 +20,105 @@
         9 => 'Septembrie', 10 => 'Octombrie', 11 => 'Noiembrie', 12 => 'Decembrie'
     ];
     
-    $dayNames = ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'];
+    $dayNames = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
     $seo = [
-        'seo_title' => 'Calendar Competițional ' . $currentYear . ' - Club Chinologic București Otopeni',
-        'seo_description' => 'Calendarul competițional al Clubului Chinologic București Otopeni pentru anul ' . $currentYear . '. Vezi toate evenimentele și concursurile planificate.',
+        'seo_title' => 'Calendar Competițional ' . $currentYear,
+        'seo_description' => 'Calendarul competițional pentru anul ' . $currentYear . '. Vezi toate evenimentele și concursurile.',
     ];
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-12">
+    <div class="min-h-screen bg-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
-                    Calendar Competițional {{ $currentYear }}
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                    {{ $currentYear }} Calendar Competițional - CCB
                 </h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Vezi toate evenimentele și concursurile planificate pentru anul în curs
-                </p>
-                
-                <!-- Legend -->
-                <div class="flex flex-wrap justify-center gap-6 mt-8 p-6 bg-white rounded-lg shadow-sm max-w-4xl mx-auto">
-                    <div class="flex items-center">
-                        <div class="w-4 h-4 bg-gray-300 rounded mr-2"></div>
-                        <span class="text-sm text-gray-600">Trecut</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
-                        <span class="text-sm text-gray-600">Viitoare</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
-                        <span class="text-sm text-gray-600">Astăzi</span>
-                    </div>
-                </div>
             </div>
 
-            <!-- Calendar Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @for($month = 1; $month <= 12; $month++)
-                    @php
-                        $firstDay = Carbon::create($currentYear, $month, 1);
-                        $lastDay = $firstDay->copy()->endOfMonth();
-                        $startCalendar = $firstDay->copy()->startOfWeek(Carbon::SUNDAY);
-                        $endCalendar = $lastDay->copy()->endOfWeek(Carbon::SATURDAY);
-                        $today = now()->format('Y-m-d');
-                    @endphp
-                    
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <!-- Month Header -->
-                        <div class="bg-blue-600 text-white p-4">
-                            <h3 class="text-lg font-semibold text-center">
-                                {{ $monthNames[$month] }}
-                            </h3>
-                        </div>
-                        
-                        <!-- Days of Week -->
-                        <div class="grid grid-cols-7 bg-gray-100">
-                            @for($i = 0; $i < 7; $i++)
-                                <div class="p-2 text-center text-xs font-medium text-gray-600">
-                                    {{ $dayNames[$i] }}
-                                </div>
-                            @endfor
-                        </div>
-                        
-                        <!-- Calendar Days -->
-                        <div class="grid grid-cols-7">
-                            @php
-                                $current = $startCalendar->copy();
-                            @endphp
-                            
-                            @while($current <= $endCalendar)
-                                @php
-                                    $dateString = $current->format('Y-m-d');
-                                    $isCurrentMonth = $current->month == $month;
-                                    $dayEvents = $events->get($dateString, collect());
-                                    $isPast = $current->lt(now()->startOfDay());
-                                    $isToday = $dateString === $today;
-                                    $isUpcoming = $current->gt(now()->startOfDay());
-                                @endphp
-                                
-                                <div class="relative p-2 h-16 border border-gray-100 
-                                    {{ !$isCurrentMonth ? 'bg-gray-50 text-gray-400' : 'bg-white' }}
-                                    {{ $dayEvents->count() > 0 && $isCurrentMonth ? 'cursor-pointer transition-all duration-200 hover:shadow-md' : '' }}
-                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isToday ? 'bg-green-50 border-green-200 hover:bg-green-100' : '' }}
-                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isPast ? 'bg-gray-100 border-gray-200 hover:bg-gray-150' : '' }}
-                                    {{ $dayEvents->count() > 0 && $isCurrentMonth && $isUpcoming ? 'bg-blue-50 border-blue-200 hover:bg-blue-100' : '' }}"
-                                    @if($dayEvents->count() > 0 && $isCurrentMonth)
-                                        data-tooltip="{{ $dayEvents->first()->title }}"
-                                        data-date="{{ $current->format('d M Y') }}"
-                                        onclick="goToEvent('{{ $dayEvents->first()->slug }}')"
-                                        onmouseenter="showSimpleTooltip(this, '{{ addslashes($dayEvents->first()->title) }}')"
-                                        onmouseleave="hideSimpleTooltip()"
-                                    @endif>
-                                    
-                                    <!-- Day Number -->
-                                    <span class="text-sm {{ !$isCurrentMonth ? 'text-gray-400' : 'text-gray-900' }}">
-                                        {{ $current->day }}
-                                    </span>
-                                    
-                                    <!-- Event Indicator -->
-                                    @if($dayEvents->count() > 0 && $isCurrentMonth)
-                                        <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                                            @if($isToday)
-                                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
-                                            @elseif($isPast)
-                                                <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
-                                            @else
-                                                <div class="w-3 h-3 bg-blue-500 rounded-full animate-bounce shadow-lg"></div>
-                                            @endif
-                                        </div>
-                                        
-                                        @if($dayEvents->count() > 1)
-                                            <span class="absolute top-1 right-1 text-xs bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-md">
-                                                {{ $dayEvents->count() }}
-                                            </span>
-                                        @endif
-                                        
-                                        <!-- Event title preview for larger screens -->
-                                        <div class="absolute inset-x-1 bottom-4 hidden lg:block">
-                                            <div class="text-[8px] text-center font-medium truncate
-                                                {{ $isToday ? 'text-green-700' : '' }}
-                                                {{ $isPast ? 'text-gray-500' : '' }}
-                                                {{ $isUpcoming ? 'text-blue-700' : '' }}">
-                                                {{ $dayEvents->first()->title }}
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                
-                                @php $current->addDay(); @endphp
-                            @endwhile
-                        </div>
-                    </div>
-                @endfor
+            <!-- Calendar Table -->
+            <div class="bg-white border border-gray-300 rounded-lg overflow-hidden shadow-sm">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-blue-600">
+                            @foreach(['Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie'] as $monthName)
+                                <th class="px-2 py-3 text-white text-sm font-semibold text-center border-r border-blue-500 last:border-r-0">
+                                    {{ $monthName }}
+                                </th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for($day = 1; $day <= 31; $day++)
+                            <tr class="border-b border-gray-200">
+                                <td class="px-1 py-1 text-xs text-center border-r border-gray-200 w-12">
+                                    <div class="font-bold">{{ $day }}</div>
+                                    @php
+                                        $date = Carbon::create($currentYear, 3, $day);
+                                        if ($date->month == 3) {
+                                            echo '<div class="text-gray-500">' . substr($dayNames[$date->dayOfWeek], 0, 1) . '</div>';
+                                        }
+                                    @endphp
+                                </td>
+                                @foreach([3, 4, 5, 6, 7, 8, 9, 10, 11] as $month)
+                                    <td class="px-1 py-1 text-xs border-r border-gray-200 last:border-r-0 h-8">
+                                        @php
+                                            $date = Carbon::create($currentYear, $month, 1);
+                                            if ($day <= $date->daysInMonth) {
+                                                $dateString = Carbon::create($currentYear, $month, $day)->format('Y-m-d');
+                                                $dayEvents = $events->get($dateString, collect());
+                                                $dayName = substr($dayNames[Carbon::create($currentYear, $month, $day)->dayOfWeek], 0, 1);
+                                                
+                                                if ($dayEvents->count() > 0) {
+                                                    $event = $dayEvents->first();
+                                                    $isPast = Carbon::create($currentYear, $month, $day)->lt(now()->startOfDay());
+                                                    $colorClass = $isPast ? 'bg-gray-400' : 'bg-blue-500';
+                                                    
+                                                    echo '<div class="' . $colorClass . ' text-white px-1 rounded text-center cursor-pointer hover:opacity-75" 
+                                                          title="' . htmlspecialchars($event->title) . '"
+                                                          onclick="window.open(\'/evenimente/' . $event->slug . '\', \'_blank\')">' . 
+                                                          $dayName . '</div>';
+                                                } else {
+                                                    echo '<div class="text-gray-400 text-center">' . $dayName . '</div>';
+                                                }
+                                            }
+                                        @endphp
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Legend -->
+            <div class="flex justify-center gap-6 mt-4 text-sm">
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
+                    <span>Evenimente viitoare</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+                    <span>Evenimente trecute</span>
+                </div>
             </div>
             
             <!-- Back Button -->
-            <div class="text-center mt-12">
+            <div class="text-center mt-8">
                 <a href="{{ route('home') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                   class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Înapoi la pagina principală
+                    Înapoi
                 </a>
             </div>
         </div>
     </div>
-
-    <!-- Event Details Modal -->
-    <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-                <!-- Modal Header -->
-                <div class="flex items-center justify-between p-6 border-b">
-                    <h3 id="modalDate" class="text-lg font-semibold text-gray-900"></h3>
-                    <button onclick="closeEventModal()" class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Modal Content -->
-                <div id="modalEvents" class="p-6 max-h-96 overflow-y-auto">
-                    <!-- Events will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
+</x-layouts.marketing>
 </x-layouts.marketing>
 
 <!-- Simple Tooltip -->
