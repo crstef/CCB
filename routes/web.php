@@ -15,6 +15,16 @@ use Wave\Facades\Wave;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Auth\AuthController;
+
+// Authentication Routes
+Route::middleware('guest')->group(function () {
+    Route::get('auth/login', [AuthController::class, 'loginForm'])->name('login');
+    Route::post('auth/login', [AuthController::class, 'login']);
+    Route::get('auth/register', [AuthController::class, 'registerForm'])->name('register');
+    Route::post('auth/register', [AuthController::class, 'register']);
+});
+Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Gallery routes
 Route::get('/galerie-foto', [GalleryController::class, 'photoGallery'])->name('galerie-foto');

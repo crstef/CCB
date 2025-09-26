@@ -436,4 +436,22 @@ class User extends AuthUser implements FilamentUser, HasAvatar, JWTSubject
     //         $this->load('roles.permissions');
     //     }
     // }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
+    /**
+     * Find the user instance for the given username.
+     */
+    public function findForPassport($username)
+    {
+        return $this->where('username', $username)->first();
+    }
 }

@@ -28,7 +28,7 @@ class AuthController extends Controller implements HasMiddleware
      */
     public function login(): JsonResponse
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['username', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -95,7 +95,7 @@ class AuthController extends Controller implements HasMiddleware
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:250',
+            'username' => 'required|string|max:250|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -107,7 +107,7 @@ class AuthController extends Controller implements HasMiddleware
             'password' => bcrypt($request->password),
         ]);
 
-        $credentials = ['email' => $request['email'], 'password' => $request['password']];
+        $credentials = ['username' => $request['username'], 'password' => $request['password']];
 
         if (! $token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
