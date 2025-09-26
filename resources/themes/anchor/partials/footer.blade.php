@@ -112,9 +112,9 @@
                     </ul>
                 </div>
                 <div class="md:justify-self-end">
-                    <h3 class="font-semibold text-black">Contact</h3>
+                    <!-- <h3 class="font-semibold text-black">Contact</h3> -->
                     <ul class="mt-6 space-y-4 text-sm">
-                        <li>
+                        <!-- <li>
                             <a href="{{ route('page.show', 'publicitate') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Publicitate</span>
@@ -131,11 +131,11 @@
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Parteneri</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="{{ route('contact') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
-                                <span>Contact</span>
+                                <span>Contactează-ne</span>
                             </a>
                         </li>
                     </ul>
