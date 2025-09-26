@@ -30,8 +30,8 @@ Route::get('/documente/{document}', [DocumentController::class, 'show'])->name('
 // })->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Include pagini statice pentru meniuri și footer ÎNAINTE de Wave routes
+require_once __DIR__.'/static_pages.php';
+
 // Wave routes
 Wave::routes();
-
-// Include pagini statice pentru meniuri și footer
-require_once __DIR__.'/static_pages.php';
