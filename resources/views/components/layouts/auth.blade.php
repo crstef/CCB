@@ -14,8 +14,8 @@
     <!-- Wave CSS -->
     <link rel="stylesheet" href="{{ asset('themes/' . $theme->folder . '/css/app.css') }}">
     
-    <!-- Tailwind CSS -->
-    @vite(['resources/css/app.css'])
+    <!-- Vite Assets -->
+    @vite(['resources/themes/' . $theme->folder . '/assets/css/app.css', 'resources/themes/' . $theme->folder . '/assets/js/app.js'])
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
