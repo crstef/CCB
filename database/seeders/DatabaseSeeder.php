@@ -39,6 +39,9 @@ class DatabaseSeeder extends Seeder
         // Documents seeder for document management system
         $this->call(DocumentSeeder::class);
         
+        // Partners seeder for partners section
+        $this->call(PartnersTableSeeder::class);
+        
         fixPostgresSequence();
     }
 }

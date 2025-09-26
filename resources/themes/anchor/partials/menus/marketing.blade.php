@@ -83,14 +83,15 @@
             </a>
         </li>
 
+        <!-- Mobile Auth Buttons - Show only for authenticated users -->
         @auth
-            @role('admin')
-                <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-green-600 md:hidden">Panou de management</a>
+            @if(auth()->user()->hasRole('admin'))
+                <a href="/admin" class="block px-5 py-3 text-base font-medium text-center text-white bg-green-600 md:hidden">Panou de management</a>
             @else
-                <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Printeaza legitimatia</a>
-            @endrole
+                <a href="{{ route('dashboard') }}" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Printeaza legitimatia</a>
+            @endif
             
-            <!-- Mobile Logout Button -->
+            <!-- Mobile Logout Button - Always show for authenticated users -->
             <div class="px-6 py-3 border-t border-zinc-100 md:hidden">
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
@@ -109,20 +110,22 @@
    
 
 
+<!-- Desktop Auth Section -->
 @guest
     <div class="hidden relative z-30 flex-shrink-0 justify-center items-center space-x-3 h-full text-sm md:flex">
         <x-button href="{{ route('login') }}" tag="a" class="text-sm" color="secondary">Logare</x-button>
         <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
     </div>
 @else
+    <!-- Desktop buttons for authenticated users -->
     <div class="hidden relative z-30 flex-shrink-0 justify-center items-center space-x-3 h-full text-sm md:flex">
-        @role('admin')
+        @if(auth()->user()->hasRole('admin'))
             <x-button href="/admin" tag="a" class="text-sm bg-green-600 hover:bg-green-700 text-white">Panou de management</x-button>
         @else
             <x-button href="{{ route('dashboard') }}" tag="a" class="text-sm">Printeaza legitimatia</x-button>
-        @endrole
+        @endif
         
-        <!-- Logout Button -->
+        <!-- Desktop Logout Button - Always available for ALL authenticated users -->
         <form method="POST" action="{{ route('logout') }}" class="inline">
             @csrf
             <button type="submit" class="flex items-center px-4 py-2 text-sm font-medium text-red-600 hover:text-red-800 transition duration-300">

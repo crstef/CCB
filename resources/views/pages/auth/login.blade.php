@@ -84,7 +84,7 @@ name('login');
                     </button>
                 </div>
 
-                @if (Route::has('register'))
+               <!--  @if (Route::has('register'))
                     <div class="text-center">
                         <p class="text-sm text-gray-600">
                             Nu ai cont? 
@@ -93,7 +93,7 @@ name('login');
                             </a>
                         </p>
                     </div>
-                @endif
+                @endif -->
             </form>
 
             @if (session('status'))
