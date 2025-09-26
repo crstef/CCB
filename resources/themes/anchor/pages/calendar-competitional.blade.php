@@ -1,225 +1,301 @@
 <?php
     use function Laravel\Folio\{name};
+    use Carbon\Carbon;
+    
     name('calendar-competitional');
 
-    // Get all upcoming events
-    $upcomingEvents = \Wave\Event::where('status', 'PUBLISHED')
-        ->where('event_start_date', '>=', now())
-        ->orderBy('event_start_date', 'asc')
-        ->paginate(9);
-    
-    // Get past events for history section
-    $pastEvents = \Wave\Event::where('status', 'PUBLISHED')
-        ->where('event_start_date', '<', now())
-        ->orderBy('event_start_date', 'desc')
-        ->limit(6)
-        ->get();
+    // Get all events for the current year
+    $currentYear = now()->year;
+    $events = \Wave\Event::where('status', 'PUBLISHED')
+        ->whereYear('event_start_date', $currentYear)
+        ->get()
+        ->groupBy(function($event) {
+            return $event->event_start_date->format('Y-m-d');
+        });
+
+    // Helper function to get month names in Romanian
+    function getMonthName($monthNumber) {
+        $months = [
+            1 => 'Ianuarie', 2 => 'Februarie', 3 => 'Martie', 4 => 'Aprilie',
+            5 => 'Mai', 6 => 'Iunie', 7 => 'Iulie', 8 => 'August',
+            9 => 'Septembrie', 10 => 'Octombrie', 11 => 'Noiembrie', 12 => 'Decembrie'
+        ];
+        return $months[$monthNumber];
+    }
+
+    // Helper function to get day names in Romanian
+    function getDayName($dayNumber) {
+        $days = ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'];
+        return $days[$dayNumber];
+    }
 
     $seo = [
-        'seo_title' => 'Calendar Competițional - Club Chinologic București Otopeni',
-        'seo_description' => 'Calendarul competițional al Clubului Chinologic București Otopeni. Găsește toate evenimentele, concursurile și competițiile planificate.',
+        'seo_title' => 'Calendar Competițional ' . $currentYear . ' - Club Chinologic București Otopeni',
+        'seo_description' => 'Calendarul competițional al Clubului Chinologic București Otopeni pentru anul ' . $currentYear . '. Vezi toate evenimentele și concursurile planificate.',
     ];
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="bg-white">
-        <!-- Header Section -->
-        <div class="relative bg-gradient-to-br from-blue-600 to-indigo-700 py-16 sm:py-20">
-            <div class="absolute inset-0 bg-black opacity-10"></div>
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                        Calendar Competițional
-                    </h1>
-                    <p class="mt-6 max-w-2xl mx-auto text-xl text-blue-100 leading-relaxed">
-                        Toate evenimentele, concursurile și competițiile organizate de Clubul Chinologic București Otopeni
-                    </p>
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                    Calendar Competițional {{ $currentYear }}
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Vezi toate evenimentele și concursurile planificate pentru anul în curs
+                </p>
+                
+                <!-- Legend -->
+                <div class="flex flex-wrap justify-center gap-6 mt-8 p-6 bg-white rounded-lg shadow-sm max-w-4xl mx-auto">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-gray-300 rounded mr-2"></div>
+                        <span class="text-sm text-gray-600">Trecut</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
+                        <span class="text-sm text-gray-600">Viitoare</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                        <span class="text-sm text-gray-600">Astăzi</span>
+                    </div>
                 </div>
             </div>
-            <!-- Decorative elements -->
-            <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
-        </div>
 
-        <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            
-            <!-- Upcoming Events Section -->
-            @if($upcomingEvents->count() > 0)
-                <div class="mb-16">
-                    <div class="flex items-center justify-between mb-8">
-                        <h2 class="text-3xl font-bold text-gray-900">
-                            Evenimente Viitoare
-                        </h2>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            {{ $upcomingEvents->total() }} {{ $upcomingEvents->total() == 1 ? 'eveniment' : 'evenimente' }}
+            <!-- Calendar Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @for($month = 1; $month <= 12; $month++)
+                    @php
+                        $firstDay = Carbon::create($currentYear, $month, 1);
+                        $lastDay = $firstDay->copy()->endOfMonth();
+                        $startCalendar = $firstDay->copy()->startOfWeek(Carbon::SUNDAY);
+                        $endCalendar = $lastDay->copy()->endOfWeek(Carbon::SATURDAY);
+                        $today = now()->format('Y-m-d');
+                    @endphp
+                    
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <!-- Month Header -->
+                        <div class="bg-blue-600 text-white p-4">
+                            <h3 class="text-lg font-semibold text-center">
+                                {{ getMonthName($month) }}
+                            </h3>
                         </div>
-                    </div>
-
-                    <!-- Events Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        @foreach($upcomingEvents as $event)
-                            <div class="bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group cursor-pointer overflow-hidden"
-                                 onclick="window.open('{{ $event->link() }}', '_blank')">
+                        
+                        <!-- Days of Week -->
+                        <div class="grid grid-cols-7 bg-gray-100">
+                            @for($i = 0; $i < 7; $i++)
+                                <div class="p-2 text-center text-xs font-medium text-gray-600">
+                                    {{ getDayName($i) }}
+                                </div>
+                            @endfor
+                        </div>
+                        
+                        <!-- Calendar Days -->
+                        <div class="grid grid-cols-7">
+                            @php
+                                $current = $startCalendar->copy();
+                            @endphp
+                            
+                            @while($current <= $endCalendar)
+                                @php
+                                    $dateString = $current->format('Y-m-d');
+                                    $isCurrentMonth = $current->month == $month;
+                                    $dayEvents = $events->get($dateString, collect());
+                                    $isPast = $current->lt(now()->startOfDay());
+                                    $isToday = $dateString === $today;
+                                    $isUpcoming = $current->gt(now()->startOfDay());
+                                @endphp
                                 
-                                <!-- Event Image -->
-                                @if($event->image)
-                                    <div class="aspect-w-16 aspect-h-9 bg-gray-100 overflow-hidden">
-                                        <img src="{{ $event->image() }}" alt="{{ $event->title }}" 
-                                             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                                    </div>
-                                @else
-                                    <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                                        <svg class="w-16 h-16 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                        </svg>
-                                    </div>
-                                @endif
-
-                                <div class="p-6">
-                                    <!-- Event Date Badge -->
-                                    <div class="flex items-center justify-between mb-3">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-bold">
-                                                {{ $event->event_start_date->format('d') }}
-                                            </div>
-                                            <div class="text-sm text-gray-600">
-                                                {{ $event->event_start_date->format('M Y') }}
-                                            </div>
-                                        </div>
-                                        @if($event->booking_end_date && $event->booking_end_date > now())
-                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
-                                                Înscrieri deschise
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <!-- Event Title -->
-                                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-200 mb-2">
-                                        {{ $event->title }}
-                                    </h3>
-
-                                    <!-- Event Location -->
-                                    @if($event->location)
-                                        <p class="text-sm text-gray-600 mb-3 flex items-center">
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            {{ $event->location }}
-                                        </p>
-                                    @endif
-
-                                    <!-- Disciplines -->
-                                    @if($event->disciplines && count($event->disciplines) > 0)
-                                        <div class="flex flex-wrap gap-1 mb-3">
-                                            @foreach(array_slice($event->disciplines, 0, 3) as $discipline)
-                                                <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                                                    {{ $discipline }}
-                                                </span>
-                                            @endforeach
-                                            @if(count($event->disciplines) > 3)
-                                                <span class="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
-                                                    +{{ count($event->disciplines) - 3 }}
-                                                </span>
+                                <div class="relative p-2 h-12 border border-gray-100 
+                                    {{ !$isCurrentMonth ? 'bg-gray-50 text-gray-400' : '' }}
+                                    {{ $dayEvents->count() > 0 && $isCurrentMonth ? 'cursor-pointer hover:bg-gray-50' : '' }}"
+                                    @if($dayEvents->count() > 0 && $isCurrentMonth)
+                                        onclick="showEventsForDate('{{ $dateString }}', {{ json_encode($dayEvents->map(function($event) {
+                                            return [
+                                                'id' => $event->id,
+                                                'title' => $event->title,
+                                                'slug' => $event->slug,
+                                                'location' => $event->location,
+                                                'disciplines' => $event->disciplines,
+                                                'event_start_date' => $event->event_start_date->format('H:i'),
+                                                'event_end_date' => $event->event_end_date ? $event->event_end_date->format('H:i') : null
+                                            ];
+                                        })) }})"
+                                    @endif>
+                                    
+                                    <!-- Day Number -->
+                                    <span class="text-sm {{ !$isCurrentMonth ? 'text-gray-400' : 'text-gray-900' }}">
+                                        {{ $current->day }}
+                                    </span>
+                                    
+                                    <!-- Event Indicator -->
+                                    @if($dayEvents->count() > 0 && $isCurrentMonth)
+                                        <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+                                            @if($isToday)
+                                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                            @elseif($isPast)
+                                                <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                            @else
+                                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
                                             @endif
                                         </div>
-                                    @endif
-
-                                    <!-- Event Description Preview -->
-                                    @if($event->excerpt)
-                                        <p class="text-sm text-gray-600 line-clamp-2">
-                                            {{ Str::limit($event->excerpt, 100) }}
-                                        </p>
+                                        
+                                        @if($dayEvents->count() > 1)
+                                            <span class="absolute top-0 right-0 text-xs bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
+                                                {{ $dayEvents->count() }}
+                                            </span>
+                                        @endif
                                     @endif
                                 </div>
-
-                                <!-- Hover effect overlay -->
-                                <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-indigo-500/0 group-hover:from-blue-500/5 group-hover:to-indigo-500/5 transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-none"></div>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    <!-- Pagination -->
-                    @if($upcomingEvents->hasPages())
-                        <div class="flex justify-center">
-                            {{ $upcomingEvents->links() }}
-                        </div>
-                    @endif
-                </div>
-            @else
-                <!-- No Upcoming Events -->
-                <div class="text-center py-16 bg-gray-50 rounded-2xl mb-16">
-                    <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <h3 class="text-2xl font-semibold text-gray-900 mt-6">Nu există evenimente planificate</h3>
-                    <p class="mt-2 text-lg text-gray-600 max-w-md mx-auto">
-                        În acest moment nu avem evenimente programate. Te rugăm să revii pentru actualizări.
-                    </p>
-                </div>
-            @endif
-
-            <!-- Past Events Section -->
-            @if($pastEvents->count() > 0)
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8">
-                        Evenimente Recente
-                    </h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach($pastEvents as $event)
-                            <div class="bg-gray-50 rounded-xl shadow-sm border border-gray-100 hover:shadow-md hover:bg-white transition-all duration-300 group cursor-pointer overflow-hidden opacity-75 hover:opacity-100"
-                                 onclick="window.open('{{ $event->link() }}', '_blank')">
                                 
-                                @if($event->image)
-                                    <div class="aspect-w-16 aspect-h-9 bg-gray-100 overflow-hidden">
-                                        <img src="{{ $event->image() }}" alt="{{ $event->title }}" 
-                                             class="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300 filter grayscale group-hover:grayscale-0">
-                                    </div>
-                                @else
-                                    <div class="h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                        <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                        </svg>
-                                    </div>
-                                @endif
-
-                                <div class="p-4">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <div class="flex items-center space-x-2">
-                                            <div class="bg-gray-400 text-white px-2 py-1 rounded text-xs font-bold">
-                                                {{ $event->event_start_date->format('d') }}
-                                            </div>
-                                            <div class="text-xs text-gray-500">
-                                                {{ $event->event_start_date->format('M Y') }}
-                                            </div>
-                                        </div>
-                                        <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">
-                                            Finalizat
-                                        </span>
-                                    </div>
-
-                                    <h3 class="text-sm font-semibold text-gray-700 group-hover:text-gray-900 transition-colors duration-200 mb-1">
-                                        {{ $event->title }}
-                                    </h3>
-
-                                    @if($event->location)
-                                        <p class="text-xs text-gray-500 flex items-center">
-                                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                            </svg>
-                                            {{ $event->location }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
+                                @php $current->addDay(); @endphp
+                            @endwhile
+                        </div>
                     </div>
+                @endfor
+            </div>
+            
+            <!-- Back Button -->
+            <div class="text-center mt-12">
+                <a href="{{ route('home') }}" 
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Înapoi la pagina principală
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b">
+                    <h3 id="modalDate" class="text-lg font-semibold text-gray-900"></h3>
+                    <button onclick="closeEventModal()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
                 </div>
-            @endif
+                
+                <!-- Modal Content -->
+                <div id="modalEvents" class="p-6 max-h-96 overflow-y-auto">
+                    <!-- Events will be inserted here -->
+                </div>
+            </div>
         </div>
     </div>
 </x-layouts.marketing>
+
+<script>
+function showEventsForDate(dateString, events) {
+    const modal = document.getElementById('eventModal');
+    const modalDate = document.getElementById('modalDate');
+    const modalEvents = document.getElementById('modalEvents');
+    
+    // Format date for display
+    const date = new Date(dateString);
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    const romanianMonths = {
+        'January': 'Ianuarie', 'February': 'Februarie', 'March': 'Martie',
+        'April': 'Aprilie', 'May': 'Mai', 'June': 'Iunie',
+        'July': 'Iulie', 'August': 'August', 'September': 'Septembrie',
+        'October': 'Octombrie', 'November': 'Noiembrie', 'December': 'Decembrie'
+    };
+    const romanianDays = {
+        'Monday': 'Luni', 'Tuesday': 'Marți', 'Wednesday': 'Miercuri',
+        'Thursday': 'Joi', 'Friday': 'Vineri', 'Saturday': 'Sâmbătă', 'Sunday': 'Duminică'
+    };
+    
+    let formattedDate = date.toLocaleDateString('en-US', options);
+    Object.keys(romanianMonths).forEach(month => {
+        formattedDate = formattedDate.replace(month, romanianMonths[month]);
+    });
+    Object.keys(romanianDays).forEach(day => {
+        formattedDate = formattedDate.replace(day, romanianDays[day]);
+    });
+    
+    modalDate.textContent = formattedDate;
+    
+    // Build events HTML
+    let eventsHTML = '';
+    events.forEach(event => {
+        eventsHTML += `
+            <div class="bg-gray-50 rounded-lg p-4 mb-4 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+                 onclick="window.open('/evenimente/${event.slug}', '_blank')">
+                <h4 class="font-semibold text-gray-900 mb-2">${event.title}</h4>
+                
+                <div class="space-y-2 text-sm text-gray-600">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        ${event.event_start_date}${event.event_end_date ? ' - ' + event.event_end_date : ''}
+                    </div>
+                    
+                    ${event.location ? `
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            ${event.location}
+                        </div>
+                    ` : ''}
+                    
+                    ${event.disciplines && event.disciplines.length > 0 ? `
+                        <div class="flex flex-wrap gap-1 mt-2">
+                            ${event.disciplines.map(discipline => `
+                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">${discipline}</span>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="mt-3 text-xs text-blue-600 font-medium">
+                    Click pentru detalii complete →
+                </div>
+            </div>
+        `;
+    });
+    
+    modalEvents.innerHTML = eventsHTML;
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEventModal() {
+    const modal = document.getElementById('eventModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeEventModal();
+    }
+});
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('eventModal');
+    if (e.target === modal) {
+        closeEventModal();
+    }
+});
+</script>

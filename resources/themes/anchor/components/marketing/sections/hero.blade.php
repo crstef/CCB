@@ -178,7 +178,7 @@ a.gallery-button:hover .gallery-button-icon {
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
-                <a href="{{ route('calendar-competitional') }}" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
+                <a href="/calendar-competitional" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
                     <!-- Subtle background animation on hover -->
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/5 group-hover:to-indigo-400/5 transition-all duration-500 ease-out"></div>
                     <div class="relative">
@@ -192,7 +192,7 @@ a.gallery-button:hover .gallery-button-icon {
                             </svg>
                         </h3>
                         <p class="mt-3 text-sm font-medium text-zinc-600 group-hover:text-blue-800 transition-all duration-300 leading-relaxed">
-                            Vezi toate evenimentele și concursurile planificate. <span class="hidden lg:inline group-hover:text-blue-700">Calendar complet cu detalii și înscrieri</span>
+                            Vezi toate evenimentele și concursurile planificate. <span class="hidden lg:inline group-hover:text-blue-700">Calendar anual complet cu detalii și înscrieri</span>
                         </p>
                     </div>
                 </a>
