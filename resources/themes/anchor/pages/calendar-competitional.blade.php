@@ -27,128 +27,102 @@ $seo = (object) [
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-4">
             
-            <!-- Premium Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-4">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
                     Calendar Competițional {{ $currentYear }}
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Descoperă toate evenimentele și competițiile din acest an într-un design elegant și intuitiv
-                </p>
+                <p class="text-gray-600">Evenimente și competiții CCB</p>
             </div>
 
-            <!-- Modern Premium Calendar -->
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
-                    <div class="grid grid-cols-10 gap-4">
-                        <div class="text-white font-semibold text-sm text-center">Ziua</div>
-                        @foreach(['Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov'] as $monthName)
-                            <div class="text-white font-semibold text-sm text-center">{{ $monthName }}</div>
-                        @endforeach
+            <!-- Calendar -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <!-- Header cu lunile -->
+                <div class="bg-blue-600 text-white p-4">
+                    <div class="grid grid-cols-10 gap-2 text-sm font-semibold text-center">
+                        <div>Ziua</div>
+                        <div>Mar</div>
+                        <div>Apr</div>
+                        <div>Mai</div>
+                        <div>Iun</div>
+                        <div>Iul</div>
+                        <div>Aug</div>
+                        <div>Sep</div>
+                        <div>Oct</div>
+                        <div>Nov</div>
                     </div>
                 </div>
                 
-                <!-- Calendar Body -->
-                <div class="p-4 space-y-2">
+                <!-- Zilele -->
+                <div class="p-4">
                     @for($day = 1; $day <= 31; $day++)
-                        <div class="grid grid-cols-10 gap-4 items-center">
-                            <!-- Day number column -->
-                            <div class="text-center py-3">
-                                <div class="font-bold text-lg text-gray-800">{{ $day }}</div>
-                                @php
-                                    $date = now()->create($currentYear, 3, $day);
-                                    if ($date->month == 3 && $day <= $date->daysInMonth) {
-                                        echo '<div class="text-xs text-gray-500 mt-1">' . $dayNames[$date->dayOfWeek] . '</div>';
-                                    }
-                                @endphp
+                        <div class="grid grid-cols-10 gap-2 py-2 border-b border-gray-100 items-center">
+                            <!-- Ziua -->
+                            <div class="text-center font-semibold text-gray-700">
+                                {{ $day }}
                             </div>
                             
-                            <!-- Month columns -->
+                            <!-- Lunile -->
                             @foreach([3, 4, 5, 6, 7, 8, 9, 10, 11] as $month)
-                                <div class="min-h-[60px] flex items-center justify-center p-2">
-                                    @php
-                                        $date = now()->create($currentYear, $month, 1);
-                                        if ($day <= $date->daysInMonth) {
+                                <div class="text-center min-h-[40px] flex items-center justify-center">
+                                    @if($day <= now()->create($currentYear, $month, 1)->daysInMonth)
+                                        @php
                                             $dateString = now()->create($currentYear, $month, $day)->format('Y-m-d');
                                             $dayEvents = $events->get($dateString, collect());
-                                            
-                                            if ($dayEvents->count() > 0) {
+                                        @endphp
+                                        
+                                        @if($dayEvents->count() > 0)
+                                            @php
                                                 $event = $dayEvents->first();
-                                                $eventDate = now()->create($currentYear, $month, $day);
-                                                $isPast = $eventDate->lt(now()->startOfDay());
-                                                $isToday = $eventDate->isToday();
-                                                
-                                                // Design premium cu gradient și shadow
-                                                if ($isToday) {
-                                                    $classes = 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg shadow-green-200 border-2 border-green-400';
-                                                    $hoverClasses = 'hover:from-green-600 hover:to-green-700 hover:shadow-xl hover:shadow-green-300';
-                                                } elseif ($isPast) {
-                                                    $classes = 'bg-gradient-to-br from-gray-400 to-gray-500 text-white shadow-md shadow-gray-200 border border-gray-300';
-                                                    $hoverClasses = 'hover:from-gray-500 hover:to-gray-600 hover:shadow-lg';
-                                                } else {
-                                                    $classes = 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-200 border-2 border-blue-400';
-                                                    $hoverClasses = 'hover:from-blue-600 hover:to-blue-700 hover:shadow-xl hover:shadow-blue-300';
-                                                }
-                                                
-                                                echo '<div class="' . $classes . ' ' . $hoverClasses . ' rounded-xl p-3 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full" 
-                                                          onclick="window.open(\'/evenimente/' . $event->slug . '\', \'_blank\')"
-                                                          title="Click pentru detalii">';
-                                                echo '<div class="text-xs font-semibold text-center leading-tight">' . 
-                                                     htmlspecialchars(Str::limit($event->title, 25)) . '</div>';
-                                                
-                                                // Status indicator
-                                                if ($isToday) {
-                                                    echo '<div class="text-center mt-2"><div class="inline-block w-2 h-2 bg-white rounded-full animate-pulse"></div></div>';
-                                                }
-                                                
-                                                echo '</div>';
-                                            } else {
-                                                // Empty state cu stil elegant
-                                                echo '<div class="w-full h-12 rounded-lg bg-gray-50 border border-gray-100 hover:bg-gray-100 transition-colors duration-200"></div>';
-                                            }
-                                        }
-                                    @endphp
+                                                $isPast = now()->create($currentYear, $month, $day)->isPast();
+                                                $isToday = now()->create($currentYear, $month, $day)->isToday();
+                                            @endphp
+                                            
+                                            <div class="px-2 py-1 rounded text-xs font-medium cursor-pointer hover:opacity-80
+                                                @if($isToday) bg-green-500 text-white
+                                                @elseif($isPast) bg-gray-400 text-white  
+                                                @else bg-blue-500 text-white
+                                                @endif"
+                                                onclick="window.open('/evenimente/{{ $event->slug }}', '_blank')"
+                                                title="{{ $event->title }}">
+                                                {{ Str::limit($event->title, 15) }}
+                                            </div>
+                                        @endif
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
-                        
-                        @if($day < 31)
-                            <div class="border-b border-gray-100"></div>
-                        @endif
                     @endfor
                 </div>
             </div>
             
-            <!-- Premium Legend -->
-            <div class="flex flex-wrap justify-center gap-8 mt-8 p-6 bg-gray-50 rounded-2xl">
-                <div class="flex items-center space-x-3">
-                    <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg shadow-blue-200 border-2 border-blue-400"></div>
-                    <span class="text-gray-700 font-medium">Evenimente viitoare</span>
+            <!-- Legend -->
+            <div class="flex justify-center gap-6 mt-6 text-sm">
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
+                    <span>Viitoare</span>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg shadow-green-200 border-2 border-green-400 relative">
-                        <div class="absolute inset-2 bg-white rounded-full animate-pulse"></div>
-                    </div>
-                    <span class="text-gray-700 font-medium">Evenimente astăzi</span>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                    <span>Astăzi</span>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <div class="w-6 h-6 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg shadow-md shadow-gray-200 border border-gray-300"></div>
-                    <span class="text-gray-700 font-medium">Evenimente trecute</span>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+                    <span>Trecute</span>
                 </div>
             </div>
             
-            <!-- Premium Back Button -->
-            <div class="text-center mt-10">
+            <!-- Back Button -->
+            <div class="text-center mt-8">
                 <a href="{{ route('home') }}" 
-                   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-200 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-300 transform hover:scale-105 transition-all duration-300 border-2 border-blue-500">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Înapoi la pagina principală
+                    Înapoi
                 </a>
             </div>
         </div>
