@@ -83,11 +83,26 @@
             </a>
         </li>
 
-        @role('admin')
-            <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-green-600 md:hidden">Panou de management</a>
-        @else
-            <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Printeaza legitimatia</a>
-        @endrole
+        @auth
+            @role('admin')
+                <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-green-600 md:hidden">Panou de management</a>
+            @else
+                <a href="#_" class="block px-5 py-3 text-base font-medium text-center text-white bg-blue-600 md:hidden">Printeaza legitimatia</a>
+            @endrole
+            
+            <!-- Mobile Logout Button -->
+            <div class="px-6 py-3 border-t border-zinc-100 md:hidden">
+                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <button type="submit" class="flex items-center justify-center w-full px-5 py-3 text-base font-medium text-center text-white bg-red-600 hover:bg-red-700 transition duration-300 rounded">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        @endauth
     </ul>
     
 </nav>
@@ -100,9 +115,22 @@
         <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
     </div>
 @else
-    @role('admin')
-        <x-button href="/admin" tag="a" class="text-sm bg-green-600 hover:bg-green-700 text-white relative z-20 flex-shrink-0">Panou de management</x-button>
-    @else
-        <x-button href="{{ route('dashboard') }}" tag="a" class="text-sm relative z-20 flex-shrink-0">Printeaza legitimatia</x-button>
-    @endrole
+    <div class="hidden relative z-30 flex-shrink-0 justify-center items-center space-x-3 h-full text-sm md:flex">
+        @role('admin')
+            <x-button href="/admin" tag="a" class="text-sm bg-green-600 hover:bg-green-700 text-white">Panou de management</x-button>
+        @else
+            <x-button href="{{ route('dashboard') }}" tag="a" class="text-sm">Printeaza legitimatia</x-button>
+        @endrole
+        
+        <!-- Logout Button -->
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit" class="flex items-center px-4 py-2 text-sm font-medium text-red-600 hover:text-red-800 transition duration-300">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Logout
+            </button>
+        </form>
+    </div>
 @endguest
