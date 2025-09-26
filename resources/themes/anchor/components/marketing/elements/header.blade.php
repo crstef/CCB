@@ -307,7 +307,11 @@
                         </li>
                     @else
                         <li class="flex items-center justify-center w-full pt-3 md:hidden px-7">
-                            <x-button href="{{ route('login') }}" tag="a" class="w-full text-sm">Printeaza Legitimatia</x-button>
+                            @role('admin')
+                                <x-button href="/admin" tag="a" class="w-full text-sm bg-green-600 hover:bg-green-700 text-white">Panou de management</x-button>
+                            @else
+                                <x-button href="{{ route('dashboard') }}" tag="a" class="w-full text-sm">Printeaza Legitimatia</x-button>
+                            @endrole
                         </li>
                     @endguest
 
@@ -320,7 +324,11 @@
                     <!-- <x-button href="{{ route('register') }}" tag="a" class="text-sm">Inregistrare</x-button> -->
                 </div>
             @else
-                <x-button href="{{ route('login') }}" tag="a" class="text-sm" class="relative z-20 flex-shrink-0 hidden ml-2 md:block">Printeaza Legitimatia</x-button>
+                @role('admin')
+                    <x-button href="/admin" tag="a" class="text-sm bg-green-600 hover:bg-green-700 text-white relative z-20 flex-shrink-0 hidden ml-2 md:block">Panou de management</x-button>
+                @else
+                    <x-button href="{{ route('dashboard') }}" tag="a" class="text-sm relative z-20 flex-shrink-0 hidden ml-2 md:block">Printeaza Legitimatia</x-button>
+                @endrole
             @endguest
 
         </div>
