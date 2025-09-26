@@ -178,10 +178,24 @@ a.gallery-button:hover .gallery-button-icon {
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
-                <h3 class="font-medium text-zinc-900">Calendar Competițional</h3>
-                <p class="mt-2 text-sm text-zinc-500">
-                    Calendarul competițional pe anul în curs.
-                </p>
+                <a href="{{ route('calendar-competitional') }}" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
+                    <!-- Subtle background animation on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/5 group-hover:to-indigo-400/5 transition-all duration-500 ease-out"></div>
+                    <div class="relative">
+                        <h3 class="flex items-center font-semibold text-zinc-900 group-hover:text-blue-700 transition-all duration-300 group-hover:transform group-hover:translate-x-1">
+                            <svg class="w-5 h-5 mr-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Calendar Competițional
+                            <svg class="w-4 h-4 ml-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </h3>
+                        <p class="mt-3 text-sm font-medium text-zinc-600 group-hover:text-blue-800 transition-all duration-300 leading-relaxed">
+                            Vezi toate evenimentele și concursurile planificate. <span class="hidden lg:inline group-hover:text-blue-700">Calendar complet cu detalii și înscrieri</span>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

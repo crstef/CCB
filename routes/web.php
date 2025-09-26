@@ -30,5 +30,11 @@ Route::get('/documente/{document}', [DocumentController::class, 'show'])->name('
 // })->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Event routes
+Route::get('/evenimente/{slug}', function ($slug) {
+    $event = \Wave\Event::where('slug', $slug)->firstOrFail();
+    return view('theme::event', ['event' => $event]);
+})->name('event.show');
+
 // Wave routes
 Wave::routes();
