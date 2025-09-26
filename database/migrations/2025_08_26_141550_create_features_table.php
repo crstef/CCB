@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->string('icon'); // Pentru numele iconitei (ex: 'users-three', 'shield-check')
+            $table->text('description')->nullable();
+            $table->string('icon')->nullable(); // Pentru numele iconitei (ex: 'users-three', 'shield-check')
             $table->string('image')->nullable(); // Pentru imaginea atașată
             $table->integer('sort_order')->default(0); // Pentru sortare
             $table->boolean('is_active')->default(true); // Pentru a activa/dezactiva
