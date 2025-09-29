@@ -102,43 +102,84 @@ $seo = (object) [
                             {{-- Zilele lunii --}}
                             @for($day = 1; $day <= $daysInMonth; $day++)
                                 @php
-                                    $dateString = now()->create($currentYear, $currentMonth, $day)->format('Y-m-d');
+                                    $currentDate = now()->create($currentYear, $currentMonth, $day);
+                                    $dateString = $currentDate->format('Y-m-d');
                                     $dayEvents = $currentMonthEvents->get($dateString, collect());
-                                    $isToday = now()->create($currentYear, $currentMonth, $day)->isToday();
-                                    $isPast = now()->create($currentYear, $currentMonth, $day)->isPast();
+                                    $isToday = $currentDate->isToday();
+                                    $isPast = $currentDate->isPast();
+                                    $isFuture = $currentDate->isFuture();
+                                    
+                                    // Determine event status if there are events
+                                    $eventStatus = null;
+                                    $firstEvent = $dayEvents->first();
+                                    if ($firstEvent) {
+                                        $eventStart = \Carbon\Carbon::parse($firstEvent->event_start_date);
+                                        $eventEnd = $firstEvent->event_end_date ? \Carbon\Carbon::parse($firstEvent->event_end_date) : $eventStart;
+                                        
+                                        if (now()->between($eventStart, $eventEnd->endOfDay())) {
+                                            $eventStatus = 'ongoing'; // în curs
+                                        } elseif (now()->isAfter($eventEnd->endOfDay())) {
+                                            $eventStatus = 'finished'; // terminat
+                                        } else {
+                                            $eventStatus = 'upcoming'; // viitor
+                                        }
+                                    }
                                 @endphp
                                 
-                                <div class="h-10 flex items-center justify-center text-sm relative rounded
-                                    @if($isToday) 
-                                        bg-blue-600 text-white font-bold
-                                    @elseif($dayEvents->count() > 0)
-                                        @if($isPast) bg-gray-300 text-gray-600
-                                        @else bg-green-100 text-green-800 font-semibold cursor-pointer hover:bg-green-200
-                                        @endif
-                                    @else 
-                                        @if($isPast) text-gray-400 @else text-gray-700 @endif hover:bg-gray-100
-                                    @endif"
-                                    @if($dayEvents->count() > 0 && !$isPast)
-                                        title="{{ $dayEvents->first()->title }}"
-                                    @endif>
-                                    {{ $day }}
-                                    @if($dayEvents->count() > 0)
-                                        <div class="absolute bottom-0 right-0 w-2 h-2 bg-red-500 rounded-full"></div>
-                                    @endif
-                                </div>
+                                @if($dayEvents->count() > 0)
+                                    <a href="{{ $firstEvent->link() }}" 
+                                       class="h-10 flex items-center justify-center text-sm relative rounded font-semibold transition-all duration-200
+                                        @if($isToday) 
+                                            bg-blue-600 text-white shadow-lg
+                                        @elseif($eventStatus === 'finished')
+                                            bg-gray-400 text-white hover:bg-gray-500
+                                        @elseif($eventStatus === 'ongoing')
+                                            bg-green-500 text-white hover:bg-green-600 shadow-md
+                                        @else
+                                            bg-blue-400 text-white hover:bg-blue-500 shadow-md
+                                        @endif"
+                                       title="{{ $firstEvent->title }} - Click pentru detalii">
+                                        {{ $day }}
+                                        <div class="absolute -top-1 -right-1 w-3 h-3 
+                                            @if($eventStatus === 'finished') bg-gray-600
+                                            @elseif($eventStatus === 'ongoing') bg-green-600 animate-pulse
+                                            @else bg-blue-600
+                                            @endif rounded-full border border-white"></div>
+                                    </a>
+                                @else
+                                    <div class="h-10 flex items-center justify-center text-sm relative rounded
+                                        @if($isToday) 
+                                            bg-blue-600 text-white font-bold
+                                        @else 
+                                            @if($isPast) text-gray-400 @else text-gray-700 @endif hover:bg-gray-100
+                                        @endif">
+                                        {{ $day }}
+                                    </div>
+                                @endif
                             @endfor
                         </div>
                         
                         <!-- Legend -->
-                        <div class="mt-4 flex justify-center gap-4 text-xs text-gray-600">
+                        <div class="mt-4 flex justify-center flex-wrap gap-3 text-xs text-gray-600">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 bg-blue-600 rounded mr-1"></div>
                                 <span>Astăzi</span>
                             </div>
                             <div class="flex items-center">
-                                <div class="w-3 h-3 bg-green-100 border border-green-300 rounded mr-1"></div>
-                                <span>Competiții</span>
+                                <div class="w-3 h-3 bg-blue-400 rounded mr-1"></div>
+                                <span>Competiții viitoare</span>
                             </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-500 rounded mr-1"></div>
+                                <span>În curs de desfășurare</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-gray-400 rounded mr-1"></div>
+                                <span>Competiții terminate</span>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-center text-xs text-gray-500">
+                            💡 Click pe zilele cu competiții pentru a vedea detaliile
                         </div>
                     </div>
                 </div>
