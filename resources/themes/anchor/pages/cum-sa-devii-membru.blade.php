@@ -47,7 +47,7 @@ $seo = (object) [
                         </h2>
                         
                         <p class="text-gray-700 leading-relaxed mb-4">
-                            Pentru a aplica, trimite o cerere care să conțină următoarele informații:
+                            Pentru a aplica, trimite o cerere care să conțină următoarele informații la adresa de e-mail, ciobanestibelgieni@gmail.com:
                         </p>
                         
                         <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
