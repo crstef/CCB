@@ -1,8 +1,6 @@
 <?php
 
-use function Laravel\Folio                        <h2 class="text-2xl font-semibold">
-                            🌟 Raritatea Aurie
-                        </h2>
+use function Laravel\Folio\name;
 
 name('laekenois');
 
