@@ -147,14 +147,14 @@ a.gallery-button:hover .gallery-button-icon {
     </div>
     
     {{-- Partners Section - doar logo-uri cu link-uri --}}
-    <div class="flex-shrink-0 py-4 border-t border-zinc-100 bg-gray-50/50">
+    <div class="flex-shrink-0 py-6 border-t border-zinc-100 bg-gray-50/50">
         <div class="max-w-7xl mx-auto px-8 md:px-12 lg:px-20">
             @php
                 $partners = \App\Models\Partner::active()->ordered()->get();
             @endphp
             
             @if($partners->count() > 0)
-                <div class="flex items-center justify-center gap-6 lg:gap-8">
+                <div class="flex items-center justify-center gap-8 lg:gap-12">
                     @foreach($partners as $partner)
                         <a href="{{ $partner->website_url }}" 
                            target="_blank" 
@@ -163,14 +163,14 @@ a.gallery-button:hover .gallery-button-icon {
                            title="{{ $partner->name }}">
                             
                             @if($partner->logo_url)
-                                <div class="flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 p-2 bg-white/80 backdrop-blur-sm border border-zinc-200/50 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                                <div class="flex items-center justify-center w-24 h-24 lg:w-32 lg:h-32 p-3 bg-white/90 backdrop-blur-sm border border-zinc-200/50 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300">
                                     <img src="{{ $partner->logo_url }}" 
                                          alt="{{ $partner->name }}" 
                                          class="max-w-full max-h-full object-contain">
                                 </div>
                             @else
-                                <div class="flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-zinc-100/80 border border-zinc-200/50 rounded-lg">
-                                    <svg class="w-6 h-6 lg:w-8 lg:h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center justify-center w-24 h-24 lg:w-32 lg:h-32 bg-zinc-100/80 border border-zinc-200/50 rounded-xl">
+                                    <svg class="w-10 h-10 lg:w-12 lg:h-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                     </svg>
                                 </div>
