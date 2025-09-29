@@ -22,7 +22,7 @@ class PartnerResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Parteneri';
 
-    protected static ?string $navigationGroup = 'Site Management';
+    protected static ?string $navigationGroup = 'Management Conținut';
 
     protected static ?int $navigationSort = 6;
 
