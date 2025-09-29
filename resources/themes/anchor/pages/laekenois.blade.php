@@ -26,13 +26,12 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-4">
+            <div class="space-y-2">
                 
                 <!-- Prezentare Rarității -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-amber-700 to-orange-700 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Raritatea Supremă
                         </h2>
                     </div>
@@ -140,7 +139,7 @@ $seo = (object) [
                             <!-- Îngrijirea Specială -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">✂️ Îngrijire Specializată</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-blue-900">Hand-Stripping Obligatoriu</h4>
                                         <p class="text-blue-800 text-sm mt-1">
@@ -207,7 +206,7 @@ $seo = (object) [
                             <!-- Trăsături Distintive -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-purple-700">✨ Trăsături Distintive</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-purple-50 border-l-4 border-purple-500 p-4">
                                         <h4 class="font-medium text-purple-900">Inteligența Subtilă</h4>
                                         <p class="text-purple-800 text-sm mt-1">
@@ -232,7 +231,7 @@ $seo = (object) [
                             <!-- Relații Sociale -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-indigo-700">👥 Relații Sociale</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-green-100 p-4 rounded-lg">
                                         <h4 class="font-medium text-green-900">Cu Familia</h4>
                                         <p class="text-green-800 text-sm">
@@ -260,17 +259,14 @@ $seo = (object) [
                             <h3 class="font-semibold text-gray-900 mb-2">🎯 Activități Ideale pentru Laekenois</h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <div class="bg-gradient-to-br from-green-500 to-teal-500 text-white p-3 rounded-lg text-center">
-                                    <div class="text-3xl mb-3">🎪</div>
                                     <h4 class="font-semibold mb-2">Agility & Obedienta</h4>
                                     <p class="text-sm opacity-90">Excelează în competițiile de agilitate și obediență datorită inteligenței și cooperării.</p>
                                 </div>
                                 <div class="bg-gradient-to-br from-blue-500 to-indigo-500 text-white p-3 rounded-lg text-center">
-                                    <div class="text-3xl mb-3">🦮</div>
                                     <h4 class="font-semibold mb-2">Terapie & Asistență</h4>
                                     <p class="text-sm opacity-90">Temperament calm și empatie fac din el un câine terapeutic excepțional.</p>
                                 </div>
                                 <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-3 rounded-lg text-center">
-                                    <div class="text-3xl mb-3">🚶</div>
                                     <h4 class="font-semibold mb-2">Hiking & Aventură</h4>
                                     <p class="text-sm opacity-90">Companion perfect pentru drumeții lungi și explorarea naturii.</p>
                                 </div>
@@ -385,7 +381,7 @@ $seo = (object) [
                             <!-- Processul -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">📋 Pașii Achiziției</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
                                         <h4 class="font-medium text-blue-900">1. Cercetarea Crescătorilor</h4>
                                         <p class="text-blue-800 text-sm mt-1">
@@ -416,7 +412,7 @@ $seo = (object) [
                             <!-- Costuri -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">💰 Investiția Financiară</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-lg">
                                         <h4 class="font-semibold mb-2">Cățel de Companie</h4>
                                         <div class="text-2xl font-bold">3,000€ - 4,500€</div>
@@ -454,8 +450,7 @@ $seo = (object) [
             <div class="flex justify-between items-center mt-4">
                 <a href="{{ url('/malinois') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    •
-                    Malinois
+                    ← Malinois
                 </a>
                 
                 <a href="{{ url('/') }}" 
@@ -465,8 +460,7 @@ $seo = (object) [
 
                 <a href="{{ url('/tervueren') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Tervueren
-                    •
+                    Tervueren →
                 </a>
             </div>
         </div>

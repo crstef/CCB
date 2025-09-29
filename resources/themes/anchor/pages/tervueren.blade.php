@@ -26,13 +26,13 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-4">
+            <div class="space-y-2">
                 
                 <!-- Prezentare Elegantă -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-3">
-                                                <h2 class="text-2xl font-semibold">
-                            🎭 Eleganța în Mișcare
+                        <h2 class="text-2xl font-semibold">
+                            Eleganța în Mișcare
                         </h2>
                     </div>
                     <div class="p-4">
@@ -139,7 +139,7 @@ $seo = (object) [
                             <!-- Paleta de Culori -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">🎨 Spectrul Culorilor Fawn</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-gradient-to-r from-yellow-300 to-yellow-500 p-4 rounded-lg text-gray-900">
                                         <h4 class="font-semibold">Fawn Deschis</h4>
                                         <p class="text-sm">Galben deschis cu nuanțe de miere</p>
@@ -277,7 +277,7 @@ $seo = (object) [
                             <!-- Trăsături Pozitive -->
                             <div>
                                 <h3 class="font-semibold text-teal-700 mb-2">🌟 Calități Excepționale</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-teal-50 border-l-4 border-teal-500 p-4">
                                         <h4 class="font-medium text-teal-900">Echilibru Emoțional</h4>
                                         <p class="text-teal-800 text-sm mt-1">
@@ -302,7 +302,7 @@ $seo = (object) [
                             <!-- Nivel de Energie -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">⚡ Nivelul de Energie Perfect</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-green-100 p-4 rounded-lg">
                                         <div class="flex justify-between items-center mb-2">
                                             <span class="font-medium text-green-900">Dimineața</span>
@@ -360,7 +360,6 @@ $seo = (object) [
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             <!-- Show Ring -->
                             <div class="bg-gradient-to-br from-yellow-500 to-orange-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">🏆</div>
                                 <h4 class="font-semibold mb-2">Expoziții Canine</h4>
                                 <p class="text-sm opacity-90">
                                     Vedeta ringurilor de expoziție datorită aspectului spectaculos și prezentării naturale.
@@ -369,7 +368,6 @@ $seo = (object) [
 
                             <!-- Agility -->
                             <div class="bg-gradient-to-br from-green-500 to-teal-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">🏃</div>
                                 <h4 class="font-semibold mb-2">Agility & Rally</h4>
                                 <p class="text-sm opacity-90">
                                     Mișcare fluidă și inteligența fac din el un competitor natural în agility.
@@ -378,7 +376,6 @@ $seo = (object) [
 
                             <!-- Herding -->
                             <div class="bg-gradient-to-br from-blue-500 to-indigo-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">🐑</div>
                                 <h4 class="font-semibold mb-2">Herding Trials</h4>
                                 <p class="text-sm opacity-90">
                                     Instinctul de ciobănesc authentic îl face să exceleze în concursurile de păstorie.
@@ -387,7 +384,6 @@ $seo = (object) [
 
                             <!-- Therapy -->
                             <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">❤️</div>
                                 <h4 class="font-semibold mb-2">Terapie Animală</h4>
                                 <p class="text-sm opacity-90">
                                     Temperament blând și aspectul prietenos îl fac ideal pentru terapie asistată.
@@ -396,7 +392,6 @@ $seo = (object) [
 
                             <!-- Tracking -->
                             <div class="bg-gradient-to-br from-red-500 to-rose-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">👃</div>
                                 <h4 class="font-semibold mb-2">Tracking & Scent Work</h4>
                                 <p class="text-sm opacity-90">
                                     Nas excelent și concentrare pentru urmărirea urmelor și detectarea mirosurilor.
@@ -405,7 +400,6 @@ $seo = (object) [
 
                             <!-- Family Sport -->
                             <div class="bg-gradient-to-br from-teal-500 to-cyan-500 text-white p-3 rounded-lg text-center">
-                                <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
                                 <h4 class="font-semibold mb-2">Sport în Familie</h4>
                                 <p class="text-sm opacity-90">
                                     Perfect pentru jogging, hiking, ciclism și activități recreative cu toată familia.
@@ -463,7 +457,7 @@ $seo = (object) [
                             <!-- Perfect Pentru -->
                             <div>
                                 <h3 class="font-semibold text-emerald-700 mb-2">✅ Perfect Pentru</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-emerald-900 flex items-center mb-2">
                                             👨‍👩‍👧‍👦 Familii Active cu Copii
@@ -502,7 +496,7 @@ $seo = (object) [
                             <!-- Provocări -->
                             <div>
                                 <h3 class="font-semibold text-orange-700 mb-2">⚠️ Considerați Aceste Provocări</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-orange-900">Îngrijirea Intensivă</h4>
                                         <p class="text-orange-800 text-sm">
@@ -566,8 +560,7 @@ $seo = (object) [
             <div class="flex justify-between items-center mt-4">
                 <a href="{{ url('/laekenois') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    •
-                    Laekenois
+                    ← Laekenois
                 </a>
                 
                 <a href="{{ url('/') }}" 
@@ -577,8 +570,7 @@ $seo = (object) [
 
                 <a href="{{ url('/groenendael') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Groenendael
-                    •
+                    Groenendael →
                 </a>
             </div>
         </div>

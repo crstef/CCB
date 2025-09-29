@@ -26,13 +26,13 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-4">
+            <div class="space-y-2">
                 
                 <!-- Prezentare Generală -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            ⚡ Puterea în Acțiune
+                            Puterea în Acțiune
                         </h2>
                     </div>
                     <div class="p-4">
@@ -227,7 +227,7 @@ $seo = (object) [
                             <!-- Drive și Motivație -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-red-700">🔥 Drive și Motivație Supremă</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-red-50 border-l-4 border-red-500 p-4">
                                         <h4 class="font-medium text-red-900">Drive de Pradă</h4>
                                         <p class="text-red-800 text-sm mt-1">
@@ -252,7 +252,7 @@ $seo = (object) [
                             <!-- Metode de Antrenament -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-blue-700">🎯 Antrenament Specializat</h3>
-                                <div class="space-y-4">
+                                <div class="space-y-2">
                                     <div class="bg-blue-50 p-4 rounded-lg">
                                         <h4 class="font-medium text-blue-900">Pozitivă Prin Recompense</h4>
                                         <p class="text-blue-800 text-sm mt-1">
@@ -361,8 +361,7 @@ $seo = (object) [
             <div class="flex justify-between items-center mt-4">
                 <a href="{{ url('/groenendael') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    •
-                    Groenendael
+                    ← Groenendael
                 </a>
                 
                 <a href="{{ url('/') }}" 
@@ -372,8 +371,7 @@ $seo = (object) [
 
                 <a href="{{ url('/tervueren') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Tervueren
-                    •
+                    Tervueren →
                 </a>
             </div>
         </div>

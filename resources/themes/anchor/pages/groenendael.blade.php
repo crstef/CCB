@@ -409,8 +409,7 @@ $seo = (object) [
                 <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
                     <a href="{{ url('/istoria-ciobanescului-belgian') }}" 
                        class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                        •
-                        Istoria Rasei
+                        ← Istoria Rasei
                     </a>
                     
                     <a href="{{ url('/') }}" 
@@ -420,8 +419,7 @@ $seo = (object) [
 
                     <a href="{{ url('/malinois') }}" 
                        class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                        Malinois
-                        •
+                        Malinois →
                     </a>
                 </div>
             </div>
