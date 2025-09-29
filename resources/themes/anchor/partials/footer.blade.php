@@ -63,7 +63,7 @@
                             </a>
                         </li>   -->    
                         <li>
-                            <a href="{{ route('page.show', 'cum-sa-devii-membru') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/cum-sa-devii-membru') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Cum devii membru</span>
                             </a>
@@ -74,37 +74,37 @@
                     <h3 class="font-semibold text-black">Rasa</h3>
                     <ul class="mt-6 space-y-4 text-sm">
                         <li>
-                            <a href="{{ route('page.show', 'istoria-ciobanescului-belgian') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/istoria-ciobanescului-belgian') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Istoria Rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', 'confirmarea-rasei') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/confirmarea-rasei') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Confirmarea rasei</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', 'groenendael') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/groenendael') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Groenendael</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', 'laekenois') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/laekenois') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Laekenois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', 'malinois') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/malinois') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Malinois</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('page.show', 'tervueren') }}" class="relative inline-block text-black group">
+                            <a href="{{ url('/tervueren') }}" class="relative inline-block text-black group">
                                 <span class="absolute bottom-0 w-full transition duration-150 ease-out transform -translate-y-1 border-b border-black opacity-0 group-hover:opacity-100 group-hover:translate-y-1"></span>
                                 <span>Tervueren</span>
                             </a>
