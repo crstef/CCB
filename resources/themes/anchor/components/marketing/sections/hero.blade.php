@@ -146,6 +146,42 @@ a.gallery-button:hover .gallery-button-icon {
         </div>
     </div>
     
+    {{-- Partners Section - doar logo-uri cu link-uri --}}
+    <div class="flex-shrink-0 py-4 border-t border-zinc-100 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto px-8 md:px-12 lg:px-20">
+            @php
+                $partners = \App\Models\Partner::active()->ordered()->get();
+            @endphp
+            
+            @if($partners->count() > 0)
+                <div class="flex items-center justify-center gap-6 lg:gap-8">
+                    @foreach($partners as $partner)
+                        <a href="{{ $partner->website_url }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="block transition-all duration-300 hover:scale-110 hover:opacity-80"
+                           title="{{ $partner->name }}">
+                            
+                            @if($partner->logo_url)
+                                <div class="flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 p-2 bg-white/80 backdrop-blur-sm border border-zinc-200/50 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                                    <img src="{{ $partner->logo_url }}" 
+                                         alt="{{ $partner->name }}" 
+                                         class="max-w-full max-h-full object-contain">
+                                </div>
+                            @else
+                                <div class="flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-zinc-100/80 border border-zinc-200/50 rounded-lg">
+                                    <svg class="w-6 h-6 lg:w-8 lg:h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                </div>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+    
     {{-- Original Wave 3.0 Bottom Section --}}
     <div class="flex-shrink-0 lg:h-[150px] flex border-t border-zinc-200 items-center w-full bg-white mt-2 lg:mt-0">
         <div class="grid h-auto grid-cols-1 px-8 py-8 mx-auto space-y-5 divide-y max-w-7xl lg:space-y-0 lg:divide-y-0 divide-zinc-200 lg:py-0 lg:divide-x md:px-12 lg:px-20 lg:divide-zinc-200 lg:grid-cols-3">
