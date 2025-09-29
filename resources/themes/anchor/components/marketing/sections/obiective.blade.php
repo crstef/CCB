@@ -15,7 +15,10 @@
                 <!-- Imagine sau iconiță -->
                 @if($featureGoal->image)
                     <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-lg overflow-hidden size-32 mb-6">
-                        <img src="{{ $featureGoal->image_url }}" alt="{{ $featureGoal->title }}" class="w-full h-full object-cover">
+                        <img src="{{ $featureGoal->image_url }}" 
+                             alt="{{ $featureGoal->title }}" 
+                             class="w-full h-full object-cover object-center"
+                             loading="lazy">
                     </div>
                 @else
                     <div class="flex justify-center items-center mx-auto bg-zinc-100 rounded-full size-16 mb-6">

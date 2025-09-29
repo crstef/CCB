@@ -7,9 +7,11 @@
         <div class="relative bg-gradient-to-br from-blue-600 to-indigo-700 py-16 sm:py-20">
             <div class="absolute inset-0 bg-black opacity-20"></div>
             @if($event['image'])
-                <div class="absolute inset-0">
-                    <img src="{{ Storage::url($event['image']) }}" alt="{{ $event['title'] }}" 
-                         class="w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 overflow-hidden">
+                    <img src="{{ Storage::url($event['image']) }}" 
+                         alt="{{ $event['title'] }}" 
+                         class="w-full h-full object-cover object-center opacity-30"
+                         loading="lazy">
                 </div>
             @endif
             <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -180,24 +182,21 @@
                             </div>
                         @endif
 
-                        <!-- Contact Info -->
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-sm font-medium text-gray-500 mb-2">CONTACT</h4>
-                            <div class="space-y-2">
-                                <a href="mailto:contact@ccbor.ro" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        <!-- Caniva Registration Link -->
+                        @if(isset($event->caniva_link) && $event->caniva_link)
+                            <div class="border-t border-gray-200 pt-6 mb-6">
+                                <h4 class="text-sm font-medium text-gray-500 mb-3">ÎNSCRIERE</h4>
+                                <a href="{{ $event->caniva_link }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="inline-flex items-center w-full justify-center px-4 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                     </svg>
-                                    contact@ccbor.ro
-                                </a>
-                                <a href="tel:+40123456789" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                    </svg>
-                                    Telefon club
+                                    Înscriere Caniva
                                 </a>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

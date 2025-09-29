@@ -19,7 +19,14 @@
                     @endif
                     <figcaption class="flex flex-col justify-between {{ $testimonial->description ? 'mt-6' : '' }}">
                         @if($testimonial->image)
-                            <img src="{{ $testimonial->image_url }}" alt="{{ $testimonial->name }}" class="w-11 h-11 rounded-full object-cover">
+                                                    <div class="flex-shrink-0">
+                            <div class="w-11 h-11 rounded-full bg-gray-200 overflow-hidden">
+                                <img src="{{ $testimonial->image_url }}" 
+                                     alt="{{ $testimonial->name }}" 
+                                     class="w-full h-full object-cover object-center"
+                                     loading="lazy">
+                            </div>
+                        </div>
                         @else
                             <!-- Fallback icon dacă nu există imagine -->
                             <svg class="w-11 h-11 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">

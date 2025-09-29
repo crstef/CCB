@@ -78,8 +78,11 @@
                     <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
                         <div class="flex-shrink-0">
                             <a href="{{ $event->link() }}">
-                                <div class="relative">
-                                    <img class="h-48 w-full object-cover" src="{{ $event->image() }}" alt="{{ $event->title }}">
+                                <div class="relative h-48 w-full bg-gray-200 overflow-hidden">
+                                    <img class="h-full w-full object-cover object-center" 
+                                         src="{{ $event->image() }}" 
+                                         alt="{{ $event->title }}"
+                                         loading="lazy">
                                     
                                     <!-- Badge orizontal în stânga sus cu 15px de sus -->
                                     @if($status)

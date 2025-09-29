@@ -77,7 +77,10 @@
                         <div class="w-24 flex-shrink-0 flex flex-col">
                             <div class="w-full bg-gray-200 border border-black flex items-center justify-center overflow-hidden" style="height: 100px;">
                                 <template x-if="userPhoto">
-                                    <img :src="userPhoto" alt="Poza membru" class="w-full h-full object-cover">
+                                    <img :src="userPhoto" 
+                                         alt="Poza membru" 
+                                         class="w-full h-full object-cover object-center"
+                                         loading="lazy">
                                 </template>
                                 <template x-if="!userPhoto">
                                     <div class="text-center p-2">
