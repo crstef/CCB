@@ -152,15 +152,6 @@
                                 <!-- Excerpt mai scurt -->
                                 <p class="text-xs text-gray-500 line-clamp-1">{{ Str::limit($event->excerpt, 60) }}</p>
                             </div>
-
-                            <!-- Footer ultra-compact -->
-                            <!-- <div class="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <img class="h-5 w-5 rounded-full" src="{{ $event->user->avatar() }}" alt="">
-                                    <span class="ml-1 text-xs text-gray-500 truncate">{{ Str::limit($event->user->name, 15) }}</span>
-                                </div>
-                                <time class="text-xs text-gray-400">{{ $event->created_at->format('d.m') }}</time>
-                            </div> -->
                         </div>
                     </div>
                     @endforeach
