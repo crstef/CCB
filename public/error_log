@@ -24,3 +24,5 @@
 [08-Sep-2025 11:15:45 UTC] PHP Fatal error:  Trait "TCG\Voyager\Traits\Translatable" not found in /home/ccborro/dev.ccbor.ro/CCB_new/wave/src/Event.php on line 13
 [08-Sep-2025 11:15:52 UTC] PHP Fatal error:  Trait "TCG\Voyager\Traits\Translatable" not found in /home/ccborro/dev.ccbor.ro/CCB_new/wave/src/Event.php on line 13
 [08-Sep-2025 11:17:22 UTC] PHP Fatal error:  Trait "TCG\Voyager\Traits\Translatable" not found in /home/ccborro/dev.ccbor.ro/CCB_new/wave/src/Event.php on line 13
+[26-Sep-2025 13:56:36 UTC] PHP Fatal error:  Cannot redeclare function getMonthName() (previously declared in /home/ccborro/dev.ccbor.ro/CCB_new/resources/themes/anchor/pages/calendar-competitional.blade.php:17) in /home/ccborro/dev.ccbor.ro/CCB_new/storage/framework/views/27593f8eb849716c36870dde075a4af5.php on line 17
+[26-Sep-2025 14:30:02 UTC] PHP Fatal error:  Cannot use Carbon\Carbon as Carbon because the name is already in use in /home/ccborro/dev.ccbor.ro/CCB_new/resources/themes/anchor/pages/calendar-competitional.blade.php on line 33
