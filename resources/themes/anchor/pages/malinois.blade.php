@@ -12,11 +12,11 @@ $seo = (object) [
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gray-50 py-12">
+    <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-8">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">
                     Malinois
                 </h1>
@@ -26,7 +26,7 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-8">
+            <div class="space-y-6">
                 
                 <!-- Prezentare Generală -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -372,7 +372,7 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-12">
+            <div class="flex justify-between items-center mt-8">
                 <a href="{{ url('/groenendael') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

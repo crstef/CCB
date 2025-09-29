@@ -12,21 +12,21 @@ $seo = (object) [
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gray-50 py-12">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-50 py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-8">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">
                     Istoria Ciobanescului Belgian
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    O călătorie prin timp pentru a descoperi originea și evoluția unei dintre cele mai versatile și inteligente rase canine din lume
+                <p class="text-xl text-gray-600">
+                    De la păstorul belgian de la sfârșitul secolului XIX la campionul mondial de astăzi
                 </p>
             </div>
 
             <!-- Content -->
-            <div class="space-y-8">
+            <div class="space-y-6">
                 
                 <!-- Originile -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">

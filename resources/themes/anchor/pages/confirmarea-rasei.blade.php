@@ -12,21 +12,21 @@ $seo = (object) [
 ?>
 
 <x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gray-50 py-12">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-50 py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-8">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">
-                    Confirmarea Rasei Ciobanescului Belgian
+                    Confirmarea Rasei
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Procesul oficial prin care un ciobanesc belgian primește confirmarea că respectă standardul FCI și poate participa la reproducere și competiții
+                <p class="text-xl text-gray-600">
+                    Procesul oficial de confirmare a rasei pentru Ciobanescul Belgian
                 </p>
             </div>
 
             <!-- Content -->
-            <div class="space-y-8">
+            <div class="space-y-6">
                 
                 <!-- Ce este Confirmarea -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">

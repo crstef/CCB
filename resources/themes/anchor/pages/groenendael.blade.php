@@ -1,6 +1,20 @@
 <?php
 
-use function Laravel\Folio\name;
+use fun    <div class="min-h-screen bg-gray-50 py-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                    Groenendael
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Eleganța neagră a Belgiei - varietatea cu păr lung și culoare neagră, simbolul distincției și noblețea
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-6">olio\name;
 
 name('groenendael');
 
@@ -365,7 +379,7 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-12">
+            <div class="flex justify-between items-center mt-8">
                 <a href="{{ url('/istoria-ciobanescului-belgian') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

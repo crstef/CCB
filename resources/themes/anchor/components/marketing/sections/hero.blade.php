@@ -150,7 +150,7 @@ a.gallery-button:hover .gallery-button-icon {
     <div class="flex-shrink-0 lg:h-[150px] flex border-t border-zinc-200 items-center w-full bg-white mt-2 lg:mt-0">
         <div class="grid h-auto grid-cols-1 px-8 py-8 mx-auto space-y-5 divide-y max-w-7xl lg:space-y-0 lg:divide-y-0 divide-zinc-200 lg:py-0 lg:divide-x md:px-12 lg:px-20 lg:divide-zinc-200 lg:grid-cols-3">
             <div class="">
-                <a href="{{ route('page.show', 'cum-sa-devii-membru') }}" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
+                <a href="{{ url('/cum-sa-devii-membru') }}" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
                     <!-- Subtle background animation on hover -->
                     <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/5 group-hover:to-indigo-400/5 transition-all duration-500 ease-out"></div>
                     <div class="relative">
@@ -170,11 +170,23 @@ a.gallery-button:hover .gallery-button-icon {
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
-                <a href="/misiunea" class="group block transition-all duration-300 hover:scale-105">
-                    <h3 class="font-medium text-zinc-900 group-hover:text-blue-700 transition-all duration-300">Misiunea Clubului</h3>
-                    <p class="mt-2 text-sm text-zinc-500 group-hover:text-blue-800 transition-all duration-300">
-                        Ce ne propunem să realizăm.
-                    </p>
+                <a href="/misiunea" class="block p-6 -m-6 rounded-xl group cursor-pointer transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 hover:shadow-xl hover:scale-105 hover:border hover:border-blue-200 relative overflow-hidden">
+                    <!-- Subtle background animation on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/5 group-hover:to-indigo-400/5 transition-all duration-500 ease-out"></div>
+                    <div class="relative">
+                        <h3 class="flex items-center font-semibold text-zinc-900 group-hover:text-blue-700 transition-all duration-300 group-hover:transform group-hover:translate-x-1">
+                            <svg class="w-5 h-5 mr-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                            Misiunea Clubului
+                            <svg class="w-4 h-4 ml-2 text-zinc-400 group-hover:text-blue-500 transition-all duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </h3>
+                        <p class="mt-3 text-sm font-medium text-zinc-600 group-hover:text-blue-800 transition-all duration-300 leading-relaxed">
+                            Ce ne propunem să realizăm. <span class="hidden lg:inline group-hover:text-blue-700">Valorile și obiectivele noastre ca organizație</span>
+                        </p>
+                    </div>
                 </a>
             </div>
             <div class="pt-5 lg:pt-0 lg:px-10">
