@@ -56,7 +56,7 @@ $seo = (object) [
                                     </p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-amber-700 to-orange-700 p-3 rounded-lg text-white">
+                            <div class="bg-gradient-to-br from-amber-700 to-orange-700 p-3 rounded-lg text-black">
                                 <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>Procent mondial:</span>

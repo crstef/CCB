@@ -56,7 +56,7 @@ $seo = (object) [
                                     </p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-amber-600 to-orange-600 p-3 rounded-lg text-white">
+                            <div class="bg-gradient-to-br from-amber-600 to-orange-600 p-3 rounded-lg text-black">
                                 <h3 class="font-semibold mb-2">✨ Caracteristici de Excepție</h3>
                                 <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
