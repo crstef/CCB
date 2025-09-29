@@ -49,7 +49,7 @@ $seo = (object) [
                                     iar proprietatea unui Laekenois este considerată un privilegiu special.
                                 </p>
                                 <div class="bg-amber-100 p-4 rounded-lg">
-                                    <h3 class="font-semibold text-amber-900 mb-2">👑 Statut Regal</h3>
+                                    <h3 class="font-semibold text-amber-900 mb-2">Statut Regal</h3>
                                     <p class="text-amber-800 text-sm">
                                         Singura varietate care a fost <strong>câinele oficial al Casei Regale Belgiene</strong>, 
                                         fiind iubită de Regina Marie-Henriette pentru temperamentul său rafinat.
@@ -57,8 +57,7 @@ $seo = (object) [
                                 </div>
                             </div>
                             <div class="bg-gradient-to-br from-amber-700 to-orange-700 p-3 rounded-lg text-white">
-                                <h3 class="font-semibold mb-2">📊 Statistici de Raritate</h3>
-                                <div class="space-y-3 text-sm">
+                                <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>Procent mondial:</span>
                                         <span><strong>< 2%</strong></span>
@@ -93,7 +92,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Blana Caracteristică - "Wire-haired"
                         </h2>
                     </div>
@@ -102,7 +100,7 @@ $seo = (object) [
                             <!-- Textura Unică -->
                             <div class="bg-teal-50 p-3 rounded-lg border-2 border-teal-300">
                                 <h3 class="font-semibold text-teal-900 mb-2">🧵 Textura Unică</h3>
-                                <div class="space-y-3 text-sm text-teal-800">
+                                <div class="space-y-2 text-sm text-teal-800">
                                     <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-teal-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
@@ -138,7 +136,7 @@ $seo = (object) [
 
                             <!-- Îngrijirea Specială -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-2">✂️ Îngrijire Specializată</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2">Îngrijire Specializată</h3>
                                 <div class="space-y-2">
                                     <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-blue-900">Hand-Stripping Obligatoriu</h4>
@@ -197,7 +195,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Personalitatea Rafinată
                         </h2>
                     </div>
@@ -256,7 +253,7 @@ $seo = (object) [
 
                         <!-- Activități Preferate -->
                         <div class="mt-4">
-                            <h3 class="font-semibold text-gray-900 mb-2">🎯 Activități Ideale pentru Laekenois</h3>
+                            <h3 class="font-semibold text-gray-900 mb-2">Activități Ideale pentru Laekenois</h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <div class="bg-gradient-to-br from-green-500 to-teal-500 text-white p-3 rounded-lg text-center">
                                     <h4 class="font-semibold mb-2">Agility & Obedienta</h4>
@@ -279,7 +276,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Proprietarul Perfect pentru Laekenois
                         </h2>
                     </div>
@@ -288,7 +284,7 @@ $seo = (object) [
                             <!-- Caracteristici Esențiale -->
                             <div>
                                 <h3 class="font-semibold text-emerald-700 mb-2">✅ Proprietarul Ideal</h3>
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="text-gray-700 bg-emerald-50 p-3 rounded-lg">
                                         ✓
                                         <div>
@@ -323,7 +319,7 @@ $seo = (object) [
                             <!-- Situații Nepotrivite -->
                             <div>
                                 <h3 class="font-semibold text-red-700 mb-2">❌ Nu Este Potrivit Pentru</h3>
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="text-gray-700 bg-red-50 p-3 rounded-lg">
                                         ✓
                                         <div>
@@ -362,14 +358,13 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-rose-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Procesul de Achiziție
                         </h2>
                     </div>
                     <div class="p-4">
                         <div class="mb-3 bg-rose-50 border border-rose-200 p-4 rounded-lg">
                             <h3 class="font-semibold text-rose-900 mb-2 flex items-center">
-                                ⚠️ Realitatea Rarității
+                                Realitatea Rarității
                             </h3>
                             <p class="text-rose-800 text-sm">
                                 Din cauza numărului extrem de mic de crescători autorizați și a standardelor înalte, 
@@ -447,20 +442,20 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
                 <a href="{{ url('/malinois') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    ← Malinois
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    &larr; Malinois
                 </a>
                 
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
-                    🏠 Pagina Principală
+                   class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors shadow-lg">
+                    Pagina Principală
                 </a>
 
                 <a href="{{ url('/tervueren') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Tervueren →
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    Tervueren &rarr;
                 </a>
             </div>
         </div>

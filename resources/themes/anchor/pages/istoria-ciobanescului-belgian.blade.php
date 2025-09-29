@@ -32,7 +32,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Originile Rasei (Secolul XIX)
                         </h2>
                     </div>
@@ -71,7 +70,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Formarea Celor Patru Varietăți
                         </h2>
                     </div>
@@ -132,7 +130,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Recunoașterea Internațională și Dezvoltarea Modernă
                         </h2>
                     </div>
@@ -185,7 +182,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Moștenirea Genetică Comună
                         </h2>
                     </div>
@@ -237,9 +233,8 @@ $seo = (object) [
             <!-- Back Button -->
             <div class="text-center mt-12">
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all shadow-lg transform hover:scale-105">
-                    ✓
-                    Înapoi la pagina principală
+                   class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-all shadow-lg transform hover:scale-105">
+                    &larr; Înapoi la pagina principală
                 </a>
             </div>
         </div>

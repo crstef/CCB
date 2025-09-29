@@ -51,7 +51,7 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-gray-800 to-black text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            ⭐ Eleganța în Stare Pură
+                            Eleganța în Stare Pură
                         </h2>
                     </div>
                     <div class="p-4">
@@ -87,14 +87,14 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3">
                                                 <h2 class="text-2xl font-semibold">
-                            ⭐ Eleganța în Stare Pură
+                            Eleganța în Stare Pură
                         </h2>
                     </div>
                     <div class="p-4">
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Dimensiuni și Proporții</h3>
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                                         <span class="font-medium">Înălțime Masculi:</span>
                                         <span class="text-blue-600 font-semibold">62-66 cm</span>
@@ -138,7 +138,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Blana Caracteristică
                         </h2>
                     </div>
@@ -182,28 +181,25 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            ❤️ Temperament și Caracter
+                            Temperament și Caracter
                         </h2>
                     </div>
                     <div class="p-4">
                         <div class="grid md:grid-cols-3 gap-3">
                             <div class="text-center">
                                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    🎯
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Inteligent</h3>
                                 <p class="text-gray-600">Foarte receptiv la dresaj, cu capacitate excelentă de învățare și memorie de lungă durată.</p>
                             </div>
                             <div class="text-center">
                                 <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    🎯
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Afectuos</h3>
                                 <p class="text-gray-600">Foarte atașat de familie, loial și protector, excelent cu copiii când este socializat corespunzător.</p>
                             </div>
                             <div class="text-center">
                                 <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                                    🎯
                                 </div>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Energic</h3>
                                 <p class="text-gray-600">Necesită exerciții zilnice și stimulare mentală pentru a-și menține echilibrul psihic.</p>
@@ -307,7 +303,7 @@ $seo = (object) [
                                         </ul>
                                     </div>
                                     <div class="p-4 bg-purple-50 rounded-lg">
-                                        <h4 class="font-semibold text-purple-800 mb-2">🏆 Competiții</h4>
+                                        <h4 class="font-semibold text-purple-800 mb-2">Competiții</h4>
                                         <ul class="text-purple-700 space-y-1">
                                             <li>• Expoziții canine de frumusețe</li>
                                             <li>• Agility și obedience</li>
@@ -334,7 +330,7 @@ $seo = (object) [
                                     ✓
                                     Ideal Pentru:
                                 </h3>
-                                <ul class="space-y-3">
+                                <ul class="space-y-2">
                                     <li class="text-gray-700 space-x-3">
                                         ✓
                                         <div>
@@ -370,7 +366,7 @@ $seo = (object) [
                                     ✓
                                     Nu Este Potrivit Pentru:
                                 </h3>
-                                <ul class="space-y-3">
+                                <ul class="space-y-2">
                                     <li class="text-gray-700 space-x-3">
                                         ✓
                                         <div>
@@ -408,18 +404,18 @@ $seo = (object) [
                 <!-- Navigation Footer -->
                 <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
                     <a href="{{ url('/istoria-ciobanescului-belgian') }}" 
-                       class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                        ← Istoria Rasei
+                       class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                        &larr; Istoria Rasei
                     </a>
                     
                     <a href="{{ url('/') }}" 
-                       class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
-                        🏠 Pagina Principală
+                       class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors shadow-lg">
+                        Pagina Principală
                     </a>
 
                     <a href="{{ url('/malinois') }}" 
-                       class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                        Malinois →
+                       class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                        Malinois &rarr;
                     </a>
                 </div>
             </div>

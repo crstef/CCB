@@ -49,7 +49,7 @@ $seo = (object) [
                                     rezistența fizică și loialitatea absolută îl face de neînlocuit.
                                 </p>
                                 <div class="bg-orange-100 p-4 rounded-lg">
-                                    <h3 class="font-semibold text-orange-900 mb-2">🏆 Fondatorii Rasei</h3>
+                                    <h3 class="font-semibold text-orange-900 mb-2">Fondatorii Rasei</h3>
                                     <p class="text-orange-800 text-sm">
                                         <strong>Dewet</strong> și <strong>Cora van't Optewel</strong> - primii Malinois oficiali 
                                         care au stabilit standardul genetic pentru varietate.
@@ -57,8 +57,8 @@ $seo = (object) [
                                 </div>
                             </div>
                             <div class="bg-gradient-to-br from-orange-600 to-red-600 p-3 rounded-lg text-white">
-                                <h3 class="font-semibold mb-2">🎯 Elite Performance</h3>
-                                <div class="space-y-3 text-sm">
+                                <h3 class="font-semibold mb-2">Elite Performance</h3>
+                                <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>Viteza maximă:</span>
                                         <span><strong>60+ km/h</strong></span>
@@ -93,7 +93,7 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-blue-800 to-indigo-800 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🏆 Servicii de Elită Mondiale
+                            Servicii de Elită Mondiale
                         </h2>
                     </div>
                     <div class="p-4">
@@ -101,7 +101,6 @@ $seo = (object) [
                             <!-- Militar -->
                             <div class="bg-green-50 border border-green-200 p-3 rounded-lg">
                                 <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-2">
-                                    🛡️
                                 </div>
                                 <h3 class="font-semibold text-green-900 mb-3">Servicii Militare</h3>
                                 <ul class="text-green-800 text-sm space-y-2">
@@ -147,7 +146,7 @@ $seo = (object) [
                         <!-- Succes Stories -->
                         <div class="mt-4 bg-gradient-to-r from-yellow-400 to-orange-400 p-3 rounded-lg">
                             <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
-                                🌟 Povești de Succes Mondiale
+                                Povești de Succes Mondiale
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-800">
                                 <div>
@@ -165,7 +164,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Standardul Perfect pentru Acțiune
                         </h2>
                     </div>
@@ -174,7 +172,7 @@ $seo = (object) [
                             <!-- Dimensiuni -->
                             <div class="bg-amber-50 p-3 rounded-lg">
                                 <h3 class="font-semibold text-amber-900 mb-2">📏 Dimensiuni Standard</h3>
-                                <div class="space-y-3 text-sm">
+                                <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>Masculin înălțime:</span>
                                         <span class="font-semibold">60-66 cm</span>
@@ -218,7 +216,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-red-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Mental de Campion
                         </h2>
                     </div>
@@ -226,7 +223,7 @@ $seo = (object) [
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Drive și Motivație -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-2 text-red-700">🔥 Drive și Motivație Supremă</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2 text-red-700">Drive și Motivație Supremă</h3>
                                 <div class="space-y-2">
                                     <div class="bg-red-50 border-l-4 border-red-500 p-4">
                                         <h4 class="font-medium text-red-900">Drive de Pradă</h4>
@@ -251,7 +248,7 @@ $seo = (object) [
 
                             <!-- Metode de Antrenament -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-2 text-blue-700">🎯 Antrenament Specializat</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2 text-blue-700">Antrenament Specializat</h3>
                                 <div class="space-y-2">
                                     <div class="bg-blue-50 p-4 rounded-lg">
                                         <h4 class="font-medium text-blue-900">Pozitivă Prin Recompense</h4>
@@ -281,7 +278,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Responsabilitatea Unui Malinois
                         </h2>
                     </div>
@@ -289,7 +285,6 @@ $seo = (object) [
                         <div class="bg-amber-50 border-l-4 border-amber-500 p-3 mb-3">
                             <div class="flex">
                                 <div class="flex-shrink-0">
-                                    ⭐
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm text-amber-700">
@@ -304,7 +299,7 @@ $seo = (object) [
                             <!-- Nevoi Zilnice -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2">⚡ Nevoi Zilnice Obligatorii</h3>
-                                <ul class="space-y-3 text-sm">
+                                <ul class="space-y-2 text-sm">
                                     <li class="text-gray-700">
                                         <span class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">!</span>
                                         <div>
@@ -332,7 +327,7 @@ $seo = (object) [
                             <!-- Consecințe Neglijării -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-red-700">💥 Riscuri Neglijării</h3>
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="bg-red-100 p-3 rounded-lg">
                                         <h4 class="font-medium text-red-900">Comportament Distructiv</h4>
                                         <p class="text-red-800 text-sm">Distrugerea mobilierului, grădinii, caselor</p>
@@ -358,20 +353,20 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
                 <a href="{{ url('/groenendael') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    ← Groenendael
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    &larr; Groenendael
                 </a>
                 
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
-                    🏠 Pagina Principală
+                   class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors shadow-lg">
+                    Pagina Principală
                 </a>
 
                 <a href="{{ url('/tervueren') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Tervueren →
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    Tervueren &rarr;
                 </a>
             </div>
         </div>

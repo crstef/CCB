@@ -32,7 +32,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Ce Înseamnă Confirmarea Rasei?
                         </h2>
                     </div>
@@ -49,7 +48,7 @@ $seo = (object) [
                                     și oferă o garanție oficială că exemplarul este reprezentativ pentru rasa sa.
                                 </p>
                                 <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h3 class="font-semibold text-blue-900 mb-2">🎯 Scopul Confirmării</h3>
+                                    <h3 class="font-semibold text-blue-900 mb-2">Scopul Confirmării</h3>
                                     <ul class="text-blue-800 text-sm space-y-1">
                                         <li>• Păstrarea purității rasei</li>
                                         <li>• Eliminarea defectelor grave din reproducere</li>
@@ -83,7 +82,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Criterii și Condiții
                         </h2>
                     </div>
@@ -147,7 +145,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Procesul de Evaluare
                         </h2>
                     </div>
@@ -205,7 +202,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-red-600 to-rose-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Defecte și Cauze de Descalificare
                         </h2>
                     </div>
@@ -214,7 +210,7 @@ $seo = (object) [
                             <!-- Defecte Minore -->
                             <div>
                                 <h3 class="font-semibold text-gray-900 mb-2 text-yellow-700 flex items-center">
-                                    ⚠️ Defecte Minore (se pot tolera)
+                                    Defecte Minore (se pot tolera)
                                 </h3>
                                 <div class="bg-yellow-50 p-4 rounded-lg">
                                     <ul class="text-yellow-800 text-sm space-y-2">
@@ -252,7 +248,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Informații Praktice
                         </h2>
                     </div>
@@ -271,7 +266,7 @@ $seo = (object) [
 
                             <!-- Pregătire -->
                             <div class="bg-green-50 p-3 rounded-lg">
-                                <h3 class="font-semibold text-green-900 mb-3">🎯 Pregătirea Câinelui</h3>
+                                <h3 class="font-semibold text-green-900 mb-3">Pregătirea Câinelui</h3>
                                 <ul class="text-green-800 text-sm space-y-2">
                                     <li>• <strong>Socializare</strong> cu persoane străine</li>
                                     <li>• <strong>Obișnuirea</strong> cu manipularea</li>
@@ -316,9 +311,8 @@ $seo = (object) [
             <!-- Back Button -->
             <div class="text-center mt-12">
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-medium rounded-lg hover:from-gray-700 hover:to-gray-800 transition-all shadow-lg transform hover:scale-105">
-                    ✓
-                    Înapoi la pagina principală
+                   class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-all shadow-lg transform hover:scale-105">
+                    &larr; Înapoi la pagina principală
                 </a>
             </div>
         </div>

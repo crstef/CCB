@@ -32,7 +32,7 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            Eleganța în Mișcare
+                            Eleganta in Mișcare
                         </h2>
                     </div>
                     <div class="p-4">
@@ -49,7 +49,7 @@ $seo = (object) [
                                     <strong>expoziții canine</strong> și <strong>filmări</strong>, fiind vedeta nenumăratelor producții.
                                 </p>
                                 <div class="bg-amber-100 p-4 rounded-lg">
-                                    <h3 class="font-semibold text-amber-900 mb-2">🎭 Vedeta de Cinema</h3>
+                                    <h3 class="font-semibold text-amber-900 mb-2">Vedeta de Cinema</h3>
                                     <p class="text-amber-800 text-sm">
                                         <strong>Prima alegere</strong> pentru industria cinematografică și publicitară datorită 
                                         aspectului spectaculos și capacității de antrenament.
@@ -58,7 +58,7 @@ $seo = (object) [
                             </div>
                             <div class="bg-gradient-to-br from-amber-600 to-orange-600 p-3 rounded-lg text-white">
                                 <h3 class="font-semibold mb-2">✨ Caracteristici de Excepție</h3>
-                                <div class="space-y-3 text-sm">
+                                <div class="space-y-2 text-sm">
                                     <div class="flex justify-between">
                                         <span>Frumusețe:</span>
                                         <span><strong>★★★★★</strong></span>
@@ -93,7 +93,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-rose-600 to-pink-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Coroana de Blană Luxuriantă
                         </h2>
                     </div>
@@ -101,8 +100,8 @@ $seo = (object) [
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Caracteristici Blană -->
                             <div class="bg-rose-50 p-3 rounded-lg border-2 border-rose-300">
-                                <h3 class="font-semibold text-rose-900 mb-2">🌟 Blana de Excepție</h3>
-                                <div class="space-y-3 text-sm text-rose-800">
+                                <h3 class="font-semibold text-rose-900 mb-2">Blana de Excepție</h3>
+                                <div class="space-y-2 text-sm text-rose-800">
                                     <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
@@ -173,7 +172,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Îngrijirea de Lux
                         </h2>
                     </div>
@@ -207,7 +205,6 @@ $seo = (object) [
                             <!-- Săptămânal -->
                             <div class="bg-green-50 border border-green-200 p-3 rounded-lg">
                                 <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-2 text-xl">
-                                    📊
                                 </div>
                                 <h3 class="font-semibold text-green-900 mb-3">Rutina Săptămânală</h3>
                                 <ul class="text-green-800 text-sm space-y-2">
@@ -222,7 +219,6 @@ $seo = (object) [
                             <!-- Profesional -->
                             <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
                                 <div class="w-12 h-12 bg-yellow-600 text-white rounded-lg flex items-center justify-center mb-2 text-xl">
-                                    ✂️
                                 </div>
                                 <h3 class="font-semibold text-yellow-900 mb-3">Grooming Profesional</h3>
                                 <ul class="text-yellow-800 text-sm space-y-2">
@@ -251,7 +247,7 @@ $seo = (object) [
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold mb-2">❄️ Iarna & Vara</h4>
+                                    <h4 class="font-semibold mb-2">Iarna & Vara</h4>
                                     <ul class="space-y-1 opacity-90">
                                         <li>• Protecție solară pentru nas</li>
                                         <li>• Hidratare extra a blănii</li>
@@ -268,7 +264,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Personalitatea Echilibrată
                         </h2>
                     </div>
@@ -276,7 +271,7 @@ $seo = (object) [
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Trăsături Pozitive -->
                             <div>
-                                <h3 class="font-semibold text-teal-700 mb-2">🌟 Calități Excepționale</h3>
+                                <h3 class="font-semibold text-teal-700 mb-2">Calități Excepționale</h3>
                                 <div class="space-y-2">
                                     <div class="bg-teal-50 border-l-4 border-teal-500 p-4">
                                         <h4 class="font-medium text-teal-900">Echilibru Emoțional</h4>
@@ -352,7 +347,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Activități de Excepție
                         </h2>
                     </div>
@@ -411,7 +405,7 @@ $seo = (object) [
                         <div class="mt-4 bg-indigo-50 p-3 rounded-lg">
                             <h3 class="font-semibold text-indigo-900 mb-2">📅 Programul Zilnic Ideal</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="flex items-center">
                                         <span class="w-3 h-3 bg-indigo-500 rounded-full mr-3"></span>
                                         <span><strong>7:00-8:00</strong> - Plimbare energică (45 min)</span>
@@ -425,7 +419,7 @@ $seo = (object) [
                                         <span><strong>17:00-18:30</strong> - Exerciții intensive (1.5h)</span>
                                     </div>
                                 </div>
-                                <div class="space-y-3">
+                                <div class="space-y-2">
                                     <div class="flex items-center">
                                         <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
                                         <span><strong>20:00-20:30</strong> - Antrenament mental</span>
@@ -448,7 +442,6 @@ $seo = (object) [
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-emerald-600 to-green-600 text-white p-3">
                         <h2 class="text-2xl font-semibold">
-                            🔹
                             Familiile Ideale pentru Tervueren
                         </h2>
                     </div>
@@ -460,7 +453,7 @@ $seo = (object) [
                                 <div class="space-y-2">
                                     <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-emerald-900 flex items-center mb-2">
-                                            👨‍👩‍👧‍👦 Familii Active cu Copii
+                                            Familii Active cu Copii
                                         </h4>
                                         <p class="text-emerald-800 text-sm">
                                             Temperament echilibrat și răbdător cu copii de toate vârstele. Excelent companion de joacă.
@@ -468,7 +461,7 @@ $seo = (object) [
                                     </div>
                                     <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-emerald-900 flex items-center mb-2">
-                                            🏆 Pasionați de Expoziții
+                                            Pasionați de Expoziții
                                         </h4>
                                         <p class="text-emerald-800 text-sm">
                                             Cel mai spectaculos în ring, cu prezență naturală și handling ușor.
@@ -495,7 +488,7 @@ $seo = (object) [
 
                             <!-- Provocări -->
                             <div>
-                                <h3 class="font-semibold text-orange-700 mb-2">⚠️ Considerați Aceste Provocări</h3>
+                                <h3 class="font-semibold text-orange-700 mb-2">Considerați Aceste Provocări</h3>
                                 <div class="space-y-2">
                                     <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-orange-900">Îngrijirea Intensivă</h4>
@@ -528,11 +521,11 @@ $seo = (object) [
                         <!-- Verdict Final -->
                         <div class="mt-4 bg-gradient-to-r from-green-500 to-teal-500 p-3 rounded-lg text-white">
                             <h3 class="font-semibold mb-2 flex items-center">
-                                🎯 Verdictul Final
+                                Verdictul Final
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                                 <div>
-                                    <h4 class="font-semibold mb-2">🌟 Alegerea Perfectă Dacă:</h4>
+                                    <h4 class="font-semibold mb-2">Alegerea Perfectă Dacă:</h4>
                                     <ul class="space-y-1 opacity-90">
                                         <li>• Iubești groomingul și îngrijirea</li>
                                         <li>• Vrei un câine spectaculos</li>
@@ -557,20 +550,20 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
                 <a href="{{ url('/laekenois') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    ← Laekenois
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    &larr; Laekenois
                 </a>
                 
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
-                    🏠 Pagina Principală
+                   class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors shadow-lg">
+                    Pagina Principală
                 </a>
 
                 <a href="{{ url('/groenendael') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Groenendael →
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    Groenendael &rarr;
                 </a>
             </div>
         </div>

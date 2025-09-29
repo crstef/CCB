@@ -149,11 +149,8 @@ $seo = (object) [
             <!-- Back Button -->
             <div class="text-center mt-8">
                 <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Înapoi la pagina principală
+                   class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    &larr; Înapoi la pagina principală
                 </a>
             </div>
         </div>
