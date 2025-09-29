@@ -78,7 +78,7 @@
                     <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
                         <div class="flex-shrink-0">
                             <a href="{{ $event->link() }}">
-                                <div class="relative h-48 w-full bg-gray-200 overflow-hidden">
+                                <div class="relative h-40 w-full bg-gray-200 overflow-hidden">
                                     <img class="h-full w-full object-cover object-center" 
                                          src="{{ $event->image() }}" 
                                          alt="{{ $event->title }}"

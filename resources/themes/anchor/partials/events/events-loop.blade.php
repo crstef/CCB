@@ -1,9 +1,9 @@
 <!-- Loop Through Events Here -->
 @foreach($events as $event)
-    <article id="event-{{ $event->id }}" class="flex flex-col overflow-hidden rounded-lg shadow-lg mb-8 bg-white">
+    <article id="event-{{ $event->id }}" class="flex flex-col overflow-hidden rounded-lg shadow-lg mb-8 bg-white max-h-[600px]">
         <div class="relative">
             <a href="{{ $event->link() }}">
-                <div class="h-64 w-full bg-gray-200 overflow-hidden">
+                <div class="h-48 w-full bg-gray-200 overflow-hidden">
                     <img class="h-full w-full object-cover object-center" 
                          src="{{ $event->image() }}" 
                          alt="{{ $event->title }}"
@@ -17,7 +17,7 @@
             @endif
         </div>
 
-        <div class="flex flex-1 min-h-[400px]">
+        <div class="flex flex-1 min-h-[250px] max-h-[400px]">
             <!-- Sidebar cu discipline -->
             <div class="w-1/4 bg-yellow-500 p-4 flex flex-col justify-start">
                 <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">Discipline</h3>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Conținut principal -->
-            <div class="w-3/4 bg-white p-6 flex flex-col">
+            <div class="w-3/4 bg-white p-6 flex flex-col overflow-y-auto">
                 <div class="flex-grow">
                     <div class="mb-3 space-y-2">
                         <div class="flex flex-wrap gap-x-2 gap-y-2">

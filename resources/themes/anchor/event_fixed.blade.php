@@ -112,7 +112,7 @@
                     
                     @if($event['judges'] && count($event['judges']) > 0)
                         <div class="mb-8">
-                            <h3 class="text-xl font-bold text-gray-900 mb-4">Judecatori</h3>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Arbitrii</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 @foreach($event['judges'] as $judge)
                                     <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
