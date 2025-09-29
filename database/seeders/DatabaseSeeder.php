@@ -45,6 +45,9 @@ class DatabaseSeeder extends Seeder
         // Partners seeder for partners section
         $this->call(PartnersTableSeeder::class);
         
+        // Competitive events seeder for calendar system
+        $this->call(CompetitionalEventSeeder::class);
+        
         // Re-enable foreign key checks
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         
