@@ -16,8 +16,8 @@ $seo = (object) [
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            <div class="text-center mb-2">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
                     Tervueren
                 </h1>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -26,27 +26,24 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-6">
+            <div class="space-y-4">
                 
                 <!-- Prezentare Elegantă -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                            </svg>
-                            Magnificența Naturală
+                    <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-3">
+                                                <h2 class="text-2xl font-semibold">
+                            🎭 Eleganța în Mișcare
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
                             <div>
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-2">
                                     <strong>Tervueren</strong> este varietatea cu păr lung și culoare fawn a ciobanescului belgian, 
                                     numită după orașul <strong>Tervuren</strong> din Belgia. Dezvoltată la sfârșitul secolului al XIX-lea, 
                                     a devenit rapid <strong>simbolul eleganței</strong> în lumea canină.
                                 </p>
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-2">
                                     Considerat de mulți ca <strong>"cea mai frumoasă"</strong> dintre varietăți, Tervueren combină 
                                     blana luxuriantă cu mișcarea fluidă și grația naturală. Este varietatea preferată pentru 
                                     <strong>expoziții canine</strong> și <strong>filmări</strong>, fiind vedeta nenumăratelor producții.
@@ -59,8 +56,8 @@ $seo = (object) [
                                     </p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-amber-600 to-orange-600 p-6 rounded-lg text-white">
-                                <h3 class="font-semibold mb-4">✨ Caracteristici de Excepție</h3>
+                            <div class="bg-gradient-to-br from-amber-600 to-orange-600 p-3 rounded-lg text-white">
+                                <h3 class="font-semibold mb-2">✨ Caracteristici de Excepție</h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between">
                                         <span>Frumusețe:</span>
@@ -94,45 +91,43 @@ $seo = (object) [
 
                 <!-- Blana de Vis -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-rose-600 to-pink-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-rose-600 to-pink-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Coroana de Blană Luxuriantă
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Caracteristici Blană -->
-                            <div class="bg-rose-50 p-6 rounded-lg border-2 border-rose-300">
-                                <h3 class="font-semibold text-rose-900 mb-4">🌟 Blana de Excepție</h3>
+                            <div class="bg-rose-50 p-3 rounded-lg border-2 border-rose-300">
+                                <h3 class="font-semibold text-rose-900 mb-2">🌟 Blana de Excepție</h3>
                                 <div class="space-y-3 text-sm text-rose-800">
-                                    <div class="flex items-start">
+                                    <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
                                             <strong>Lungă și abundentă</strong> - cu stratul exterior lustros
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
+                                    <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
                                             <strong>Textura mătăsoasă</strong> - moale la atingere, nu aspră
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
+                                    <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
                                             <strong>Guler magnific</strong> - "colierette" în jurul gâtului
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
+                                    <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
                                             <strong>Franjuri elegante</strong> - la urechi, picioare și coadă
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
+                                    <div class="text-gray-700">
                                         <span class="w-2 h-2 bg-rose-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                         <div>
                                             <strong>Subblană densă</strong> - protecție termică excelentă
@@ -143,7 +138,7 @@ $seo = (object) [
 
                             <!-- Paleta de Culori -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4">🎨 Spectrul Culorilor Fawn</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2">🎨 Spectrul Culorilor Fawn</h3>
                                 <div class="space-y-4">
                                     <div class="bg-gradient-to-r from-yellow-300 to-yellow-500 p-4 rounded-lg text-gray-900">
                                         <h4 class="font-semibold">Fawn Deschis</h4>
@@ -176,16 +171,14 @@ $seo = (object) [
 
                 <!-- Îngrijirea Blănii -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Îngrijirea de Lux
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="mb-6 bg-purple-50 border border-purple-200 p-4 rounded-lg">
+                    <div class="p-4">
+                        <div class="mb-3 bg-purple-50 border border-purple-200 p-4 rounded-lg">
                             <h3 class="font-semibold text-purple-900 mb-2 flex items-center">
                                 ⏰ Timpul Investit în Frumusețe
                             </h3>
@@ -195,10 +188,10 @@ $seo = (object) [
                             </p>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             <!-- Zilnic -->
-                            <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-2 text-xl">
                                     📅
                                 </div>
                                 <h3 class="font-semibold text-blue-900 mb-3">Îngrijire Zilnică</h3>
@@ -212,8 +205,8 @@ $seo = (object) [
                             </div>
 
                             <!-- Săptămânal -->
-                            <div class="bg-green-50 border border-green-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <div class="bg-green-50 border border-green-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-2 text-xl">
                                     📊
                                 </div>
                                 <h3 class="font-semibold text-green-900 mb-3">Rutina Săptămânală</h3>
@@ -227,8 +220,8 @@ $seo = (object) [
                             </div>
 
                             <!-- Profesional -->
-                            <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-yellow-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-yellow-600 text-white rounded-lg flex items-center justify-center mb-2 text-xl">
                                     ✂️
                                 </div>
                                 <h3 class="font-semibold text-yellow-900 mb-3">Grooming Profesional</h3>
@@ -243,8 +236,8 @@ $seo = (object) [
                         </div>
 
                         <!-- Sezoanele -->
-                        <div class="mt-8 bg-gradient-to-r from-orange-400 to-red-400 p-6 rounded-lg text-white">
-                            <h3 class="font-semibold mb-4 flex items-center">
+                        <div class="mt-4 bg-gradient-to-r from-orange-400 to-red-400 p-3 rounded-lg text-white">
+                            <h3 class="font-semibold mb-2 flex items-center">
                                 🍂 Îngrijirea Sezonieră
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -273,19 +266,17 @@ $seo = (object) [
 
                 <!-- Temperament și Personalitate -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1a3 3 0 010 6h-1m4-6h1a3 3 0 010 6h-1m3-6h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Personalitatea Echilibrată
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Trăsături Pozitive -->
                             <div>
-                                <h3 class="font-semibold text-teal-700 mb-4">🌟 Calități Excepționale</h3>
+                                <h3 class="font-semibold text-teal-700 mb-2">🌟 Calități Excepționale</h3>
                                 <div class="space-y-4">
                                     <div class="bg-teal-50 border-l-4 border-teal-500 p-4">
                                         <h4 class="font-medium text-teal-900">Echilibru Emoțional</h4>
@@ -310,7 +301,7 @@ $seo = (object) [
 
                             <!-- Nivel de Energie -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4">⚡ Nivelul de Energie Perfect</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2">⚡ Nivelul de Energie Perfect</h3>
                                 <div class="space-y-4">
                                     <div class="bg-green-100 p-4 rounded-lg">
                                         <div class="flex justify-between items-center mb-2">
@@ -359,18 +350,16 @@ $seo = (object) [
 
                 <!-- Activități și Sport -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Activități de Excepție
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             <!-- Show Ring -->
-                            <div class="bg-gradient-to-br from-yellow-500 to-orange-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-yellow-500 to-orange-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">🏆</div>
                                 <h4 class="font-semibold mb-2">Expoziții Canine</h4>
                                 <p class="text-sm opacity-90">
@@ -379,7 +368,7 @@ $seo = (object) [
                             </div>
 
                             <!-- Agility -->
-                            <div class="bg-gradient-to-br from-green-500 to-teal-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-green-500 to-teal-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">🏃</div>
                                 <h4 class="font-semibold mb-2">Agility & Rally</h4>
                                 <p class="text-sm opacity-90">
@@ -388,7 +377,7 @@ $seo = (object) [
                             </div>
 
                             <!-- Herding -->
-                            <div class="bg-gradient-to-br from-blue-500 to-indigo-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-blue-500 to-indigo-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">🐑</div>
                                 <h4 class="font-semibold mb-2">Herding Trials</h4>
                                 <p class="text-sm opacity-90">
@@ -397,7 +386,7 @@ $seo = (object) [
                             </div>
 
                             <!-- Therapy -->
-                            <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">❤️</div>
                                 <h4 class="font-semibold mb-2">Terapie Animală</h4>
                                 <p class="text-sm opacity-90">
@@ -406,7 +395,7 @@ $seo = (object) [
                             </div>
 
                             <!-- Tracking -->
-                            <div class="bg-gradient-to-br from-red-500 to-rose-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-red-500 to-rose-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">👃</div>
                                 <h4 class="font-semibold mb-2">Tracking & Scent Work</h4>
                                 <p class="text-sm opacity-90">
@@ -415,7 +404,7 @@ $seo = (object) [
                             </div>
 
                             <!-- Family Sport -->
-                            <div class="bg-gradient-to-br from-teal-500 to-cyan-500 text-white p-6 rounded-lg text-center">
+                            <div class="bg-gradient-to-br from-teal-500 to-cyan-500 text-white p-3 rounded-lg text-center">
                                 <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
                                 <h4 class="font-semibold mb-2">Sport în Familie</h4>
                                 <p class="text-sm opacity-90">
@@ -425,9 +414,9 @@ $seo = (object) [
                         </div>
 
                         <!-- Programul Zilnic Ideal -->
-                        <div class="mt-8 bg-indigo-50 p-6 rounded-lg">
-                            <h3 class="font-semibold text-indigo-900 mb-4">📅 Programul Zilnic Ideal</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                        <div class="mt-4 bg-indigo-50 p-3 rounded-lg">
+                            <h3 class="font-semibold text-indigo-900 mb-2">📅 Programul Zilnic Ideal</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                                 <div class="space-y-3">
                                     <div class="flex items-center">
                                         <span class="w-3 h-3 bg-indigo-500 rounded-full mr-3"></span>
@@ -463,19 +452,17 @@ $seo = (object) [
 
                 <!-- Pentru Cine Este Ideal -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-emerald-600 to-green-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-emerald-600 to-green-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Familiile Ideale pentru Tervueren
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Perfect Pentru -->
                             <div>
-                                <h3 class="font-semibold text-emerald-700 mb-4">✅ Perfect Pentru</h3>
+                                <h3 class="font-semibold text-emerald-700 mb-2">✅ Perfect Pentru</h3>
                                 <div class="space-y-4">
                                     <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-emerald-900 flex items-center mb-2">
@@ -514,7 +501,7 @@ $seo = (object) [
 
                             <!-- Provocări -->
                             <div>
-                                <h3 class="font-semibold text-orange-700 mb-4">⚠️ Considerați Aceste Provocări</h3>
+                                <h3 class="font-semibold text-orange-700 mb-2">⚠️ Considerați Aceste Provocări</h3>
                                 <div class="space-y-4">
                                     <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
                                         <h4 class="font-medium text-orange-900">Îngrijirea Intensivă</h4>
@@ -545,11 +532,11 @@ $seo = (object) [
                         </div>
 
                         <!-- Verdict Final -->
-                        <div class="mt-8 bg-gradient-to-r from-green-500 to-teal-500 p-6 rounded-lg text-white">
-                            <h3 class="font-semibold mb-4 flex items-center">
+                        <div class="mt-4 bg-gradient-to-r from-green-500 to-teal-500 p-3 rounded-lg text-white">
+                            <h3 class="font-semibold mb-2 flex items-center">
                                 🎯 Verdictul Final
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                                 <div>
                                     <h4 class="font-semibold mb-2">🌟 Alegerea Perfectă Dacă:</h4>
                                     <ul class="space-y-1 opacity-90">
@@ -576,12 +563,10 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-8">
+            <div class="flex justify-between items-center mt-4">
                 <a href="{{ url('/laekenois') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
+                    •
                     Laekenois
                 </a>
                 
@@ -593,9 +578,7 @@ $seo = (object) [
                 <a href="{{ url('/groenendael') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     Groenendael
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+                    •
                 </a>
             </div>
         </div>

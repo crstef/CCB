@@ -11,14 +11,13 @@ $seo = (object) [
 
 ?>
 
-<x-layouts.marketing>
-
+<x-layouts.marketing :seo="$seo">
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            <div class="text-center mb-2">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
                     Groenendael
                 </h1>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -27,288 +26,293 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-6">olio\name;
-
-name('groenendael');
-
-$seo = (object) [
-    'title' => 'Groenendael - Varietatea cu Blana Neagră Lungă | CCB România',
-    'description' => 'Totul despre Groenendael: istorie, standard, temperament și îngrijire. Prima varietate de ciobănesc belgian cu blana lungă neagră.',
-];
-
-?>
-
-<x-layouts.marketing :seo="$seo">
-    <div class="min-h-screen bg-gray-50 py-12">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
-                    Groenendael
-                </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Prima și cea mai elegantă varietate de ciobănesc belgian, cu blana lungă neagră ca noaptea și temperamentul echilibrat
-                </p>
-            </div>
-
-            <!-- Content -->
-            <div class="space-y-8">
+            <div class="space-y-4">
                 
+                <!-- Navigation varietăți -->
+                <div class="flex flex-wrap justify-center gap-2 mb-2">
+                    <a href="{{ url('/malinois') }}" 
+                       class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        Malinois
+                    </a>
+                    <a href="{{ url('/tervueren') }}" 
+                       class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        Tervueren
+                    </a>
+                    <a href="{{ url('/laekenois') }}" 
+                       class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        Laekenois
+                    </a>
+                    <span class="px-4 py-2 bg-indigo-600 text-white rounded-lg">
+                        Groenendael
+                    </span>
+                </div>
+
                 <!-- Prezentare Generală -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-gray-800 to-black text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                            </svg>
-                            Eleganța în Negru
+                    <div class="bg-gradient-to-r from-gray-800 to-black text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            ⭐ Eleganța în Stare Pură
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="p-4">
+                        <p class="text-gray-700 leading-relaxed mb-3">
+                            <strong>Groenendael</strong> este considerat cea mai elegantă varietate de ciobănesc belgian, 
+                            fiind caracterizat prin blana sa lungă, lucioasă și de culoare neagră profundă. 
+                            Această varietate îmbină armonios frumusețea cu funcționalitatea, fiind la fel de capabilă în muncă ca și în expoziții.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3">
                             <div>
-                                <p class="text-gray-700 leading-relaxed mb-4">
-                                    <strong>Groenendael</strong> este prima varietate de ciobănesc belgian stabilizată oficial, 
-                                    fiind recunoscută în <strong>1893</strong>. Numele provine de la comuna <strong>Groenendael</strong>, 
-                                    unde a fost dezvoltată această magnifică varietate.
-                                </p>
-                                <p class="text-gray-700 leading-relaxed mb-4">
-                                    Cu blana sa lungă, neagră și lucioasă, Groenendael este considerată cea mai elegantă 
-                                    dintre varietățile de ciobănesc belgian. Temperamentul echilibrat și inteligența 
-                                    excepțională o fac perfectă atât pentru familie, cât și pentru servicii profesionale.
-                                </p>
-                                <div class="bg-gray-100 p-4 rounded-lg">
-                                    <h3 class="font-semibold text-gray-900 mb-2">🏆 Fondatorul Rasei</h3>
-                                    <p class="text-gray-700 text-sm">
-                                        <strong>Piccard d'Uccle</strong> - primul Groenendael oficial, născut în 1893, 
-                                        care a stabilit bazele genetice pentru întreaga varietate.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="bg-gradient-to-br from-gray-800 to-black p-6 rounded-lg text-white">
-                                <h3 class="font-semibold mb-4">📊 Date Esențiale</h3>
-                                <div class="space-y-3 text-sm">
-                                    <div class="flex justify-between">
-                                        <span>Înălțime masculin:</span>
-                                        <span><strong>60-66 cm</strong></span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Înălțime feminin:</span>
-                                        <span><strong>56-62 cm</strong></span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Greutate masculin:</span>
-                                        <span><strong>25-30 kg</strong></span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Greutate feminin:</span>
-                                        <span><strong>20-25 kg</strong></span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Speranța de viață:</span>
-                                        <span><strong>12-14 ani</strong></span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Grupa FCI:</span>
-                                        <span><strong>1 - Ciobănești</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Aspectul Fizic -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                            Standard și Aspectul Fizic
-                        </h2>
-                    </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <!-- Cap și Ochi -->
-                            <div class="bg-purple-50 p-6 rounded-lg">
-                                <h3 class="font-semibold text-purple-900 mb-3 flex items-center">
-                                    <span class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-xs mr-2">👁️</span>
-                                    Cap și Expresie
-                                </h3>
-                                <ul class="text-purple-800 text-sm space-y-2">
-                                    <li>• <strong>Cap:</strong> Lung, subțire, dar nu exagerat</li>
-                                    <li>• <strong>Ochi:</strong> Migdalați, cafenii, expresivi</li>
-                                    <li>• <strong>Urechi:</strong> Triunghiulare, drepte, mobile</li>
-                                    <li>• <strong>Trufa:</strong> Neagră, bine dezvoltată</li>
-                                    <li>• <strong>Mușchime:</strong> Completă, foarfece</li>
+                                <h4 class="font-semibold text-gray-900 mb-2">Caracteristici Principale:</h4>
+                                <ul class="text-gray-700 space-y-1">
+                                    <li>• Blană dublă, lungă și neagră</li>
+                                    <li>• Temperament echilibrat și elegant</li>
+                                    <li>• Excelent câine de familie</li>
+                                    <li>• Foarte adaptabil la antrenament</li>
                                 </ul>
                             </div>
-
-                            <!-- Corp -->
-                            <div class="bg-indigo-50 p-6 rounded-lg">
-                                <h3 class="font-semibold text-indigo-900 mb-3 flex items-center">
-                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xs mr-2">🏗️</span>
-                                    Structura Corporală
-                                </h3>
-                                <ul class="text-indigo-800 text-sm space-y-2">
-                                    <li>• <strong>Corp:</strong> Pătrat, compact și puternic</li>
-                                    <li>• <strong>Piept:</strong> Coborât, nu prea lat</li>
-                                    <li>• <strong>Spate:</strong> Drept, ferm, musculos</li>
-                                    <li>• <strong>Membre:</strong> Drepte, puternice, bine angulate</li>
-                                    <li>• <strong>Coadă:</strong> Puternic implantată, purtată jos</li>
-                                </ul>
-                            </div>
-
-                            <!-- Blana -->
-                            <div class="bg-gray-900 text-white p-6 rounded-lg">
-                                <h3 class="font-semibold mb-3 flex items-center">
-                                    <span class="w-8 h-8 bg-gray-700 text-white rounded-full flex items-center justify-center text-xs mr-2">✨</span>
-                                    Blana Caracteristică
-                                </h3>
-                                <ul class="text-gray-200 text-sm space-y-2">
-                                    <li>• <strong>Lungime:</strong> Lungă pe tot corpul</li>
-                                    <li>• <strong>Culoare:</strong> Negru unicolor</li>
-                                    <li>• <strong>Textură:</strong> Dreaptă, groasă, nu ondulată</li>
-                                    <li>• <strong>Subblana:</strong> Densă și moale</li>
-                                    <li>• <strong>Tolerată:</strong> Mici pete albe pe piept</li>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">Perfect Pentru:</h4>
+                                <ul class="text-gray-700 space-y-1">
+                                    <li>• Familii cu experiență</li>
+                                    <li>• Activități de dresaj</li>
+                                    <li>• Competiții de frumusețe</li>
+                                    <li>• Câine de companie loial</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Temperamentul și Caracterul -->
+                <!-- Standard de Rasă -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                            Temperament și Caracter
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3">
+                                                <h2 class="text-2xl font-semibold">
+                            ⭐ Eleganța în Stare Pură
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <!-- Trăsături Pozitive -->
+                    <div class="p-4">
+                        <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4 flex items-center text-green-700">
-                                    ✅ Calități Remarcabile
-                                </h3>
-                                <div class="space-y-4">
-                                    <div class="bg-green-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-green-900 mb-2">🧠 Inteligență Superioară</h4>
-                                        <p class="text-green-800 text-sm">
-                                            Capacitate de învățare excepțională, rezolvă probleme complexe și își amintește 
-                                            comenzile cu precizie.
-                                        </p>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-green-900 mb-2">❤️ Loialitate Absolută</h4>
-                                        <p class="text-green-800 text-sm">
-                                            Atașament profund de familie, devotament total față de stăpân și protecție naturală.
-                                        </p>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-green-900 mb-2">⚡ Versatilitate</h4>
-                                        <p class="text-green-800 text-sm">
-                                            Excelent în sporturi canine, servicii de pază, terapie și activități familiale.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Provocări -->
-                            <div>
-                                <h3 class="font-semibold text-gray-900 mb-4 flex items-center text-amber-700">
-                                    ⚠️ Aspecte de Luat în Seamă
-                                </h3>
-                                <div class="space-y-4">
-                                    <div class="bg-amber-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-amber-900 mb-2">🏃 Nevoi de Activitate</h4>
-                                        <p class="text-amber-800 text-sm">
-                                            Necesită exerciții zilnice consistente și stimulare mentală pentru a-și menține echilibrul.
-                                        </p>
-                                    </div>
-                                    <div class="bg-amber-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-amber-900 mb-2">👥 Socializare Timpurie</h4>
-                                        <p class="text-amber-800 text-sm">
-                                            Important să fie socializat din timp cu persoane și animale pentru a evita timiditatea.
-                                        </p>
-                                    </div>
-                                    <div class="bg-amber-50 p-4 rounded-lg">
-                                        <h4 class="font-medium text-amber-900 mb-2">🧘 Sensibilitate</h4>
-                                        <p class="text-amber-800 text-sm">
-                                            Răspunde mai bine la metode de antrenament pozitive decât la corecții dure.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Îngrijire și Sănătate -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                            Îngrijire și Sănătate
-                        </h2>
-                    </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Îngrijirea Blănii -->
-                            <div>
-                                <h3 class="font-semibold text-gray-900 mb-4">✂️ Îngrijirea Blănii</h3>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Dimensiuni și Proporții</h3>
                                 <div class="space-y-3">
-                                    <div class="flex items-start">
-                                        <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">1</span>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="font-medium">Înălțime Masculi:</span>
+                                        <span class="text-blue-600 font-semibold">62-66 cm</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="font-medium">Înălțime Femele:</span>
+                                        <span class="text-pink-600 font-semibold">58-62 cm</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="font-medium">Greutate:</span>
+                                        <span class="text-green-600 font-semibold">25-30 kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Aspectul General</h3>
+                                <ul class="text-gray-700 space-y-2">
+                                    <li class="text-gray-700">
+                                        ✓
+                                        Câine mediu-mare, elegant și proportional
+                                    </li>
+                                    <li class="text-gray-700">
+                                        ✓
+                                        Siluetă armonioasă și echilibrată
+                                    </li>
+                                    <li class="text-gray-700">
+                                        ✓
+                                        Port de cap nobil și expresie inteligentă
+                                    </li>
+                                    <li class="text-gray-700">
+                                        ✓
+                                        Mișcare fluidă și elegantă
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blana și Culoarea -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
+                            Blana Caracteristică
+                        </h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Caracteristici Blană</h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-gray-50 rounded-lg">
+                                        <h4 class="font-semibold text-gray-800 mb-2">Textura</h4>
+                                        <p class="text-gray-700">Păr lung, drept și abundent, cu o textură fină și mătăsoasă. Subpărul este dens și moale, oferind protecție excelentă.</p>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 rounded-lg">
+                                        <h4 class="font-semibold text-gray-800 mb-2">Lungime</h4>
+                                        <p class="text-gray-700">Păr mai scurt pe cap și partea inferioară a picioarelor, mai lung pe corp, coadă și partea posterioară a picioarelor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Culoarea</h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-black text-white rounded-lg">
+                                        <h4 class="font-semibold mb-2">Negru Pur</h4>
+                                        <p>Culoarea trebuie să fie uniform neagră, fără nuanțe cafenii sau decolorări. Se admit mici pete albe pe piept.</p>
+                                    </div>
+                                    <div class="p-4 bg-gray-100 rounded-lg border">
+                                        <h4 class="font-semibold text-gray-800 mb-2">Acceptabil</h4>
+                                        <ul class="text-gray-700 space-y-1">
+                                            <li>• Mică pată albă pe piept</li>
+                                            <li>• Pete albe foarte mici pe vârfurile degetelor</li>
+                                            <li>• Câțiva peri albi pe bărbă (la vârsta înaintată)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temperament -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            ❤️ Temperament și Caracter
+                        </h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid md:grid-cols-3 gap-3">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    🎯
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Inteligent</h3>
+                                <p class="text-gray-600">Foarte receptiv la dresaj, cu capacitate excelentă de învățare și memorie de lungă durată.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    🎯
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Afectuos</h3>
+                                <p class="text-gray-600">Foarte atașat de familie, loial și protector, excelent cu copiii când este socializat corespunzător.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    🎯
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Energic</h3>
+                                <p class="text-gray-600">Necesită exerciții zilnice și stimulare mentală pentru a-și menține echilibrul psihic.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-blue-50 rounded-xl">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-3">Particularități de Temperament</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <ul class="text-blue-800 space-y-2">
+                                    <li class="flex items-center">
+                                        •
+                                        Mai calm decât Malinois
+                                    </li>
+                                    <li class="flex items-center">
+                                        •
+                                        Echilibrat și stabil
+                                    </li>
+                                    <li class="flex items-center">
+                                        •
+                                        Excelent câine de familie
+                                    </li>
+                                </ul>
+                                <ul class="text-blue-800 space-y-2">
+                                    <li class="flex items-center">
+                                        •
+                                        Bun gardian, dar nu agresiv
+                                    </li>
+                                    <li class="flex items-center">
+                                        •
+                                        Se adaptează la mediul urban
+                                    </li>
+                                    <li class="flex items-center">
+                                        •
+                                        Loial și devotat stăpânului
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Îngrijire -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🧤 Îngrijire și Întreținere
+                        </h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Îngrijirea Blanii</h3>
+                                <div class="space-y-4">
+                                    <div class="text-gray-700 space-x-3">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                            <span class="text-blue-600 font-semibold text-sm">1</span>
+                                        </div>
                                         <div>
-                                            <h4 class="font-medium text-gray-900">Perierea Zilnică</h4>
-                                            <p class="text-gray-600 text-sm">15-20 minute pentru prevenirea încurcăturilor</p>
+                                            <h4 class="font-semibold text-gray-800">Perii Zilnic</h4>
+                                            <p class="text-gray-600">Perii zilnic pentru a evita încâlcirea și a elimina părul mort, mai ales în perioadele de năpârlire.</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
-                                        <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">2</span>
+                                    <div class="text-gray-700 space-x-3">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                            <span class="text-blue-600 font-semibold text-sm">2</span>
+                                        </div>
                                         <div>
-                                            <h4 class="font-medium text-gray-900">Băi Regulate</h4>
-                                            <p class="text-gray-600 text-sm">O dată la 4-6 săptămâni sau când este necesar</p>
+                                            <h4 class="font-semibold text-gray-800">Baie Ocazională</h4>
+                                            <p class="text-gray-600">Baie doar când este necesar, folosind șampon specific pentru câini cu blană lungă.</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-start">
-                                        <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">3</span>
+                                    <div class="text-gray-700 space-x-3">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mt-1 flex-shrink-0">
+                                            <span class="text-blue-600 font-semibold text-sm">3</span>
+                                        </div>
                                         <div>
-                                            <h4 class="font-medium text-gray-900">Năpârlire Sezonieră</h4>
-                                            <p class="text-gray-600 text-sm">2 perioade pe an cu pierdere intensă de păr</p>
+                                            <h4 class="font-semibold text-gray-800">Atenție la Noduri</h4>
+                                            <p class="text-gray-600">Verifică zilnic zonele predispuse la încâlcire: spatele urechilor, axila, zona inghinală.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Sănătatea -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4">🏥 Aspecte de Sănătate</h3>
-                                <div class="space-y-3">
-                                    <div class="bg-red-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-red-900">Dysplazia de șold</h4>
-                                        <p class="text-red-800 text-sm">Control radiologic la reproducători</p>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Exerciții și Activități</h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-green-50 rounded-lg">
+                                        <h4 class="font-semibold text-green-800 mb-2">📅 Zilnic</h4>
+                                        <ul class="text-green-700 space-y-1">
+                                            <li>• 60-90 minute exercițiu</li>
+                                            <li>• Plimbări lungi sau alergare</li>
+                                            <li>• Jocuri interactive în curte</li>
+                                        </ul>
                                     </div>
-                                    <div class="bg-yellow-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-yellow-900">Epilepsia</h4>
-                                        <p class="text-yellow-800 text-sm">Posibilă predispoziție genetică</p>
+                                    <div class="p-4 bg-blue-50 rounded-lg">
+                                        <h4 class="font-semibold text-blue-800 mb-2">🧠 Mental</h4>
+                                        <ul class="text-blue-700 space-y-1">
+                                            <li>• Sesiuni de dresaj (10-15 min)</li>
+                                            <li>• Jocuri de inteligență</li>
+                                            <li>• Explorarea mediului înconjurător</li>
+                                        </ul>
                                     </div>
-                                    <div class="bg-blue-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-blue-900">Probleme oculare</h4>
-                                        <p class="text-blue-800 text-sm">Controale oftalmologice regulate</p>
-                                    </div>
-                                    <div class="bg-green-50 p-3 rounded-lg">
-                                        <h4 class="font-medium text-green-900">Longevitate</h4>
-                                        <p class="text-green-800 text-sm">Rasă relativ sănătoasă, 12-14 ani</p>
+                                    <div class="p-4 bg-purple-50 rounded-lg">
+                                        <h4 class="font-semibold text-purple-800 mb-2">🏆 Competiții</h4>
+                                        <ul class="text-purple-700 space-y-1">
+                                            <li>• Expoziții canine de frumusețe</li>
+                                            <li>• Agility și obedience</li>
+                                            <li>• Tracking și căutare</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -318,70 +322,82 @@ $seo = (object) [
 
                 <!-- Pentru Cine Este Potrivit -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                            Pentru Cine Este Potrivit Groenendael?
+                    <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            👥 Pentru Cine Este Potrivit
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Ideal pentru -->
-                            <div class="bg-green-50 p-6 rounded-lg">
-                                <h3 class="font-semibold text-green-900 mb-4 flex items-center">
-                                    ✨ Ideal Pentru:
+                    <div class="p-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-green-800 mb-2 flex items-center">
+                                    ✓
+                                    Ideal Pentru:
                                 </h3>
-                                <ul class="text-green-800 space-y-2 text-sm">
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 font-bold mr-2">•</span>
-                                        <span><strong>Familii active</strong> cu experiență canină</span>
+                                <ul class="space-y-3">
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Familii cu experiență</strong>
+                                            <p class="text-gray-600 text-sm">Care înțeleg nevoile unui câine de lucru și au timp pentru dresaj.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 font-bold mr-2">•</span>
-                                        <span><strong>Iubitori de sporturi canine</strong> (agility, obedience)</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Persoane active</strong>
+                                            <p class="text-gray-600 text-sm">Care pot oferi exerciții zilnice și activități variate.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 font-bold mr-2">•</span>
-                                        <span><strong>Case cu grădină</strong> și spațiu pentru mișcare</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Iubitori de frumusețe</strong>
+                                            <p class="text-gray-600 text-sm">Care apreciază eleganța și sunt dispuși să investească în îngrijire.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 font-bold mr-2">•</span>
-                                        <span><strong>Persoane dedicat</strong> îngrijirii blănii</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-green-600 font-bold mr-2">•</span>
-                                        <span><strong>Activități de serviciu</strong> (terapie, căutare)</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Proprietari cu curte</strong>
+                                            <p class="text-gray-600 text-sm">Cu spațiu suficient pentru exerciții și joacă liberă.</p>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
-
-                            <!-- Nu este recomandat -->
-                            <div class="bg-red-50 p-6 rounded-lg">
-                                <h3 class="font-semibold text-red-900 mb-4 flex items-center">
-                                    ❌ Nu Este Recomandat Pentru:
+                            <div>
+                                <h3 class="text-xl font-semibold text-red-800 mb-2 flex items-center">
+                                    ✓
+                                    Nu Este Potrivit Pentru:
                                 </h3>
-                                <ul class="text-red-800 space-y-2 text-sm">
-                                    <li class="flex items-start">
-                                        <span class="text-red-600 font-bold mr-2">•</span>
-                                        <span><strong>Proprietari începători</strong> fără experiență</span>
+                                <ul class="space-y-3">
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Proprietari fără experiență</strong>
+                                            <p class="text-gray-600 text-sm">Care nu au avut câini de lucru sau de talie mare anterior.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-red-600 font-bold mr-2">•</span>
-                                        <span><strong>Persoane sedentare</strong> cu stil de viață pasiv</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Persoane foarte ocupate</strong>
+                                            <p class="text-gray-600 text-sm">Care nu pot dedica timp zilnic pentru exerciții și îngrijire.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-red-600 font-bold mr-2">•</span>
-                                        <span><strong>Apartamente mici</strong> fără acces la exterior</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Apartamente mici</strong>
+                                            <p class="text-gray-600 text-sm">Fără acces la spații deschise pentru exercițiu.</p>
+                                        </div>
                                     </li>
-                                    <li class="flex items-start">
-                                        <span class="text-red-600 font-bold mr-2">•</span>
-                                        <span><strong>Persoane alergice</strong> la părul de câine</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <span class="text-red-600 font-bold mr-2">•</span>
-                                        <span><strong>Timp limitat</strong> pentru antrenament și socializare</span>
+                                    <li class="text-gray-700 space-x-3">
+                                        ✓
+                                        <div>
+                                            <strong class="text-gray-800">Persoane alergice</strong>
+                                            <p class="text-gray-600 text-sm">La părul de câine - Groenendael năpârlește moderat.</p>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -389,30 +405,25 @@ $seo = (object) [
                     </div>
                 </div>
 
-            </div>
+                <!-- Navigation Footer -->
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-4 pt-8 border-t border-gray-200">
+                    <a href="{{ url('/istoria-ciobanescului-belgian') }}" 
+                       class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
+                        •
+                        Istoria Rasei
+                    </a>
+                    
+                    <a href="{{ url('/') }}" 
+                       class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
+                        🏠 Pagina Principală
+                    </a>
 
-            <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-8">
-                <a href="{{ url('/istoria-ciobanescului-belgian') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Istoria Rasei
-                </a>
-                
-                <a href="{{ url('/') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-md">
-                    🏠 Pagina Principală
-                </a>
-
-                <a href="{{ url('/malinois') }}" 
-                   class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    Malinois
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
+                    <a href="{{ url('/malinois') }}" 
+                       class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
+                        Malinois
+                        •
+                    </a>
+                </div>
             </div>
         </div>
     </div>

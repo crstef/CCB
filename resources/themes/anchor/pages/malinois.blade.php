@@ -16,8 +16,8 @@ $seo = (object) [
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            <div class="text-center mb-2">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
                     Malinois
                 </h1>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -26,27 +26,24 @@ $seo = (object) [
             </div>
 
             <!-- Content -->
-            <div class="space-y-6">
+            <div class="space-y-4">
                 
                 <!-- Prezentare Generală -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                            Puterea în Acțiune
+                    <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            ⚡ Puterea în Acțiune
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
                             <div>
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-2">
                                     <strong>Malinois</strong> este varietatea cu păr scurt de ciobănesc belgian, dezvoltată în 
                                     zona orașului <strong>Mechelen (Malines)</strong> din Belgia. Recunoscută oficial în <strong>1898</strong>, 
                                     a devenit rapid varietatea preferată pentru servicii specializate.
                                 </p>
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-2">
                                     Astăzi, Malinois este <strong>standardul de aur</strong> pentru forțele militare, poliție, 
                                     unități antidrog și servicii de securitate din întreaga lume. Combinația între inteligența superioară, 
                                     rezistența fizică și loialitatea absolută îl face de neînlocuit.
@@ -59,8 +56,8 @@ $seo = (object) [
                                     </p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-orange-600 to-red-600 p-6 rounded-lg text-white">
-                                <h3 class="font-semibold mb-4">🎯 Elite Performance</h3>
+                            <div class="bg-gradient-to-br from-orange-600 to-red-600 p-3 rounded-lg text-white">
+                                <h3 class="font-semibold mb-2">🎯 Elite Performance</h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between">
                                         <span>Viteza maximă:</span>
@@ -94,19 +91,16 @@ $seo = (object) [
 
                 <!-- Utilizări Profesionale -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-800 to-indigo-800 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5-6v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2z"></path>
-                            </svg>
-                            Servicii de Elită Mondiale
+                    <div class="bg-gradient-to-r from-blue-800 to-indigo-800 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🏆 Servicii de Elită Mondiale
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                             <!-- Militar -->
-                            <div class="bg-green-50 border border-green-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-4">
+                            <div class="bg-green-50 border border-green-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-2">
                                     🛡️
                                 </div>
                                 <h3 class="font-semibold text-green-900 mb-3">Servicii Militare</h3>
@@ -120,8 +114,8 @@ $seo = (object) [
                             </div>
 
                             <!-- Poliție -->
-                            <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-4">
+                            <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-2">
                                     🚔
                                 </div>
                                 <h3 class="font-semibold text-blue-900 mb-3">Forțe de Poliție</h3>
@@ -135,8 +129,8 @@ $seo = (object) [
                             </div>
 
                             <!-- Securitate -->
-                            <div class="bg-purple-50 border border-purple-200 p-6 rounded-lg">
-                                <div class="w-12 h-12 bg-purple-600 text-white rounded-lg flex items-center justify-center mb-4">
+                            <div class="bg-purple-50 border border-purple-200 p-3 rounded-lg">
+                                <div class="w-12 h-12 bg-purple-600 text-white rounded-lg flex items-center justify-center mb-2">
                                     🔒
                                 </div>
                                 <h3 class="font-semibold text-purple-900 mb-3">Securitate Privată</h3>
@@ -151,8 +145,8 @@ $seo = (object) [
                         </div>
 
                         <!-- Succes Stories -->
-                        <div class="mt-8 bg-gradient-to-r from-yellow-400 to-orange-400 p-6 rounded-lg">
-                            <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
+                        <div class="mt-4 bg-gradient-to-r from-yellow-400 to-orange-400 p-3 rounded-lg">
+                            <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
                                 🌟 Povești de Succes Mondiale
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-800">
@@ -169,19 +163,17 @@ $seo = (object) [
 
                 <!-- Standard Fizic -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Standardul Perfect pentru Acțiune
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Dimensiuni -->
-                            <div class="bg-amber-50 p-6 rounded-lg">
-                                <h3 class="font-semibold text-amber-900 mb-4">📏 Dimensiuni Standard</h3>
+                            <div class="bg-amber-50 p-3 rounded-lg">
+                                <h3 class="font-semibold text-amber-900 mb-2">📏 Dimensiuni Standard</h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between">
                                         <span>Masculin înălțime:</span>
@@ -207,8 +199,8 @@ $seo = (object) [
                             </div>
 
                             <!-- Blana și Culoarea -->
-                            <div class="bg-yellow-100 p-6 rounded-lg border-2 border-yellow-400">
-                                <h3 class="font-semibold text-yellow-900 mb-4">🎨 Blana Caracteristică</h3>
+                            <div class="bg-yellow-100 p-3 rounded-lg border-2 border-yellow-400">
+                                <h3 class="font-semibold text-yellow-900 mb-2">🎨 Blana Caracteristică</h3>
                                 <ul class="text-yellow-800 text-sm space-y-2">
                                     <li><strong>Lungime:</strong> Scurtă pe tot corpul</li>
                                     <li><strong>Culoare de bază:</strong> Galben-roșcat (fawn)</li>
@@ -224,19 +216,17 @@ $seo = (object) [
 
                 <!-- Temperament și Antrenament -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-red-600 to-pink-600 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-red-600 to-pink-600 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Mental de Campion
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="p-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <!-- Drive și Motivație -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4 text-red-700">🔥 Drive și Motivație Supremă</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2 text-red-700">🔥 Drive și Motivație Supremă</h3>
                                 <div class="space-y-4">
                                     <div class="bg-red-50 border-l-4 border-red-500 p-4">
                                         <h4 class="font-medium text-red-900">Drive de Pradă</h4>
@@ -261,7 +251,7 @@ $seo = (object) [
 
                             <!-- Metode de Antrenament -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4 text-blue-700">🎯 Antrenament Specializat</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2 text-blue-700">🎯 Antrenament Specializat</h3>
                                 <div class="space-y-4">
                                     <div class="bg-blue-50 p-4 rounded-lg">
                                         <h4 class="font-medium text-blue-900">Pozitivă Prin Recompense</h4>
@@ -289,16 +279,14 @@ $seo = (object) [
 
                 <!-- Provocări și Responsabilități -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6">
-                        <h2 class="text-2xl font-semibold flex items-center">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                            </svg>
+                    <div class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-3">
+                        <h2 class="text-2xl font-semibold">
+                            🔹
                             Responsabilitatea Unui Malinois
                         </h2>
                     </div>
-                    <div class="p-8">
-                        <div class="bg-amber-50 border-l-4 border-amber-500 p-6 mb-6">
+                    <div class="p-4">
+                        <div class="bg-amber-50 border-l-4 border-amber-500 p-3 mb-3">
                             <div class="flex">
                                 <div class="flex-shrink-0">
                                     <svg class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
@@ -314,26 +302,26 @@ $seo = (object) [
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Nevoi Zilnice -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4">⚡ Nevoi Zilnice Obligatorii</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2">⚡ Nevoi Zilnice Obligatorii</h3>
                                 <ul class="space-y-3 text-sm">
-                                    <li class="flex items-start">
+                                    <li class="text-gray-700">
                                         <span class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">!</span>
                                         <div>
                                             <strong>3-4 ore exerciții intense</strong><br>
                                             <span class="text-gray-600">Alergare, agility, tracking, jocuri complexe</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start">
+                                    <li class="text-gray-700">
                                         <span class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">!</span>
                                         <div>
                                             <strong>Stimulare mentală constantă</strong><br>
                                             <span class="text-gray-600">Comenzi noi, puzzle-uri, sarcini variate</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start">
+                                    <li class="text-gray-700">
                                         <span class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-1">!</span>
                                         <div>
                                             <strong>Socializare continuă</strong><br>
@@ -345,7 +333,7 @@ $seo = (object) [
 
                             <!-- Consecințe Neglijării -->
                             <div>
-                                <h3 class="font-semibold text-gray-900 mb-4 text-red-700">💥 Riscuri Neglijării</h3>
+                                <h3 class="font-semibold text-gray-900 mb-2 text-red-700">💥 Riscuri Neglijării</h3>
                                 <div class="space-y-3">
                                     <div class="bg-red-100 p-3 rounded-lg">
                                         <h4 class="font-medium text-red-900">Comportament Distructiv</h4>
@@ -372,12 +360,10 @@ $seo = (object) [
             </div>
 
             <!-- Navigation Links -->
-            <div class="flex justify-between items-center mt-8">
+            <div class="flex justify-between items-center mt-4">
                 <a href="{{ url('/groenendael') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
+                    •
                     Groenendael
                 </a>
                 
@@ -389,9 +375,7 @@ $seo = (object) [
                 <a href="{{ url('/tervueren') }}" 
                    class="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow-md">
                     Tervueren
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+                    •
                 </a>
             </div>
         </div>
