@@ -1,6 +1,19 @@
 <?php
 
-use fun    <div class="min-h-screen bg-gray-50 py-8">
+use function Laravel\Folio\name;
+
+name('groenendael');
+
+$seo = (object) [
+    'title' => 'Groenendael - Ciobanescul Belgian CCB',
+    'description' => 'Descoperă varietatea Groenendael a ciobănescului belgian - temperament, caracteristici fizice și sfaturi de îngrijire.',
+];
+
+?>
+
+<x-layouts.marketing>
+
+    <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Header -->
@@ -403,4 +416,5 @@ $seo = (object) [
             </div>
         </div>
     </div>
+
 </x-layouts.marketing>
