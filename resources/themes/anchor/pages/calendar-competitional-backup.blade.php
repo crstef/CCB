@@ -265,3 +265,177 @@ $seo = (object) [
         </div>
     </div>
 </x-layouts.marketing>
+            <span id="hoverLocationText"></span>
+        </div>
+        <div class="text-xs text-blue-600 mt-2 font-medium">Click pentru detalii complete</div>
+    </div>
+
+    <!-- Event Details Section (in same page) -->
+    <div id="eventDetails" class="hidden mt-8 bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-900">Detalii Eveniment</h3>
+            <button onclick="hideEventDetails()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Denumire Concurs</label>
+                    <p id="detailsTitle" class="text-lg font-semibold text-gray-900"></p>
+                </div>
+                
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Locația</label>
+                    <p id="detailsLocation" class="text-gray-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span id="detailsLocationText"></span>
+                    </p>
+                </div>
+                
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Data și Ora</label>
+                    <p id="detailsDate" class="text-gray-700 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span id="detailsDateText"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500 block mb-2">Status</label>
+                    <div id="detailsStatus" class="flex items-center">
+                        <div id="detailsStatusDot" class="w-3 h-3 rounded-full mr-2"></div>
+                        <span id="detailsStatusText" class="text-sm font-medium"></span>
+                    </div>
+                </div>
+                
+                <div class="pt-4">
+                    <button onclick="openEventPage()" 
+                            class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                        Vezi Pagina Completă a Evenimentului
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEventSlug = '';
+        let hoverTimeout;
+        let isMobile = window.innerWidth <= 768;
+        
+        // Detect mobile
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+        
+        function showCellPopup(cell, title, location, date, slug) {
+            clearTimeout(hoverTimeout);
+            
+            const popup = document.getElementById('hoverWindow');
+            const rect = cell.getBoundingClientRect();
+            
+            // Set content
+            document.getElementById('hoverTitle').textContent = title;
+            document.getElementById('hoverLocationText').textContent = location;
+            
+            // Position popup near the cell
+            const left = rect.left + window.scrollX + rect.width + 10;
+            const top = rect.top + window.scrollY;
+            
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+            
+            // Check if popup goes off screen and adjust
+            setTimeout(() => {
+                const popupRect = popup.getBoundingClientRect();
+                if (popupRect.right > window.innerWidth) {
+                    popup.style.left = (rect.left + window.scrollX - popup.offsetWidth - 10) + 'px';
+                }
+                if (popupRect.bottom > window.innerHeight) {
+                    popup.style.top = (rect.top + window.scrollY - popup.offsetHeight + rect.height) + 'px';
+                }
+            }, 10);
+            
+            popup.classList.remove('hidden');
+        }
+        
+        function hideCellPopup() {
+            hoverTimeout = setTimeout(() => {
+                document.getElementById('hoverWindow').classList.add('hidden');
+            }, 300);
+        }
+        
+        function showEventDetails(title, location, date, slug) {
+            // Hide hover popup
+            document.getElementById('hoverWindow').classList.add('hidden');
+            
+            // Set content
+            document.getElementById('detailsTitle').textContent = title;
+            document.getElementById('detailsLocationText').textContent = location;
+            document.getElementById('detailsDateText').textContent = new Date(date).toLocaleDateString('ro-RO', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Set status
+            const eventDate = new Date(date);
+            const today = new Date();
+            const dot = document.getElementById('detailsStatusDot');
+            const statusText = document.getElementById('detailsStatusText');
+            
+            if (eventDate.toDateString() === today.toDateString()) {
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-green-500';
+                statusText.textContent = 'În desfășurare / Astăzi';
+                statusText.className = 'text-sm font-medium text-green-700';
+            } else if (eventDate < today) {
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-gray-400';
+                statusText.textContent = 'Eveniment trecut';
+                statusText.className = 'text-sm font-medium text-gray-600';
+            } else {
+                dot.className = 'w-3 h-3 rounded-full mr-2 bg-blue-500';
+                statusText.textContent = 'Eveniment viitor';
+                statusText.className = 'text-sm font-medium text-blue-700';
+            }
+            
+            currentEventSlug = slug;
+            document.getElementById('eventDetails').classList.remove('hidden');
+            
+            // Scroll to details
+            document.getElementById('eventDetails').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        function hideEventDetails() {
+            document.getElementById('eventDetails').classList.add('hidden');
+        }
+        
+        function openEventPage() {
+            window.open('/evenimente/' + currentEventSlug, '_blank');
+        }
+        
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideEventDetails();
+                hideCellPopup();
+            }
+        });
+    </script>
+</x-layouts.marketing>
