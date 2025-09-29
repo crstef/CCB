@@ -1,7 +1,34 @@
 <?php
     use Wave\Event;
     use Carbon\Carbon;
-    $events = Event::where('status', 'published')->orderBy('created_at', 'desc')->paginate(9);
+    
+    // Obținem ultimele 3 evenimente trecute
+    $pastEvents = Event::where('status', 'published')
+        ->where('event_start_date', '<', now()->startOfDay())
+        ->orderBy('event_start_date', 'desc')
+        ->limit(3)
+        ->get();
+    
+    // Obținem evenimente viitoare (12 luni)
+    $futureEvents = Event::where('status', 'published')
+        ->where('event_start_date', '>=', now()->startOfDay())
+        ->where('event_start_date', '<=', now()->addYear()->endOfDay())
+        ->orderBy('event_start_date', 'asc')
+        ->get();
+    
+    // Combinăm colecțiile și paginăm manual
+    $allEvents = $pastEvents->reverse()->merge($futureEvents); // Reverse pentru ordine cronologică corectă
+    
+    // Paginare manuală
+    $currentPage = request()->get('page', 1);
+    $perPage = 9;
+    $events = new \Illuminate\Pagination\LengthAwarePaginator(
+        $allEvents->forPage($currentPage, $perPage),
+        $allEvents->count(),
+        $perPage,
+        $currentPage,
+        ['path' => request()->url(), 'pageName' => 'page']
+    );
 ?>
 
 <x-layouts.marketing>
@@ -10,8 +37,8 @@
         <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Clubul de Ciobanesti Belgieni si Olandezi Romania</h2>
-                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Evenimentele Noastre</p>
-                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Fii la curent cu cele mai recente competiții, examene și activități.</p>
+                <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Competițiile CCB</p>
+                <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">Competițiile viitoare și ultimele evenimente finalizate ale clubului nostru.</p>
             </div>
         </div>
     </div>
@@ -23,7 +50,8 @@
         <div class="relative max-w-7xl mx-auto">
             <div class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
 
-                @foreach($events as $event)
+                @if($events->count() > 0)
+                    @foreach($events as $event)
                     @php
                         $status = '';
                         $statusColor = '';
@@ -135,14 +163,31 @@
                             </div> -->
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <div class="col-span-3 text-center py-16">
+                        <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Nu sunt competiții disponibile</h3>
+                        <p class="text-gray-600 mb-6">Nu sunt programate competiții noi și nici evenimente recente.<br>Verificați din nou în curând pentru actualizări!</p>
+                        <a href="{{ url('/calendar-competitional') }}" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Vezi calendarul competițional
+                        </a>
+                    </div>
+                @endif
 
             </div>
 
             <!-- Paginare -->
-            <div class="my-12">
-                {{ $events->links() }}
-            </div>
+            @if($events->count() > 0)
+                <div class="my-12">
+                    {{ $events->links() }}
+                </div>
+            @endif
 
         </div>
     </div>
