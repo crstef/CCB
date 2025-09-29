@@ -123,10 +123,10 @@
                                             <span class="block mb-1 font-medium text-black">Istoria Ciobanescului belgian</span>
                                             <span class="block font-light leading-5 opacity-50">Cateva detalii despre istoria ciobănescului belgian</span>
                                         </a>
-                                        <a href="{{ url('/confirmarea-rasei') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
+                                        <!-- <a href="{{ url('/confirmarea-rasei') }}" class="block text-sm p-7 hover:bg-neutral-100 group">
                                             <span class="block mb-1 font-medium text-black">Confirmarea rasei</span>
                                             <span class="block leading-5 opacity-50">Cand si cum se face confirmarea rasei</span>
-                                        </a>
+                                        </a> -->
                                     </div>
                                     <div class="w-auto divide-y divide-zinc-100">
                                         <a href="{{ url('/groenendael') }}" class="block text-sm p-7 hover:bg-neutral-100">
