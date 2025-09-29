@@ -1,6 +1,15 @@
 <x-layouts.marketing :seo="[
     'seo_title' => $event['title'] . ' - Club Chinologic București Otopeni',
-    'seo_description' => $event['excerpt'] ?? 'Eveniment organizat de Clubul Chinologic București Otopeni - ' . $event['title']
+    'seo_description' => $event['excerpt'] ?? 'Eveniment organizat de Clubul Chinologic București            <!-- Back to Events -->
+            <div class="text-center mt-12">
+                <a href="/evenimente" 
+                   class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Înapoi la Evenimente
+                </a>
+            </div> ' . $event['title']
 ]">
     <div class="bg-white">
         <!-- Hero Section -->
@@ -17,12 +26,12 @@
             <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Back Navigation -->
                 <div class="mb-6">
-                    <a href="{{ route('calendar-competitional') }}" 
+                    <a href="/evenimente" 
                        class="inline-flex items-center text-blue-100 hover:text-white transition-colors duration-200">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
-                        Înapoi la Calendar
+                        Înapoi la Evenimente
                     </a>
                 </div>
                 
@@ -189,7 +198,7 @@
                                 <a href="{{ $event->caniva_link }}" 
                                    target="_blank" 
                                    rel="noopener noreferrer"
-                                   class="inline-flex items-center w-full justify-center px-4 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200">
+                                   class="inline-flex items-center w-full justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 shadow-sm">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                     </svg>
