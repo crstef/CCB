@@ -71,6 +71,14 @@ class CompetitionalEventResource extends Resource
                             ->label('Colaborare')
                             ->placeholder('Ex: Colaborare cu CNCG, Colaborare cu ACMR')
                             ->maxLength(255),
+                            
+                        Forms\Components\TextInput::make('link_inscriere_caniva')
+                            ->label('Link Înscriere Caniva')
+                            ->placeholder('https://caniva.ro/...')
+                            ->url()
+                            ->maxLength(500)
+                            ->columnSpanFull()
+                            ->helperText('Link-ul către pagina de înscriere pe platforma Caniva'),
                     ]),
                     
                 Forms\Components\Section::make('Setări')
@@ -126,6 +134,13 @@ class CompetitionalEventResource extends Resource
                     ->label('Colaborare')
                     ->limit(20)
                     ->placeholder('-'),
+                    
+                Tables\Columns\TextColumn::make('link_inscriere_caniva')
+                    ->label('Link Caniva')
+                    ->limit(30)
+                    ->placeholder('Fără link')
+                    ->url(fn ($record) => $record->link_inscriere_caniva)
+                    ->openUrlInNewTab(),
                     
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Activ')

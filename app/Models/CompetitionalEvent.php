@@ -17,6 +17,7 @@ class CompetitionalEvent extends Model
         'locatie',
         'descriere',
         'colaborare',
+        'link_inscriere_caniva',
         'is_active',
         'order',
     ];

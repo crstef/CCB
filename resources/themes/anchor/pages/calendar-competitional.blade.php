@@ -109,7 +109,21 @@ $seo = (object) [
                                                     <div class="mb-1">{{ $event->descriere }}</div>
                                                 @endif
                                                 @if($event->colaborare)
-                                                    <div class="text-xs text-blue-600 font-medium">{{ $event->colaborare }}</div>
+                                                    <div class="text-xs text-blue-600 font-medium mb-1">{{ $event->colaborare }}</div>
+                                                @endif
+                                                @if($event->link_inscriere_caniva)
+                                                    <div class="mt-2">
+                                                        <a href="{{ $event->link_inscriere_caniva }}" 
+                                                           target="_blank" 
+                                                           rel="noopener noreferrer"
+                                                           class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full hover:bg-orange-200 transition-colors duration-200">
+                                                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                            </svg>
+                                                            Înscriere Caniva
+                                                        </a>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </td>
@@ -183,13 +197,26 @@ $seo = (object) [
                                 </div>
                                 
                                 <!-- Detalii -->
-                                @if($event->descriere || $event->colaborare)
+                                @if($event->descriere || $event->colaborare || $event->link_inscriere_caniva)
                                     <div class="text-sm text-gray-600">
                                         @if($event->descriere)
                                             <div class="mb-1">{{ $event->descriere }}</div>
                                         @endif
                                         @if($event->colaborare)
-                                            <div class="text-blue-600 font-medium">{{ $event->colaborare }}</div>
+                                            <div class="text-blue-600 font-medium mb-2">{{ $event->colaborare }}</div>
+                                        @endif
+                                        @if($event->link_inscriere_caniva)
+                                            <div class="mt-2">
+                                                <a href="{{ $event->link_inscriere_caniva }}" 
+                                                   target="_blank" 
+                                                   rel="noopener noreferrer"
+                                                   class="inline-flex items-center px-3 py-2 bg-orange-100 text-orange-800 text-sm font-medium rounded-lg hover:bg-orange-200 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                                    </svg>
+                                                    Înscriere Caniva
+                                                </a>
+                                            </div>
                                         @endif
                                     </div>
                                 @endif
