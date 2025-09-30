@@ -112,9 +112,9 @@
                                 </div>
                             </div>
                             <div class="text-xs text-right relative">
-                                {{-- Ștampila și semnătura președintelui - poziționată mai sus, mai mare și mai în dreapta --}}
-                                <div class="absolute -top-12 -right-2 w-32 h-24 z-20">
-                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
+                                {{-- Ștampila și semnătura președintelui - poziționată lângă text și peste scris --}}
+                                <div class="absolute -top-4 right-0 w-36 h-28 z-20">
+                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-85">
                                 </div>
                                 <div class="font-semibold">Președinte CCB</div>
                                 <div class="mt-1">Gabriel Panoiu</div>
