@@ -54,3 +54,5 @@ Stack trace:
 #0 {main}
   thrown in Command line code on line 14
 [26-Sep-2025 21:11:08 Europe/Berlin] PHP Parse error:  syntax error, unexpected token ";" in Command line code on line 28
+[29-Sep-2025 08:46:32 UTC] PHP Fatal error:  Cannot redeclare class App\Filament\Pages\MediaFiles (previously declared in /home/ccborro/dev.ccbor.ro/CCB_new/app/Filament/Pages/Media.php:8) in /home/ccborro/dev.ccbor.ro/CCB_new/app/Filament/Pages/Media.php on line 8
+[29-Sep-2025 08:46:47 UTC] PHP Fatal error:  Cannot redeclare class App\Filament\Pages\MediaFiles (previously declared in /home/ccborro/dev.ccbor.ro/CCB_new/app/Filament/Pages/Media.php:8) in /home/ccborro/dev.ccbor.ro/CCB_new/app/Filament/Pages/Media.php on line 8
