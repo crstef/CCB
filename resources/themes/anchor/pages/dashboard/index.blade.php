@@ -108,13 +108,13 @@
                                 <div class="pt-1">
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
                                     <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>
+                                     <div class="absolute -top-22 -right-48 w-32 h-26 z-32">
+                                        <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-xs text-right relative">
-                                {{-- Ștampila și semnătura președintelui --}}
-                                <div class="absolute -top-22 -right-48 w-32 h-26 z-32">
-                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
-                                </div>
+                                {{-- Ștampila și semnătura președintelui --}}                             
                                 <div class="font-semibold">Președinte CCB</div>
                                 <div class="mt-1">Gabriel Panoiu</div>
                             </div>
