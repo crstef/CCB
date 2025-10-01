@@ -115,7 +115,6 @@
                                     <span class="font-semibold" style="width: 70px;">Nume</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
                                 </div>
-                                                    const svgFlag = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 125 150" preserveAspectRatio="none">
                                     <span class="font-semibold" style="width: 70px;">Calitatea</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
                                 </div>
