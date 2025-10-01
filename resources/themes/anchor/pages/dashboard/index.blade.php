@@ -7,11 +7,10 @@
 <x-layouts.app>
 	<x-app.container x-data class="lg:space-y-6" x-cloak>
 
-		<x-app.alert id="dashboard_alert" class="hidden lg:flex">Acesta este panoul de utilizator unde utilizatorii pot gestiona setările și accesa funcționalitățile. <a href="https://devdojo.com/wave/docs" target="_blank" class="mx-1 underline">Vezi documentația</a> pentru a afla mai multe.</x-app.alert>
-
+        {{-- Titlu Pagina --}}  
         <x-app.heading
-                title="Pagina de Control"
-                description="Bine ai venit pe panoul de control al aplicației. Găsește mai multe resurse mai jos."
+                title="Legitimatia de Membru CCB"
+                description="Bine ai venit. Mai jos poti regasi legitimatia de membru CCB."
                 :border="false"
             />
 
@@ -39,12 +38,26 @@
             {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Banda tricoloră diagonală (varianta corectată) --}}
-                <div class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M0,0 L50,0 L0,50 L0,0 Z" style="fill: #0066cc;"/>
-                        <path d="M25,0 L75,0 L0,75 L0,25 Z" style="fill: #ffcc00;"/>
-                        <path d="M50,0 L75,0 L0,75 L0,50" style="fill: #cc0000;"/>
+                {{-- Bandă tricoloră cu trei benzi paralele egale (browser + PDF/Print) --}}
+                <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 140px; z-index: 10;">
+                    <svg width="100%" height="100%" viewBox="0 0 125 150" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                            <clipPath id="ccbFlagClipAll">
+                                <polygon points="0,0 125,0 0,150" />
+                            </clipPath>
+                            <!-- Gradient orientat perpendicular pe ipotenuză (x2=150, y2=125) pentru benzi paralele -->
+                            <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="150" y2="125" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#0033a0"/>
+                                <!-- În triunghi este vizibilă fix jumătate din diagonala gradientului (50%). Împărțim în 3 benzi egale: 0–16.67–33.33–50%. -->
+                                <stop offset="16%" stop-color="#0033a0"/>
+                                <stop offset="16%" stop-color="#ffd100"/>
+                                <stop offset="32%" stop-color="#ffd100"/>
+                                <stop offset="32%" stop-color="#de2110"/>
+                                <stop offset="50%" stop-color="#de2110"/>
+                                <stop offset="100%" stop-color="#de2110"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="-75" y="-75" width="300" height="300" fill="url(#ccbFlagGradAll)" clip-path="url(#ccbFlagClipAll)"/>
                     </svg>
                 </div>
 
@@ -96,7 +109,7 @@
                         </div>
 
                         {{-- Detalii și Semnătură --}}
-                        <div class="ml-4 flex-grow flex flex-col text-sm">
+                        <div class="ml-4 flex-grow flex flex-col text-sm relative">
                             <div class="flex-grow space-y-2">
                                 <div class="flex items-baseline">
                                     <span class="font-semibold" style="width: 70px;">Nume</span>
@@ -108,10 +121,15 @@
                                 </div>
                                 <div class="pt-1">
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                                    <span class="ml-4 font-bold">{{ date('Y') }} - {{ date('Y') + 1 }}</span>
+                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>   
+                                </div>
+                                <!-- Ștampila poziționată în partea dreaptă jos, peste text (forțăm poziția cu inline style pentru consistență) -->
+                                <div class="absolute w-33 h-24 z-28 pointer-events-none left-auto" style="right: -20px; bottom: -12px;">
+                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div>
                             </div>
-                            <div class="text-xs text-right">
+                            <div class="text-xs text-right relative">
+                                {{-- Ștampila și semnătura președintelui --}}                             
                                 <div class="font-semibold">Președinte CCB</div>
                                 <div class="mt-1">Gabriel Panoiu</div>
                             </div>
@@ -196,8 +214,18 @@
                         await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
                     }
                     
-                    const element = document.getElementById('member-card');
-                    const elementClone = element.cloneNode(true);
+                                        const element = document.getElementById('member-card');
+                                        const elementClone = element.cloneNode(true);
+
+                                                            // Înlocuim banda tricoloră în clonă cu versiunea cu benzi paralele egale (compatibil PDF)
+                                        try {
+                        const flagHost = elementClone.querySelector('#ccb-flag');
+                        if (flagHost) {
+                            const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"150\" y2=\"125\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                            const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
+                            flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                        }
+                                        } catch (e) { console.warn('Flag replacement for PDF failed:', e); }
 
                     // Embed logo as Base64
                     const logoImg = elementClone.querySelector('#card-logo');
@@ -224,8 +252,8 @@
                             scale: 3, 
                             useCORS: true,
                             backgroundColor: '#ffffff',
-                            width: 450,
-                            height: 280,
+                            width: 450,  // card width px
+                            height: 280, // card height px
                             scrollX: 0,
                             scrollY: 0,
                         },
@@ -259,7 +287,16 @@
                         // For now, we hope the browser caches it from the PDF generation
                     }
 
-                    const cardHtml = cardClone.outerHTML;
+                                                            // Înlocuim banda tricoloră și în print cu versiunea cu benzi paralele egale
+                                        try {
+                        const flagHost = cardClone.querySelector('#ccb-flag');
+                        if (flagHost) {
+                                                                        const svgFlag = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"150\" y2=\"125\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                                                                        flagHost.innerHTML = svgFlag;
+                                                }
+                                        } catch (e) { console.warn('Flag replacement for Print failed:', e); }
+
+                                        const cardHtml = cardClone.outerHTML;
 
                     // Collect current stylesheets and inline styles
                     const styleTags = Array.from(document.querySelectorAll('style')).map(tag => tag.outerHTML).join('\n');
@@ -273,43 +310,33 @@
                             <meta charset="UTF-8">
                             ${linkTags}
                             ${styleTags}
-                            <style>
-                                @page { 
-                                    size: 85.6mm 54mm; 
-                                    margin: 0;
-                                }
-                                html, body { 
-                                    width: 100%;
-                                    height: 100%;
-                                    margin: 0; 
-                                    padding: 0; 
-                                    background: #ffffff; 
-                                    display: flex; 
-                                    justify-content: center; 
-                                    align-items: center;
-                                }
-                                * {
-                                    -webkit-print-color-adjust: exact !important;
-                                    print-color-adjust: exact !important;
-                                }
-                                #member-card {
-                                    width: 85.6mm;
-                                    height: 54mm;
-                                    transform: scale(1);
-                                    border: none !important;
-                                    box-shadow: none !important;
-                                }
+                                                        <style>
+                                /* Tipărim pe A4, dar cardul rămâne la dimensiunea reală ID-1 */
+                                @page { size: A4; margin: 0; }
+                                                                html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: #ffffff; }
+                                * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+                                                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 20mm 12mm 20mm 12mm; display: flex; align-items: center; justify-content: center; }
+                                                                                                /* Evităm tăierea pe pagini și forțăm dimensiunea exactă (CI: 110mm × 80mm) */
+                                                                #member-card {
+                                                                                                    width: 110mm !important;
+                                                                                                    height: 80mm !important;
+                                                                    border: none !important;
+                                                                    box-shadow: none !important;
+                                                                    page-break-inside: avoid; break-inside: avoid;
+                                                                    transform: none !important;
+                                                                    zoom: 1;
+                                                                }
                             </style>
                         </head>
                         <body>
-                            ${cardHtml}
+                            <div class="sheet">
+                                ${cardHtml}
+                            </div>
                             <script>
                                 // Hide upload controls in print
                                 document.querySelectorAll('input[type=file], label[for=photo-upload]').forEach(el => el && (el.style.display = 'none'));
-                                setTimeout(() => {
-                                    window.print();
-                                    window.close();
-                                }, 250);
+                                setTimeout(() => { window.print(); window.close(); }, 500);
                             <\/script>
                         </body>
                         </html>
