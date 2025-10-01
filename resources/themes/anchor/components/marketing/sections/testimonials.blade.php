@@ -1,5 +1,5 @@
 <section class="w-full">
-    <x-marketing.elements.heading level="h2" title="Echipa CCB" description="Cunoaște echipa CCB și povestile lor de succes." />
+    <x-marketing.elements.heading level="h2" title="Echipa CCB" />
     
     @php
         $testimonials = \App\Models\Testimonial::active()->ordered()->get();

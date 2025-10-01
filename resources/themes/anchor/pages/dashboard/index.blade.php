@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="pt-1">
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>   
+                                    <span class="ml-4 font-bold">01.01 - 31.12.{{ date('Y') }}</span>   
                                 </div>
                                 <!-- Ștampila poziționată în partea dreaptă jos, peste text (forțăm poziția cu inline style pentru consistență) -->
                                 <div class="absolute w-33 h-24 z-28 pointer-events-none left-auto" style="right: -20px; bottom: -12px;">
