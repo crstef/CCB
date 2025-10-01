@@ -1,5 +1,5 @@
 <section class="w-full">
-    <x-marketing.elements.heading level="h2" title="Echipa CCB" />
+    <x-marketing.elements.heading level="h2" title="Echipa CCB" description=" " />
     
     @php
         $testimonials = \App\Models\Testimonial::active()->ordered()->get();
