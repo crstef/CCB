@@ -310,15 +310,23 @@
                             <meta charset="UTF-8">
                             ${linkTags}
                             ${styleTags}
-                            <style>
+                                                        <style>
                                 /* Tipărim pe A4, dar cardul rămâne la dimensiunea reală ID-1 */
                                 @page { size: A4; margin: 0; }
-                                html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: #ffffff; }
+                                                                html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: #ffffff; }
                                 * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 20mm 12mm 20mm 12mm; display: flex; align-items: flex-start; justify-content: center; }
-                                /* Evităm tăierea pe pagini și forțăm dimensiunea exactă */
-                                #member-card { width: 85.6mm !important; height: 54mm !important; border: none !important; box-shadow: none !important; page-break-inside: avoid; break-inside: avoid; }
+                                                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 20mm 12mm 20mm 12mm; display: flex; align-items: center; justify-content: center; }
+                                                                                                /* Evităm tăierea pe pagini și forțăm dimensiunea exactă (CI: 110mm × 80mm) */
+                                                                #member-card {
+                                                                                                    width: 110mm !important;
+                                                                                                    height: 80mm !important;
+                                                                    border: none !important;
+                                                                    box-shadow: none !important;
+                                                                    page-break-inside: avoid; break-inside: avoid;
+                                                                    transform: none !important;
+                                                                    zoom: 1;
+                                                                }
                             </style>
                         </head>
                         <body>
@@ -328,7 +336,7 @@
                             <script>
                                 // Hide upload controls in print
                                 document.querySelectorAll('input[type=file], label[for=photo-upload]').forEach(el => el && (el.style.display = 'none'));
-                                setTimeout(() => { window.print(); window.close(); }, 250);
+                                setTimeout(() => { window.print(); window.close(); }, 500);
                             <\/script>
                         </body>
                         </html>
