@@ -49,10 +49,10 @@
                             <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="150" y2="125" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#0033a0"/>
                                 <!-- În triunghi este vizibilă fix jumătate din diagonala gradientului (50%). Împărțim în 3 benzi egale: 0–16.67–33.33–50%. -->
-                                <stop offset="16.67%" stop-color="#0033a0"/>
-                                <stop offset="16.67%" stop-color="#ffd100"/>
-                                <stop offset="33.33%" stop-color="#ffd100"/>
-                                <stop offset="33.33%" stop-color="#de2110"/>
+                                <stop offset="16%" stop-color="#0033a0"/>
+                                <stop offset="16%" stop-color="#ffd100"/>
+                                <stop offset="32%" stop-color="#ffd100"/>
+                                <stop offset="32%" stop-color="#de2110"/>
                                 <stop offset="50%" stop-color="#de2110"/>
                                 <stop offset="100%" stop-color="#de2110"/>
                             </linearGradient>
