@@ -47,10 +47,12 @@
                             </clipPath>
                             <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#0033a0"/>
-                                <stop offset="33.33%" stop-color="#0033a0"/>
-                                <stop offset="33.33%" stop-color="#ffd100"/>
-                                <stop offset="66.66%" stop-color="#ffd100"/>
-                                <stop offset="66.66%" stop-color="#de2110"/>
+                                <!-- Vizibil doar ~54.55% din gradient în triunghi; împărțim în 3 benzi egale -->
+                                <stop offset="18.18%" stop-color="#0033a0"/>
+                                <stop offset="18.18%" stop-color="#ffd100"/>
+                                <stop offset="36.36%" stop-color="#ffd100"/>
+                                <stop offset="36.36%" stop-color="#de2110"/>
+                                <stop offset="54.55%" stop-color="#de2110"/>
                                 <stop offset="100%" stop-color="#de2110"/>
                             </linearGradient>
                         </defs>
@@ -216,9 +218,9 @@
 
                                                             // Înlocuim banda tricoloră în clonă cu versiunea cu benzi paralele egale (compatibil PDF)
                                         try {
-                                                const flagHost = elementClone.querySelector('#ccb-flag');
-                                                if (flagHost) {
-                                                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                        const flagHost = elementClone.querySelector('#ccb-flag');
+                        if (flagHost) {
+                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#de2110\"/>\n      <stop offset=\"54.55%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
                                                         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
                                                         flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
                                                 }
@@ -286,9 +288,9 @@
 
                                                             // Înlocuim banda tricoloră și în print cu versiunea cu benzi paralele egale
                                         try {
-                                                const flagHost = cardClone.querySelector('#ccb-flag');
-                                                if (flagHost) {
-                                                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                        const flagHost = cardClone.querySelector('#ccb-flag');
+                        if (flagHost) {
+                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#de2110\"/>\n      <stop offset=\"54.55%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
                                                         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
                                                         flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
                                                 }
