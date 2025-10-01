@@ -38,12 +38,15 @@
             {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Banda tricoloră diagonală (varianta corectată) --}}
+                {{-- Banda tricoloră diagonală (aliniată ca pe legitimație) --}}
                 <div class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M0,0 L50,0 L0,50 L0,0 Z" style="fill: #0066cc;"/>
-                        <path d="M25,0 L75,0 L0,75 L0,25 Z" style="fill: #ffcc00;"/>
-                        <path d="M50,0 L75,0 L0,75 L0,50" style="fill: #cc0000;"/>
+                    <svg width="100%" height="100%" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true">
+                        <!-- Albastru -->
+                        <polygon points="0,0 100,0 0,120" fill="#0033a0"></polygon>
+                        <!-- Galben (bandă la interior) -->
+                        <polygon points="18,0 100,0 0,120 0,102" fill="#ffd100"></polygon>
+                        <!-- Roșu (cea mai interioară bandă) -->
+                        <polygon points="36,0 100,0 0,120 0,84" fill="#de2110"></polygon>
                     </svg>
                 </div>
 
