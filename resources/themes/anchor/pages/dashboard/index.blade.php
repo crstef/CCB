@@ -17,7 +17,6 @@
         {{-- Legitimație de membru CCB --}}
         <div class="mt-6 bg-white rounded-lg shadow-lg p-6" x-data="memberCard()">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-gray-900">Legitimația de Membru CCB</h3>
                 <div class="flex space-x-2">
                     <button @click="downloadPDF()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
