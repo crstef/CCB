@@ -115,13 +115,14 @@
                                     <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div> -->
                             </div>
-                            <div class="w-16 h-16">
-                            <img id="card-logo" src="{{ setting('site.favicon', '/wave/favicon.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
-                            </div>
+                            
                             <div class="text-xs text-right relative">
                                 {{-- Ștampila și semnătura președintelui --}}                             
                                 <div class="font-semibold">Președinte CCB</div>
                                 <div class="mt-1">Gabriel Panoiu</div>
+                                <div class="w-16 h-16">
+                            <img id="card-logo" src="{{ setting('site.favicon', '/wave/favicon.png') }}" alt="Logo CCB" class="w-full h-full object-contain">
+                            </div>
                             </div>
                         </div>
                     </div>
