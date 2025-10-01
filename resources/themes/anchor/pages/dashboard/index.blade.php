@@ -95,7 +95,11 @@
                         </div>
 
                         {{-- Detalii și Semnătură --}}
-                        <div class="ml-4 flex-grow flex flex-col text-sm">
+                        <div class="ml-4 flex-grow flex flex-col text-sm relative">
+                            {{-- Ștampila poziționată în dreapta întregii zone --}}
+                            <div class="absolute top-12 -right-8 w-28 h-20 z-20">
+                                <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
+                            </div>
                             <div class="flex-grow space-y-2">
                                 <div class="flex items-baseline">
                                     <span class="font-semibold" style="width: 70px;">Nume</span>
@@ -107,11 +111,8 @@
                                 </div>
                                 <div class="pt-1">
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span> 
-                                    <div class="absolute -top-10 -right-16 w-32 h-22 z-20">
-                                        <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
-                                    </div>  
-                                </div>  
+                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>
+                                </div>
                             </div>
                             <div class="text-xs text-right relative">
                                 {{-- Ștampila și semnătura președintelui --}}                             
