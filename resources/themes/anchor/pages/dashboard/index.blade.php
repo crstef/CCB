@@ -115,6 +115,7 @@
                                     <span class="font-semibold" style="width: 70px;">Nume</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">{{ auth()->user()->name ?? 'Cristian' }}</span>
                                 </div>
+                                <div class="flex items-baseline">
                                     <span class="font-semibold" style="width: 70px;">Calitatea</span>
                                     <span class="ml-2 border-b border-dotted border-black flex-grow pb-1">Membru CCB</span>
                                 </div>
