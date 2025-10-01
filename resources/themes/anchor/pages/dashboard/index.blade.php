@@ -45,7 +45,8 @@
                             <clipPath id="ccbFlagClipAll">
                                 <polygon points="0,0 125,0 0,150" />
                             </clipPath>
-                            <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
+                            <!-- Gradient orientat perpendicular pe ipotenuză (x2=150, y2=125) pentru benzi paralele -->
+                            <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="150" y2="125" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#0033a0"/>
                                 <!-- În triunghi este vizibilă fix jumătate din diagonala gradientului (50%). Împărțim în 3 benzi egale: 0–16.67–33.33–50%. -->
                                 <stop offset="16.67%" stop-color="#0033a0"/>
@@ -220,9 +221,10 @@
                                         try {
                         const flagHost = elementClone.querySelector('#ccb-flag');
                         if (flagHost) {
-                                                                        const svgFlag = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
-                                                                        flagHost.innerHTML = svgFlag;
-                                                }
+                            const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"150\" y2=\"125\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                            const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
+                            flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                        }
                                         } catch (e) { console.warn('Flag replacement for PDF failed:', e); }
 
                     // Embed logo as Base64
@@ -250,8 +252,8 @@
                             scale: 3, 
                             useCORS: true,
                             backgroundColor: '#ffffff',
-                            width: 450,
-                            height: 280,
+                            width: 450,  // card width px
+                            height: 280, // card height px
                             scrollX: 0,
                             scrollY: 0,
                         },
@@ -314,7 +316,7 @@
                                 html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: #ffffff; }
                                 * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 15mm 10mm; display: flex; align-items: flex-start; justify-content: center; }
+                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 20mm 12mm 20mm 12mm; display: flex; align-items: flex-start; justify-content: center; }
                                 /* Evităm tăierea pe pagini și forțăm dimensiunea exactă */
                                 #member-card { width: 85.6mm !important; height: 54mm !important; border: none !important; box-shadow: none !important; page-break-inside: avoid; break-inside: avoid; }
                             </style>
