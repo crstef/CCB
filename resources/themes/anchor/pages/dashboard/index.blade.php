@@ -107,11 +107,11 @@
                                 </div>
                                 <div class="pt-1">
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
-                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>   
-                                </div>
-                                <div class="absolute -top-10 right-2 w-32 h-22 z-14">
+                                    <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span> 
+                                    <div class="absolute -top-10 right-2 w-32 h-22 z-14">
                                     <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
-                                </div>
+                                    </div>  
+                                </div>  
                             </div>
                             <div class="text-xs text-right relative">
                                 {{-- Ștampila și semnătura președintelui --}}                             
