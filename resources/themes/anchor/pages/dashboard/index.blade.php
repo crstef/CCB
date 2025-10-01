@@ -43,8 +43,8 @@
                     <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                         <!-- Albastru -->
                         <path d="M0,0 L60,0 L0,60 L0,0 Z" fill="#0033a0"/>
-                        <!-- Galben -->
-                        <path d="M20,0 L70,0 L0,70 L0,20 Z" fill="#ffd100"/>
+                        <!-- Galben (ușor mai îngust pentru a mări albastrul) -->
+                        <path d="M25,0 L70,0 L0,70 L0,25 Z" fill="#ffd100"/>
                         <!-- Roșu mai îngust (mutăm începutul de la 50 la 62) -->
                         <path d="M60,0 L100,0 L0,100 L0,60 Z" fill="#de2110"/>
                     </svg>
