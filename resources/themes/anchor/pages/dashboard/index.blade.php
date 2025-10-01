@@ -38,29 +38,25 @@
             {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Bandă tricoloră (pe pagină: varianta originală, roșu ușor mai îngust) --}}
-                <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <!-- Albastru -->
-                        <path d="M0,0 L60,0 L0,60 L0,0 Z" fill="#0033a0"/>
-                        <!-- Galben (ușor mai îngust pentru a mări albastrul) -->
-                        <path d="M25,0 L70,0 L0,70 L0,25 Z" fill="#ffd100"/>
-                        <!-- Roșu mai îngust (mutăm începutul de la 50 la 62) -->
-                        <path d="M60,0 L100,0 L0,100 L0,60 Z" fill="#de2110"/>
+                {{-- Bandă tricoloră cu trei benzi paralele egale (browser + PDF/Print) --}}
+                <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 140px; z-index: 10;">
+                    <svg width="100%" height="100%" viewBox="0 0 125 150" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                            <clipPath id="ccbFlagClipAll">
+                                <polygon points="0,0 125,0 0,150" />
+                            </clipPath>
+                            <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#0033a0"/>
+                                <stop offset="33.33%" stop-color="#0033a0"/>
+                                <stop offset="33.33%" stop-color="#ffd100"/>
+                                <stop offset="66.66%" stop-color="#ffd100"/>
+                                <stop offset="66.66%" stop-color="#de2110"/>
+                                <stop offset="100%" stop-color="#de2110"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="-75" y="-75" width="300" height="300" fill="url(#ccbFlagGradAll)" clip-path="url(#ccbFlagClipAll)"/>
                     </svg>
                 </div>
-                    {{-- Bandă tricoloră actualizată --}}
-                    <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 120px; z-index: 10;">
-                        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                            <!-- Benzi egale (aprox 30/30/40 pe axa de sus; la 45° sunt egale ca grosime) -->
-                            <!-- Albastru -->
-                            <path d="M0,0 L30,0 L0,30 L0,0 Z" fill="#0033a0"/>
-                            <!-- Galben -->
-                            <path d="M30,0 L60,0 L0,60 L0,30 Z" fill="#ffd100"/>
-                            <!-- Roșu -->
-                            <path d="M60,0 L100,0 L0,100 L0,60 Z" fill="#de2110"/>
-                        </svg>
-                    </div>
 
                 <div style="position: relative; z-index: 1; padding: 16px; height: 100%; display: flex; flex-direction: column;">
                     {{-- Header --}}
@@ -218,11 +214,11 @@
                                         const element = document.getElementById('member-card');
                                         const elementClone = element.cloneNode(true);
 
-                                                            // Înlocuim banda tricoloră în clonă cu o versiune tip „pană” (roșu mai îngust) pentru PDF
+                                                            // Înlocuim banda tricoloră în clonă cu versiunea cu benzi paralele egale (compatibil PDF)
                                         try {
                                                 const flagHost = elementClone.querySelector('#ccb-flag');
                                                 if (flagHost) {
-                                                                            const svgFlag = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\">\n  <path d=\"M0,0 L50,0 L0,50 L0,0 Z\" fill=\"#0033a0\"/>\n  <path d=\"M25,0 L75,0 L0,75 L0,25 Z\" fill=\"#ffd100\"/>\n  <path d=\"M62,0 L100,0 L0,100 L0,62 Z\" fill=\"#de2110\"/>\n</svg>`;
+                                                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
                                                         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
                                                         flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
                                                 }
@@ -288,11 +284,11 @@
                         // For now, we hope the browser caches it from the PDF generation
                     }
 
-                                                            // Înlocuim banda tricoloră și în print cu aceeași versiune tip „pană” (roșu mai îngust)
+                                                            // Înlocuim banda tricoloră și în print cu versiunea cu benzi paralele egale
                                         try {
                                                 const flagHost = cardClone.querySelector('#ccb-flag');
                                                 if (flagHost) {
-                                                                            const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\">\n  <path d=\"M0,0 L50,0 L0,50 L0,0 Z\" fill=\"#0033a0\"/>\n  <path d=\"M25,0 L75,0 L0,75 L0,25 Z\" fill=\"#ffd100\"/>\n  <path d=\"M62,0 L100,0 L0,100 L0,62 Z\" fill=\"#de2110\"/>\n</svg>`;
+                                                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"66.66%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
                                                         const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
                                                         flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
                                                 }
