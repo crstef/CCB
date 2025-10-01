@@ -7,11 +7,10 @@
 <x-layouts.app>
 	<x-app.container x-data class="lg:space-y-6" x-cloak>
 
-		<x-app.alert id="dashboard_alert" class="hidden lg:flex">Acesta este panoul de utilizator unde utilizatorii pot gestiona setările și accesa funcționalitățile. <a href="https://devdojo.com/wave/docs" target="_blank" class="mx-1 underline">Vezi documentația</a> pentru a afla mai multe.</x-app.alert>
-
+        {{-- Titlu Pagina --}}  
         <x-app.heading
-                title="Pagina de Control"
-                description="Bine ai venit pe panoul de control al aplicației. Găsește mai multe resurse mai jos."
+                title="Legitimatia de Membru CCB"
+                description="Bine ai venit. Mai jos poti regasi legitimatia de membru CCB."
                 :border="false"
             />
 
@@ -113,7 +112,7 @@
                             </div>
                             <div class="text-xs text-right relative">
                                 {{-- Ștampila și semnătura președintelui --}}
-                                <div class="absolute -top-8 -right-1 w-24 h-18 z-20">
+                                <div class="absolute -top-10 -right-6 w-28 h-22 z-20">
                                     <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div>
                                 <div class="font-semibold">Președinte CCB</div>
