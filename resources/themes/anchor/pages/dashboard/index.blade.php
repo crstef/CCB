@@ -109,9 +109,9 @@
                                     <span class="font-semibold text-sm">Perioada de valabilitate</span>
                                     <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>   
                                 </div>
-                                <!-- Ștampila poziționată în partea dreapta jos, peste text -->
-                                <div class="absolute -bottom-1 -right-14 w-32 h-20 z-30 pointer-events-none">
-                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-85">
+                                <!-- Ștampila poziționată în partea dreaptă jos, peste text (forțăm poziția cu inline style pentru consistență) -->
+                                <div class="absolute w-32 h-20 z-30 pointer-events-none left-auto" style="right: -60px; bottom: -4px;">
+                                    <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div>
                             </div>
                             <div class="text-xs text-right relative">
