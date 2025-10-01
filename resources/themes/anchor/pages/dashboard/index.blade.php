@@ -117,6 +117,7 @@
                                 </div>
                                 <div class="font-semibold">Președinte CCB</div>
                                 <div class="mt-1">Gabriel Panoiu</div>
+                                <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                             </div>
                         </div>
                     </div>
