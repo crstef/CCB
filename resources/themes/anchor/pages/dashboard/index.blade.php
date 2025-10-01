@@ -110,7 +110,7 @@
                                     <span class="ml-4 font-bold">{{ date('Y') - 1 }} - {{ date('Y') }}</span>   
                                 </div>
                                 <!-- Ștampila poziționată în partea dreaptă jos, peste text (forțăm poziția cu inline style pentru consistență) -->
-                                <div class="absolute w-33 h-24 z-26 pointer-events-none left-auto" style="right: -20px; bottom: -2px;">
+                                <div class="absolute w-33 h-24 z-26 pointer-events-none left-auto" style="right: -20px; bottom: -8px;">
                                     <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div>
                             </div>
