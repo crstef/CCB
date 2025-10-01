@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="text-xs text-right relative">
-                                <div class="absolute top-12 -right-8 w-28 h-20 z-20">
+                                <div class="relative top-12 -right-8 w-28 h-20 z-20">
                                     <img src="/images/stampila_presedinte.png" alt="Ștampila Președinte CCB" class="w-full h-full object-contain opacity-80">
                                 </div>
                                 {{-- Ștampila și semnătura președintelui --}}                             
