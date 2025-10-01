@@ -58,7 +58,7 @@
                             <!-- Galben -->
                             <path d="M30,0 L60,0 L0,60 L0,30 Z" fill="#ffd100"/>
                             <!-- Roșu -->
-                            <path d="M50,0 L90,0 L0,90 L0,50 Z" fill="#de2110"/>
+                            <path d="M60,0 L100,0 L0,100 L0,60 Z" fill="#de2110"/>
                         </svg>
                     </div>
 
