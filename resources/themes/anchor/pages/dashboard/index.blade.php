@@ -42,7 +42,7 @@
                 <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
                     <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                         <!-- Albastru -->
-                        <path d="M0,0 L50,0 L0,50 L0,0 Z" fill="#0033a0"/>
+                        <path d="M0,0 L60,0 L0,60 L0,0 Z" fill="#0033a0"/>
                         <!-- Galben -->
                         <path d="M20,0 L70,0 L0,70 L0,20 Z" fill="#ffd100"/>
                         <!-- Roșu mai îngust (mutăm începutul de la 50 la 62) -->
