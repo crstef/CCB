@@ -47,12 +47,12 @@
                             </clipPath>
                             <linearGradient id="ccbFlagGradAll" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#0033a0"/>
-                                <!-- Vizibil doar ~54.55% din gradient în triunghi; împărțim în 3 benzi egale -->
-                                <stop offset="18.18%" stop-color="#0033a0"/>
-                                <stop offset="18.18%" stop-color="#ffd100"/>
-                                <stop offset="36.36%" stop-color="#ffd100"/>
-                                <stop offset="36.36%" stop-color="#de2110"/>
-                                <stop offset="54.55%" stop-color="#de2110"/>
+                                <!-- În triunghi este vizibilă fix jumătate din diagonala gradientului (50%). Împărțim în 3 benzi egale: 0–16.67–33.33–50%. -->
+                                <stop offset="16.67%" stop-color="#0033a0"/>
+                                <stop offset="16.67%" stop-color="#ffd100"/>
+                                <stop offset="33.33%" stop-color="#ffd100"/>
+                                <stop offset="33.33%" stop-color="#de2110"/>
+                                <stop offset="50%" stop-color="#de2110"/>
                                 <stop offset="100%" stop-color="#de2110"/>
                             </linearGradient>
                         </defs>
@@ -220,9 +220,8 @@
                                         try {
                         const flagHost = elementClone.querySelector('#ccb-flag');
                         if (flagHost) {
-                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#de2110\"/>\n      <stop offset=\"54.55%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
-                                                        const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
-                                                        flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                                                                        const svgFlag = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                                                                        flagHost.innerHTML = svgFlag;
                                                 }
                                         } catch (e) { console.warn('Flag replacement for PDF failed:', e); }
 
@@ -290,9 +289,8 @@
                                         try {
                         const flagHost = cardClone.querySelector('#ccb-flag');
                         if (flagHost) {
-                                    const svgFlag = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"125\" height=\"150\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"18.18%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"36.36%\" stop-color=\"#de2110\"/>\n      <stop offset=\"54.55%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
-                                                        const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
-                                                        flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                                                                        const svgFlag = `<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 125 150\" preserveAspectRatio=\"none\">\n  <defs>\n    <clipPath id=\"clip\"><polygon points=\"0,0 125,0 0,150\"/></clipPath>\n    <linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"125\" y2=\"150\" gradientUnits=\"userSpaceOnUse\">\n      <stop offset=\"0%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#0033a0\"/>\n      <stop offset=\"16.67%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#ffd100\"/>\n      <stop offset=\"33.33%\" stop-color=\"#de2110\"/>\n      <stop offset=\"50%\" stop-color=\"#de2110\"/>\n      <stop offset=\"100%\" stop-color=\"#de2110\"/>\n    </linearGradient>\n  </defs>\n  <rect x=\"-75\" y=\"-75\" width=\"300\" height=\"300\" fill=\"url(#g)\" clip-path=\"url(#clip)\"/>\n</svg>`;
+                                                                        flagHost.innerHTML = svgFlag;
                                                 }
                                         } catch (e) { console.warn('Flag replacement for Print failed:', e); }
 
@@ -311,42 +309,24 @@
                             ${linkTags}
                             ${styleTags}
                             <style>
-                                @page { 
-                                    size: 85.6mm 54mm; 
-                                    margin: 0;
-                                }
-                                html, body { 
-                                    width: 100%;
-                                    height: 100%;
-                                    margin: 0; 
-                                    padding: 0; 
-                                    background: #ffffff; 
-                                    display: flex; 
-                                    justify-content: center; 
-                                    align-items: center;
-                                }
-                                * {
-                                    -webkit-print-color-adjust: exact !important;
-                                    print-color-adjust: exact !important;
-                                }
-                                #member-card {
-                                    width: 85.6mm;
-                                    height: 54mm;
-                                    transform: scale(1);
-                                    border: none !important;
-                                    box-shadow: none !important;
-                                }
+                                /* Tipărim pe A4, dar cardul rămâne la dimensiunea reală ID-1 */
+                                @page { size: A4; margin: 0; }
+                                html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; background: #ffffff; }
+                                * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+                                .sheet { width: 210mm; height: 297mm; box-sizing: border-box; padding: 15mm 10mm; display: flex; align-items: flex-start; justify-content: center; }
+                                /* Evităm tăierea pe pagini și forțăm dimensiunea exactă */
+                                #member-card { width: 85.6mm !important; height: 54mm !important; border: none !important; box-shadow: none !important; page-break-inside: avoid; break-inside: avoid; }
                             </style>
                         </head>
                         <body>
-                            ${cardHtml}
+                            <div class="sheet">
+                                ${cardHtml}
+                            </div>
                             <script>
                                 // Hide upload controls in print
                                 document.querySelectorAll('input[type=file], label[for=photo-upload]').forEach(el => el && (el.style.display = 'none'));
-                                setTimeout(() => {
-                                    window.print();
-                                    window.close();
-                                }, 250);
+                                setTimeout(() => { window.print(); window.close(); }, 250);
                             <\/script>
                         </body>
                         </html>
