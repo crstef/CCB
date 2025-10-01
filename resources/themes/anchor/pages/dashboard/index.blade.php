@@ -38,15 +38,26 @@
             {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Banda tricoloră diagonală (aliniată ca pe legitimație) --}}
+                {{-- Bandă tricoloră tăiată în triunghi, cu benzi paralele (identic în HTML / PDF / Print) --}}
                 <div class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
-                    <svg width="100%" height="100%" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true">
-                        <!-- Albastru -->
-                        <polygon points="0,0 100,0 0,120" fill="#0033a0"></polygon>
-                        <!-- Galben (bandă la interior) -->
-                        <polygon points="18,0 100,0 0,120 0,102" fill="#ffd100"></polygon>
-                        <!-- Roșu (cea mai interioară bandă) -->
-                        <polygon points="36,0 100,0 0,120 0,84" fill="#de2110"></polygon>
+                    <svg width="100%" height="100%" viewBox="0 0 125 150" preserveAspectRatio="none" aria-hidden="true" role="img">
+                        <defs>
+                            <clipPath id="ccbFlagClip">
+                                <!-- Triunghiul colțului stânga-sus -->
+                                <polygon points="0,0 125,0 0,150"></polygon>
+                            </clipPath>
+                            <!-- Gradient cu opriri tari pentru trei benzi paralele -->
+                            <linearGradient id="ccbFlagGradient" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#0033a0"/>
+                                <stop offset="33.33%" stop-color="#0033a0"/>
+                                <stop offset="33.33%" stop-color="#ffd100"/>
+                                <stop offset="66.66%" stop-color="#ffd100"/>
+                                <stop offset="66.66%" stop-color="#de2110"/>
+                                <stop offset="100%" stop-color="#de2110"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Umplem o suprafață mare cu gradientul și o decupăm la triunghi -->
+                        <rect x="-75" y="-75" width="300" height="300" fill="url(#ccbFlagGradient)" clip-path="url(#ccbFlagClip)"/>
                     </svg>
                 </div>
 
