@@ -38,26 +38,12 @@
             {{-- Legitimația - Corecții finale --}}
             <div id="member-card" class="max-w-lg mx-auto bg-white border-2 border-gray-800" style="width: 450px; height: 280px; position: relative; font-family: 'Times New Roman', Times, serif; overflow: hidden;">
                 
-                {{-- Bandă tricoloră tăiată în triunghi, cu benzi paralele (identic în HTML / PDF / Print) --}}
-                <div class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
-                    <svg width="100%" height="100%" viewBox="0 0 125 150" preserveAspectRatio="none" aria-hidden="true" role="img">
-                        <defs>
-                            <clipPath id="ccbFlagClip">
-                                <!-- Triunghiul colțului stânga-sus -->
-                                <polygon points="0,0 125,0 0,150"></polygon>
-                            </clipPath>
-                            <!-- Gradient cu opriri tari pentru trei benzi paralele -->
-                            <linearGradient id="ccbFlagGradient" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#0033a0"/>
-                                <stop offset="33.33%" stop-color="#0033a0"/>
-                                <stop offset="33.33%" stop-color="#ffd100"/>
-                                <stop offset="66.66%" stop-color="#ffd100"/>
-                                <stop offset="66.66%" stop-color="#de2110"/>
-                                <stop offset="100%" stop-color="#de2110"/>
-                            </linearGradient>
-                        </defs>
-                        <!-- Umplem o suprafață mare cu gradientul și o decupăm la triunghi -->
-                        <rect x="-75" y="-75" width="300" height="300" fill="url(#ccbFlagGradient)" clip-path="url(#ccbFlagClip)"/>
+                {{-- Bandă tricoloră (varianta pentru vizualizarea în pagină - stabilă) --}}
+                <div id="ccb-flag" class="absolute top-0 left-0" style="width: 125px; height: 150px; z-index: 10;">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0,0 L50,0 L0,50 L0,0 Z" fill="#0033a0"/>
+                        <path d="M25,0 L75,0 L0,75 L0,25 Z" fill="#ffd100"/>
+                        <path d="M50,0 L100,0 L0,100 L0,50 Z" fill="#de2110"/>
                     </svg>
                 </div>
 
@@ -214,8 +200,32 @@
                         await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
                     }
                     
-                    const element = document.getElementById('member-card');
-                    const elementClone = element.cloneNode(true);
+                                        const element = document.getElementById('member-card');
+                                        const elementClone = element.cloneNode(true);
+
+                                        // Înlocuim banda tricoloră în clonă cu o versiune "steag" (benzi paralele) pentru PDF
+                                        try {
+                                                const flagHost = elementClone.querySelector('#ccb-flag');
+                                                if (flagHost) {
+                                                        const svgFlag = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="125" height="150" viewBox="0 0 125 150" preserveAspectRatio="none">
+    <defs>
+        <clipPath id="clip"><polygon points="0,0 125,0 0,150"/></clipPath>
+        <linearGradient id="g" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0033a0"/>
+            <stop offset="33.33%" stop-color="#0033a0"/>
+            <stop offset="33.33%" stop-color="#ffd100"/>
+            <stop offset="66.66%" stop-color="#ffd100"/>
+            <stop offset="66.66%" stop-color="#de2110"/>
+            <stop offset="100%" stop-color="#de2110"/>
+        </linearGradient>
+    </defs>
+    <rect x="-75" y="-75" width="300" height="300" fill="url(#g)" clip-path="url(#clip)"/>
+</svg>`;
+                                                        const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
+                                                        flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                                                }
+                                        } catch (e) { console.warn('Flag replacement for PDF failed:', e); }
 
                     // Embed logo as Base64
                     const logoImg = elementClone.querySelector('#card-logo');
@@ -277,7 +287,31 @@
                         // For now, we hope the browser caches it from the PDF generation
                     }
 
-                    const cardHtml = cardClone.outerHTML;
+                                        // Înlocuim banda tricoloră și în print cu versiunea cu benzi paralele
+                                        try {
+                                                const flagHost = cardClone.querySelector('#ccb-flag');
+                                                if (flagHost) {
+                                                        const svgFlag = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="125" height="150" viewBox="0 0 125 150" preserveAspectRatio="none">
+    <defs>
+        <clipPath id="clip"><polygon points="0,0 125,0 0,150"/></clipPath>
+        <linearGradient id="g" x1="0" y1="0" x2="125" y2="150" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0033a0"/>
+            <stop offset="33.33%" stop-color="#0033a0"/>
+            <stop offset="33.33%" stop-color="#ffd100"/>
+            <stop offset="66.66%" stop-color="#ffd100"/>
+            <stop offset="66.66%" stop-color="#de2110"/>
+            <stop offset="100%" stop-color="#de2110"/>
+        </linearGradient>
+    </defs>
+    <rect x="-75" y="-75" width="300" height="300" fill="url(#g)" clip-path="url(#clip)"/>
+</svg>`;
+                                                        const dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFlag)));
+                                                        flagHost.innerHTML = `<img src="${dataUrl}" alt="Tricolor" style="width:100%;height:100%;object-fit:cover;">`;
+                                                }
+                                        } catch (e) { console.warn('Flag replacement for Print failed:', e); }
+
+                                        const cardHtml = cardClone.outerHTML;
 
                     // Collect current stylesheets and inline styles
                     const styleTags = Array.from(document.querySelectorAll('style')).map(tag => tag.outerHTML).join('\n');
