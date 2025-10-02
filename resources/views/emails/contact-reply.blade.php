@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <        <div class="header">
-            <div class="logo-container">
-                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" class="logo" style="width: 120px; height: 120px; border-radius: 50%; background: white; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
-            </div>
-            <h1>Clubul de Ciobănești Belgieni</h1>
-            <p>Răspuns la mesajul dumneavoastră</p>
-        </div>ăspuns la mesajul dumneavoastră</title>
+    <title>Răspuns la mesajul dumneavoastră</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -48,8 +42,8 @@
             margin-bottom: 15px;
         }
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             background: white;
             border-radius: 50%;
             display: inline-flex;
@@ -153,7 +147,7 @@
     <div class="email-container">
         <div class="header">
             <div class="logo-container">
-                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" class="logo" style="width: 90px; height: 90px; border-radius: 50%; background: white; padding: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" class="logo" style="width: 120px; height: 120px; border-radius: 50%; background: white; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
             </div>
             <h1>Clubul de Ciobănești Belgieni</h1>
             <p>Răspuns la mesajul dumneavoastră</p>
