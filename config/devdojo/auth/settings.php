@@ -6,7 +6,7 @@
 return [
     'redirect_after_auth' => '/',
     'redirect_after_logout' => '/', // Redirect to homepage after logout
-    'registration_enabled' => true,
+    'registration_enabled' => false,
     'registration_show_password_same_screen' => true,
     'registration_include_name_field' => false,
     'registration_include_password_confirmation_field' => false,
