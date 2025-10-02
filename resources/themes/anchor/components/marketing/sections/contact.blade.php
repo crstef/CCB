@@ -200,97 +200,90 @@
     </div>
 </section>
 
-{{-- Modal Popup pentru Success/Error --}}
-<div id="contactModal" class="fixed inset-0 z-50 hidden">
-    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-    <div class="fixed inset-0 z-10 overflow-y-auto">
-        <div class="flex min-h-full items-center justify-center p-4">
-            <div class="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div id="modalIcon" class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
-                            <!-- Icon va fi setat dinamic -->
-                        </div>
-                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                            <h3 id="modalTitle" class="text-lg font-semibold leading-6 text-gray-900">
-                                <!-- Titlul va fi setat dinamic -->
-                            </h3>
-                            <div class="mt-2">
-                                <p id="modalMessage" class="text-sm text-gray-500">
-                                    <!-- Mesajul va fi setat dinamic -->
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button type="button" id="closeModal" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">
-                        Înțeles
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+{{-- Notification System (stil Filament) --}}
+<div id="notificationContainer" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
+    <!-- Notificările vor fi adăugate dinamic aici -->
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
-    const modal = document.getElementById('contactModal');
-    const modalIcon = document.getElementById('modalIcon');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalMessage = document.getElementById('modalMessage');
-    const closeModal = document.getElementById('closeModal');
+    const notificationContainer = document.getElementById('notificationContainer');
 
-    // Funcție pentru afișarea popup-ului
-    function showModal(type, title, message) {
-        // Setează icon-ul și culorile bazate pe tip
-        if (type === 'success') {
-            modalIcon.innerHTML = `
-                <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            `;
-            modalIcon.className = 'mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10';
-        } else {
-            modalIcon.innerHTML = `
-                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                </svg>
-            `;
-            modalIcon.className = 'mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10';
-        }
-
-        modalTitle.textContent = title;
-        modalMessage.textContent = message;
-        modal.classList.remove('hidden');
+    // Funcție pentru crearea notificărilor tip Filament
+    function showNotification(type, title, message, duration = 5000) {
+        // Creează elementul de notificare
+        const notification = document.createElement('div');
+        notification.className = `transform transition-all duration-500 ease-in-out translate-x-full opacity-0 pointer-events-auto max-w-sm w-full bg-white shadow-lg rounded-lg border-l-4 ${
+            type === 'success' 
+                ? 'border-green-500' 
+                : 'border-red-500'
+        }`;
         
-        // Focus pe butonul de închidere
-        closeModal.focus();
-    }
+        notification.innerHTML = `
+            <div class="p-4">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        ${type === 'success' 
+                            ? `<svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                               </svg>`
+                            : `<svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                               </svg>`
+                        }
+                    </div>
+                    <div class="ml-3 w-0 flex-1">
+                        <p class="text-sm font-medium text-gray-900">
+                            ${title}
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">
+                            ${message}
+                        </p>
+                    </div>
+                    <div class="ml-4 flex-shrink-0 flex">
+                        <button type="button" class="notification-close bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <span class="sr-only">Închide</span>
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
 
-    // Închiderea popup-ului
-    function hideModal() {
-        modal.classList.add('hidden');
-    }
+        // Adaugă notificarea în container
+        notificationContainer.appendChild(notification);
 
-    // Event listeners pentru închiderea popup-ului
-    closeModal.addEventListener('click', hideModal);
-    
-    // Închide popup-ul la apăsarea tastei Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-            hideModal();
+        // Animație de intrare
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full', 'opacity-0');
+            notification.classList.add('translate-x-0', 'opacity-100');
+        }, 100);
+
+        // Funcție pentru închidere
+        const closeNotification = () => {
+            notification.classList.add('translate-x-full', 'opacity-0');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 500);
+        };
+
+        // Event listener pentru butonul de închidere
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', closeNotification);
+
+        // Auto-închidere după durata specificată
+        if (duration > 0) {
+            setTimeout(closeNotification, duration);
         }
-    });
 
-    // Închide popup-ul la click pe backdrop
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            hideModal();
-        }
-    });
+        return notification;
+    }
 
     // Gestionarea formularului
     form.addEventListener('submit', async function(e) {
@@ -322,26 +315,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
 
             if (data.success) {
-                // Arată popup de succes
-                showModal('success', 
-                    '🎉 Mesaj trimis cu succes!', 
+                // Arată notificare de succes
+                showNotification('success', 
+                    'Mesaj trimis cu succes! 🎉', 
                     'Vă mulțumim pentru mesaj! Echipa CCB vă va contacta în cel mai scurt timp posibil.'
                 );
                 
                 // Reset form
                 form.reset();
             } else {
-                // Arată popup de eroare cu mesajul de la server
-                showModal('error', 
-                    '❌ Eroare la trimiterea mesajului', 
+                // Arată notificare de eroare cu mesajul de la server
+                showNotification('error', 
+                    'Eroare la trimiterea mesajului ❌', 
                     data.message || 'A apărut o problemă la trimiterea mesajului. Vă rugăm să încercați din nou.'
                 );
             }
         } catch (error) {
             console.error('Contact form error:', error);
-            // Arată popup de eroare pentru probleme de conexiune
-            showModal('error', 
-                '🌐 Problemă de conexiune', 
+            // Arată notificare de eroare pentru probleme de conexiune
+            showNotification('error', 
+                'Problemă de conexiune 🌐', 
                 'Nu s-a putut stabili conexiunea cu serverul. Verificați conexiunea la internet și încercați din nou.'
             );
         } finally {
@@ -352,6 +345,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Debugging: log când se încarcă script-ul
-    console.log('Contact form script loaded successfully');
+    console.log('Contact form notification system loaded successfully');
 });
 </script>
