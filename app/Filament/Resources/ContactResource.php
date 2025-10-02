@@ -283,14 +283,7 @@ class ContactResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->collapsible(),
-            ])
-            ->record(function ($record) {
-                // Auto-mark as read when viewing
-                if ($record->status === Contact::STATUS_NEW) {
-                    $record->markAsRead();
-                }
-                return $record;
-            });
+            ]);
     }
 
     public static function getRelations(): array
