@@ -44,7 +44,53 @@
                             <p class="text-gray-600">
                                 <a href="mailto:office@ccbor.ro" class="text-blue-600 font-semibold hover:text-blue-800">office@ccbor.ro</a>
                             </p>
-                            <p class="text-gray-500 text-sm mt-1">Răspuns în maxim 24 de ore</p>
+                        </div>
+                    </div>
+
+                    {{-- Address --}}
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Adresa clubului</h3>
+                            <p class="text-gray-600">
+                                Str. Lt. Grigore Stamatescu nr. 11<br>
+                                Sector 1, București
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Banking Information --}}
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Informații bancare</h3>
+                            <div class="text-gray-600 space-y-1 text-sm">
+                                <div>
+                                    <span class="font-medium">Cont LEI:</span><br>
+                                    <span class="font-mono text-blue-600">RO11BACX0000003950371000</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium">Cont EURO:</span><br>
+                                    <span class="font-mono text-blue-600">RO81BACX0000003950371001</span>
+                                </div>
+                                <div>
+                                    <span class="font-medium">Cod SWIFT:</span> 
+                                    <span class="font-mono text-blue-600">BACXROBU</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
