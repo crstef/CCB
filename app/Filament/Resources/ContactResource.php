@@ -4,16 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactResource\Pages;
 use App\Models\Contact;
+use App\Mail\ContactReply;
 use Filament\Forms;
-use Filament\F                TextColumn::make('created_at')
-                    ->label('Data mesajului')
-                    ->dateTime('d.m.Y H:i')
-                    ->sortable(),
-                TextColumn::make('replied_at')
-                    ->label('Răspuns trimis')
-                    ->dateTime('d.m.Y H:i')
-                    ->placeholder('—')
-                    ->sortable(),\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
