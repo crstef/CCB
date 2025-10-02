@@ -147,7 +147,7 @@
     <div class="email-container">
         <div class="header">
             <div class="logo-container">
-                <div class="logo">CCB</div>
+                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" class="logo" style="width: 80px; height: 80px; border-radius: 50%; background: white; padding: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
             </div>
             <h1>Clubul de Ciobănești Belgieni</h1>
             <p>Răspuns la mesajul dumneavoastră</p>

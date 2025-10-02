@@ -200,25 +200,111 @@
     </div>
 </section>
 
+{{-- Modal Popup pentru Success/Error --}}
+<div id="contactModal" class="fixed inset-0 z-50 hidden">
+    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div id="modalIcon" class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                            <!-- Icon va fi setat dinamic -->
+                        </div>
+                        <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 id="modalTitle" class="text-lg font-semibold leading-6 text-gray-900">
+                                <!-- Titlul va fi setat dinamic -->
+                            </h3>
+                            <div class="mt-2">
+                                <p id="modalMessage" class="text-sm text-gray-500">
+                                    <!-- Mesajul va fi setat dinamic -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" id="closeModal" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">
+                        Înțeles
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
-    const formMessages = document.getElementById('formMessages');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
+    const modal = document.getElementById('contactModal');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const closeModal = document.getElementById('closeModal');
 
+    // Funcție pentru afișarea popup-ului
+    function showModal(type, title, message) {
+        // Setează icon-ul și culorile bazate pe tip
+        if (type === 'success') {
+            modalIcon.innerHTML = `
+                <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            `;
+            modalIcon.className = 'mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10';
+        } else {
+            modalIcon.innerHTML = `
+                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            `;
+            modalIcon.className = 'mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10';
+        }
+
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+        modal.classList.remove('hidden');
+        
+        // Focus pe butonul de închidere
+        closeModal.focus();
+    }
+
+    // Închiderea popup-ului
+    function hideModal() {
+        modal.classList.add('hidden');
+    }
+
+    // Event listeners pentru închiderea popup-ului
+    closeModal.addEventListener('click', hideModal);
+    
+    // Închide popup-ul la apăsarea tastei Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+            hideModal();
+        }
+    });
+
+    // Închide popup-ul la click pe backdrop
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            hideModal();
+        }
+    });
+
+    // Gestionarea formularului
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Disable submit button and show loading state
+        // Disable submit button și arată starea de loading
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Se trimite...';
-
-        // Hide previous messages
-        formMessages.classList.add('hidden');
-        successMessage.classList.add('hidden');
-        errorMessage.classList.add('hidden');
+        submitBtn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Se trimite...
+        `;
 
         // Collect form data
         const formData = new FormData(form);
@@ -229,34 +315,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || formData.get('_token')
                 }
             });
 
             const data = await response.json();
 
             if (data.success) {
-                // Show success message
-                successMessage.classList.remove('hidden');
-                formMessages.classList.remove('hidden');
+                // Arată popup de succes
+                showModal('success', 
+                    '🎉 Mesaj trimis cu succes!', 
+                    'Vă mulțumim pentru mesaj! Echipa CCB vă va contacta în cel mai scurt timp posibil.'
+                );
                 
                 // Reset form
                 form.reset();
             } else {
-                // Show error message
-                errorMessage.textContent = data.message || 'A apărut o eroare la trimiterea mesajului.';
-                errorMessage.classList.remove('hidden');
-                formMessages.classList.remove('hidden');
+                // Arată popup de eroare cu mesajul de la server
+                showModal('error', 
+                    '❌ Eroare la trimiterea mesajului', 
+                    data.message || 'A apărut o problemă la trimiterea mesajului. Vă rugăm să încercați din nou.'
+                );
             }
         } catch (error) {
-            console.error('Error:', error);
-            errorMessage.textContent = 'A apărut o eroare de conexiune. Vă rugăm să încercați din nou.';
-            errorMessage.classList.remove('hidden');
-            formMessages.classList.remove('hidden');
+            console.error('Contact form error:', error);
+            // Arată popup de eroare pentru probleme de conexiune
+            showModal('error', 
+                '🌐 Problemă de conexiune', 
+                'Nu s-a putut stabili conexiunea cu serverul. Verificați conexiunea la internet și încercați din nou.'
+            );
         } finally {
             // Re-enable submit button
             submitBtn.disabled = false;
             submitBtn.textContent = 'Trimite mesajul';
         }
     });
+
+    // Debugging: log când se încarcă script-ul
+    console.log('Contact form script loaded successfully');
 });
 </script>

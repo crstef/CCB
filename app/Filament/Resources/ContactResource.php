@@ -196,17 +196,31 @@ class ContactResource extends Resource
                     ->icon('heroicon-o-envelope')
                     ->color('primary')
                     ->form([
-                        Forms\Components\TextInput::make('reply_subject')
-                            ->label('Subiect răspuns')
-                            ->default(fn (Contact $record): string => 'Re: ' . $record->subject)
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Textarea::make('reply_message')
-                            ->label('Mesajul dumneavoastră')
-                            ->required()
-                            ->rows(8)
-                            ->placeholder('Scrieți răspunsul aici...')
-                            ->helperText('Mesajul original va fi inclus automat în email.'),
+                        Forms\Components\Section::make('Mesajul original')
+                            ->schema([
+                                Forms\Components\Placeholder::make('original_message_info')
+                                    ->label('')
+                                    ->content(function (Contact $record): string {
+                                        return "**De la:** {$record->full_name} ({$record->email})\n**Subiect:** {$record->subject}\n**Data:** {$record->created_at->format('d.m.Y la H:i')}\n\n**Mesaj:**\n{$record->message}";
+                                    })
+                                    ->columnSpanFull(),
+                            ])
+                            ->collapsible()
+                            ->collapsed(false),
+                        Forms\Components\Section::make('Răspunsul dumneavoastră')
+                            ->schema([
+                                Forms\Components\TextInput::make('reply_subject')
+                                    ->label('Subiect răspuns')
+                                    ->default(fn (Contact $record): string => 'Re: ' . $record->subject)
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\Textarea::make('reply_message')
+                                    ->label('Mesajul dumneavoastră')
+                                    ->required()
+                                    ->rows(8)
+                                    ->placeholder('Scrieți răspunsul aici...')
+                                    ->helperText('Mesajul original va fi inclus automat în email.'),
+                            ]),
                     ])
                     ->action(function (Contact $record, array $data): void {
                         try {
