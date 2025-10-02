@@ -88,6 +88,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->login(route('login'))
+            ->authGuard('web')
             ->brandLogo(fn () => view('wave::admin.logo'))
             ->darkModeBrandLogo(fn () => view('wave::admin.logo-dark'));
     }

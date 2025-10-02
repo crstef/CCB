@@ -39,8 +39,11 @@ class AuthController extends Controller
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->boolean('remember'))) {
             RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
+            
+            // Clear any intended URL to prevent redirect to admin panel
+            $request->session()->forget('url.intended');
 
-            return redirect()->intended('/');
+            return redirect('/');
         }
 
         RateLimiter::hit($this->throttleKey($request));
@@ -92,8 +95,10 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
+        
+        // Ensure any intended URL is cleared
+        $request->session()->forget('url.intended');
 
         return redirect('/');
     }
