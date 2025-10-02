@@ -5,7 +5,15 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ContactResource\Pages;
 use App\Models\Contact;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\F                TextColumn::make('created_at')
+                    ->label('Data mesajului')
+                    ->dateTime('d.m.Y H:i')
+                    ->sortable(),
+                TextColumn::make('replied_at')
+                    ->label('Răspuns trimis')
+                    ->dateTime('d.m.Y H:i')
+                    ->placeholder('—')
+                    ->sortable(),\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -21,6 +29,8 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\Action;
 use Filament\Notifications\Notification;
+use App\Mail\ContactReply;
+use Illuminate\Support\Facades\Mail;
 
 class ContactResource extends Resource
 {
@@ -189,6 +199,55 @@ class ContactResource extends Resource
                             ->success()
                             ->send();
                     }),
+                Action::make('reply')
+                    ->label('Răspunde')
+                    ->icon('heroicon-o-envelope')
+                    ->color('primary')
+                    ->form([
+                        Forms\Components\TextInput::make('reply_subject')
+                            ->label('Subiect răspuns')
+                            ->default(fn (Contact $record): string => 'Re: ' . $record->subject)
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('reply_message')
+                            ->label('Mesajul dumneavoastră')
+                            ->required()
+                            ->rows(8)
+                            ->placeholder('Scrieți răspunsul aici...')
+                            ->helperText('Mesajul original va fi inclus automat în email.'),
+                    ])
+                    ->action(function (Contact $record, array $data): void {
+                        try {
+                            // Trimite email-ul de răspuns
+                            Mail::send(new ContactReply(
+                                $record, 
+                                $data['reply_message'], 
+                                $data['reply_subject']
+                            ));
+                            
+                            // Marchează ca răspuns
+                            $record->markAsReplied();
+                            
+                            Notification::make()
+                                ->title('Răspuns trimis cu succes!')
+                                ->body('Email-ul a fost trimis către ' . $record->email)
+                                ->success()
+                                ->send();
+                                
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('Eroare la trimiterea răspunsului')
+                                ->body('Nu s-a putut trimite email-ul: ' . $e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    })
+                    ->modalHeading('Răspunde la mesaj')
+                    ->modalDescription(fn (Contact $record): string => 
+                        'Răspundeți la mesajul de la ' . $record->full_name . ' (' . $record->email . ')'
+                    )
+                    ->modalSubmitActionLabel('Trimite răspunsul')
+                    ->modalWidth('lg'),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
