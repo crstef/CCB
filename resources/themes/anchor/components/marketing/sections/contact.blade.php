@@ -200,12 +200,10 @@
     </div>
 </section>
 
-{{-- Notification System (stil Filament) --}}
-<div id="notificationContainer" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
-    <!-- Notificările vor fi adăugate dinamic aici -->
-</div>
-
-<script>
+    {{-- Notification System (stil Filament) --}}
+    <div id="notificationContainer" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none w-96">
+        <!-- Notificările vor fi adăugate dinamic aici -->
+    </div><script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -215,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showNotification(type, title, message, duration = 5000) {
         // Creează elementul de notificare
         const notification = document.createElement('div');
-        notification.className = `transform transition-all duration-500 ease-in-out translate-x-full opacity-0 pointer-events-auto max-w-sm w-full bg-white shadow-lg rounded-lg border-l-4 ${
+        notification.className = `transform transition-all duration-500 ease-in-out translate-x-full opacity-0 pointer-events-auto w-full bg-white shadow-lg rounded-lg border-l-4 ${
             type === 'success' 
                 ? 'border-green-500' 
                 : 'border-red-500'
@@ -223,26 +221,26 @@ document.addEventListener('DOMContentLoaded', function() {
         
         notification.innerHTML = `
             <div class="p-4">
-                <div class="flex items-start">
+                <div class="flex items-center">
                     <div class="flex-shrink-0">
                         ${type === 'success' 
-                            ? `<svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            ? `<svg class="h-6 w-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                </svg>`
-                            : `<svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                            : `<svg class="h-6 w-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                                </svg>`
                         }
                     </div>
-                    <div class="ml-3 w-0 flex-1">
-                        <p class="text-sm font-medium text-gray-900">
+                    <div class="ml-3 flex-1 min-w-0">
+                        <div class="text-sm font-medium text-gray-900 truncate">
                             ${title}
-                        </p>
-                        <p class="mt-1 text-sm text-gray-500">
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
                             ${message}
-                        </p>
+                        </div>
                     </div>
-                    <div class="ml-4 flex-shrink-0 flex">
+                    <div class="ml-4 flex-shrink-0">
                         <button type="button" class="notification-close bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             <span class="sr-only">Închide</span>
                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">

@@ -123,7 +123,7 @@
     <div class="email-container">
         <div class="header">
             <div class="logo-container">
-                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" style="width: 70px; height: 70px; border-radius: 50%; background: white; padding: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
+                <img src="{{ asset('images/ccb-logo.png') }}" alt="CCB Logo" style="width: 110px; height: 110px; border-radius: 50%; background: white; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
             </div>
             <h1>📧 Mesaj nou de contact</h1>
             <p>Primit prin formularul de contact de pe site</p>
