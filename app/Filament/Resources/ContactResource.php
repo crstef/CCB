@@ -22,7 +22,6 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\Action;
 use Filament\Notifications\Notification;
-use App\Mail\ContactReply;
 use Illuminate\Support\Facades\Mail;
 
 class ContactResource extends Resource
