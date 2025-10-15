@@ -73,7 +73,7 @@
                 <div class="space-y-6">
                     <span class="flex w-full rounded-md shadow-sm">
                         <a href="{{ route('register') }}" class="flex justify-center items-center px-4 py-3 w-full text-base font-medium leading-6 text-white bg-blue-600 rounded-full border border-transparent transition duration-150 ease-in-out hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-wave active:bg-blue-700">
-                            Înregistrează-te
+                            <!-- Înregistrează-te -->
                         </a>
                     </span>
                     <p class="text-base font-medium leading-6 text-center text-zinc-500">

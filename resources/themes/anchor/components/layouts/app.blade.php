@@ -26,7 +26,7 @@
             @else
                 <div class="flex items-center space-x-2">
                     <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-gray-200/70 dark:hover:bg-zinc-700/70 rounded-lg">Conectare</a>
-                    <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg">Înregistrare</a>
+                    <!-- <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg">Înregistrare</a> -->
                 </div>
             @endauth
         </header>
