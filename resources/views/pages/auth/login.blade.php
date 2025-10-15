@@ -13,7 +13,7 @@ name('login');
                 <p class="text-gray-600 mt-2">Conectează-te la contul tău</p>
             </div>
 
-            <form method="POST" action="/auth/login" class="space-y-6">
+                        <form method="POST" action="/auth/login" class="space-y-6">
                 @csrf
                 
                 <div>
