@@ -92,9 +92,15 @@ class ContactController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
 
+            // Return detailed error in debug mode
+            $message = 'A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.';
+            if (config('app.debug')) {
+                $message = $e->getMessage();
+            }
+
             return response()->json([
                 'success' => false,
-                'message' => 'A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.'
+                'message' => $message
             ], 500);
         }
     }
