@@ -25,11 +25,19 @@ class ContactMessage extends Mailable
      */
     public function build()
     {
-        return $this->from(config('mail.from.address'), config('mail.from.name'))
-                    ->to(config('mail.contact.to', config('mail.from.address')))
+        $mail = $this->from(config('mail.from.address'), config('mail.from.name'))
+                    ->to($this->contactData['email'])
                     ->replyTo($this->contactData['email'], $this->contactData['first_name'] . ' ' . $this->contactData['last_name'])
                     ->subject('Mesaj nou de contact: ' . $this->contactData['subject'])
                     ->view('emails.contact-message')
                     ->with('contact', $this->contactData);
+        
+        // Also send to admin if configured
+        $adminEmail = config('mail.contact.to');
+        if ($adminEmail && $adminEmail !== $this->contactData['email']) {
+            $mail->cc($adminEmail);
+        }
+        
+        return $mail;
     }
 }
